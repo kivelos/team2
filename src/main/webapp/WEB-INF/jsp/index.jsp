@@ -14,9 +14,9 @@
 </head>
 <body>
 <h1>Hello World</h1>
- <p>
-     Author: ${author}<br>
-     Time: ${time}
- </p>
+<p>
+    Author: ${author}<br>
+    Time: ${time}
+</p>
 </body>
 </html>

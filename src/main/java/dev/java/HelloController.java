@@ -8,13 +8,13 @@ import java.util.Date;
 
 @Controller
 public class HelloController {
-    @RequestMapping(value = "/hello")
+    @RequestMapping(value = "/")
     public String sayHello(ModelMap map) {
         String author = "Kseniya Piliak";
         Date time = new Date();
         map.addAttribute("author", author);
         map.addAttribute("time", time);
-        return "hello";
+        return "index";
 
     }
 }
