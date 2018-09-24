@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Controller
 public class HelloController {
-    @RequestMapping(value = "/")
+    @RequestMapping()
     public String sayHello(ModelMap map) {
         String author = "Kseniya Piliak";
         Date time = new Date();
