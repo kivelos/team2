@@ -10,10 +10,10 @@
 <header>
     <spring:message code="author"/> ${author}
     <select onchange="location = this.value;">
+        <option><spring:message code="select.language"/></option>
         <option value="${pageContext.request.contextPath}?lang=ru">Ru</option>
         <option value="${pageContext.request.contextPath}?lang=en">En</option>
     </select>
-    <a href="?lang=ru">Ru</a><a href="?lang=en">En</a>
 </header>
 
 <form method="post" action="/">
