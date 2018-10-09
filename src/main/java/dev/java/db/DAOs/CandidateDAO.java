@@ -1,72 +1,31 @@
 package dev.java.db.DAOs;
 
 import dev.java.db.model.Candidate;
+import dev.java.db.model.Table;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CandidateDAO extends AbstractDAO<Candidate> {
-    public CandidateDAO(Connection connection) {
-        super(connection);
-    }
-
-    @Override
-    public List<Candidate> findAll() throws SQLException {
-        List<Candidate> candidates = new ArrayList<>();
-        try (Statement statement = connection.createStatement()){
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM candidate");
-            while (resultSet.next()) {
-                Candidate candidate = new Candidate();
-                setFields(resultSet, candidate);
-                candidates.add(candidate);
-            }
-            return candidates;
-        }
-    }
-
-    @Override
-    public Candidate findEntityById(int id) throws SQLException {
-        return findEntityByFiled("id", String.valueOf(id));
-    }
-
-    @Override
-    public Candidate findEntityByFiled(String field, String value) throws SQLException {
-        try (Statement statement = connection.createStatement()){
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM candidate WHERE " + field + "='" + value + "'");
-            resultSet.next();
-            Candidate candidate = new Candidate();
-            setFields(resultSet, candidate);
-            return candidate;
-        }
-
-    }
-
-    @Override
-    public boolean delete(int id) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "DELETE FROM candidate WHERE id=" + id;
-            return statement.executeUpdate(sql) != 0;
-        }
-
+    public CandidateDAO(Connection connection, Table table) {
+        super(connection, table);
     }
 
     @Override
     public boolean delete(Candidate entity) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "DELETE FROM candidate WHERE email='" + entity.getEmail() + "'";
+            String sql = "DELETE FROM " + table + " WHERE email='" + entity.getEmail() + "'";
             return statement.executeUpdate(sql) != 0;
         }
     }
 
     @Override
-    public Candidate create(Candidate entity) throws SQLException {
+    public boolean create(Candidate entity) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO candidate " +
-                    "(email, photo, name, surname, salary_in_dollars, " +
+            String sql = "INSERT INTO " + table +
+                    " (email, photo, name, surname, salary_in_dollars, " +
                     "experience_in_years, phone, comment, status) " +
                     "VALUES ('";
             sql += entity.getEmail() + "', '" +
@@ -78,17 +37,14 @@ public class CandidateDAO extends AbstractDAO<Candidate> {
                     entity.getPhone() + "', '" +
                     entity.getComment() + "', '" +
                     entity.getStatus() + "')";
-            if (statement.executeUpdate(sql) != 0) {
-                return findEntityByFiled("email", entity.getEmail());
-            }
-            return null;
+            return statement.executeUpdate(sql) != 0;
         }
     }
 
     @Override
     public boolean update(Candidate entity) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "UPDATE candidate SET " +
+            String sql = "UPDATE " + table +" SET " +
                     "email='" + entity.getEmail() + "', " +
                     "photo='" + entity.getPhoto() + "', " +
                     "name='" + entity.getName() + "', " +
@@ -104,7 +60,8 @@ public class CandidateDAO extends AbstractDAO<Candidate> {
     }
 
 
-    private void setFields(ResultSet resultSet, Candidate candidate) throws SQLException {
+    @Override
+    protected void setFields(ResultSet resultSet, Candidate candidate) throws SQLException {
         candidate.setId(resultSet.getLong("id"));
         candidate.setEmail(resultSet.getString("email"));
         candidate.setPhoto(resultSet.getString("photo"));
