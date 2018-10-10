@@ -3,7 +3,8 @@ package dev.java.db.model;
 public enum Table {
     CANDIDATE("candidate"),
     SKILL("skill"),
-    CANDIDATE_SKILL("candidate_skill");
+    CANDIDATE_SKILL("candidate_skill"),
+    VACANCY("vacancy");
 
     private String table;
 
