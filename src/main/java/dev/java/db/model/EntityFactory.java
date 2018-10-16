@@ -1,6 +1,7 @@
 package dev.java.db.model;
 
 public class EntityFactory {
+
     public static Entity getEntity(Table table) {
         switch (table) {
             case CANDIDATE:
@@ -9,6 +10,8 @@ public class EntityFactory {
                 return new Skill();
             case CANDIDATE_SKILL:
                 return new CandidateSkill();
+            case INTERVIEW:
+                return new Interview();
             default:
                 return null;
         }
