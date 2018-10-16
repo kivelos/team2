@@ -53,6 +53,7 @@ public class Interview extends Entity {
 
   @Override
   public String toString() {
-    return String.format("Interview()");
+    return String.format("Interview(planDate = %s, factDate = %s, VacancyID = %d, CandidateID = %d)", planDate, factDate,
+      VacancyID, CandidateID);
   }
 }
