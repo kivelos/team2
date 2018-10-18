@@ -1,6 +1,6 @@
 package dev.java.controller;
 
-import dev.java.BirthDate;
+import dev.java.DateProcessor;
 import dev.java.Logging;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,8 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-
-import org.apache.log4j.Logger;
 
 @Controller
 public class HelloController {
@@ -34,16 +32,15 @@ public class HelloController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ModelAndView getBirthday(HttpServletRequest request, ModelMap map) {
         logging.runMe(request);
-        String date = request.getParameter("birthDate");
+        String sBirthDate = request.getParameter("birthDate");
+        Date birthDate = DateProcessor.tryParseDate(sBirthDate);
         ModelAndView modelAndView = new ModelAndView("index");
-        try {
-            BirthDate birthDate = new BirthDate(date);
-            modelAndView.addObject("birthdate", birthDate);
-            modelAndView.addObject("age", birthDate.getAge(new Date()));
-            modelAndView.addObject("daysUntilNextBirthday", birthDate.getNumberOfDaysUntilNextBirthday(new Date()));
-        }
-        catch (IllegalArgumentException e) {
+        if (birthDate == null) {
             modelAndView.addObject("error", "Invalid date format. Try again!");
+        } else {
+            modelAndView.addObject("birthdate", birthDate);
+            modelAndView.addObject("age", DateProcessor.calcAge(birthDate));
+            modelAndView.addObject("daysUntilNextBirthday", DateProcessor.calcDaysToBirth(birthDate));
         }
         modelAndView.addAllObjects(map);
         return modelAndView;
@@ -51,7 +48,7 @@ public class HelloController {
 
     @ModelAttribute
     public void addAttributes(Model model) {
-        model.addAttribute("author", "Kseniya Piliak");
+        model.addAttribute("author", "team2");
         model.addAttribute("version", buildVersion);
     }
 }
