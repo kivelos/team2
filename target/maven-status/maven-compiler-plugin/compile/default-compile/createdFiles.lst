@@ -1,0 +1,17 @@
+dev\java\db\ConnectorDB.class
+dev\java\controller\HelloController.class
+dev\java\db\model\Candidate$Status.class
+dev\java\db\DAOs\CandidateSkillDAO.class
+dev\java\db\model\Skill.class
+dev\java\Logging.class
+dev\java\db\model\CandidateSkill.class
+dev\java\db\model\Candidate.class
+dev\java\db\model\Table.class
+dev\java\db\DAOs\SkillDAO.class
+dev\java\db\model\EntityFactory$1.class
+dev\java\db\DAOs\AbstractDAO.class
+dev\java\db\model\EntityFactory.class
+dev\java\db\DAOs\CandidateDAO.class
+dev\java\db\model\Entity.class
+dev\java\Main.class
+dev\java\BirthDate.class

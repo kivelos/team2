@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 
 public class BirthDateTest {
-    private BirthDate[] birthDate = new BirthDate[26];
+    /*private BirthDate[] birthDate = new BirthDate[26];
     private Calendar calendar = Calendar.getInstance();
 
 
@@ -119,6 +119,6 @@ public class BirthDateTest {
         assertEquals(245, birthDate[23].getNumberOfDaysUntilNextBirthday(getCurrentDate(2019, Calendar.AUGUST, 2)));
         assertEquals(236, birthDate[24].getNumberOfDaysUntilNextBirthday(getCurrentDate(2019, Calendar.JANUARY, 1)));
         assertEquals(0, birthDate[25].getNumberOfDaysUntilNextBirthday(getCurrentDate(2019, Calendar.FEBRUARY, 28)));
-    }
+    }*/
 
 }

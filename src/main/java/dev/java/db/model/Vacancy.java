@@ -1,72 +1,122 @@
 package dev.java.db.model;
 
+import java.util.List;
+import java.util.Objects;
+
 public class Vacancy extends Entity {
-    private String name;
-    private int minExperienceInYears;
-    private int maxExperienceInYears;
-    private int minSalaryInDollars;
-    private int maxSalaryInDollars;
+    private long id;
+    private String position;
+    private float salaryInDollarsFrom;
+    private float getSalaryInDollarsTo;
+    private VacancyState state;
+    private float experienceYearsRequire;
+    private User developer;
+    private List<Interview> interviews;
+    private List<Candidate> passedCandidates;
+    private List<Skill> skillRequirements;
 
     public Vacancy() {
     }
 
-    public Vacancy(long id, String name, int minExperienceInYears, int maxExperienceInYears, int minSalaryInDollars, int maxSalaryInDollars) {
-        super(id);
-        this.name = name;
-        this.minExperienceInYears = minExperienceInYears;
-        this.maxExperienceInYears = maxExperienceInYears;
-        this.minSalaryInDollars = minSalaryInDollars;
-        this.maxSalaryInDollars = maxSalaryInDollars;
+    public long getId() {
+        return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getPosition() {
+        return position;
     }
 
-    public int getMinExperienceInYears() {
-        return minExperienceInYears;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public void setMinExperienceInYears(int minExperienceInYears) {
-        this.minExperienceInYears = minExperienceInYears;
+    public float getSalaryInDollarsFrom() {
+        return salaryInDollarsFrom;
     }
 
-    public int getMaxExperienceInYears() {
-        return maxExperienceInYears;
+    public void setSalaryInDollarsFrom(float salaryInDollarsFrom) {
+        this.salaryInDollarsFrom = salaryInDollarsFrom;
     }
 
-    public void setMaxExperienceInYears(int maxExperienceInYears) {
-        this.maxExperienceInYears = maxExperienceInYears;
+    public float getGetSalaryInDollarsTo() {
+        return getSalaryInDollarsTo;
     }
 
-    public int getMinSalaryInDollars() {
-        return minSalaryInDollars;
+    public void setGetSalaryInDollarsTo(float getSalaryInDollarsTo) {
+        this.getSalaryInDollarsTo = getSalaryInDollarsTo;
     }
 
-    public void setMinSalaryInDollars(int minSalaryInDollars) {
-        this.minSalaryInDollars = minSalaryInDollars;
+    public VacancyState getState() {
+        return state;
     }
 
-    public int getMaxSalaryInDollars() {
-        return maxSalaryInDollars;
+    public void setState(VacancyState state) {
+        this.state = state;
     }
 
-    public void setMaxSalaryInDollars(int maxSalaryInDollars) {
-        this.maxSalaryInDollars = maxSalaryInDollars;
+    public float getExperienceYearsRequire() {
+        return experienceYearsRequire;
+    }
+
+    public void setExperienceYearsRequire(float experienceYearsRequire) {
+        this.experienceYearsRequire = experienceYearsRequire;
+    }
+
+    public User getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(User developer) {
+        this.developer = developer;
+    }
+
+    public List<Interview> getInterviews() {
+        return interviews;
+    }
+
+    public void setInterviews(List<Interview> interviews) {
+        this.interviews = interviews;
+    }
+
+    public List<Candidate> getPassedCandidates() {
+        return passedCandidates;
+    }
+
+    public void setPassedCandidates(List<Candidate> passedCandidates) {
+        this.passedCandidates = passedCandidates;
+    }
+
+    public List<Skill> getSkillRequirements() {
+        return skillRequirements;
+    }
+
+    public void setSkillRequirements(List<Skill> skillRequirements) {
+        this.skillRequirements = skillRequirements;
     }
 
     @Override
-    public String toString() {
-        return "Vacancy{" +
-                "name='" + name + '\'' +
-                ", minExperienceInYears=" + minExperienceInYears +
-                ", maxExperienceInYears=" + maxExperienceInYears +
-                ", minSalaryInDollars=" + minSalaryInDollars +
-                ", maxSalaryInDollars=" + maxSalaryInDollars +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vacancy vacancy = (Vacancy) o;
+        return id == vacancy.id &&
+                Float.compare(vacancy.salaryInDollarsFrom, salaryInDollarsFrom) == 0 &&
+                Float.compare(vacancy.getSalaryInDollarsTo, getSalaryInDollarsTo) == 0 &&
+                Float.compare(vacancy.experienceYearsRequire, experienceYearsRequire) == 0 &&
+                Objects.equals(position, vacancy.position) &&
+                state == vacancy.state &&
+                Objects.equals(developer, vacancy.developer) &&
+                Objects.equals(interviews, vacancy.interviews) &&
+                Objects.equals(passedCandidates, vacancy.passedCandidates) &&
+                Objects.equals(skillRequirements, vacancy.skillRequirements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, position, salaryInDollarsFrom, getSalaryInDollarsTo, state, experienceYearsRequire, developer, interviews, passedCandidates, skillRequirements);
     }
 }

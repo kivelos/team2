@@ -1,15 +1,12 @@
 package dev.java.db;
 
-import dev.java.db.DAOs.CandidateDAO;
-import dev.java.db.DAOs.CandidateSkillDAO;
-import dev.java.db.DAOs.SkillDAO;
-import dev.java.db.DAOs.VacancyDAO;
+import dev.java.db.daos.CandidateDao;
 import dev.java.db.model.*;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ConnectorDB {
@@ -23,14 +20,15 @@ public class ConnectorDB {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = getConnection();
-        VacancyDAO vacancyDAO = new VacancyDAO(connection, Table.VACANCY);
-        Vacancy vacancy = new Vacancy();
-        vacancy.setName("Java Developer");
-        vacancy.setMinExperienceInYears(1);
-        vacancy.setMaxExperienceInYears(3);
-        vacancy.setMinSalaryInDollars(200);
-        vacancy.setMaxSalaryInDollars(500);
-        vacancyDAO.create(vacancy);
+        Candidate candidate = new Candidate();
+        candidate.setName("Kseniya");
+        candidate.setSurname("Piliak");
+        candidate.setBirthday(new Date(96, 3, 6));
+        candidate.setSalaryInDollars(200);
+        CandidateDao candidateDao = new CandidateDao(connection);
+        //candidateDao.createEntity(candidate);
+        System.out.println(candidateDao.getEntityById(6));
+
 
     }
 }
