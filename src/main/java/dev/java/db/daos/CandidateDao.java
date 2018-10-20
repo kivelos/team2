@@ -14,7 +14,7 @@ public class CandidateDao extends AbstractDao<Candidate> {
 
     private final static String SQL_UPDATE =
             "UPDATE candidate " +
-                    "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=?" +
+                    "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=? " +
                     "WHERE id=?";
 
     private final static String SQL_SELECT_BY_ID = "SELECT * FROM candidate AS c WHERE c.id=?";
@@ -80,6 +80,8 @@ public class CandidateDao extends AbstractDao<Candidate> {
             return null;
         }
     }
+
+
 
     private void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
             throws SQLException {
