@@ -5,6 +5,7 @@ import dev.java.db.ConnectorDB;
 import dev.java.db.daos.CandidateDao;
 import dev.java.db.daos.CandidateStateDao;
 import dev.java.db.model.Candidate;
+import dev.java.db.model.CandidateState;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,7 +78,7 @@ public class CandidateController {
         ModelAndView modelAndView = getCandidate(id, request);
         try (Connection connection = ConnectorDB.getConnection()){
             CandidateStateDao candidateStateDao = new CandidateStateDao(connection);
-            List<String> candidateStates = candidateStateDao.getAllCandidateStates();
+            List<CandidateState> candidateStates = candidateStateDao.getAllEntities();
             modelAndView.addObject("states", candidateStates);
         }
         catch (SQLException e) {

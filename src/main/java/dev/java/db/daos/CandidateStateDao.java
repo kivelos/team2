@@ -1,5 +1,7 @@
 package dev.java.db.daos;
 
+import dev.java.db.model.CandidateState;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,22 +9,31 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CandidateStateDao {
-    private Connection connection;
-
+public class CandidateStateDao extends AbstractDao<CandidateState> {
     public CandidateStateDao(Connection connection) {
-        this.connection = connection;
+        super(connection);
     }
 
-    public List<String> getAllCandidateStates() throws SQLException {
-        List<String> states = new ArrayList<>();
+    @Override
+    public List<CandidateState> getAllEntities() throws SQLException {
+        List<CandidateState> states = new ArrayList<>();
         try (Statement statement = connection.createStatement()){
             ResultSet state = statement.executeQuery("SELECT * FROM candidate_state");
             while (state.next()) {
-                states.add(state.getString("name"));
+                states.add(new CandidateState(state.getString("name")));
             }
             state.close();
         }
         return states;
+    }
+
+    @Override
+    public boolean createEntity(CandidateState entity) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean updateEntity(CandidateState entity) throws SQLException {
+        return false;
     }
 }
