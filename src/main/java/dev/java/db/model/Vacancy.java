@@ -7,8 +7,8 @@ public class Vacancy extends Entity {
     private long id;
     private String position;
     private float salaryInDollarsFrom;
-    private float getSalaryInDollarsTo;
-    private VacancyState state;
+    private float salaryInDollarsTo;
+    private VacancyState vacancyState;
     private float experienceYearsRequire;
     private User developer;
     private List<Interview> interviews;
@@ -42,20 +42,20 @@ public class Vacancy extends Entity {
         this.salaryInDollarsFrom = salaryInDollarsFrom;
     }
 
-    public float getGetSalaryInDollarsTo() {
-        return getSalaryInDollarsTo;
+    public float getSalaryInDollarsTo() {
+        return salaryInDollarsTo;
     }
 
-    public void setGetSalaryInDollarsTo(float getSalaryInDollarsTo) {
-        this.getSalaryInDollarsTo = getSalaryInDollarsTo;
+    public void setSalaryInDollarsTo(float salaryInDollarsTo) {
+        this.salaryInDollarsTo = salaryInDollarsTo;
     }
 
-    public VacancyState getState() {
-        return state;
+    public VacancyState getVacancyState() {
+        return vacancyState;
     }
 
-    public void setState(VacancyState state) {
-        this.state = state;
+    public void setVacancyState(VacancyState vacancyState) {
+        this.vacancyState = vacancyState;
     }
 
     public float getExperienceYearsRequire() {
@@ -105,10 +105,10 @@ public class Vacancy extends Entity {
         Vacancy vacancy = (Vacancy) o;
         return id == vacancy.id &&
                 Float.compare(vacancy.salaryInDollarsFrom, salaryInDollarsFrom) == 0 &&
-                Float.compare(vacancy.getSalaryInDollarsTo, getSalaryInDollarsTo) == 0 &&
+                Float.compare(vacancy.salaryInDollarsTo, salaryInDollarsTo) == 0 &&
                 Float.compare(vacancy.experienceYearsRequire, experienceYearsRequire) == 0 &&
                 Objects.equals(position, vacancy.position) &&
-                state == vacancy.state &&
+                vacancyState == vacancy.vacancyState &&
                 Objects.equals(developer, vacancy.developer) &&
                 Objects.equals(interviews, vacancy.interviews) &&
                 Objects.equals(passedCandidates, vacancy.passedCandidates) &&
@@ -117,6 +117,6 @@ public class Vacancy extends Entity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, position, salaryInDollarsFrom, getSalaryInDollarsTo, state, experienceYearsRequire, developer, interviews, passedCandidates, skillRequirements);
+        return Objects.hash(id, position, salaryInDollarsFrom, salaryInDollarsTo, vacancyState, experienceYearsRequire, developer, interviews, passedCandidates, skillRequirements);
     }
 }

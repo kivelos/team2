@@ -1,6 +1,7 @@
 package dev.java.db;
 
 import dev.java.db.daos.CandidateDao;
+import dev.java.db.daos.SkillDao;
 import dev.java.db.model.*;
 
 import java.sql.Connection;
@@ -20,14 +21,10 @@ public class ConnectorDB {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = getConnection();
-        Candidate candidate = new Candidate();
-        candidate.setName("Kseniya");
-        candidate.setSurname("Piliak");
-        candidate.setBirthday(new Date(96, 3, 6));
-        candidate.setSalaryInDollars(200);
-        CandidateDao candidateDao = new CandidateDao(connection);
-        //candidateDao.createEntity(candidate);
-        System.out.println(candidateDao.getEntityById(6));
+        Skill skill = new Skill();
+        skill.setName("java");
+        SkillDao skillDao = new SkillDao(connection);
+        skillDao.createEntity(skill);
 
 
     }
