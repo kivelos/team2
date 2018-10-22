@@ -3,64 +3,28 @@ package dev.java.db.daos;
 import dev.java.db.model.Vacancy;
 import dev.java.db.model.VacancyState;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class VacancyDao extends AbstractDao<Vacancy> {
-    private final static String SQL_INSERT =
-            "INSERT INTO vacancy " +
-                    "(position, salary_in_dollars_from, salary_in_dollars_to, " +
-                    "vacancy_state, experience_years_require, id_developer) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
 
-    private final static String SQL_UPDATE =
-            "UPDATE vacancy " +
-                    "SET position=?, salary_in_dollars_from=?, salary_in_dollars_to=?, " +
-                    "vacancy_state=?, experience_years_require=?, id_developer=? " +
-                    "WHERE id=?";
-
-    private final static String SQL_SELECT_BY_ID = "SELECT * FROM vacancy AS v WHERE v.id=?";
-
-    private final static String SQL_SELECT_ALL = "SELECT * FROM vacancy";
+    private static String SQL_SELECT_BY_ID = "SELECT * FROM vacancy AS v WHERE v.id=?";
 
     public VacancyDao(Connection connection) {
         super(connection);
+        SQL_SELECT_SORTED_PAGE = "SELECT * FROM vacancy AS c ORDER BY ? ASC LIMIT ?, ?";
+        SQL_INSERT = "INSERT INTO vacancy " +
+                "(position, salary_in_dollars_from, salary_in_dollars_to, " +
+                "vacancy_state, experience_years_require, id_developer) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        SQL_UPDATE = "UPDATE vacancy " +
+                "SET position=?, salary_in_dollars_from=?, salary_in_dollars_to=?, " +
+                "vacancy_state=?, experience_years_require=?, id_developer=? " +
+                "WHERE id=?";
     }
 
-    @Override
-    public List<Vacancy> getAllEntities() throws SQLException {
-        List<Vacancy> allVacanciesList = new ArrayList<>();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet vacancyTableRow = statement.executeQuery(SQL_SELECT_ALL);
-            while (vacancyTableRow.next()) {
-                Vacancy vacancy = new Vacancy();
-                setVacancyFields(vacancyTableRow, vacancy);
-                allVacanciesList.add(vacancy);
-            }
-            vacancyTableRow.close();
-        }
-        return allVacanciesList;
-    }
-
-    @Override
-    public boolean createEntity(Vacancy entity) throws SQLException {
-        try (PreparedStatement insertPrepareStatement = connection.prepareStatement(SQL_INSERT,
-                Statement.RETURN_GENERATED_KEYS)) {
-            setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
-            int status =  insertPrepareStatement.executeUpdate();
-            if (status > 0) {
-                ResultSet id = insertPrepareStatement.getGeneratedKeys();
-                if (id.next()) {
-                    entity.setId(id.getLong(1));
-                    id.close();
-                    return true;
-                }
-                return false;
-            }
-            return false;
-        }
-    }
 
     @Override
     public boolean updateEntity(Vacancy entity) throws SQLException {
@@ -75,8 +39,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
             getByIdPrepareStatement.setLong(1, id);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
             if (entity.next()) {
-                Vacancy vacancy = new Vacancy();
-                setVacancyFields(entity, vacancy);
+                Vacancy vacancy = setEntityFields(entity);
                 entity.close();
                 return vacancy;
             }
@@ -84,14 +47,16 @@ public class VacancyDao extends AbstractDao<Vacancy> {
         }
     }
 
-    private void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
+    @Override
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
             throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, vacancy);
         prepareStatement.setLong(7, vacancy.getId());
 
     }
 
-    private void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
+    @Override
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
             throws SQLException {
         prepareStatement.setString(1, vacancy.getPosition());
         prepareStatement.setFloat(2, vacancy.getSalaryInDollarsFrom());
@@ -101,12 +66,15 @@ public class VacancyDao extends AbstractDao<Vacancy> {
         prepareStatement.setLong(6, vacancy.getDeveloper().getId());
     }
 
-    private void setVacancyFields(ResultSet vacancyTableRow, Vacancy vacancy) throws SQLException {
+    @Override
+    protected Vacancy setEntityFields(ResultSet vacancyTableRow) throws SQLException {
+        Vacancy vacancy = new Vacancy();
         vacancy.setId(vacancyTableRow.getLong("id"));
         vacancy.setPosition(vacancyTableRow.getString("position"));
         vacancy.setSalaryInDollarsFrom(vacancyTableRow.getFloat("salary_in_dollars_from"));
         vacancy.setSalaryInDollarsTo(vacancyTableRow.getFloat("salary_in_dollars_to"));
         vacancy.setVacancyState(VacancyState.valueOf(vacancyTableRow.getString("vacancy_state")));
         vacancy.setExperienceYearsRequire(vacancyTableRow.getFloat("experience_years_require"));
+        return vacancy;
     }
 }

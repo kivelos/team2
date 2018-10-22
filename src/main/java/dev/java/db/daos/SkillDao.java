@@ -2,42 +2,28 @@ package dev.java.db.daos;
 
 import dev.java.db.model.Skill;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class SkillDao extends AbstractDao<Skill> {
-    private final static String SQL_INSERT =
+    private final String SQL_INSERT =
             "INSERT INTO skill " +
                     "(name) " +
                     "VALUES (?)";
 
-    private final static String SQL_UPDATE =
+    private final String SQL_UPDATE =
             "UPDATE skill " +
                     "SET name=? " +
                     "WHERE name=?";
 
-    private final static String SQL_SELECT_BY_NAME = "SELECT * FROM skill AS s WHERE s.name=?";
+    private final String SQL_SELECT_BY_NAME = "SELECT * FROM skill AS s WHERE s.name=?";
 
-    private final static String SQL_SELECT_ALL = "SELECT * FROM skill";
+    private final String SQL_SELECT_ALL = "SELECT * FROM skill";
 
     public SkillDao(Connection connection) {
         super(connection);
-    }
-
-    @Override
-    public List<Skill> getAllEntities() throws SQLException {
-        List<Skill> allSkillsList = new ArrayList<>();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet candidateTableRow = statement.executeQuery(SQL_SELECT_ALL);
-            while (candidateTableRow.next()) {
-                Skill skill = new Skill();
-                setSkillFields(candidateTableRow, skill);
-                allSkillsList.add(skill);
-            }
-            candidateTableRow.close();
-        }
-        return allSkillsList;
     }
 
     @Override
@@ -62,8 +48,7 @@ public class SkillDao extends AbstractDao<Skill> {
             getByIdPrepareStatement.setString(1, name);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
             if (entity.next()) {
-                Skill skill = new Skill();
-                setSkillFields(entity, skill);
+                Skill skill = setEntityFields(entity);
                 entity.close();
                 return skill;
             }
@@ -71,19 +56,24 @@ public class SkillDao extends AbstractDao<Skill> {
         }
     }
 
-    private void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
+    @Override
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
             throws SQLException {
         prepareStatement.setString(1, skill.getName());
     }
 
-    private void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
+    @Override
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
             throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, skill);
         prepareStatement.setString(2, skill.getName());
 
     }
 
-    private void setSkillFields(ResultSet candidateTableRow, Skill skill) throws SQLException {
+    @Override
+    protected Skill setEntityFields(ResultSet candidateTableRow) throws SQLException {
+        Skill skill = new Skill();
         skill.setName(candidateTableRow.getString("name"));
+        return skill;
     }
 }

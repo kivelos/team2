@@ -15,7 +15,7 @@
                               value="${candidate.salaryInDollars}"><br>
     Status: <select name="state">
     <c:forEach var="state" items="${states}">
-        <option value="${state}"></option>
+        <option value="${state.name}"></option>
     </c:forEach>
 </select>
     <input type="submit" value="Submit">

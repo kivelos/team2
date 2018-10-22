@@ -2,78 +2,36 @@ package dev.java.db.daos;
 
 import dev.java.db.model.Candidate;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CandidateDao extends AbstractDao<Candidate> {
-    private final static String SQL_INSERT =
-            "INSERT INTO candidate " +
-                    "(name, surname, birthday, salary_in_dollars, candidate_state) " +
-                    "VALUES (?, ?, ?, ?, ?)";
 
-    private final static String SQL_UPDATE =
-            "UPDATE candidate " +
-                    "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=? " +
-                    "WHERE id=?";
+    private static String SQL_SELECT_BY_ID = "SELECT * FROM candidate AS c WHERE c.id=?";
 
-    private final static String SQL_SELECT_BY_ID = "SELECT * FROM candidate AS c WHERE c.id=?";
-
-    private final static String SQL_SELECT_ALL = "SELECT * FROM candidate";
+    private final String SQL_SELECT_SORTED_FILTERING_PAGE = "SELECT * FROM candidate AS c WHERE ?=? " +
+            "ORDER BY ? ASC LIMIT ?, ?";
 
     public CandidateDao(Connection connection) {
         super(connection);
+        SQL_SELECT_SORTED_PAGE = "SELECT * FROM candidate AS c ORDER BY ? ASC LIMIT ?, ?";
+        SQL_INSERT = "INSERT INTO candidate " +
+                "(name, surname, birthday, salary_in_dollars, candidate_state) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        SQL_UPDATE = "UPDATE candidate " +
+                "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=? " +
+                "WHERE id=?";
     }
 
-    @Override
-    public List<Candidate> getAllEntities() throws SQLException {
-        List<Candidate> allCandidatesList = new ArrayList<>();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet candidateTableRow = statement.executeQuery(SQL_SELECT_ALL);
-            while (candidateTableRow.next()) {
-                Candidate candidate = new Candidate();
-                setCandidateFields(candidateTableRow, candidate);
-                allCandidatesList.add(candidate);
-            }
-            candidateTableRow.close();
-        }
-        return allCandidatesList;
-    }
-
-    @Override
-    public boolean createEntity(Candidate entity) throws SQLException {
-        try (PreparedStatement insertPrepareStatement = connection.prepareStatement(SQL_INSERT,
-                Statement.RETURN_GENERATED_KEYS)) {
-            setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
-            int status =  insertPrepareStatement.executeUpdate();
-            if (status > 0) {
-                ResultSet id = insertPrepareStatement.getGeneratedKeys();
-                if (id.next()) {
-                    entity.setId(id.getLong(1));
-                    id.close();
-                    return true;
-                }
-                return false;
-            }
-            return false;
-        }
-    }
-
-    @Override
-    public boolean updateEntity(Candidate entity) throws SQLException {
-        try (PreparedStatement updatePrepareStatement = connection.prepareStatement(SQL_UPDATE)) {
-            setValuesForUpdateIntoPrepareStatement(updatePrepareStatement, entity);
-            return updatePrepareStatement.executeUpdate() > 0;
-        }
-    }
 
     public Candidate getEntityById(long id) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             getByIdPrepareStatement.setLong(1, id);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
             if (entity.next()) {
-                Candidate candidate = new Candidate();
-                setCandidateFields(entity, candidate);
+                Candidate candidate = setEntityFields(entity);
                 entity.close();
                 return candidate;
             }
@@ -82,8 +40,8 @@ public class CandidateDao extends AbstractDao<Candidate> {
     }
 
 
-
-    private void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
+    @Override
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
             throws SQLException {
         prepareStatement.setString(1, candidate.getName());
         prepareStatement.setString(2, candidate.getSurname());
@@ -92,19 +50,23 @@ public class CandidateDao extends AbstractDao<Candidate> {
         prepareStatement.setString(5, candidate.getCandidateState());
     }
 
-    private void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
+    @Override
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
             throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, candidate);
         prepareStatement.setLong(6, candidate.getId());
 
     }
 
-    private void setCandidateFields(ResultSet candidateTableRow, Candidate candidate) throws SQLException {
+    @Override
+    protected Candidate setEntityFields(ResultSet candidateTableRow) throws SQLException {
+        Candidate candidate = new Candidate();
         candidate.setId(candidateTableRow.getLong("id"));
         candidate.setName(candidateTableRow.getString("name"));
         candidate.setSurname(candidateTableRow.getString("surname"));
         candidate.setBirthday(candidateTableRow.getDate("birthday"));
         candidate.setSalaryInDollars(candidateTableRow.getFloat("salary_in_dollars"));
         candidate.setCandidateState(candidateTableRow.getString("candidate_state"));
+        return candidate;
     }
 }

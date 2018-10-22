@@ -34,7 +34,7 @@ public class CandidateController {
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
             CandidateDao candidateDao = new CandidateDao(connection);
-            List<Candidate> candidates = candidateDao.getAllEntities();
+            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "name", 2);
             modelAndView.addObject("candidates_list", candidates);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,7 +78,7 @@ public class CandidateController {
         ModelAndView modelAndView = getCandidate(id, request);
         try (Connection connection = ConnectorDB.getConnection()){
             CandidateStateDao candidateStateDao = new CandidateStateDao(connection);
-            List<CandidateState> candidateStates = candidateStateDao.getAllEntities();
+            List<CandidateState> candidateStates = candidateStateDao.getSortedEntitiesPage(1, "name", 2);
             modelAndView.addObject("states", candidateStates);
         }
         catch (SQLException e) {

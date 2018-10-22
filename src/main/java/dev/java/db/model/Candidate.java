@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Candidate extends Entity {
-    private long id;
     private String name;
     private String surname;
     private Date birthday;
@@ -30,14 +29,6 @@ public class Candidate extends Entity {
         this.surname = surname;
         this.birthday = birthday;
         this.salaryInDollars = salaryInDollars;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -133,34 +124,15 @@ public class Candidate extends Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Candidate candidate = (Candidate) o;
-        return id == candidate.id &&
-                Float.compare(candidate.salaryInDollars, salaryInDollars) == 0 &&
+        return Float.compare(candidate.salaryInDollars, salaryInDollars) == 0 &&
                 Objects.equals(name, candidate.name) &&
                 Objects.equals(surname, candidate.surname) &&
                 Objects.equals(birthday, candidate.birthday) &&
-                Objects.equals(candidateState, candidate.candidateState) &&
-                Objects.equals(attachments, candidate.attachments) &&
-                Objects.equals(experiences, candidate.experiences) &&
-                Objects.equals(contacts, candidate.contacts) &&
-                Objects.equals(competences, candidate.competences) &&
-                Objects.equals(passedVacancies, candidate.passedVacancies) &&
-                Objects.equals(interviews, candidate.interviews);
+                Objects.equals(candidateState, candidate.candidateState);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, birthday, salaryInDollars, candidateState, attachments, experiences, contacts, competences, passedVacancies, interviews);
-    }
-
-    @Override
-    public String toString() {
-        return "Candidate{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthday=" + birthday +
-                ", salaryInDollars=" + salaryInDollars +
-                ", candidateState='" + candidateState + '\'' +
-                '}';
+        return Objects.hash(name, surname, birthday, salaryInDollars, candidateState);
     }
 }

@@ -7,11 +7,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dd9431c-c7de-4896-a9f1-65e1154d2480" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/model/CandidateState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/controller/CandidateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/controller/CandidateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/AbstractDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/AbstractDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateStateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateStateDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidate_edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidate_edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/SkillDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/SkillDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/VacancyDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/daos/VacancyDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/db/model/Candidate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/model/Candidate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/db/model/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/model/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/db/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/java/db/model/Vacancy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/java/db/model/Vacancy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/controller/CandidateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/controller/CandidateController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/DAOs/AbstractDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/DAOs/AbstractDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/DAOs/CandidateDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/DAOs/CandidateDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/DAOs/SkillDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/DAOs/SkillDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/daos/CandidateStateDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/daos/CandidateStateDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/daos/VacancyDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/classes/dev/java/db/daos/VacancyDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/jsp/candidates/candidate_edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/jsp/candidates/candidate_edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/jsp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/jsp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/HelloWorld/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dev/java/controller/CandidateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dev/java/controller/CandidateController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dev/java/db/daos/AbstractDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dev/java/db/daos/AbstractDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dev/java/db/daos/CandidateDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dev/java/db/daos/CandidateDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dev/java/db/daos/CandidateStateDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dev/java/db/daos/CandidateStateDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dev/java/db/daos/SkillDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dev/java/db/daos/SkillDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dev/java/db/daos/VacancyDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dev/java/db/daos/VacancyDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/conf/logging.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/conf/tomcat-users.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/conf/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/logs/access_log.2018-10-20" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/logs/myapp.log" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -95,41 +125,41 @@
         <counts>
           <entry key="candidate" value="2" />
           <entry key="class" value="1" />
-          <entry key="java" value="43" />
+          <entry key="java" value="56" />
           <entry key="jsp" value="4" />
           <entry key="log" value="1" />
-          <entry key="properties" value="1" />
+          <entry key="properties" value="2" />
           <entry key="sql" value="1" />
-          <entry key="xml" value="3" />
+          <entry key="xml" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
           <entry key="Database Element" value="2" />
-          <entry key="JAVA" value="43" />
+          <entry key="JAVA" value="56" />
           <entry key="JSP" value="4" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Properties" value="1" />
+          <entry key="Properties" value="2" />
           <entry key="Scratch" value="1" />
-          <entry key="XML" value="3" />
+          <entry key="XML" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="12" />
-          <entry key="java" value="5664" />
+          <entry key="java" value="6581" />
           <entry key="jsp" value="735" />
           <entry key="properties" value="10" />
-          <entry key="txt" value="12" />
+          <entry key="txt" value="36" />
           <entry key="xml" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5653" />
+          <entry key="JAVA" value="6570" />
           <entry key="JSP" value="735" />
-          <entry key="PLAIN_TEXT" value="24" />
+          <entry key="PLAIN_TEXT" value="48" />
           <entry key="Properties" value="10" />
           <entry key="SQL" value="11" />
           <entry key="XML" value="11" />
@@ -137,11 +167,12 @@
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.121" value="1" />
           <entry key="project.open.time.139" value="1" />
           <entry key="project.open.time.152" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
     </session>
@@ -149,12 +180,100 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/controller/CandidateController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="80" column="85" selection-start-line="80" selection-start-column="85" selection-end-line="80" selection-end-column="85" />
+            <state relative-caret-position="255">
+              <caret line="20" column="82" lean-forward="true" selection-start-line="20" selection-start-column="82" selection-end-line="20" selection-end-column="82" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/VacancyDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="833">
+              <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/SkillDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1088">
+              <caret line="64" column="13" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#662#663#0" expanded="true" />
+                <element signature="e#695#696#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/AbstractDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="969">
+              <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+              <folding>
+                <element signature="e#426#427#0" expanded="true" />
+                <element signature="e#470#471#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Skill.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateStateDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="434">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Interview.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="680">
+              <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Candidate.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="122" column="37" selection-start-line="122" selection-start-column="37" selection-end-line="122" selection-end-column="37" />
+              <folding>
+                <element signature="e#3466#3467#0" expanded="true" />
+                <element signature="e#3559#3560#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -163,87 +282,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/CandidateState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="544">
               <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
               <folding>
-                <element signature="e#138#139#0" expanded="true" />
-                <element signature="e#170#171#0" expanded="true" />
-                <element signature="e#238#239#0" expanded="true" />
                 <element signature="e#265#266#0" expanded="true" />
-                <element signature="e#305#306#0" expanded="true" />
-                <element signature="e#337#338#0" expanded="true" />
+                <element signature="e#292#293#0" expanded="true" />
                 <element signature="e#667#668#0" expanded="true" />
                 <element signature="e#708#709#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidate_edit.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidate.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/VacancyState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateStateDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="31" column="21" lean-forward="true" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#354#355#0" expanded="true" />
-                <element signature="e#387#388#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidates.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -270,7 +316,6 @@
         <option value="$PROJECT_DIR$/src/main/java/dev/java/DateProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/SkillDAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/Entity.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/Attachment.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/attachment/AttachmentType.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/attachment/Attachment.java" />
@@ -283,25 +328,27 @@
         <option value="$PROJECT_DIR$/src/main/resources/database.properties" />
         <option value="$PROJECT_DIR$/src/test/java/dev/java/db/daos/CandidateDaoTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/Vacancy.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/UserDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/VacancyDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/SkillDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/AbstractDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/db/ConnectorDB.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/Candidate.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidate.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidate_edit.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/controller/HelloController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidate.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/VacancyState.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/CandidateState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateStateDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dev/java/controller/CandidateController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidate_edit.jsp" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/controller/CandidateController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateStateDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/Entity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/Vacancy.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/model/Candidate.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/AbstractDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/SkillDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/VacancyDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateDao.java" />
       </list>
     </option>
   </component>
@@ -347,8 +394,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -442,42 +487,19 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="HelloWorld" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HelloWorld" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="jsp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HelloWorld" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HelloWorld" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="jsp" type="462c0819:PsiDirectoryNode" />
-              <item name="candidates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HelloWorld" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HelloWorld" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540057651338" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540206943329" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="database.console.LAST_STATE" value="false" />
@@ -619,17 +641,18 @@
       <workItem from="1539945854673" duration="9421000" />
       <workItem from="1540031244036" duration="4805000" />
       <workItem from="1540058051222" duration="504000" />
+      <workItem from="1540190475832" duration="10373000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44382000" />
+    <option name="totallyTimeSpent" value="54868000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49878347" visible="true" weight="0.3192133" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49878347" visible="true" weight="0.27987897" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -639,7 +662,7 @@
       <window_info id="Web" order="7" sideWeight="0.50121653" side_tool="true" weight="0.31467474" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.62908494" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.49019608" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -663,40 +686,6 @@
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info anchor="right" id="Database" order="8" weight="0.2473525" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31013617" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info id="Capture Tool" order="6" />
-      <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49924356" weight="0.32843137" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50075644" side_tool="true" weight="0.32843137" />
-      <window_info anchor="bottom" id="Java Enterprise" order="10" />
-      <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info anchor="bottom" id="Version Control" order="12" />
-      <window_info anchor="bottom" id="Database Console" order="13" weight="0.32843137" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.32843137" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" />
-      <window_info anchor="right" id="Database" order="6" weight="0.32980332" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -747,13 +736,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Interview.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/contacts/Contact.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -783,13 +765,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/database.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.sql/java/sql/PreparedStatement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="393">
@@ -804,13 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -822,42 +790,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/UserDao.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Vacancy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Skill.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/AbstractDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/dev/java/BirthDateTest.java" />
     <entry file="file://$PROJECT_DIR$/src/myapp.log">
       <provider selected="true" editor-type-id="text-editor" />
@@ -869,16 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/ConnectorDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.8.RELEASE/spring-web-5.0.8.RELEASE.jar!/org/springframework/http/HttpStatus.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
@@ -886,62 +809,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Candidate.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidate_edit.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="27" column="89" selection-start-line="27" selection-start-column="89" selection-end-line="27" selection-end-column="89" />
+        <state relative-caret-position="289">
+          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateDao.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="16" column="95" selection-start-line="16" selection-start-column="95" selection-end-line="16" selection-end-column="95" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/VacancyDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1632">
-          <caret line="103" column="51" selection-start-line="103" selection-start-column="51" selection-end-line="103" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/SkillDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#690#691#0" expanded="true" />
-            <element signature="e#723#724#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidates.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -959,17 +844,107 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidates.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-63" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/database.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/ConnectorDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/controller/CandidateController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="931">
+          <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#224#225#0" expanded="true" />
+            <element signature="e#249#250#0" expanded="true" />
+            <element signature="e#283#284#0" expanded="true" />
+            <element signature="e#311#312#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Vacancy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Skill.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Interview.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/Candidate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="122" column="37" selection-start-line="122" selection-start-column="37" selection-end-line="122" selection-end-column="37" />
+          <folding>
+            <element signature="e#3466#3467#0" expanded="true" />
+            <element signature="e#3559#3560#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/CandidateState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="544">
           <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
           <folding>
-            <element signature="e#138#139#0" expanded="true" />
-            <element signature="e#170#171#0" expanded="true" />
-            <element signature="e#238#239#0" expanded="true" />
             <element signature="e#265#266#0" expanded="true" />
-            <element signature="e#305#306#0" expanded="true" />
-            <element signature="e#337#338#0" expanded="true" />
+            <element signature="e#292#293#0" expanded="true" />
             <element signature="e#667#668#0" expanded="true" />
             <element signature="e#708#709#0" expanded="true" />
           </folding>
@@ -978,30 +953,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateStateDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="31" column="21" lean-forward="true" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#354#355#0" expanded="true" />
-            <element signature="e#387#388#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/controller/CandidateController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="80" column="85" selection-start-line="80" selection-start-column="85" selection-end-line="80" selection-end-column="85" />
+        <state relative-caret-position="434">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/candidates/candidate_edit.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/SkillDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+        <state relative-caret-position="1088">
+          <caret line="64" column="13" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#662#663#0" expanded="true" />
+            <element signature="e#695#696#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/VacancyDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/CandidateDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="20" column="82" lean-forward="true" selection-start-line="20" selection-start-column="82" selection-end-line="20" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/java/db/daos/AbstractDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+          <folding>
+            <element signature="e#426#427#0" expanded="true" />
+            <element signature="e#470#471#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
