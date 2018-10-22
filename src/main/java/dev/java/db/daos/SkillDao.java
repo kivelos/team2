@@ -8,22 +8,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SkillDao extends AbstractDao<Skill> {
-    private final String SQL_INSERT =
-            "INSERT INTO skill " +
-                    "(name) " +
-                    "VALUES (?)";
 
-    private final String SQL_UPDATE =
-            "UPDATE skill " +
-                    "SET name=? " +
-                    "WHERE name=?";
-
-    private final String SQL_SELECT_BY_NAME = "SELECT * FROM skill AS s WHERE s.name=?";
-
-    private final String SQL_SELECT_ALL = "SELECT * FROM skill";
+    private static String SQL_SELECT_BY_NAME = "SELECT * FROM skill AS s WHERE s.name=?";
 
     public SkillDao(Connection connection) {
         super(connection);
+        SQL_INSERT = "INSERT INTO skill " +
+                "(name) " +
+                "VALUES (?)";
+        SQL_UPDATE = "UPDATE skill " +
+                "SET name=? " +
+                "WHERE name=?";
     }
 
     @Override
