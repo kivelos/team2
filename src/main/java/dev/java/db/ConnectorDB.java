@@ -1,11 +1,13 @@
 package dev.java.db;
 
-import dev.java.db.daos.SkillDao;
-import dev.java.db.model.Skill;
+import dev.java.db.daos.CandidateDao;
+import dev.java.db.model.Candidate;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ConnectorDB {
@@ -20,10 +22,11 @@ public class ConnectorDB {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = getConnection();
-        Skill skill = new Skill();
-        skill.setName("java");
-        SkillDao skillDao = new SkillDao(connection);
-        skillDao.createEntity(skill);
+        CandidateDao candidateDao = new CandidateDao(connection);
+        List<Candidate> list = candidateDao.getSortedFilteredEntitiesPage(1, "surname", false,
+                "name", "Kot", 2);
+        //list = candidateDao.getSortedEntitiesPage(1, "surname", 10);
+        System.out.println(list);
 
 
     }

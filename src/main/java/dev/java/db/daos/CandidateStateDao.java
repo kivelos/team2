@@ -15,7 +15,7 @@ public class CandidateStateDao {
         this.connection = connection;
     }
 
-    public List<CandidateState> getSortedEntitiesPage(int pageNumber, String sortedField, int itemsNumberInPage) throws SQLException {
+    public List<CandidateState> getSortedEntitiesPage() throws SQLException {
         List<CandidateState> states = new ArrayList<>();
         try (Statement statement = connection.createStatement()){
             ResultSet state = statement.executeQuery("SELECT * FROM candidate_state");

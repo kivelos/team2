@@ -14,7 +14,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
 
     public VacancyDao(Connection connection) {
         super(connection);
-        SQL_SELECT_SORTED_PAGE = "SELECT * FROM vacancy AS c ORDER BY ? ASC LIMIT ?, ?";
+        SQL_SELECT_SORTED_PAGE = "SELECT * FROM vacancy ORDER BY %s %s LIMIT ?, ?";
         SQL_INSERT = "INSERT INTO vacancy " +
                 "(position, salary_in_dollars_from, salary_in_dollars_to, " +
                 "vacancy_state, experience_years_require, id_developer) " +
@@ -23,6 +23,8 @@ public class VacancyDao extends AbstractDao<Vacancy> {
                 "SET position=?, salary_in_dollars_from=?, salary_in_dollars_to=?, " +
                 "vacancy_state=?, experience_years_require=?, id_developer=? " +
                 "WHERE id=?";
+        SQL_SELECT_SORTED_FILTERED_PAGE = "SELECT * FROM vacancy WHERE %s=? " +
+                "ORDER BY %s %s LIMIT ?, ?";
     }
 
 

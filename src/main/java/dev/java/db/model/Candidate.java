@@ -135,4 +135,15 @@ public class Candidate extends Entity {
     public int hashCode() {
         return Objects.hash(name, surname, birthday, salaryInDollars, candidateState);
     }
+
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthday=" + birthday +
+                ", salaryInDollars=" + salaryInDollars +
+                ", candidateState='" + candidateState + '\'' +
+                '}';
+    }
 }

@@ -11,18 +11,17 @@ public class CandidateDao extends AbstractDao<Candidate> {
 
     private static String SQL_SELECT_BY_ID = "SELECT * FROM candidate AS c WHERE c.id=?";
 
-    private final String SQL_SELECT_SORTED_FILTERING_PAGE = "SELECT * FROM candidate AS c WHERE ?=? " +
-            "ORDER BY ? ASC LIMIT ?, ?";
-
     public CandidateDao(Connection connection) {
         super(connection);
-        SQL_SELECT_SORTED_PAGE = "SELECT * FROM candidate AS c ORDER BY ? ASC LIMIT ?, ?";
+        SQL_SELECT_SORTED_PAGE = "SELECT * FROM candidate ORDER BY %s %s LIMIT ?, ?";
         SQL_INSERT = "INSERT INTO candidate " +
                 "(name, surname, birthday, salary_in_dollars, candidate_state) " +
                 "VALUES (?, ?, ?, ?, ?)";
         SQL_UPDATE = "UPDATE candidate " +
                 "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=? " +
                 "WHERE id=?";
+        SQL_SELECT_SORTED_FILTERED_PAGE = "SELECT * FROM candidate WHERE %s=? " +
+                "ORDER BY %s %s LIMIT ?, ?";
     }
 
 

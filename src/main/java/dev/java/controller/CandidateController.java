@@ -6,7 +6,6 @@ import dev.java.db.daos.CandidateDao;
 import dev.java.db.daos.CandidateStateDao;
 import dev.java.db.model.Candidate;
 import dev.java.db.model.CandidateState;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +22,6 @@ import java.util.List;
 @Controller
 public class CandidateController {
 
-    @Value("${application.version}")
-    private String buildVersion;
-
     private Logging logging = new Logging();
 
     @RequestMapping(value = "/candidates", method = RequestMethod.GET)
@@ -34,7 +30,7 @@ public class CandidateController {
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
             CandidateDao candidateDao = new CandidateDao(connection);
-            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "name", 2);
+            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "surname", true, 2);
             modelAndView.addObject("candidates_list", candidates);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,7 +74,7 @@ public class CandidateController {
         ModelAndView modelAndView = getCandidate(id, request);
         try (Connection connection = ConnectorDB.getConnection()){
             CandidateStateDao candidateStateDao = new CandidateStateDao(connection);
-            List<CandidateState> candidateStates = candidateStateDao.getSortedEntitiesPage(1, "name", 2);
+            List<CandidateState> candidateStates = candidateStateDao.getSortedEntitiesPage();
             modelAndView.addObject("states", candidateStates);
         }
         catch (SQLException e) {
