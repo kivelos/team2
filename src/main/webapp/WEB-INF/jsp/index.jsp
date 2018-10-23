@@ -15,7 +15,7 @@
         <option value="${pageContext.request.contextPath}?lang=en">En</option>
     </select>
 </header>
-
+<p><spring:message code="time"/> - ${time}</p>
 <form method="post" action="/">
     <p><b><spring:message code="input.header"/></b><br/>
         <input name="birthDate" type="text"/>
@@ -37,6 +37,12 @@
         ${error}<br/>
     </c:if>
 </p>
+<form method="get" action="/users">
+    <p><input type="submit" value="Users"></p>
+</form>
+<form method="get" action="/candidates">
+    <p><input type="submit" value="Candidates"></p>
+</form>
 <footer><spring:message code="app.version"/> ${version}</footer>
 </body>
 </html>

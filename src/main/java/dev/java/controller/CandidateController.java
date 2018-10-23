@@ -30,7 +30,7 @@ public class CandidateController {
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
             CandidateDao candidateDao = new CandidateDao(connection);
-            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "surname", true, 2);
+            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "surname", true, 10);
             modelAndView.addObject("candidates_list", candidates);
         } catch (SQLException e) {
             e.printStackTrace();

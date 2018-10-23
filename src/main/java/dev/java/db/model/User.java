@@ -84,5 +84,11 @@ public class User extends Entity {
                 "Name: "+name+"\n" +
                 "State: "+state+"}";
     }
+
+    static public boolean isPasswordValid(String str){
+        if(str.length()>=6&&str.length()<=24)
+            return true;
+        return false;
+    }
     public enum State{BLOCKED,ACTIVE}
 }

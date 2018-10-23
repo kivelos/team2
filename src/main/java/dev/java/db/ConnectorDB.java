@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 public class ConnectorDB {
     public static Connection getConnection() throws SQLException {
-        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         ResourceBundle resource = ResourceBundle.getBundle("database");
         String url = resource.getString("db.url");
         String user = resource.getString("db.user");

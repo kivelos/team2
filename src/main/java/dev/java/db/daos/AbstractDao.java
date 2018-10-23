@@ -62,7 +62,7 @@ public abstract class AbstractDao<T extends Entity> {
             if (status > 0) {
                 ResultSet id = insertPrepareStatement.getGeneratedKeys();
                 if (id.next()) {
-                    entity.setId(id.getLong("id"));
+                    entity.setId(id.getLong(1));
                     id.close();
                     return true;
                 }
