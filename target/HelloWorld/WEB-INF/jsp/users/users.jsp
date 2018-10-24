@@ -10,10 +10,22 @@
 <table>
     <tr>
         <td>№</td>
-        <td>Email</td>
-        <td>Name</td>
-        <td>Surname</td>
-        <td>State</td>
+        <td>Email<br>
+            <a href="/users?sort=asc&field=email">a</a>/
+            <a href="/users?sort=desc&field=email">d</a>
+        </td>
+        <td>Name<br>
+            <a href="/users?sort=asc&field=name">a</a>/
+            <a href="/users?sort=desc&field=name">d</a>
+        </td>
+        <td>Surname<br>
+            <a href="/users?sort=asc&field=surname">a</a>/
+            <a href="/users?sort=desc&field=surname">d</a>
+        </td>
+        <td>State<br>
+            <a href="/users?sort=asc&field=user_state">a</a>/
+            <a href="/users?sort=desc&field=user_state">d</a>
+        </td>
     </tr>
     <c:forEach items="${users_list}" var="user" varStatus="status">
         <tr>
@@ -25,7 +37,19 @@
         </tr>
     </c:forEach>
 </table>
-
+<form action="/users/page/${page+1}" method="post">
+    <input type="submit" value="Next">
+</form>
+<form action="/users/page/${page-1}" method="post">
+    <input type="submit" value="Previous">
+</form>
+<%--<>--%>
+<%--<select name="sort">--%>
+    <%--<option>E-mail</option>--%>
+    <%--<option>Name</option>--%>
+    <%--<option>Surname</option>--%>
+    <%--<option>State</option>--%>
+<%--</select>--%>
 
 <br><br><br>
 Add new user<br>
@@ -40,7 +64,7 @@ Add new user<br>
     <input type="submit" value="Submit">
 </form>
 <c:if test="${mistake!=null}">
-    ${mistake}  <br/>
+    ${mistake} <br/>
 </c:if>
 </body>
 </html>

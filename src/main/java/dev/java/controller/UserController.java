@@ -19,7 +19,8 @@ import java.util.List;
 @Controller
 public class UserController {
     private Logging logging = new Logging();
-
+    static boolean sortType=true;
+    static String sortedField="surname";
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView getAllUsers(HttpServletRequest request) {
@@ -27,8 +28,38 @@ public class UserController {
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
             UserDao userDao = new UserDao(connection);
-            List<User> users = userDao.getSortedEntitiesPage(1,"email",true,100);
+            String sort = request.getParameter("sort");
+            if (sort != null) {
+                sortType = !sort.equals("desc");
+            }
+            sortedField = request.getParameter("field");
+            if (sortedField == null) {
+                sortedField = "surname";
+            }
+            List<User> users = userDao.getSortedEntitiesPage(1,sortedField,sortType,3);
             modelAndView.addObject("users_list", users);
+            modelAndView.addObject("page",1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/users/page/{page:\\d+}", method = RequestMethod.POST)
+    public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("users/users");
+        logging.runMe(request);
+        try (Connection connection = ConnectorDB.getConnection()) {
+            UserDao userDao = new UserDao(connection);
+            if(page==0)
+                page=1;
+            List<User> users = userDao.getSortedEntitiesPage(page,sortedField,sortType,3);
+            if(users.isEmpty()&&page!=1) {
+                page--;
+                users=userDao.getSortedEntitiesPage(page,sortedField,sortType,3);
+            }
+            modelAndView.addObject("users_list", users);
+            modelAndView.addObject("page",page);
         } catch (SQLException e) {
             e.printStackTrace();
         }

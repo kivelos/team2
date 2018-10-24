@@ -15,8 +15,8 @@
 
     State: <select name="state">
     <c:if test="${user.state==Active}">
-        <option selected value="Active">Active</option>
-        <option value="Blocked">Blocked</option>
+        <option selected value="ACTIVE">Active</option>
+        <option value="BLOCKED">Blocked</option>
     </c:if>
     <c:if test="${user.state!=Active}">
         <option  value="ACTIVE">Active</option>
@@ -25,8 +25,5 @@
 </select>
     <input type="submit" value="Submit">
 </form>
-<c:if test="${mistake!=null}">
-    ${mistake}  <br/>
-</c:if>
 </body>
 </html>
