@@ -21,6 +21,15 @@ public class Vacancy extends Entity {
         super(id);
     }
 
+    public Vacancy(String position, float salaryInDollarsFrom, float salaryInDollarsTo,
+                   VacancyState vacancyState, float experienceYearsRequire) {
+        this.position = position;
+        this.salaryInDollarsFrom = salaryInDollarsFrom;
+        this.salaryInDollarsTo = salaryInDollarsTo;
+        this.vacancyState = vacancyState;
+        this.experienceYearsRequire = experienceYearsRequire;
+    }
+
     public String getPosition() {
         return position;
     }

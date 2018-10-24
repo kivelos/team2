@@ -157,6 +157,9 @@ public class CandidateController {
 
             List<Candidate> candidates = candidateDao.getSortedFilteredEntitiesPage(name, surname, date,
                     salaryInDollars, candidateState);
+            CandidateStateDao candidateStateDao = new CandidateStateDao(connection);
+            List<CandidateState> candidateStates = candidateStateDao.getSortedEntitiesPage();
+            modelAndView.addObject("states", candidateStates);
             modelAndView.addObject("candidates_list", candidates);
         } catch (SQLException e) {
             e.printStackTrace();
