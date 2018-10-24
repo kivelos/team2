@@ -21,8 +21,8 @@ public class UserDao extends AbstractDao<User> {
         SQL_UPDATE = "UPDATE user " +
                 "SET email=?, password=?, surname=?, name=?, user_state=? " +
                 "WHERE id=?";
-        SQL_SELECT_SORTED_FILTERED_PAGE = "SELECT * FROM user WHERE %s=? " +
-                "ORDER BY %s %s LIMIT ?, ?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM user" +
+                " WHERE email=? AND password=? AND surname=? AND name=? AND user_state=?";
 
     }
 

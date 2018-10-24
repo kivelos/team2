@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Vacancy extends Entity {
-    private long id;
     private String position;
     private float salaryInDollarsFrom;
     private float salaryInDollarsTo;
@@ -18,6 +17,9 @@ public class Vacancy extends Entity {
     public Vacancy() {
     }
 
+    public Vacancy(long id) {
+        super(id);
+    }
 
     public String getPosition() {
         return position;
@@ -96,20 +98,28 @@ public class Vacancy extends Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vacancy vacancy = (Vacancy) o;
-        return id == vacancy.id &&
-                Float.compare(vacancy.salaryInDollarsFrom, salaryInDollarsFrom) == 0 &&
+        return Float.compare(vacancy.salaryInDollarsFrom, salaryInDollarsFrom) == 0 &&
                 Float.compare(vacancy.salaryInDollarsTo, salaryInDollarsTo) == 0 &&
                 Float.compare(vacancy.experienceYearsRequire, experienceYearsRequire) == 0 &&
                 Objects.equals(position, vacancy.position) &&
                 vacancyState == vacancy.vacancyState &&
-                Objects.equals(developer, vacancy.developer) &&
-                Objects.equals(interviews, vacancy.interviews) &&
-                Objects.equals(passedCandidates, vacancy.passedCandidates) &&
-                Objects.equals(skillRequirements, vacancy.skillRequirements);
+                Objects.equals(developer, vacancy.developer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, position, salaryInDollarsFrom, salaryInDollarsTo, vacancyState, experienceYearsRequire, developer, interviews, passedCandidates, skillRequirements);
+        return Objects.hash(position, salaryInDollarsFrom, salaryInDollarsTo, vacancyState, experienceYearsRequire, developer);
+    }
+
+    @Override
+    public String toString() {
+        return "Vacancy{" +
+                "position='" + position + '\'' +
+                ", salaryInDollarsFrom=" + salaryInDollarsFrom +
+                ", salaryInDollarsTo=" + salaryInDollarsTo +
+                ", vacancyState=" + vacancyState +
+                ", experienceYearsRequire=" + experienceYearsRequire +
+                ", developer=" + developer +
+                '}';
     }
 }

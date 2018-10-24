@@ -16,6 +16,7 @@ dev\java\db\daos\CandidateStateDao.class
 dev\java\controller\HelloController.class
 dev\java\db\model\experiences\Experience.class
 dev\java\db\model\VacancyState.class
+dev\java\controller\UserController.class
 dev\java\db\model\Skill.class
 dev\java\Logging.class
 dev\java\db\model\contacts\ContactType.class

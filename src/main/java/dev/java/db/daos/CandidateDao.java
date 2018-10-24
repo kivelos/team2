@@ -20,8 +20,8 @@ public class CandidateDao extends AbstractDao<Candidate> {
         SQL_UPDATE = "UPDATE candidate " +
                 "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=? " +
                 "WHERE id=?";
-        SQL_SELECT_SORTED_FILTERED_PAGE = "SELECT * FROM candidate WHERE %s=? " +
-                "ORDER BY %s %s LIMIT ?, ?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM candidate " +
+                "WHERE name=? AND surname=? AND birthday=? AND salary_in_dollars=? AND candidate_state=?";
     }
 
 

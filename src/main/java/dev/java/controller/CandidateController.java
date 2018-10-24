@@ -30,7 +30,19 @@ public class CandidateController {
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
             CandidateDao candidateDao = new CandidateDao(connection);
-            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "surname", true, 10);
+            String sort = request.getParameter("sort");
+            boolean sortType = true;
+            if (sort != null) {
+                sortType = !sort.equals("desc");
+            }
+            String sortedField = request.getParameter("field");
+            if (sortedField == null) {
+                sortedField = "surname";
+            }
+            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, sortedField, sortType, 10);
+            CandidateStateDao candidateStateDao = new CandidateStateDao(connection);
+            List<CandidateState> candidateStates = candidateStateDao.getSortedEntitiesPage();
+            modelAndView.addObject("states", candidateStates);
             modelAndView.addObject("candidates_list", candidates);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -125,6 +137,27 @@ public class CandidateController {
             CandidateDao candidateDao = new CandidateDao(connection);
             Candidate candidate = candidateDao.getEntityById(id);
             modelAndView.addObject("candidate", candidate);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/candidates/filtering", method = RequestMethod.POST)
+    public ModelAndView getFilteredEntities(HttpServletRequest request) {
+        logging.runMe(request);
+        ModelAndView modelAndView = new ModelAndView("candidates/candidates");
+        try (Connection connection = ConnectorDB.getConnection()) {
+            CandidateDao candidateDao = new CandidateDao(connection);
+            String surname = request.getParameter("surname").trim();
+            String name = request.getParameter("name").trim();
+            String date = request.getParameter("birthday");
+            String salaryInDollars = request.getParameter("salary_in_dollars");
+            String candidateState = request.getParameter("state");
+
+            List<Candidate> candidates = candidateDao.getSortedFilteredEntitiesPage(name, surname, date,
+                    salaryInDollars, candidateState);
+            modelAndView.addObject("candidates_list", candidates);
         } catch (SQLException e) {
             e.printStackTrace();
         }

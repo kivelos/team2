@@ -13,15 +13,15 @@ public class SkillDao extends AbstractDao<Skill> {
 
     public SkillDao(Connection connection) {
         super(connection);
-        SQL_SELECT_SORTED_PAGE = "SELECT * FROM skillORDER BY %s %s LIMIT ?, ?";
+        SQL_SELECT_SORTED_PAGE = "SELECT * FROM skill ORDER BY %s %s LIMIT ?, ?";
         SQL_INSERT = "INSERT INTO skill " +
                 "(name) " +
                 "VALUES (?)";
         SQL_UPDATE = "UPDATE skill " +
                 "SET name=? " +
                 "WHERE name=?";
-        SQL_SELECT_SORTED_FILTERED_PAGE = "SELECT * FROM skill WHERE %s=? " +
-                "ORDER BY %s %s LIMIT ?, ?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM skill " +
+                "WHERE name=? ";
     }
 
     @Override

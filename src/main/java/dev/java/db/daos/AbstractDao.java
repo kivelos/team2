@@ -11,7 +11,7 @@ public abstract class AbstractDao<T extends Entity> {
     protected static String SQL_SELECT_SORTED_PAGE;
     protected static String SQL_INSERT;
     protected static String SQL_UPDATE;
-    protected static String SQL_SELECT_SORTED_FILTERED_PAGE;
+    protected static String SQL_SELECT_FILTERED_ENTITIES;
 
     public AbstractDao(Connection connection) {
         this.connection = connection;
@@ -34,16 +34,13 @@ public abstract class AbstractDao<T extends Entity> {
         return allEntitiesList;
     }
 
-    public List<T> getSortedFilteredEntitiesPage(int pageNumber, String sortedField, boolean order,
-                                                 String filteredField, String filteredFieldValue, int itemsNumberInPage)
+    public List<T> getSortedFilteredEntitiesPage(String... params)
             throws SQLException {
         List<T> allEntitiesList = new ArrayList<>();
-        SQL_SELECT_SORTED_FILTERED_PAGE = String.format(SQL_SELECT_SORTED_FILTERED_PAGE, filteredField,
-                sortedField, order ? "ASC" : "DESC");
-        try (PreparedStatement selectPrepareStatement = connection.prepareStatement(SQL_SELECT_SORTED_FILTERED_PAGE)) {
-            selectPrepareStatement.setString(1, filteredFieldValue);
-            selectPrepareStatement.setInt(2, (pageNumber - 1) * itemsNumberInPage);
-            selectPrepareStatement.setInt(3, itemsNumberInPage);
+        try (PreparedStatement selectPrepareStatement = connection.prepareStatement(SQL_SELECT_FILTERED_ENTITIES)) {
+            for (int i = 0; i < params.length; i++) {
+                selectPrepareStatement.setObject((i + 1), params[i]);
+            }
             ResultSet entityTableRow = selectPrepareStatement.executeQuery();
             while (entityTableRow.next()) {
                 T entity = setEntityFields(entityTableRow);

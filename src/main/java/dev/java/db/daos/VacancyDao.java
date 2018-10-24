@@ -1,5 +1,6 @@
 package dev.java.db.daos;
 
+import dev.java.db.model.User;
 import dev.java.db.model.Vacancy;
 import dev.java.db.model.VacancyState;
 
@@ -23,8 +24,9 @@ public class VacancyDao extends AbstractDao<Vacancy> {
                 "SET position=?, salary_in_dollars_from=?, salary_in_dollars_to=?, " +
                 "vacancy_state=?, experience_years_require=?, id_developer=? " +
                 "WHERE id=?";
-        SQL_SELECT_SORTED_FILTERED_PAGE = "SELECT * FROM vacancy WHERE %s=? " +
-                "ORDER BY %s %s LIMIT ?, ?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM vacancy " +
+                "WHERE position=? AND salary_in_dollars_from=? AND salary_in_dollars_to=? " +
+                "AND vacancy_state=? AND experience_years_require=? AND id_developer=?";
     }
 
 
@@ -77,6 +79,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
         vacancy.setSalaryInDollarsTo(vacancyTableRow.getFloat("salary_in_dollars_to"));
         vacancy.setVacancyState(VacancyState.valueOf(vacancyTableRow.getString("vacancy_state")));
         vacancy.setExperienceYearsRequire(vacancyTableRow.getFloat("experience_years_require"));
+        vacancy.setDeveloper(new User(vacancyTableRow.getLong("id_developer")));
         return vacancy;
     }
 }

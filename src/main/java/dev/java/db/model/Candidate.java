@@ -24,6 +24,10 @@ public class Candidate extends Entity {
     public Candidate() {
     }
 
+    public Candidate(long id) {
+        super(id);
+    }
+
     public Candidate(String name, String surname, Date birthday, float salaryInDollars) {
         this.name = name;
         this.surname = surname;
