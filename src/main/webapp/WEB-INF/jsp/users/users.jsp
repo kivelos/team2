@@ -7,7 +7,21 @@
 </head>
 <body>
 <h1>Users List</h1>
-<table>
+Filtering
+<form action="/users/filtering" method="post">
+    Email: <input type="email" name="email"><br>
+    Password: <input type="password" name="password"><br>
+    Surname: <input type="text" name="surname"><br>
+    Name: <input type="text" name="name"><br>
+    State:
+    <select name="state">
+        <option value="">Choose state</option>
+        <option value="BLOCKED">BLOCKED</option>
+        <option value="ACTIVE">ACTIVE</option>
+    </select>
+    <input type="submit" value="Submit">
+</form>
+<table border="4">
     <tr>
         <td>№</td>
         <td>Email<br>
@@ -43,13 +57,6 @@
 <form action="/users/page/${page-1}" method="post">
     <input type="submit" value="Previous">
 </form>
-<%--<>--%>
-<%--<select name="sort">--%>
-    <%--<option>E-mail</option>--%>
-    <%--<option>Name</option>--%>
-    <%--<option>Surname</option>--%>
-    <%--<option>State</option>--%>
-<%--</select>--%>
 
 <br><br><br>
 Add new user<br>
@@ -59,8 +66,8 @@ Add new user<br>
     Name: <input type="text" name="name"><br>
     Surname: <input type="text" name="surname"><br>
     State: <select name="state">
-    <option value="Blocked">Blocked</option>
-    <option selected value="Active">Active</option></select>
+    <option value="Blocked">BLOCKED</option>
+    <option selected value="Active">ACTIVE</option></select>
     <input type="submit" value="Submit">
 </form>
 <c:if test="${mistake!=null}">
