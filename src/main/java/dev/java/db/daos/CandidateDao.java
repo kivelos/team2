@@ -22,7 +22,9 @@ public class CandidateDao extends AbstractDao<Candidate> {
                 "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=? " +
                 "WHERE id=?";
         SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM candidate " +
-                "WHERE name=? AND surname=? AND birthday=? AND salary_in_dollars=? AND candidate_state=?";
+                "WHERE (name=? OR ?='') AND (surname=? OR ?='') AND " +
+                "(birthday=? OR ?='') AND (salary_in_dollars=? OR ?='') " +
+                "AND (candidate_state=? OR ?='')";
     }
 
 

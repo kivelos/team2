@@ -1,5 +1,6 @@
 dev\java\db\ConnectorDB.class
 dev\java\db\model\User$State.class
+dev\java\controller\VacancyController.class
 dev\java\db\daos\CandidateDao.class
 dev\java\db\daos\VacancyDao.class
 dev\java\db\daos\SkillDao.class

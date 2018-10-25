@@ -43,7 +43,8 @@ public abstract class AbstractDao<T extends Entity> {
         List<T> allEntitiesList = new ArrayList<>();
         try (PreparedStatement selectPrepareStatement = connection.prepareStatement(SQL_SELECT_FILTERED_ENTITIES)) {
             for (int i = 0; i < params.length; i++) {
-                selectPrepareStatement.setObject((i + 1), params[i]);
+                selectPrepareStatement.setString(i * 2 + 1, params[i]);
+                selectPrepareStatement.setString(i * 2 + 2, params[i]);
             }
             ResultSet entityTableRow = selectPrepareStatement.executeQuery();
             while (entityTableRow.next()) {

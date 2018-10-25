@@ -165,4 +165,22 @@ public class UserController {
         }
         return modelAndView;
     }
+    @RequestMapping(value = "/users/filtering", method = RequestMethod.POST)
+    public ModelAndView getFilteredEntities(HttpServletRequest request) {
+        logging.runMe(request);
+        ModelAndView modelAndView = new ModelAndView("users/users");
+        try (Connection connection = ConnectorDB.getConnection()) {
+            UserDao userDao= new UserDao(connection);
+            String email = request.getParameter("email").trim();
+            String password = request.getParameter("password").trim();
+            String name = request.getParameter("name").trim();
+            String surname=request.getParameter("surname").trim();
+            String userState = request.getParameter("state");
+            List<User> users = userDao.getSortedFilteredEntitiesPage(email,password,name, surname,userState);
+            modelAndView.addObject("users_list", users);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return modelAndView;
+    }
 }
