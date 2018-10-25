@@ -20,7 +20,7 @@ public class InterviewDao extends AbstractDao<Interview> {
                 "SET id_candidate=?, id_vacancy=?, plan_date=?, fact_date=? " +
                 "WHERE id=?";
         SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM interview " +
-                "WHERE (id_candidate=? AND id_vacancy=? AND plan_date=? AND fact_date=?)";
+                "WHERE id_candidate=? AND id_vacancy=? AND plan_date=? AND fact_date=?";
     }
 
     @Override

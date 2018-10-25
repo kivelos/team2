@@ -13,6 +13,7 @@ public class CandidateDao extends AbstractDao<Candidate> {
 
     public CandidateDao(Connection connection) {
         super(connection);
+
         SQL_SELECT_SORTED_PAGE = "SELECT * FROM candidate ORDER BY %s %s LIMIT ?, ?";
         SQL_INSERT = "INSERT INTO candidate " +
                 "(name, surname, birthday, salary_in_dollars, candidate_state) " +
