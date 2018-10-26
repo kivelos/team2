@@ -105,7 +105,8 @@ public class UserController {
             modelAndView.addObject("mistake", "Wrong password length!");
             return false;
         }
-        return true;
+        return true
+                ;
     }
 
     @RequestMapping(value = "/users/{id:\\d+}/edit", method = RequestMethod.GET)

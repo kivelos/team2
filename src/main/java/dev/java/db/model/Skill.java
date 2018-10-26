@@ -12,7 +12,7 @@ public class Skill extends Entity {
     }
 
     public Skill(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public String getName() {
@@ -20,11 +20,17 @@ public class Skill extends Entity {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public List<Vacancy> getCorrespondingVacancies() {
         return correspondingVacancies;
+    }
+
+    static public boolean isNameSkillValid(String str){
+        if("".equals(str))
+            return false;
+        return true;
     }
 
     public void setCorrespondingVacancies(List<Vacancy> correspondingVacancies) {
