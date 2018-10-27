@@ -1,50 +1,63 @@
-package dev.java.db.DAOs;
+package dev.java.db.daos;
 
+import dev.java.db.model.Candidate;
 import dev.java.db.model.Interview;
-import dev.java.db.model.Table;
+import dev.java.db.model.Vacancy;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class InterviewDAO extends AbstractDAO<Interview> {
-  public InterviewDAO(Connection connection, Table table) {
-    super(connection, table);
-  }
-
-  @Override
-  public boolean delete(Interview entity) throws SQLException {
-    try (Statement statement = connection.createStatement()) {
-      String sql = String.format("DELETE FROM %s WHERE id=%d", table, entity.getId());
-      return statement.executeUpdate(sql) != 0;
+public class InterviewDao extends AbstractDao<Interview> {
+    public InterviewDao(Connection connection) {
+        super(connection);
+        //
+        SQL_SELECT_SORTED_PAGE =
+        // "SELECT * FROM interview ORDER BY %s %s LIMIT ?, ?"
+          "select interview.*, candidate.*, vacancy.* from interview "+
+          "join candidate on (interview.id_candidate=candidate.id) "+
+          "join vacancy   on (interview.id_vacancy=vacancy.id) " +
+          "ORDER BY %s %s LIMIT ?, ?";
+        //
+        SQL_INSERT = "INSERT INTO interview " +
+                "(id_candidate, id_vacancy, plan_date, fact_date) " +
+                "VALUES (?, ?, ?, ?)";
+        //
+        SQL_UPDATE = "UPDATE interview " +
+                "SET id_candidate=?, id_vacancy=?, plan_date=?, fact_date=? " +
+                "WHERE id=?";
+        //
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM interview " +
+                "WHERE (id_candidate=? AND id_vacancy=? AND plan_date=? AND fact_date=?)";
     }
-  }
 
-  @Override
-  public boolean create(Interview entity) throws SQLException {
-    try (Statement statement = connection.createStatement()) {
-      String sql = String.format("INSERT INTO %s (planDate, factDate, VacancyID, CandidateID) VALUES (%s %s %d %d)",
-        table, entity.getFactDate(), entity.getPlanDate(), entity.getVacancyID(), entity.getCandidateID());
-      return statement.executeUpdate(sql) != 0;
+    @Override
+    protected Interview setEntityFields(ResultSet entityTableRow) throws SQLException {
+        Interview interview = new Interview();
+        interview.setId(entityTableRow.getLong("id"));
+        interview.setCandidateId(entityTableRow.getInt(("id_candidate")));
+        interview.setVacancyId(entityTableRow.getInt(("id_vacancy")));
+        interview.setCandidate_text(entityTableRow.getString("candidate.name"));
+        interview.setVacancy_text(entityTableRow.getString("vacancy.position"));
+        interview.setPlanDate(entityTableRow.getDate("plan_date"));
+        interview.setFactDate(entityTableRow.getDate("fact_date"));
+        return interview;
     }
-  }
 
-  @Override
-  public boolean update(Interview entity) throws SQLException {
-    try (Statement statement = connection.createStatement()) {
-      String sql = String.format("UPDATE %s SET  planDate=%s, factDate=%s, VacancyID=%d, CandidateID=%d WHERE id=%d",
-        table, entity.getFactDate(), entity.getPlanDate(), entity.getVacancyID(), entity.getCandidateID(), entity.getId());
-      return statement.executeUpdate(sql) != 0;
+    @Override
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Interview interview)
+            throws SQLException {
+        prepareStatement.setLong(1, interview.getCandidateId());
+        prepareStatement.setLong(2, interview.getVacancyId());
+        prepareStatement.setDate(3, interview.getPlanDate());
+        prepareStatement.setDate(4, interview.getFactDate());
+
     }
-  }
 
-  @Override
-  protected void setFields(ResultSet resultSet, Interview interview) throws SQLException {
-    interview.setId(resultSet.getLong("id"));
-    interview.setPlanDate(resultSet.getDate("plan_interview_date"));
-    interview.setFactDate(resultSet.getDate("fact_interview_date"));
-    interview.setVacancyID(resultSet.getInt("id_of_current_vacancy"));
-    interview.setCandidateID(resultSet.getInt("id_of_current_candidate"));
-  }
+    @Override
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Interview entity) throws SQLException {
+        setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
+        prepareStatement.setLong(5, entity.getId());
+    }
 }

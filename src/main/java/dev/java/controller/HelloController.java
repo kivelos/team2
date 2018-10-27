@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
@@ -26,9 +27,7 @@ public class HelloController {
     public String sayHello(HttpServletRequest request) {
         logging.runMe(request);
         return "index";
-
     }
-
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ModelAndView getBirthday(HttpServletRequest request, ModelMap map) {
         logging.runMe(request);
@@ -48,7 +47,10 @@ public class HelloController {
 
     @ModelAttribute
     public void addAttributes(Model model) {
-        model.addAttribute("author", "team2");
+        Date currentTime=new Date();
+        SimpleDateFormat myFormat=new SimpleDateFormat("HH:mm:ss");
+        model.addAttribute("time",myFormat.format(currentTime));
+        model.addAttribute("author", "Team Liquid");
         model.addAttribute("version", buildVersion);
     }
 }

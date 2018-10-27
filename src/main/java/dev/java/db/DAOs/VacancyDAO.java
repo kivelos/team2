@@ -1,63 +1,85 @@
-package dev.java.db.DAOs;
+package dev.java.db.daos;
 
-import dev.java.db.model.Table;
+import dev.java.db.model.User;
 import dev.java.db.model.Vacancy;
+import dev.java.db.model.VacancyState;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class VacancyDAO extends AbstractDAO<Vacancy> {
-    public VacancyDAO(Connection connection, Table table) {
-        super(connection, table);
+public class VacancyDao extends AbstractDao<Vacancy> {
+
+    private static String SQL_SELECT_BY_ID = "SELECT * FROM vacancy AS v WHERE v.id=?";
+
+    public VacancyDao(Connection connection) {
+        super(connection);
+        SQL_SELECT_SORTED_PAGE = "SELECT * FROM vacancy ORDER BY %s %s LIMIT ?, ?";
+        SQL_INSERT = "INSERT INTO vacancy " +
+                "(position, salary_in_dollars_from, salary_in_dollars_to, " +
+                "vacancy_state, experience_years_require, id_developer) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        SQL_UPDATE = "UPDATE vacancy " +
+                "SET position=?, salary_in_dollars_from=?, salary_in_dollars_to=?, " +
+                "vacancy_state=?, experience_years_require=?, id_developer=? " +
+                "WHERE id=?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM vacancy " +
+                "WHERE position=? AND salary_in_dollars_from=? AND salary_in_dollars_to=? " +
+                "AND vacancy_state=? AND experience_years_require=? AND id_developer=?";
     }
 
+
     @Override
-    public boolean delete(Vacancy entity) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "DELETE FROM " + table + " WHERE id='" + entity.getId() + "'";
-            return statement.executeUpdate(sql) != 0;
+    public boolean updateEntity(Vacancy entity) throws SQLException {
+        try (PreparedStatement updatePrepareStatement = connection.prepareStatement(SQL_UPDATE)) {
+            setValuesForUpdateIntoPrepareStatement(updatePrepareStatement, entity);
+            return updatePrepareStatement.executeUpdate() > 0;
+        }
+    }
+
+    public Vacancy getEntityById(long id) throws SQLException {
+        try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
+            getByIdPrepareStatement.setLong(1, id);
+            ResultSet entity = getByIdPrepareStatement.executeQuery();
+            if (entity.next()) {
+                Vacancy vacancy = setEntityFields(entity);
+                entity.close();
+                return vacancy;
+            }
+            return null;
         }
     }
 
     @Override
-    public boolean create(Vacancy entity) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO " + table +
-                    " (name, min_experience_in_years, max_experience_in_years, " +
-                    "min_salary_in_dollars, max_salary_in_dollars) " +
-                    "VALUES ('";
-            sql += entity.getName() + "', '" +
-                    entity.getMinExperienceInYears() + "', '" +
-                    entity.getMaxExperienceInYears() + "', '" +
-                    entity.getMinSalaryInDollars() + "', '" +
-                    entity.getMaxSalaryInDollars()  + "')";
-            return statement.executeUpdate(sql) != 0;
-        }
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
+            throws SQLException {
+        setValuesForInsertIntoPrepareStatement(prepareStatement, vacancy);
+        prepareStatement.setLong(7, vacancy.getId());
+
     }
 
     @Override
-    public boolean update(Vacancy entity) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "UPDATE " + table +" SET " +
-                    "name='" + entity.getName() + "', " +
-                    "min_experience_in_years='" + entity.getMinExperienceInYears() + "', " +
-                    "max_experience_in_years='" + entity.getMaxExperienceInYears() + "', " +
-                    "min_salary_in_dollars='" + entity.getMinSalaryInDollars() + "', " +
-                    "max_salary_in_dollars='" + entity.getMaxSalaryInDollars() + "'" +
-                    "WHERE id=" + entity.getId();
-            return statement.executeUpdate(sql) != 0;
-        }
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
+            throws SQLException {
+        prepareStatement.setString(1, vacancy.getPosition());
+        prepareStatement.setFloat(2, vacancy.getSalaryInDollarsFrom());
+        prepareStatement.setFloat(3, vacancy.getSalaryInDollarsTo());
+        prepareStatement.setString(4, vacancy.getVacancyState().name());
+        prepareStatement.setFloat(5, vacancy.getExperienceYearsRequire());
+        prepareStatement.setLong(6, vacancy.getDeveloper().getId());
     }
 
     @Override
-    protected void setFields(ResultSet resultSet, Vacancy vacancy) throws SQLException {
-        vacancy.setId(resultSet.getLong("id"));
-        vacancy.setName(resultSet.getString("name"));
-        vacancy.setMinExperienceInYears(resultSet.getInt("min_experience_in_years"));
-        vacancy.setMaxExperienceInYears(resultSet.getInt("max_experience_in_years"));
-        vacancy.setMinSalaryInDollars(resultSet.getInt("min_salary_in_dollars"));
-        vacancy.setMaxSalaryInDollars(resultSet.getInt("max_salary_in_dollars"));
+    protected Vacancy setEntityFields(ResultSet vacancyTableRow) throws SQLException {
+        Vacancy vacancy = new Vacancy();
+        vacancy.setId(vacancyTableRow.getLong("id"));
+        vacancy.setPosition(vacancyTableRow.getString("position"));
+        vacancy.setSalaryInDollarsFrom(vacancyTableRow.getFloat("salary_in_dollars_from"));
+        vacancy.setSalaryInDollarsTo(vacancyTableRow.getFloat("salary_in_dollars_to"));
+        vacancy.setVacancyState(VacancyState.valueOf(vacancyTableRow.getString("vacancy_state")));
+        vacancy.setExperienceYearsRequire(vacancyTableRow.getFloat("experience_years_require"));
+        vacancy.setDeveloper(new User(vacancyTableRow.getLong("id_developer")));
+        return vacancy;
     }
 }

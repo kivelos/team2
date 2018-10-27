@@ -1,10 +1,8 @@
 package dev.java.db;
 
-import dev.java.db.DAOs.CandidateDAO;
-import dev.java.db.DAOs.CandidateSkillDAO;
-import dev.java.db.DAOs.SkillDAO;
-import dev.java.db.DAOs.VacancyDAO;
-import dev.java.db.model.*;
+import dev.java.db.daos.CandidateDao;
+import dev.java.db.model.Candidate;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,6 +12,7 @@ import java.util.ResourceBundle;
 
 public class ConnectorDB {
     public static Connection getConnection() throws SQLException {
+        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         ResourceBundle resource = ResourceBundle.getBundle("database");
         String url = resource.getString("db.url");
         String user = resource.getString("db.user");
@@ -23,14 +22,6 @@ public class ConnectorDB {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = getConnection();
-        VacancyDAO vacancyDAO = new VacancyDAO(connection, Table.VACANCY);
-        Vacancy vacancy = new Vacancy();
-        vacancy.setName("Java Developer");
-        vacancy.setMinExperienceInYears(1);
-        vacancy.setMaxExperienceInYears(3);
-        vacancy.setMinSalaryInDollars(200);
-        vacancy.setMaxSalaryInDollars(500);
-        vacancyDAO.create(vacancy);
 
     }
 }

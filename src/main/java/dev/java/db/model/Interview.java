@@ -1,59 +1,107 @@
 package dev.java.db.model;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.Objects;
 
 public class Interview extends Entity {
-  Date planDate;
-  Date factDate;
-  long VacancyID;
-  long CandidateID;
+    //private Candidate candidate;
+    //private Vacancy vacancy;
+    private int id_candidate;
+    private String candidate_text;
+    private int id_vacancy;
+    private String vacancy_text;
+    private Date planDate;
+    private Date factDate;
 
-  Interview() {
+    public Interview() {
+    }
 
-  }
+    public Interview(long id) {
+        super(id);
+    }
 
-  Interview(Date planDate, Date factDate, long VacancyID, long CanditateID) {
-    this.planDate = planDate;
-    this.factDate = factDate;
-    this.VacancyID = VacancyID;
-    this.CandidateID = CanditateID;
-  }
+    public Interview(Candidate candidate, Vacancy vacancy, Date planDate, Date factDate, int id_candidate, int id_vacancy,
+                     String candidate_text, String vacancy_text) {
+        //this.candidate = candidate;
+        //this.vacancy = vacancy;
+        this.id_candidate = id_candidate;
+        this.id_vacancy = id_vacancy;
+        this.candidate_text = candidate_text;
+        this.vacancy_text = vacancy_text;
+        this.planDate = planDate;
+        this.factDate = factDate;
+    }
 
-  public Date getPlanDate() {
-    return planDate;
-  }
+    public int getCandidateId() {
+        return id_candidate;
+    }
 
-  public void setPlanDate(Date planDate) {
-    this.planDate = planDate;
-  }
+    public void setCandidateId(int id_candidate) {
+        this.id_candidate = id_candidate;
+    }
+    public int getVacancyId() {
+        return id_vacancy;
+    }
 
-  public Date getFactDate() {
-    return factDate;
-  }
+    public void setVacancyId(int id_vacancy) {
+        this.id_vacancy = id_vacancy;
+    }
 
-  public void setFactDate(Date factDate) {
-    this.factDate = factDate;
-  }
+    public String getCandidate_text() {
+        return candidate_text;
+    }
 
-  public long getVacancyID() {
-    return this.VacancyID;
-  }
+    public void setCandidate_text(String candidate_text) {
+        this.candidate_text = candidate_text;
+    }
 
-  public long getCandidateID() {
-    return this.CandidateID;
-  }
+    public String getVacancy_text() {
+        return vacancy_text;
+    }
+    public void setVacancy_text(String vacancy_text) {
+        this.vacancy_text = vacancy_text;
+    }
 
-  public void setVacancyID(long VacancyID) {
-    this.VacancyID = VacancyID;
-  }
+    public Date getPlanDate() {
+        return planDate;
+    }
 
-  public void setCandidateID(long CandidateID) {
-    this.CandidateID = CandidateID;
-  }
+    public void setPlanDate(Date planDate) {
+        this.planDate = planDate;
+    }
 
-  @Override
-  public String toString() {
-    return String.format("Interview(planDate = %s, factDate = %s, VacancyID = %d, CandidateID = %d)", planDate, factDate,
-      VacancyID, CandidateID);
-  }
+    public Date getFactDate() {
+        return factDate;
+    }
+
+    public void setFactDate(Date factDate) {
+        this.factDate = factDate;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Interview interview = (Interview) o;
+        return Objects.equals(id_candidate, interview.id_candidate) &&
+                Objects.equals(id_vacancy, interview.id_vacancy) &&
+                Objects.equals(planDate, interview.planDate) &&
+                Objects.equals(factDate, interview.factDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_candidate, id_vacancy, planDate, factDate);
+    }
+
+    @Override
+    public String toString() {
+        return "Interview{" +
+                "id_candidate=" + id_candidate +
+                ", id_vacancy=" + id_vacancy +
+                ", planDate=" + planDate +
+                ", factDate=" + factDate +
+                '}';
+    }
 }
