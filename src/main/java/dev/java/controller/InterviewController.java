@@ -42,7 +42,7 @@ public class InterviewController {
       if (sortedField == null) {
         sortedField = DEFAULT_SORT_FIELD;
       }
-      List<Interview> interviews = interviewDao.getSortedEntitiesPage(1, sortedField, sortType,3);
+      List<Interview> interviews = interviewDao.getSortedEntitiesPage(1, sortedField, sortType,100);
       modelAndView.addObject("interviews_list", interviews);
       modelAndView.addObject("page",1);
     } catch (SQLException e) {
@@ -51,22 +51,36 @@ public class InterviewController {
     return modelAndView;
   }
 
-  /*
+
   @RequestMapping(value = "/interviews", method = RequestMethod.POST)
   public ModelAndView addInterview(HttpServletRequest request, HttpServletResponse response) {
     logging.runMe(request);
     ModelAndView modelAndView = new ModelAndView();
-    try (Connection connection = ConnectorDB.getConnection()) {
-      Date planDate = Date.valueOf(request.getParameter("planDate"));
-      Date factDate = Date.valueOf(request.getParameter("factDate"));
-      Candidate candidate = new Candidate();
-
-      InterviewDao interviewDao = new InterviewDao(connection);
-
-    } catch (SQLException e) {
-      e.printStackTrace();
+    try (Connection dbConn = ConnectorDB.getConnection()) {
+      String s_planDate = request.getParameter("planDate").trim();
+      String s_factDate = request.getParameter("factDate").trim();
+      String s_id_candidate = request.getParameter("id_candidate").trim();
+      String s_id_vacancy = request.getParameter("id_vacancy").trim();
+      //
+      Date planDate = s_planDate.isEmpty() ? null : Date.valueOf(s_planDate);
+      Date factDate = s_factDate.isEmpty() ? null : Date.valueOf(s_factDate);
+      int candidateId = s_id_candidate.isEmpty() ? 0 : Integer.parseInt(s_id_candidate);
+      int vacancyId = s_id_vacancy.isEmpty() ? 0 : Integer.parseInt(s_id_vacancy);
+      //String candidateText = request.getParameter("candidate_text");
+      //String vacancyText = request.getParameter("candidate_text");
+      Interview interview = new Interview(planDate,factDate,candidateId, vacancyId, "","");
+      InterviewDao interviewDao = new InterviewDao(dbConn);
+      interviewDao.createEntity(interview);
+      modelAndView.setViewName("redirect:" + "/interviews");
+    }  catch (SQLException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return modelAndView;
+    }
+    catch (Exception e) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return modelAndView;
     }
     return modelAndView;
-  }*/
+  }
 
 }

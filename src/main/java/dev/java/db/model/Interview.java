@@ -20,10 +20,8 @@ public class Interview extends Entity {
         super(id);
     }
 
-    public Interview(Candidate candidate, Vacancy vacancy, Date planDate, Date factDate, int id_candidate, int id_vacancy,
+    public Interview(Date planDate, Date factDate, int id_candidate, int id_vacancy,
                      String candidate_text, String vacancy_text) {
-        //this.candidate = candidate;
-        //this.vacancy = vacancy;
         this.id_candidate = id_candidate;
         this.id_vacancy = id_vacancy;
         this.candidate_text = candidate_text;
