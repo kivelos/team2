@@ -43,12 +43,9 @@
 <form method="get" action="/candidates">
     <p><input type="submit" value="Candidates"></p>
 </form>
-<<<<<<< HEAD
 <form method="get" action="/vacancies">
     <p><input type="submit" value="Vacancies"></p>
 </form>
-=======
->>>>>>> 0bfd5f01c0977af70f7aa1acb16eab5b5c7eb4eb
 <form method="get" action="/skills">
     <p><input type="submit" value="Skills"></p>
 </form>

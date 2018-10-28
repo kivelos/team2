@@ -60,44 +60,7 @@ public class SkillController {
         }
         return modelAndView;
     }
-<<<<<<< HEAD
-    @RequestMapping(value = "/skills", method = RequestMethod.POST)
-    public ModelAndView addSkill(HttpServletRequest request, HttpServletResponse response) {
-        logging.runMe(request);
-        ModelAndView modelAndView = new ModelAndView("skills/skills");
-        try (Connection connection = ConnectorDB.getConnection()) {
-            String name = request.getParameter("name").trim();
-            SkillDao skillDao = new SkillDao(connection);
-            List<Skill> skills = skillDao.getSortedEntitiesPage(1, "name", sortType, 3);
-            modelAndView.addObject("skills_list", skills);
-            if (isCorrectInputDates(name, modelAndView)) {
-                Skill skill = new Skill(name);
-                skillDao.createEntity(skill);
-                modelAndView.setViewName("redirect:" + "/skills/");
-            }
-            return modelAndView;
-        } catch (SQLException e) {
-            //response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
-            modelAndView.addObject("mistake", "Skill aready create!");
-            //modelAndView.setViewName("redirect:" + "/skills/");
-
-            return modelAndView;
-
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return modelAndView;
-        }
-    }
-
-    private boolean isCorrectInputDates (String name, ModelAndView modelAndView){
-        if(!Skill.isNameSkillValid(name)) {
-            modelAndView.addObject("mistake", "Wrong name of skill!");
-            return false;
-        }
-        return true;
-    }
-=======
         @RequestMapping(value = "/skills", method = RequestMethod.POST)
         public ModelAndView addSkill(HttpServletRequest request, HttpServletResponse response) {
             logging.runMe(request);
@@ -134,7 +97,7 @@ public class SkillController {
             }
             return true;
         }
->>>>>>> 0bfd5f01c0977af70f7aa1acb16eab5b5c7eb4eb
+
 
 
     @RequestMapping(value = "/skills/{name}", method = RequestMethod.GET)
@@ -189,11 +152,7 @@ public class SkillController {
         try (Connection connection = ConnectorDB.getConnection()) {
             SkillDao skillDao = new SkillDao(connection);
             String name = request.getParameter("name").trim();
-<<<<<<< HEAD
             List<Skill> skills = skillDao.getFilteredEntitiesPage(name);
-=======
-            List<Skill> skills = skillDao.getSortedFilteredEntitiesPage(name);
->>>>>>> 0bfd5f01c0977af70f7aa1acb16eab5b5c7eb4eb
             modelAndView.addObject("skills_list", skills);
         } catch (SQLException e) {
             e.printStackTrace();

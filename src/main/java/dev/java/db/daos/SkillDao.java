@@ -21,11 +21,7 @@ public class SkillDao extends AbstractDao<Skill> {
                 "SET name=? " +
                 "WHERE name=?";
         SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM skill " +
-<<<<<<< HEAD
-                "WHERE (name=? OR ?='')";
-=======
                 "WHERE  (name=? OR ?='')";
->>>>>>> 0bfd5f01c0977af70f7aa1acb16eab5b5c7eb4eb
     }
 
     @Override
