@@ -35,14 +35,13 @@ public class Interview extends Entity {
     public int getCandidateId() {
         return id_candidate;
     }
-
     public void setCandidateId(int id_candidate) {
         this.id_candidate = id_candidate;
     }
+
     public int getVacancyId() {
         return id_vacancy;
     }
-
     public void setVacancyId(int id_vacancy) {
         this.id_vacancy = id_vacancy;
     }
@@ -50,7 +49,6 @@ public class Interview extends Entity {
     public String getCandidate_text() {
         return candidate_text;
     }
-
     public void setCandidate_text(String candidate_text) {
         this.candidate_text = candidate_text;
     }
@@ -65,7 +63,6 @@ public class Interview extends Entity {
     public Date getPlanDate() {
         return planDate;
     }
-
     public void setPlanDate(Date planDate) {
         this.planDate = planDate;
     }
@@ -73,7 +70,6 @@ public class Interview extends Entity {
     public Date getFactDate() {
         return factDate;
     }
-
     public void setFactDate(Date factDate) {
         this.factDate = factDate;
     }
@@ -97,11 +93,8 @@ public class Interview extends Entity {
 
     @Override
     public String toString() {
-        return "Interview{" +
-                "id_candidate=" + id_candidate +
-                ", id_vacancy=" + id_vacancy +
-                ", planDate=" + planDate +
-                ", factDate=" + factDate +
-                '}';
+        String res =  String.format("Interview ID:%d  id_cand:%d [%s]  id_vac:%d [%s] PlanD:%s  FactD:%s",
+          getId(), id_candidate, candidate_text, id_vacancy, vacancy_text, planDate, factDate);
+        return res;
     }
 }

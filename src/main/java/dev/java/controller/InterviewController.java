@@ -6,6 +6,7 @@ import dev.java.db.daos.CandidateDao;
 import dev.java.db.daos.InterviewDao;
 import dev.java.db.model.Candidate;
 import dev.java.db.model.Interview;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,11 +19,14 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.List;
 
+@Controller
 public class InterviewController {
 
   private Logging logging = new Logging();
   static boolean sortType = true;
-  static String sortedField = "vacancy";
+  static String sortedField = "";
+  static final String DEFAULT_SORT_FIELD = "id_vacancy";
+  static final String DEFAULT_SORT_DIRECT = "desc";
 
   @RequestMapping(value = "/interviews", method = RequestMethod.GET)
   public ModelAndView getAllInterviews(HttpServletRequest request) {
@@ -30,14 +34,14 @@ public class InterviewController {
     logging.runMe(request);
     try (Connection connection = ConnectorDB.getConnection()) {
       InterviewDao interviewDao = new InterviewDao(connection);
-      /*String sort = request.getParameter("sort");
+      String sort = request.getParameter("sort");
       if (sort != null) {
-        sortType = !sort.equals("desc");
+        sortType = !sort.equals(DEFAULT_SORT_DIRECT);
       }
       sortedField = request.getParameter("field");
       if (sortedField == null) {
-        sortedField = "vacancy";
-      }*/
+        sortedField = DEFAULT_SORT_FIELD;
+      }
       List<Interview> interviews = interviewDao.getSortedEntitiesPage(1, sortedField, sortType,3);
       modelAndView.addObject("interviews_list", interviews);
       modelAndView.addObject("page",1);

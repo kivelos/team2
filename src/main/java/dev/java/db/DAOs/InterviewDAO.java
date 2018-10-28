@@ -38,7 +38,9 @@ public class InterviewDao extends AbstractDao<Interview> {
         interview.setId(entityTableRow.getLong("id"));
         interview.setCandidateId(entityTableRow.getInt(("id_candidate")));
         interview.setVacancyId(entityTableRow.getInt(("id_vacancy")));
-        interview.setCandidate_text(entityTableRow.getString("candidate.name"));
+        String c1 = entityTableRow.getString("candidate.name");
+        String c2 = entityTableRow.getString("candidate.surname");
+        interview.setCandidate_text(c1+", "+c2);
         interview.setVacancy_text(entityTableRow.getString("vacancy.position"));
         interview.setPlanDate(entityTableRow.getDate("plan_date"));
         interview.setFactDate(entityTableRow.getDate("fact_date"));

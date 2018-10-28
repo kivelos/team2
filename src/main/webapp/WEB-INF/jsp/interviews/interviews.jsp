@@ -18,29 +18,35 @@ Filtering
     <tr>
         <td>№</td>
         <td>planDate<br>
-            <a href="/interviews?sort=asc&field=planDate">a</a>/
-            <a href="/interviews?sort=desc&field=planDate">d</a>
+            <a href="/interviews?sort=asc&field=plan_date">a</a>/
+            <a href="/interviews?sort=desc&field=plan_date">d</a>
         </td>
         <td>factDate<br>
-            <a href="/interviews?sort=asc&field=factDate">a</a>/
-            <a href="/interviews?sort=desc&field=factDate">d</a>
+            <a href="/interviews?sort=asc&field=fact_date">a</a>/
+            <a href="/interviews?sort=desc&field=fact_date">d</a>
         </td>
         <td>id_candidate<br>
             <a href="/interviews?sort=asc&field=id_candidate">a</a>/
             <a href="/interviews?sort=desc&field=id_candidate">d</a>
         </td>
+        <td>candidate
+        </td>
         <td>id_vacancy<br>
             <a href="/interviews?sort=asc&field=id_vacancy">a</a>/
             <a href="/interviews?sort=desc&field=id_vacancy">d</a>
+        </td>
+        <td>vacancy<br>
         </td>
     </tr>
     <c:forEach items="${interviews_list}" var="interview" varStatus="status">
         <tr>
             <td>${status.count}</td>
-            <!--<td><a href="/interviews/${interview.id}">${int.email}</a></td>-->
             <td>${interview.planDate}</td>
             <td>${interview.factDate}</td>
-            <td>${interview.id_Candidate}</td>
+            <td>${interview.candidateId}</td>
+            <td>${interview.candidate_text}</td>
+            <td>${interview.vacancyId}</td>
+            <td>${interview.vacancy_text}</td>
         </tr>
     </c:forEach>
 </table>
