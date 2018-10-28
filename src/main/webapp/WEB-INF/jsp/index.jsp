@@ -49,6 +49,9 @@
 <form method="get" action="/interviews">
     <p><input type="submit" value="Interviews"></p>
 </form>
+<form method="get" action="/interviews_feedback">
+    <p><input type="submit" value="Feedbacks"></p>
+</form>
 
 <footer><spring:message code="app.version"/> ${version}</footer>
 </body>
