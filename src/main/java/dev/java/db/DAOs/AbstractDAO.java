@@ -8,9 +8,13 @@ import java.util.List;
 
 public abstract class AbstractDao<T extends Entity> {
     protected Connection connection;
+    //language=SQL
     protected static String SQL_SELECT_SORTED_PAGE;
+    //language=SQL
     protected static String SQL_INSERT;
+    //language=SQL
     protected static String SQL_UPDATE;
+    //language=SQL
     protected static String SQL_SELECT_FILTERED_ENTITIES;
 
     public AbstractDao(Connection connection) {

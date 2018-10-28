@@ -52,8 +52,8 @@ public class CandidateController {
     }
 
     @RequestMapping(value = "/candidates", method = RequestMethod.POST)
-        public ModelAndView addCandidate(HttpServletRequest request, HttpServletResponse response) {
-            logging.runMe(request);
+    public ModelAndView addCandidate(HttpServletRequest request, HttpServletResponse response) {
+        logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView();
         try (Connection connection = ConnectorDB.getConnection()) {
             String surname = request.getParameter("surname").trim();

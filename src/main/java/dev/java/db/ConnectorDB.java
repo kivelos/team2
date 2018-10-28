@@ -22,6 +22,12 @@ public class ConnectorDB {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = getConnection();
+        CandidateDao candidateDao = new CandidateDao(connection);
+        List<Candidate> list = candidateDao.getSortedFilteredEntitiesPage(
+        );
+        //list = candidateDao.getSortedEntitiesPage(1, "surname", 10);
+        System.out.println(list);
+
 
     }
 }

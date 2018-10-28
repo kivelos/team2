@@ -25,7 +25,6 @@ public class UserDao extends AbstractDao<User> {
                 "WHERE (email=? OR ?='') AND (password=? OR ?='') AND " +
                 "(name=? OR ?='') AND (surname=? OR ?='') " +
                 "AND (user_state=? OR ?='')";
-
     }
 
     public User getEntityById(long id) throws SQLException {
