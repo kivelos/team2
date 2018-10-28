@@ -10,18 +10,18 @@
     <title>Insert title here</title>
 </head>
 <body>
-<header><a href="back">HR Application</a></header>
+<header><a href="back">To the main page</a></header>
 <div class="main-block">
-    <h1 align="center">Show feedback table</h1>
+    <h1 align="center">Feedbacks</h1>
     <p align="center"><a href="FeedbackCreate" class="create-button">Create feedback</a></p>
     <div class="filter-sort">
-        Filter by:
-        <a href="ViewFeedbackForm" class="filter-sort-item">Find all</a>
-        <a href="FeedBackFilter?type=failure" class="filter-sort-item">failure</a>
-        <a href="FeedBackFilter?type=success" class="filter-sort-item">success</a>
-        <a href="FeedBackFilter?type=awaiting" class="filter-sort-item">awaiting</a>
+        Filter by:<br>
+        <a href="ViewFeedbackForm" class="filter-sort-item">All feedbacks</a><br>
+        <a href="FeedBackFilter?type=failure" class="filter-sort-item">Failed</a><br>
+        <a href="FeedBackFilter?type=success" class="filter-sort-item">Passed</a><br>
+        <a href="FeedBackFilter?type=awaiting" class="filter-sort-item">Waiting</a><br>
     </div>
-    <table border="1">
+    <table border="2">
         <tr>
             <th>Reason</th>
             <th>FeedbackState</th>
@@ -42,6 +42,5 @@
         </c:forEach>
     </table>
 </div>
-<footer> q </footer>
 </body>
 </html>
