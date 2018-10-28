@@ -43,8 +43,8 @@
 <form method="get" action="/candidates">
     <p><input type="submit" value="Candidates"></p>
 </form>
-<form method="get" action="/vacancy">
-    <p><input type="submit" value="Candidates"></p>
+<form method="get" action="/vacancies">
+    <p><input type="submit" value="Vacancy"></p>
 </form>
 <form method="get" action="/skills">
     <p><input type="submit" value="Skills"></p>
