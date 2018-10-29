@@ -1,19 +1,16 @@
 package dev.java.db;
 
-import dev.java.db.DAOs.CandidateDAO;
-import dev.java.db.DAOs.CandidateSkillDAO;
-import dev.java.db.DAOs.SkillDAO;
-import dev.java.db.DAOs.VacancyDAO;
-import dev.java.db.model.*;
+import dev.java.db.daos.CandidateDao;
+import dev.java.db.model.Candidate;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class ConnectorDB {
     public static Connection getConnection() throws SQLException {
+        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         ResourceBundle resource = ResourceBundle.getBundle("database");
         String url = resource.getString("db.url");
         String user = resource.getString("db.user");
@@ -23,14 +20,21 @@ public class ConnectorDB {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = getConnection();
-        VacancyDAO vacancyDAO = new VacancyDAO(connection, Table.VACANCY);
-        Vacancy vacancy = new Vacancy();
-        vacancy.setName("Java Developer");
-        vacancy.setMinExperienceInYears(1);
-        vacancy.setMaxExperienceInYears(3);
-        vacancy.setMinSalaryInDollars(200);
-        vacancy.setMaxSalaryInDollars(500);
-        vacancyDAO.create(vacancy);
+        //CandidateDao candidateDao = new CandidateDao(connection);
+        //List<Candidate> list = candidateDao.getFilteredEntitiesPage();
+        //list = candidateDao.getSortedEntitiesPage(1, "surname", 10);
+        //System.out.println(list);
 
+        String SQL_INSERT = "INSERT INTO candidate " +
+                "(name, surname, birthday, salary_in_dollars, candidate_state) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT);
+        preparedStatement.setString(1, "Kseniya");
+        preparedStatement.setString(2, "Piliak");
+        preparedStatement.setDate(3, Date.valueOf("2008-12-12"));
+        preparedStatement.setFloat(4, 200.00f);
+        preparedStatement.setString(5, null);
+        System.out.println(preparedStatement);
     }
 }
+

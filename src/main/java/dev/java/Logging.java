@@ -8,8 +8,11 @@ public class Logging {
     private static Logger logger = Logger.getLogger(Logging.class.getName());
 
     public void runMe(HttpServletRequest request){
-
         logger.info(request.getMethod() + " " + request.getRequestURI());
+    }
 
+    public void runMe(Exception e) {
+        logger.error(e);
+        e.printStackTrace();
     }
 }

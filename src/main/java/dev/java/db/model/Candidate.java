@@ -1,47 +1,38 @@
 package dev.java.db.model;
 
+import dev.java.db.model.attachments.Attachment;
+import dev.java.db.model.contacts.Contact;
+import dev.java.db.model.experiences.Experience;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Objects;
+
 public class Candidate extends Entity {
-    private String email = "";
-    private String photo = "";
-    private String name = "";
-    private String surname = "";
-    private int salaryInDollars = 0;
-    private float experienceInYears = 0;
-    private String phone = "";
-    private String comment = "";
-    private Status status = Status.UNDER_CONSIDERATION;
+    private String name;
+    private String surname;
+    private Date birthday;
+    private float salaryInDollars;
+    private String candidateState;
+    private List<Attachment> attachments;
+    private List<Experience> experiences;
+    private List<Contact> contacts;
+    private List<Skill> competences;
+    private List<Vacancy> passedVacancies;
+    private List<Interview> interviews;
 
     public Candidate() {
-
     }
 
-    public Candidate(long id, String email, String photo, String name, String surname, int salaryInDollars, float experienceInYears, String phone, String comment, Status status) {
+    public Candidate(long id) {
         super(id);
-        this.email = email;
-        this.photo = photo;
+    }
+
+    public Candidate(String name, String surname, Date birthday, float salaryInDollars) {
         this.name = name;
         this.surname = surname;
+        this.birthday = birthday;
         this.salaryInDollars = salaryInDollars;
-        this.experienceInYears = experienceInYears;
-        this.phone = phone;
-        this.comment = comment;
-        this.status = status;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getName() {
@@ -60,65 +51,103 @@ public class Candidate extends Entity {
         this.surname = surname;
     }
 
-    public int getSalaryInDollars() {
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public float getSalaryInDollars() {
         return salaryInDollars;
     }
 
-    public void setSalaryInDollars(int salaryInDollars) {
+    public void setSalaryInDollars(float salaryInDollars) {
         this.salaryInDollars = salaryInDollars;
     }
 
-    public float getExperienceInYears() {
-        return experienceInYears;
+    public String getCandidateState() {
+        return candidateState;
     }
 
-    public void setExperienceInYears(float experienceInYears) {
-        this.experienceInYears = experienceInYears;
+    public void setCandidateState(String candidateState) {
+        this.candidateState = candidateState;
     }
 
-    public String getPhone() {
-        return phone;
+    public List<Attachment> getAttachments() {
+        return attachments;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
-    public String getComment() {
-        return comment;
+    public List<Experience> getExperiences() {
+        return experiences;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setExperiences(List<Experience> experiences) {
+        this.experiences = experiences;
     }
 
-    public Status getStatus() {
-        return status;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public List<Skill> getCompetences() {
+        return competences;
+    }
+
+    public void setCompetences(List<Skill> competences) {
+        this.competences = competences;
+    }
+
+    public List<Vacancy> getPassedVacancies() {
+        return passedVacancies;
+    }
+
+    public void setPassedVacancies(List<Vacancy> passedVacancies) {
+        this.passedVacancies = passedVacancies;
+    }
+
+    public List<Interview> getInterviews() {
+        return interviews;
+    }
+
+    public void setInterviews(List<Interview> interviews) {
+        this.interviews = interviews;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Candidate candidate = (Candidate) o;
+        return Float.compare(candidate.salaryInDollars, salaryInDollars) == 0 &&
+                Objects.equals(name, candidate.name) &&
+                Objects.equals(surname, candidate.surname) &&
+                Objects.equals(birthday, candidate.birthday) &&
+                Objects.equals(candidateState, candidate.candidateState);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, birthday, salaryInDollars, candidateState);
     }
 
     @Override
     public String toString() {
         return "Candidate{" +
-                "email='" + email + '\'' +
-                ", photo='" + photo + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", birthday=" + birthday +
                 ", salaryInDollars=" + salaryInDollars +
-                ", experienceInYears=" + experienceInYears +
-                ", phone='" + phone + '\'' +
-                ", comment='" + comment + '\'' +
-                ", status=" + status +
+                ", candidateState='" + candidateState + '\'' +
                 '}';
-    }
-
-    public enum  Status {
-        REFUSED,
-        UNDER_CONSIDERATION,
-        SATISFIED,
-        INVITED_TO_INTERVIEW;
     }
 }
