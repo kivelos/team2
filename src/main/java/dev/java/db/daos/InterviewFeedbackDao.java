@@ -13,14 +13,14 @@ import java.util.List;
 public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     public InterviewFeedbackDao(Connection connection) {
         super(connection);
-        SQL_SELECT_SORTED_PAGE = "SELECT * FROM interview_feedback ORDER BY %s %s LIMIT ?, ?";
-        SQL_INSERT = "INSERT INTO interview_feedback " +
+        SQL_SELECT_SORTED_PAGE = "SELECT * FROM inteview_feedback ORDER BY %s %s LIMIT ?, ?";
+        SQL_INSERT = "INSERT INTO inteview_feedback " +
                 "(id_interview, id_interviewer, reason, feedback_state) " +
                 "VALUES (?, ?, ?, ?)";
-        SQL_UPDATE = "UPDATE interview_feedback " +
+        SQL_UPDATE = "UPDATE inteview_feedback " +
                 "SET id_interview=?, id_interviewer=?, reason=?, feedback_state=? " +
                 "WHERE id=?";
-        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM interview_feedback " +
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM inteview_feedback " +
                 "WHERE (id_interview=? OR ?='') AND (id_interviewer=? OR ?='') AND (reason=? OR ?='') AND (feedback_state=? OR ?='')";
     }
 

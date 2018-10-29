@@ -7,29 +7,29 @@
 </head>
 <body>
 <h1>Feedbacks List</h1>
-Filtering
-<form action="/feedbacks/filtering" method="post">
-    Position: <input type="text" name="position"><br>
-    Salary in dollars from: <input type="number" name="salary_in_dollars_from" step="0.01" min="0.00"><br>
-    Salary in dollars to: <input type="number" name="salary_in_dollars_to" step="0.01" min="0.00"><br>
-    State:
-    <select name="state">
-        <option value="">Choose state</option>
-        <c:forEach var="state" items="${states}">
-            <option value="${state.name}">${state.name}</option>
-        </c:forEach>
-    </select><br>
-    Experience In Years: <input type="number" name="experience_years_require" step="0.01" min="0.00"><br>
-    Developer:
-    <select name="developer">
-        <option value="">Choose developer</option>
-        <c:forEach var="user" items="${users_list}">
-            <option value="${user.id}">${user.surname} ${user.name}</option>
-        </c:forEach>
-    </select>
+<%--Filtering--%>
+<%--<form action="/feedbacks/filtering" method="post">--%>
+    <%--Position: <input type="text" name="position"><br>--%>
+    <%--Salary in dollars from: <input type="number" name="salary_in_dollars_from" step="0.01" min="0.00"><br>--%>
+    <%--Salary in dollars to: <input type="number" name="salary_in_dollars_to" step="0.01" min="0.00"><br>--%>
+    <%--State:--%>
+    <%--<select name="state">--%>
+        <%--<option value="">Choose state</option>--%>
+        <%--<c:forEach var="state" items="${states}">--%>
+            <%--<option value="${state.name}">${state.name}</option>--%>
+        <%--</c:forEach>--%>
+    <%--</select><br>--%>
+    <%--Experience In Years: <input type="number" name="experience_years_require" step="0.01" min="0.00"><br>--%>
+    <%--Developer:--%>
+    <%--<select name="developer">--%>
+        <%--<option value="">Choose developer</option>--%>
+        <%--<c:forEach var="user" items="${users_list}">--%>
+            <%--<option value="${user.id}">${user.surname} ${user.name}</option>--%>
+        <%--</c:forEach>--%>
+    <%--</select>--%>
 
-    <input type="submit" value="Submit">
-</form>
+    <%--<input type="submit" value="Submit">--%>
+<%--</form>--%>
 
 <table border="4">
     <tr>
@@ -60,29 +60,33 @@ Filtering
     </c:forEach>
 </table>
 
-Page ${page}
-<a href="/vacancies/page/${page - 1}">Previous</a>
-<a href="/vacancies/page/${page + 1}">Next</a>
+<%--Page ${page}--%>
+<%--<a href="/vacancies/page/${page - 1}">Previous</a>--%>
+<%--<a href="/vacancies/page/${page + 1}">Next</a>--%>
 
 <br><br>
-Add new vacancy<br>
-<form action="/vacancies" method="post">
-    Position: <input type="text" name="position"><br>
-    Salary in dollars from: <input type="number" name="salary_in_dollars_from" step="0.01" min="0.00"><br>
-    Salary in dollars to: <input type="number" name="salary_in_dollars_to" step="0.01" min="0.00"><br>
+Add new Interview Feedback<br>
+<form action="/feedbacks" method="post">
+    Interview:
+    <select name="interview">
+        <c:forEach var="interview" items="${interviews_list}">
+            <option value="${interview.id}">${interview.vacancy_text}</option>
+        </c:forEach>
+    </select>
+    Interviewer:
+    <select name="interviewer">
+        <c:forEach var="user" items="${users_list}">
+            <option value="${user.id}">${user.surname} ${user.name}</option>
+        </c:forEach>
+    </select>
+    Reason:
+    <input type="text" name="reason"><br>
     State:
     <select name="state">
         <c:forEach var="state" items="${states}">
             <option value="${state.name}">${state.name}</option>
         </c:forEach>
     </select><br>
-    Experience In Years: <input type="number" name="experience_years_require" step="0.01" min="0.00"><br>
-    Developer:
-    <select name="developer">
-        <c:forEach var="user" items="${users_list}">
-            <option value="${user.id}">${user.surname} ${user.name}</option>
-        </c:forEach>
-    </select>
     <input type="submit" value="Submit">
 </form>
 
