@@ -6,66 +6,85 @@
     <title>Interviews</title>
 </head>
 <body>
+<h1>Interviews List</h1>
 Filtering
 <form action="/interviews/filtering" method="post">
-    planDate: <input type="text" name="planDate"><br>
-    factDate: <input type="text" name="factDate"><br>
-    id_candidate: <input type="number" name="id_candidate"><br>
-    id_vacancy: <input type="number" name="id_vacancy"><br>
+    Plan date: <input type="datetime-local" name="plan_date"><br>
+    Fact date: <input type="datetime-local" name="fact_date"><br>
+    Candidate:
+    <select name="candidate">
+        <option value="">Choose candidate</option>
+        <c:forEach var="candidate" items="${candidates_list}">
+            <option value="${candidate.id}">${candidate.surname} ${candidate.name}</option>
+        </c:forEach>
+    </select><br>
+    Vacancy:
+    <select name="vacancy">
+        <option value="">Choose vacancy</option>
+        <c:forEach var="vacancy" items="${vacancies_list}">
+            <option value="${vacancy.id}">${vacancy.position}</option>
+        </c:forEach>
+    </select>
+
     <input type="submit" value="Submit">
 </form>
+
 <table border="4">
     <tr>
-        <td>№</td>
-        <td>planDate<br>
-            <a href="/interviews?sort=asc&field=plan_date">a</a>/
-            <a href="/interviews?sort=desc&field=plan_date">d</a>
+        <td>N</td>
+        <td>
+            Plan date<br>
+            <a href="/interviews?sort=asc&field=plan_date">sort asc</a><br>
+            <a href="/interviews?sort=desc&field=plan_date">sort desc</a>
         </td>
-        <td>factDate<br>
-            <a href="/interviews?sort=asc&field=fact_date">a</a>/
-            <a href="/interviews?sort=desc&field=fact_date">d</a>
+        <td>
+            Fact date<br>
+            <a href="/interviews?sort=asc&field=fact_date">sort asc</a><br>
+            <a href="/interviews?sort=desc&field=fact_date">sort desc</a>
         </td>
-        <td>id_candidate<br>
-            <a href="/interviews?sort=asc&field=id_candidate">a</a>/
-            <a href="/interviews?sort=desc&field=id_candidate">d</a>
+        <td>
+            Candidate<br>
         </td>
-        <td>candidate
-        </td>
-        <td>id_vacancy<br>
-            <a href="/interviews?sort=asc&field=id_vacancy">a</a>/
-            <a href="/interviews?sort=desc&field=id_vacancy">d</a>
-        </td>
-        <td>vacancy<br>
+        <td>
+            Vacancy<br>
         </td>
     </tr>
-    <c:forEach items="${interviews_list}" var="interview" varStatus="status">
+    <c:forEach var="interview" items="${interviews_list}" varStatus="status">
         <tr>
             <td>${status.count}</td>
             <td>${interview.planDate}</td>
             <td>${interview.factDate}</td>
-            <td>${interview.candidateId}</td>
-            <td>${interview.candidate_text}</td>
-            <td>${interview.vacancyId}</td>
-            <td>${interview.vacancy_text}</td>
+            <td><a href="/candidates/${interview.candidate.id}">${interview.candidate.surname} ${interview.candidate.name}</a></td>
+            <td><a href="/vacancies/${interview.vacancy.id}">${interview.vacancy.position}</a></td>
         </tr>
     </c:forEach>
 </table>
-<form action="/interviews/page/${page+1}" method="post">
-    <input type="submit" value="Next">
-</form>
-<form action="/interviews/page/${page-1}" method="post">
-    <input type="submit" value="Previous">
-</form>
 
-<br><br><br>
-Add new interview<br>
+Page ${page}
+<a href="/interviews/page/${page - 1}">Previous</a>
+<a href="/interviews/page/${page + 1}">Next</a>
+
+<br><br>
+Add new vacancy<br>
 <form action="/interviews" method="post">
-    planDate: <input type="text" name="planDate"><br>
-    factDate: <input type="text" name="factDate"><br>
-    id_candidate: <input type="number" name="id_candidate"><br>
-    id_vacancy: <input type="number" name="id_vacancy"><br>
+    Plan date: <input type="datetime-local" name="plan_date"><br>
+    Fact date: <input type="datetime-local" name="fact_date"><br>
+    Candidate:
+    <select name="candidate">
+        <c:forEach var="candidate" items="${candidates_list}">
+            <option value="${candidate.id}">${candidate.surname} ${candidate.name}</option>
+        </c:forEach>
+    </select><br>
+    Vacancy:
+    <select name="vacancy">
+        <c:forEach var="vacancy" items="${vacancies_list}">
+            <option value="${vacancy.id}">${vacancy.position}</option>
+        </c:forEach>
+    </select>
     <input type="submit" value="Submit">
 </form>
 
+${error}
+<a href="..">Homepage</a>
 </body>
 </html>
