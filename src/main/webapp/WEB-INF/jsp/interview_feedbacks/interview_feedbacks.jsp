@@ -51,8 +51,8 @@
     </tr>
     <c:forEach var="feedback" items="${feedbacks_list}" varStatus="status">
         <tr>
-            <td><a href="/feedbacks/${feedback.id}" ${status.count}</td>
-            <td>${feedback.interview.vacancy_text}</td>
+            <td><a href="/feedbacks/${feedback.id}">${status.count}</a> </td>
+            <td>${feedback.interview.toString()}</td>
             <td><a href="/users/${feedback.interviewer.id}">${feedback.interviewer.surname} ${feedback.interviewer.name}</a></td>
             <td>${feedback.reason}</td>
             <td>${feedback.feedbackState}</td>
@@ -70,7 +70,7 @@ Add new Interview Feedback<br>
     Interview:
     <select name="interview">
         <c:forEach var="interview" items="${interviews_list}">
-            <option value="${interview.id}">${interview.vacancy_text}</option>
+            <option value="${interview.id}">${interview.candidate.surname} - ${interview.vacancy.position}</option>
         </c:forEach>
     </select>
     Interviewer:
