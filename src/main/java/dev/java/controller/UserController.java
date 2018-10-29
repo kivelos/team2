@@ -81,11 +81,16 @@ public class UserController {
             String name = request.getParameter("name").trim();
             String password=request.getParameter("password").trim();
             String email=request.getParameter("email").trim();
+            User.State state;
+            if(request.getParameter("state").equals("ACTIVE"))
+                state= User.State.ACTIVE;
+            else
+                state= User.State.BLOCKED;
             UserDao userDao = new UserDao(connection);
             List<User> users = userDao.getSortedEntitiesPage(1,"email",true,3);
             modelAndView.addObject("users_list", users);
             if(isCorrectInputDates(surname,password,email,modelAndView)){
-                User user = new User(email, password, name, surname);
+                User user = new User(email, password, name, surname,state);
                 userDao.createEntity(user);
                 modelAndView.setViewName("redirect:" + "/users/" + user.getId());
             }
@@ -139,9 +144,8 @@ public class UserController {
                 state= User.State.BLOCKED;
             if(isCorrectInputDates(surname,password,email,modelAndView)) {
                 UserDao userDao = new UserDao(connection);
-                User user = new User(email, password, name, surname);
+                User user = new User(email, password, name, surname,state);
                 user.setId(id);
-                user.setState(state);
                 userDao.updateEntity(user);
             }
             return modelAndView;

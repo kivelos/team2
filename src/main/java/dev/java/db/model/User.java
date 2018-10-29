@@ -15,11 +15,12 @@ public class User extends Entity {
         super(id);
     }
 
-    public User(String email, String password, String name, String surname){
+    public User(String email, String password, String name, String surname,State state){
         this.email=email;
         this.surname=surname;
         this.name=name;
         this.password=password;
+        this.state=state;
     }
 
     public String getEmail() {
