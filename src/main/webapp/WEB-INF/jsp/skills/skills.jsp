@@ -27,34 +27,16 @@ Filtering
         </tr>
     </c:forEach>
 </table>
-<form action="/skills/page/${page+1}" method="post">
-    <input type="submit" value="Next">
-</form>
-<form action="/skills/page/${page-1}" method="post">
-    <input type="submit" value="Previous">
-</form>
-<<<<<<< HEAD
+Page ${page}
+<a href="/skills/page/${page - 1}">Previous</a>
+<a href="/skills/page/${page + 1}">Next</a>
 <br><br>
-=======
-<form>
-    <p><a href="/"><input type="button" value="FIRST PAGE"></a></p>
-</form>
-<br><br><br>
->>>>>>> 0bfd5f01c0977af70f7aa1acb16eab5b5c7eb4eb
 Add new skill<br>
 <form action="/skills" method="post">
     Name: <input type="text" name="name"><br>
     <input type="submit" value="Submit">
 </form>
-<<<<<<< HEAD
 ${mistake}
 <a href="..">Homepage</a>
 </body>
 </html>
-=======
-<c:if test="${mistake!=null}">
-    ${mistake} <br/>
-</c:if>
-</body>
-</html>
->>>>>>> 0bfd5f01c0977af70f7aa1acb16eab5b5c7eb4eb

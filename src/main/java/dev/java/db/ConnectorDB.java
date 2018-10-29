@@ -1,6 +1,7 @@
 package dev.java.db;
 
 import dev.java.db.daos.CandidateDao;
+import dev.java.db.daos.SkillDao;
 import dev.java.db.model.Candidate;
 
 
@@ -25,16 +26,9 @@ public class ConnectorDB {
         //list = candidateDao.getSortedEntitiesPage(1, "surname", 10);
         //System.out.println(list);
 
-        String SQL_INSERT = "INSERT INTO candidate " +
-                "(name, surname, birthday, salary_in_dollars, candidate_state) " +
-                "VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT);
-        preparedStatement.setString(1, "Kseniya");
-        preparedStatement.setString(2, "Piliak");
-        preparedStatement.setDate(3, Date.valueOf("2008-12-12"));
-        preparedStatement.setFloat(4, 200.00f);
-        preparedStatement.setString(5, null);
-        System.out.println(preparedStatement);
+        SkillDao skillDao = new SkillDao(connection);
+        System.out.println(skillDao.getSortedEntitiesPage(1, "name", true, 10));
+
     }
 }
 

@@ -13,6 +13,7 @@ import dev.java.Logging;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,7 +21,9 @@ import java.util.List;
 public class SkillController {
 
     private Logging logging = new Logging();
-    static boolean sortType = true;
+    private static boolean sortType = true;
+    private static String sortedField = "name";
+    private static int itemsInPage = 3;
 
     @RequestMapping(value = "/skills", method = RequestMethod.GET)
     public ModelAndView getAllSkills(HttpServletRequest request) {
@@ -34,29 +37,37 @@ public class SkillController {
             }
             List<Skill> skills = skillDao.getSortedEntitiesPage(1,"name",sortType,3);
             modelAndView.addObject("skills_list", skills);
+            modelAndView.addObject("page",1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return modelAndView;
     }
 
-    @RequestMapping(value = "/skills/page/{page:\\d+}", method = RequestMethod.POST)
+    @RequestMapping(value = "/skills/page/{page:\\d+}", method = RequestMethod.GET)
     public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("skills/skills");
+        ModelAndView modelAndView;
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
             SkillDao skillDao = new SkillDao(connection);
-            if(page==0)
-                page=1;
-            List<Skill> skills = skillDao.getSortedEntitiesPage(page,"name",sortType,3);
-            if(skills.isEmpty()&&page!=1) {
-                page--;
-                skills=skillDao.getSortedEntitiesPage(page,"name",sortType,3);
+            if (page == 0) {
+                page = 1;
+                modelAndView = new ModelAndView("redirect:/skills/page/" + page);
+                return modelAndView;
             }
+            List<Skill> skills = skillDao.getSortedEntitiesPage(page, sortedField, sortType, itemsInPage);
+            if(skills.isEmpty() && page != 1) {
+                page--;
+                modelAndView = new ModelAndView("redirect:/skills/page/" + page);
+                return modelAndView;
+                //candidates = candidateDao.getSortedEntitiesPage(page, sortedField,sortType, itemsInPage);
+            }
+            modelAndView = new ModelAndView("skills/skills");
             modelAndView.addObject("skills_list", skills);
-            modelAndView.addObject("page",page);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            modelAndView.addObject("page", page);
+        } catch (Exception e) {
+            logging.runMe(e);
+            modelAndView = new ModelAndView("errors/500");
         }
         return modelAndView;
     }
@@ -100,7 +111,7 @@ public class SkillController {
 
 
 
-    @RequestMapping(value = "/skills/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/skills/{name:\\w+}", method = RequestMethod.GET)
     public ModelAndView getSkill(@PathVariable String name, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("skills/skill");
         logging.runMe(request);
@@ -114,37 +125,38 @@ public class SkillController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/skills/{name}/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.GET)
     public ModelAndView editSkill(@PathVariable String name, HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = getSkill(name, request);
         modelAndView.setViewName("skills/skill_edit");
         return modelAndView;
     }
-    @RequestMapping(value = "/skills/{name}/edit", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.POST)
     public ModelAndView editSkill(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
-        ModelAndView modelAndView = new ModelAndView("redirect:" + "/skills/" + name);
+        ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
-            String nameReal = request.getParameter("name").trim();
-            if(isCorrectInputDates(nameReal,modelAndView)) {
-                SkillDao skillDao = new SkillDao(connection);
-                Skill skill = new Skill(nameReal);
-                skillDao.updateEntity(skill);
+            String replaceName = request.getParameter("name").trim();
+            if (replaceName.equals("")) {
+                throw new IllegalArgumentException("Field Name is empty");
             }
-            return modelAndView;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return modelAndView;
+            SkillDao skillDao = new SkillDao(connection);
+            skillDao.deleteEntity(new Skill(name));
+            skillDao.createEntity(new Skill(replaceName));
+            modelAndView = new ModelAndView("redirect:" + "/skills/" + replaceName);
+        } catch (IllegalArgumentException e) {
+            modelAndView = getSkill(name, request);
+            modelAndView.addObject("error", "Name must be filled");
         }
         catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return modelAndView;
+            logging.runMe(e);
+            modelAndView = new ModelAndView("errors/500");
         }
-
+        return modelAndView;
     }
+
     @RequestMapping(value = "/skills/filtering", method = RequestMethod.POST)
     public ModelAndView getFilteredEntities(HttpServletRequest request) {
         logging.runMe(request);

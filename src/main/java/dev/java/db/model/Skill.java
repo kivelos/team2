@@ -59,4 +59,11 @@ public class Skill extends Entity {
     public int hashCode() {
         return Objects.hash(name, correspondingVacancies, correspondingCandidates);
     }
+
+    @Override
+    public String toString() {
+        return "Skill{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

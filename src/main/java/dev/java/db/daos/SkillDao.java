@@ -10,6 +10,8 @@ import java.sql.SQLException;
 public class SkillDao extends AbstractDao<Skill> {
 
     private static String SQL_SELECT_BY_NAME = "SELECT * FROM skill AS s WHERE s.name=?";
+    //language=SQL
+    private static String SQL_DELETE = "DELETE FROM skill WHERE name=?";
 
     public SkillDao(Connection connection) {
         super(connection);
@@ -34,10 +36,15 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    public boolean updateEntity(Skill entity) throws SQLException {
-        try (PreparedStatement updatePrepareStatement = connection.prepareStatement(SQL_UPDATE)) {
-            setValuesForUpdateIntoPrepareStatement(updatePrepareStatement, entity);
-            return updatePrepareStatement.executeUpdate() > 0;
+    public boolean updateEntity(Skill entity) {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean deleteEntity(Skill entity) throws SQLException {
+        try (PreparedStatement insertPrepareStatement = connection.prepareStatement(SQL_DELETE)) {
+            setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
+            int status =  insertPrepareStatement.executeUpdate();
+            return status > 0;
         }
     }
 
