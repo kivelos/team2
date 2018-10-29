@@ -49,6 +49,9 @@
 <form method="get" action="/skills">
     <p><input type="submit" value="Skills"></p>
 </form>
+<form method="get" action="/interviews">
+    <p><input type="submit" value="Interviews"></p>
+</form>
 <footer><spring:message code="app.version"/> ${version}</footer>
 </body>
 </html>
