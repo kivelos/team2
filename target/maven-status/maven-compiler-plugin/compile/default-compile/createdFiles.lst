@@ -18,6 +18,7 @@ dev\java\db\daos\CandidateStateDao.class
 dev\java\controller\HelloController.class
 dev\java\db\model\experiences\Experience.class
 dev\java\db\model\VacancyState.class
+dev\java\db\daos\FeedbackStateDao.class
 dev\java\db\daos\InterviewDao.class
 dev\java\controller\UserController.class
 dev\java\controller\InterviewController.class
@@ -29,6 +30,8 @@ dev\java\db\daos\InterviewFeedbackDao.class
 dev\java\db\model\Candidate.class
 dev\java\db\model\attachments\AttachmentType.class
 dev\java\db\model\Interview.class
+dev\java\db\model\FeedbackState.class
 dev\java\db\model\User.class
 dev\java\db\model\InterviewFeedback.class
+dev\java\controller\InterviewFeedbackController.class
 dev\java\db\model\CandidateState.class

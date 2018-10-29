@@ -3,7 +3,6 @@ package dev.java.controller;
 import dev.java.Logging;
 import dev.java.db.ConnectorDB;
 import dev.java.db.daos.CandidateDao;
-import dev.java.db.daos.CandidateStateDao;
 import dev.java.db.daos.InterviewDao;
 import dev.java.db.daos.VacancyDao;
 import dev.java.db.model.Candidate;
@@ -16,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -30,7 +28,7 @@ public class InterviewController {
     private static int itemsInPage = 3;
 
     @RequestMapping(value = "/interviews", method = RequestMethod.GET)
-    public ModelAndView getAllVacancies(HttpServletRequest request) {
+    public ModelAndView getAllInterviews(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -94,60 +92,52 @@ public class InterviewController {
         return modelAndView;
     }
 
-    /*@RequestMapping(value = "/vacancies", method = RequestMethod.POST)
-    public ModelAndView addCandidate(HttpServletRequest request) {
+    @RequestMapping(value = "/interviews", method = RequestMethod.POST)
+    public ModelAndView addVacancy(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
-            String position = request.getParameter("position");
-            position = position == null ? "" : position.trim();
-            if (position.equals("")) {
-                throw new IllegalArgumentException("Field Position is empty");
-            }
-            float salaryInDollarsFrom;
+            Timestamp planDate;
             try {
-                salaryInDollarsFrom= Float.parseFloat(request.getParameter("salary_in_dollars_from"));
+                String datetime = request.getParameter("plan_date");
+                datetime = datetime.replace('T', ' ') + ":00";
+                planDate = Timestamp.valueOf(datetime);
+            }
+            catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Field Plan_date is empty");
+            }
+            Timestamp factDate;
+            try {
+                String datetime = request.getParameter("fact_date");
+                datetime = datetime.replace('T', ' ') + ":00";
+                factDate = Timestamp.valueOf(datetime);
+            }
+            catch (IllegalArgumentException e) {
+                factDate = null;
+            }
+            Candidate candidate;
+            try {
+                long idCandidate = Long.parseLong(request.getParameter("candidate"));
+                candidate = new Candidate(idCandidate);
             }
             catch (NumberFormatException | NullPointerException e) {
-                salaryInDollarsFrom = 0;
+                throw new IllegalArgumentException("Field candidate is empty");
             }
-            float salaryInDollarsTo;
+            Vacancy vacancy;
             try {
-                salaryInDollarsTo= Float.parseFloat(request.getParameter("salary_in_dollars_to"));
+                long idVacancy = Long.parseLong(request.getParameter("vacancy"));
+                vacancy = new Vacancy(idVacancy);
             }
             catch (NumberFormatException | NullPointerException e) {
-                salaryInDollarsTo = 0;
+                throw new IllegalArgumentException("Field candidate is empty");
             }
-            VacancyState vacancyState;
-            try {
-                vacancyState = VacancyState.valueOf(request.getParameter("state"));
-            }
-            catch (IllegalArgumentException | NullPointerException e) {
-                throw new IllegalArgumentException("Field State is empty");
-            }
-            float experienceYearsRequire;
-            try {
-                experienceYearsRequire= Float.parseFloat(request.getParameter("experience_years_require"));
-            }
-            catch (NumberFormatException | NullPointerException e) {
-                experienceYearsRequire = 0;
-            }
-            User developer;
-            try {
-                long idUser = Long.parseLong(request.getParameter("developer"));
-                developer = new User(idUser);
-            }
-            catch (NumberFormatException | NullPointerException e) {
-                throw new IllegalArgumentException("Field State is empty");
-            }
-            VacancyDao vacancyDao = new VacancyDao(connection);
-            Vacancy vacancy = new Vacancy(position, salaryInDollarsFrom, salaryInDollarsTo,
-                    vacancyState, experienceYearsRequire, developer);
-            vacancyDao.createEntity(vacancy);
-            modelAndView = new ModelAndView("redirect:" + "/vacancies/" + vacancy.getId());
+            InterviewDao interviewDao = new InterviewDao(connection);
+            Interview interview = new Interview(candidate, vacancy, planDate, factDate);
+            interviewDao.createEntity(interview);
+            modelAndView = new ModelAndView("redirect:" + "/interviews/" + interview.getId());
         }
         catch (IllegalArgumentException e) {
-            modelAndView = getAllVacancies(request);
+            modelAndView = getAllInterviews(request);
             modelAndView.addObject("error", e.getMessage());
         }
         catch (Exception e) {
@@ -157,10 +147,10 @@ public class InterviewController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/vacancies/{id:\\d+}/edit", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/vacancies/{id:\\d+}/edit", method = RequestMethod.GET)
     public ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request) {
         logging.runMe(request);
-        ModelAndView modelAndView = getCandidate(id, request);
+        ModelAndView modelAndView = getInterview(id, request);
         try (Connection connection = ConnectorDB.getConnection()) {
             UserDao userDao = new UserDao(connection);
             List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
@@ -231,7 +221,7 @@ public class InterviewController {
             vacancyDao.updateEntity(vacancy);
             modelAndView = new ModelAndView("redirect:" + "/vacancies/" + id);
         } catch (IllegalArgumentException e) {
-            modelAndView = getCandidate(id, request);
+            modelAndView = getInterview(id, request);
             modelAndView.addObject("error", "Name must be filled");
         }
         catch (Exception e) {
@@ -239,19 +229,22 @@ public class InterviewController {
             modelAndView = new ModelAndView("errors/500");
         }
         return modelAndView;
-    }
+    }*/
 
-    @RequestMapping(value = "/vacancies/{id:\\d+}", method = RequestMethod.GET)
-    public ModelAndView getCandidate(@PathVariable long id, HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("vacancies/vacancy");
+    @RequestMapping(value = "/interviews/{id:\\d+}", method = RequestMethod.GET)
+    public ModelAndView getInterview(@PathVariable long id, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("interviews/interview");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
+            InterviewDao interviewDao = new InterviewDao(connection);
+            Interview interview = interviewDao.getEntityById(id);
+            CandidateDao candidateDao = new CandidateDao(connection);
+            Candidate candidate = candidateDao.getEntityById(interview.getCandidate().getId());
+            interview.setCandidate(candidate);
             VacancyDao vacancyDao = new VacancyDao(connection);
-            Vacancy vacancy = vacancyDao.getEntityById(id);
-            UserDao userDao = new UserDao(connection);
-            User user = userDao.getEntityById(vacancy.getDeveloper().getId());
-            vacancy.setDeveloper(user);
-            modelAndView.addObject("vacancy", vacancy);
+            Vacancy vacancy = vacancyDao.getEntityById(interview.getVacancy().getId());
+            interview.setVacancy(vacancy);
+            modelAndView.addObject("interview", interview);
         } catch (Exception e) {
             logging.runMe(e);
             modelAndView = new ModelAndView("errors/500");
@@ -259,7 +252,7 @@ public class InterviewController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/vacancies/filtering", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/vacancies/filtering", method = RequestMethod.POST)
     public ModelAndView getFilteredEntities(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("vacancies/vacancies");

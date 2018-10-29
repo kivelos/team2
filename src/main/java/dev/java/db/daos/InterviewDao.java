@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class InterviewDao extends AbstractDao<Interview> {
-    private static String SQL_SELECT_BY_ID = "SELECT * FROM user AS c WHERE c.id=?";
+    private static String SQL_SELECT_BY_ID = "SELECT * FROM interview AS c WHERE c.id=?";
 
     public InterviewDao(Connection connection) {
         super(connection);
@@ -47,8 +47,8 @@ public class InterviewDao extends AbstractDao<Interview> {
         interview.setId(entityTableRow.getLong("id"));
         interview.setCandidate(new Candidate(entityTableRow.getLong("id_candidate")));
         interview.setVacancy(new Vacancy(entityTableRow.getLong("id_vacancy")));
-        interview.setPlanDate(entityTableRow.getDate("plan_date"));
-        interview.setFactDate(entityTableRow.getDate("fact_date"));
+        interview.setPlanDate(entityTableRow.getTimestamp("plan_date"));
+        interview.setFactDate(entityTableRow.getTimestamp("fact_date"));
         return interview;
     }
 
@@ -57,8 +57,8 @@ public class InterviewDao extends AbstractDao<Interview> {
             throws SQLException {
         prepareStatement.setLong(1, entity.getCandidate().getId());
         prepareStatement.setLong(2, entity.getVacancy().getId());
-        prepareStatement.setDate(3, entity.getPlanDate(), Calendar.getInstance());
-        prepareStatement.setDate(4, entity.getFactDate(), Calendar.getInstance());
+        prepareStatement.setTimestamp(3, entity.getPlanDate(), Calendar.getInstance());
+        prepareStatement.setTimestamp(4, entity.getFactDate(), Calendar.getInstance());
 
     }
 

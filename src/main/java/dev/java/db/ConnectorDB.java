@@ -1,9 +1,11 @@
 package dev.java.db;
 
 import dev.java.db.daos.CandidateDao;
+import dev.java.db.daos.InterviewDao;
 import dev.java.db.daos.SkillDao;
 import dev.java.db.daos.UserDao;
 import dev.java.db.model.Candidate;
+import dev.java.db.model.Interview;
 
 
 import java.sql.*;
@@ -22,8 +24,10 @@ public class ConnectorDB {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = getConnection();
-        UserDao userDao = new UserDao(connection);
-        System.out.println(userDao.getSortedEntitiesPage(1, "surname", true, 100));
+        InterviewDao interviewDao = new InterviewDao(connection);
+        Interview interview = interviewDao.getEntityById(4);
+        System.out.println(interview);
+
 
     }
 }

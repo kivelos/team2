@@ -146,7 +146,7 @@ public class InterviewFeedbackController {
 //    @RequestMapping(value = "/vacancies/{id:\\d+}/edit", method = RequestMethod.GET)
 //    public ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request) {
 //        logging.runMe(request);
-//        ModelAndView modelAndView = getCandidate(id, request);
+//        ModelAndView modelAndView = getInterview(id, request);
 //        try (Connection connection = ConnectorDB.getConnection()) {
 //            UserDao userDao = new UserDao(connection);
 //            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
@@ -217,7 +217,7 @@ public class InterviewFeedbackController {
 //            vacancyDao.updateEntity(vacancy);
 //            modelAndView = new ModelAndView("redirect:" + "/vacancies/" + id);
 //        } catch (IllegalArgumentException e) {
-//            modelAndView = getCandidate(id, request);
+//            modelAndView = getInterview(id, request);
 //            modelAndView.addObject("error", "Name must be filled");
 //        }
 //        catch (Exception e) {
@@ -228,7 +228,7 @@ public class InterviewFeedbackController {
 //    }
 
 //    @RequestMapping(value = "/vacancies/{id:\\d+}", method = RequestMethod.GET)
-//    public ModelAndView getCandidate(@PathVariable long id, HttpServletRequest request) {
+//    public ModelAndView getInterview(@PathVariable long id, HttpServletRequest request) {
 //        ModelAndView modelAndView = new ModelAndView("vacancies/vacancy");
 //        logging.runMe(request);
 //        try (Connection connection = ConnectorDB.getConnection()) {

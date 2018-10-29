@@ -52,7 +52,7 @@ Filtering
     <c:forEach var="interview" items="${interviews_list}" varStatus="status">
         <tr>
             <td>${status.count}</td>
-            <td>${interview.planDate}</td>
+            <td><a href="/interviews/${interview.id}">${interview.planDate}</a></td>
             <td>${interview.factDate}</td>
             <td><a href="/candidates/${interview.candidate.id}">${interview.candidate.surname} ${interview.candidate.name}</a></td>
             <td><a href="/vacancies/${interview.vacancy.id}">${interview.vacancy.position}</a></td>

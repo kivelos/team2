@@ -1,13 +1,14 @@
 package dev.java.db.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Interview extends Entity {
     private Candidate candidate;
     private Vacancy vacancy;
-    private Date planDate;
-    private Date factDate;
+    private Timestamp planDate;
+    private Timestamp factDate;
 
 
     public Interview() {
@@ -17,7 +18,7 @@ public class Interview extends Entity {
         super(id);
     }
 
-    public Interview(Candidate candidate, Vacancy vacancy, Date planDate, Date factDate) {
+    public Interview(Candidate candidate, Vacancy vacancy, Timestamp planDate, Timestamp factDate) {
         this.candidate = candidate;
         this.vacancy = vacancy;
         this.planDate = planDate;
@@ -40,19 +41,19 @@ public class Interview extends Entity {
         this.vacancy = vacancy;
     }
 
-    public Date getPlanDate() {
+    public Timestamp getPlanDate() {
         return planDate;
     }
 
-    public void setPlanDate(Date planDate) {
+    public void setPlanDate(Timestamp planDate) {
         this.planDate = planDate;
     }
 
-    public Date getFactDate() {
+    public Timestamp getFactDate() {
         return factDate;
     }
 
-    public void setFactDate(Date factDate) {
+    public void setFactDate(Timestamp factDate) {
         this.factDate = factDate;
     }
 
