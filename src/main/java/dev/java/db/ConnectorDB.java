@@ -2,6 +2,7 @@ package dev.java.db;
 
 import dev.java.db.daos.CandidateDao;
 import dev.java.db.daos.SkillDao;
+import dev.java.db.daos.UserDao;
 import dev.java.db.model.Candidate;
 
 
@@ -21,13 +22,8 @@ public class ConnectorDB {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = getConnection();
-        //CandidateDao candidateDao = new CandidateDao(connection);
-        //List<Candidate> list = candidateDao.getFilteredEntitiesPage();
-        //list = candidateDao.getSortedEntitiesPage(1, "surname", 10);
-        //System.out.println(list);
-
-        SkillDao skillDao = new SkillDao(connection);
-        System.out.println(skillDao.getSortedEntitiesPage(1, "name", true, 10));
+        UserDao userDao = new UserDao(connection);
+        System.out.println(userDao.getSortedEntitiesPage(1, "surname", true, 100));
 
     }
 }

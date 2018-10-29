@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     public InterviewFeedbackDao(Connection connection) {
@@ -21,6 +22,20 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
                 "WHERE id=?";
         SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM interview_feedback " +
                 "WHERE (id_interview=? OR ?='') AND (id_interviewer=? OR ?='') AND (reason=? OR ?='') AND (feedback_state=? OR ?='')";
+    }
+
+    @Override
+    public List<InterviewFeedback> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+        List<InterviewFeedback> interviewFeedbacks = super.getSortedEntitiesPage(pageNumber, sortedField, order, itemsNumberInPage);
+        InterviewDao interviewDao = new InterviewDao(connection);
+        for (InterviewFeedback feedback: interviewFeedbacks) {
+            feedback.setInterview(interviewDao.getEntityById(feedback.getInterview().getId()));
+        }
+        UserDao userDao = new UserDao(connection);
+        for (InterviewFeedback feedback: interviewFeedbacks) {
+            feedback.setInterviewer(userDao.getEntityById(feedback.getInterviewer().getId()));
+        }
+        return interviewFeedbacks;
     }
 
     @Override
