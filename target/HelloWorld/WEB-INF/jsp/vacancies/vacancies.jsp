@@ -59,6 +59,9 @@ Filtering
             <a href="/vacancies?sort=asc&field=experience_years_require">sort asc</a><br>
             <a href="/vacancies?sort=desc&field=experience_years_require">sort desc</a>
         </td>
+        <td>
+            Developer
+        </td>
     </tr>
     <c:forEach var="vacancy" items="${vacancies_list}" varStatus="status">
         <tr>
@@ -68,6 +71,7 @@ Filtering
             <td>${vacancy.salaryInDollarsTo}</td>
             <td>${vacancy.vacancyState}</td>
             <td>${vacancy.experienceYearsRequire}</td>
+            <td><a href="/users/${vacancy.developer.id}">${vacancy.developer.surname} ${vacancy.developer.name}</a></td>
         </tr>
     </c:forEach>
 </table>

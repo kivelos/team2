@@ -24,7 +24,7 @@
         <p>${vacancy.salaryInDollarsTo}</p>
         <p>${vacancy.vacancyState}</p>
         <p>${vacancy.experienceYearsRequire} years</p>
-        <p>${vacancy.developer.surname} ${vacancy.developer.name}</p>
+        <p><a href="/users/${vacancy.developer.id}">${vacancy.developer.surname} ${vacancy.developer.name}</a></p>
     </div>
 
     <div>

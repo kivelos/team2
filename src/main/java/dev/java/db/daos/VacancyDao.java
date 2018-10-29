@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class VacancyDao extends AbstractDao<Vacancy> {
 
@@ -29,13 +30,14 @@ public class VacancyDao extends AbstractDao<Vacancy> {
                 "AND (vacancy_state=? OR ?='') AND (experience_years_require=? OR ?='') AND (id_developer=? OR ?='')";
     }
 
-
     @Override
-    public boolean updateEntity(Vacancy entity) throws SQLException {
-        try (PreparedStatement updatePrepareStatement = connection.prepareStatement(SQL_UPDATE)) {
-            setValuesForUpdateIntoPrepareStatement(updatePrepareStatement, entity);
-            return updatePrepareStatement.executeUpdate() > 0;
+    public List<Vacancy> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+        List<Vacancy> vacancies = super.getSortedEntitiesPage(pageNumber, sortedField, order, itemsNumberInPage);
+        UserDao userDao = new UserDao(connection);
+        for (Vacancy vacancy: vacancies) {
+            vacancy.setDeveloper(userDao.getEntityById(vacancy.getDeveloper().getId()));
         }
+        return vacancies;
     }
 
     public Vacancy getEntityById(long id) throws SQLException {
