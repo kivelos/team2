@@ -130,7 +130,7 @@ public class InterviewFeedbackController {
             InterviewFeedbackDao interviewFeedbackDao=new InterviewFeedbackDao(connection);
             InterviewFeedback interviewFeedback=new InterviewFeedback(interview,developer,reason,state);
             interviewFeedbackDao.createEntity(interviewFeedback);
-            modelAndView = new ModelAndView("redirect:" + "/feedbacks/" + interviewFeedback.getInterview().getId());
+            modelAndView = new ModelAndView("redirect:" + "/feedbacks/" + interviewFeedback.getId());
         }
         catch (IllegalArgumentException e) {
             modelAndView = getAllFeedbacks(request);
@@ -142,29 +142,33 @@ public class InterviewFeedbackController {
         }
         return modelAndView;
     }
+
+    @RequestMapping(value = "/feedbacks/{id:\\d+}/edit", method = RequestMethod.GET)
+    public ModelAndView editInterviewFeedback(@PathVariable long id, HttpServletRequest request) {
+        logging.runMe(request);
+        ModelAndView modelAndView = getFeedback(id, request);
+        try (Connection connection = ConnectorDB.getConnection()) {
+            InterviewDao interviewDao=new InterviewDao(connection);
+            List<Interview> allInterviews=interviewDao.getSortedEntitiesPage(1,"plan_date",true,100);
+            UserDao interviewers=new UserDao(connection);
+            List<User> allDevelopers=interviewers.getSortedEntitiesPage(1,"surname",true,100);
+            FeedbackStateDao feedbackStateDao=new FeedbackStateDao(connection);
+            List<FeedbackState> allstates=feedbackStateDao.getSortedEntitiesPage();
+            modelAndView.addObject("all_interviews", allInterviews);
+            modelAndView.addObject("all_developers", allDevelopers);
+            modelAndView.addObject("all_states", allstates);
+            modelAndView.setViewName("interview_feedbacks/interview_feedback_edit");
+        }
+        catch (Exception e) {
+            logging.runMe(e);
+            modelAndView.setViewName("errors/500");
+        }
+
+        return modelAndView;
+    }
 //
-//    @RequestMapping(value = "/vacancies/{id:\\d+}/edit", method = RequestMethod.GET)
-//    public ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request) {
-//        logging.runMe(request);
-//        ModelAndView modelAndView = getInterview(id, request);
-//        try (Connection connection = ConnectorDB.getConnection()) {
-//            UserDao userDao = new UserDao(connection);
-//            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
-//            VacancyState[] vacancyStates = VacancyState.values();
-//            modelAndView.addObject("states", vacancyStates);
-//            modelAndView.addObject("users", allUsers);
-//            modelAndView.setViewName("vacancies/vacancy_edit");
-//        }
-//        catch (Exception e) {
-//            logging.runMe(e);
-//            modelAndView.setViewName("errors/500");
-//        }
-//
-//        return modelAndView;
-//    }
-//
-//    @RequestMapping(value = "/vacancies/{id:\\d+}/edit", method = RequestMethod.POST)
-//    public ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+//    @RequestMapping(value = "/feedbacks/{id:\\d+}/edit", method = RequestMethod.POST)
+//    public ModelAndView editInterviewFee(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
 //        logging.runMe(request);
 //        ModelAndView modelAndView;
 //        try (Connection connection = ConnectorDB.getConnection()) {

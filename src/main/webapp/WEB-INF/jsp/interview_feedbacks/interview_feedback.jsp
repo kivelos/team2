@@ -26,7 +26,7 @@
     </div>
 
     <div id="s">
-        <%--<a href="/candidates/${candidate.id}/edit">Edit Interview Feedback</a>--%>
+        <a href="/feedbacks/${interview_feedback.id}/edit">Edit Interview Feedback</a>
         <a href="/feedbacks">Interview Feedback List</a>
     </div>
 </div>
