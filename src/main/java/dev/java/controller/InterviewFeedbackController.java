@@ -227,23 +227,20 @@ public class InterviewFeedbackController {
 //        return modelAndView;
 //    }
 
-//    @RequestMapping(value = "/vacancies/{id:\\d+}", method = RequestMethod.GET)
-//    public ModelAndView getInterview(@PathVariable long id, HttpServletRequest request) {
-//        ModelAndView modelAndView = new ModelAndView("vacancies/vacancy");
-//        logging.runMe(request);
-//        try (Connection connection = ConnectorDB.getConnection()) {
-//            VacancyDao vacancyDao = new VacancyDao(connection);
-//            Vacancy vacancy = vacancyDao.getEntityById(id);
-//            UserDao userDao = new UserDao(connection);
-//            User user = userDao.getEntityById(vacancy.getDeveloper().getId());
-//            vacancy.setDeveloper(user);
-//            modelAndView.addObject("vacancy", vacancy);
-//        } catch (Exception e) {
-//            logging.runMe(e);
-//            modelAndView = new ModelAndView("errors/500");
-//        }
-//        return modelAndView;
-//    }
+    @RequestMapping(value = "/feedbacks/{id:\\d+}", method = RequestMethod.GET)
+    public ModelAndView getFeedback(@PathVariable long id, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("interview_feedbacks/interview_feedback");
+        logging.runMe(request);
+        try (Connection connection = ConnectorDB.getConnection()) {
+            InterviewFeedbackDao interviewFeedbackDao=new InterviewFeedbackDao(connection);
+            InterviewFeedback interviewFeedback=interviewFeedbackDao.getEntityById(id);
+            modelAndView.addObject("interview_feedback", interviewFeedback);
+        } catch (Exception e) {
+            logging.runMe(e);
+            modelAndView = new ModelAndView("errors/500");
+        }
+        return modelAndView;
+    }
 
 //    @RequestMapping(value = "/vacancies/filtering", method = RequestMethod.POST)
 //    public ModelAndView getFilteredEntities(HttpServletRequest request) {

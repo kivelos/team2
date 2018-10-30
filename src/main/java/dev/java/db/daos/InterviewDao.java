@@ -45,8 +45,10 @@ public class InterviewDao extends AbstractDao<Interview> {
     protected Interview setEntityFields(ResultSet entityTableRow) throws SQLException {
         Interview interview = new Interview();
         interview.setId(entityTableRow.getLong("id"));
-        interview.setCandidate(new Candidate(entityTableRow.getLong("id_candidate")));
-        interview.setVacancy(new Vacancy(entityTableRow.getLong("id_vacancy")));
+        CandidateDao candidateDao=new CandidateDao(connection);
+        interview.setCandidate(candidateDao.getEntityById(entityTableRow.getLong("id_candidate")));
+        VacancyDao vacancyDao=new VacancyDao(connection);
+        interview.setVacancy(vacancyDao.getEntityById(entityTableRow.getLong("id_vacancy")));
         interview.setPlanDate(entityTableRow.getTimestamp("plan_date"));
         interview.setFactDate(entityTableRow.getTimestamp("fact_date"));
         return interview;

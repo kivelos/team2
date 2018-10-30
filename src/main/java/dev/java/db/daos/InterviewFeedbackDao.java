@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
+    private static String SQL_SELECT_BY_ID = "SELECT * FROM inteview_feedback AS c WHERE c.id=?";
+
     public InterviewFeedbackDao(Connection connection) {
         super(connection);
         SQL_SELECT_SORTED_PAGE = "SELECT * FROM inteview_feedback ORDER BY %s %s LIMIT ?, ?";
@@ -42,8 +44,10 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     protected InterviewFeedback setEntityFields(ResultSet entityTableRow) throws SQLException {
         InterviewFeedback interviewFeedback = new InterviewFeedback();
         interviewFeedback.setId(entityTableRow.getLong("id"));
-        interviewFeedback.setInterview(new Interview(entityTableRow.getLong("id_interview")));
-        interviewFeedback.setInterviewer(new User(entityTableRow.getLong("id_interviewer")));
+        InterviewDao interviewDao=new InterviewDao(connection);
+        interviewFeedback.setInterview(interviewDao.getEntityById(entityTableRow.getLong("id_interview")));
+        UserDao userDao=new UserDao(connection);
+        interviewFeedback.setInterviewer(userDao.getEntityById(entityTableRow.getLong("id_interviewer")));
         interviewFeedback.setReason(entityTableRow.getString("reason"));
         interviewFeedback.setFeedbackState(entityTableRow.getString("feedback_state"));
         return interviewFeedback;
@@ -64,5 +68,18 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
             throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(5, entity.getId());
+    }
+
+    public InterviewFeedback getEntityById(long id) throws SQLException {
+        try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
+            getByIdPrepareStatement.setLong(1, id);
+            ResultSet entity = getByIdPrepareStatement.executeQuery();
+            if (entity.next()) {
+                InterviewFeedback interviewFeedback= setEntityFields(entity);
+                entity.close();
+                return interviewFeedback;
+            }
+            return null;
+        }
     }
 }

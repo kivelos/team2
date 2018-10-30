@@ -52,7 +52,7 @@
     <c:forEach var="feedback" items="${feedbacks_list}" varStatus="status">
         <tr>
             <td><a href="/feedbacks/${feedback.id}">${status.count}</a> </td>
-            <td>${feedback.interview.toString()}</td>
+            <td>${feedback.interview.candidate.surname} ${feedback.interview.vacancy.position}</td>
             <td><a href="/users/${feedback.interviewer.id}">${feedback.interviewer.surname} ${feedback.interviewer.name}</a></td>
             <td>${feedback.reason}</td>
             <td>${feedback.feedbackState}</td>
