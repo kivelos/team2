@@ -75,6 +75,7 @@ public class VacancyController {
             }
             UserDao userDao = new UserDao(connection);
             List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
+
             VacancyState[] vacanciesStates = VacancyState.values();
             modelAndView = new ModelAndView("vacancies/vacancies");
             modelAndView.addObject("vacancies_list", vacancies);
@@ -268,6 +269,8 @@ public class VacancyController {
             System.out.println(developerId);
             List<Vacancy> vacancies = vacancyDao.getFilteredEntitiesPage(position, salaryInDollarsFrom,
                     salaryInDollarsTo, vacancyState, experienceYearsRequire, developerId);
+
+
             VacancyState[] vacancyStates = VacancyState.values();
             UserDao userDao = new UserDao(connection);
             List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);

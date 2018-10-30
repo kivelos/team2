@@ -26,7 +26,7 @@ public class InterviewFeedbackController {
     private Logging logging = new Logging();
     private static boolean sortType = true;
     private static String sortedField = "id";
-    private static int itemsInPage = 3;
+    private static int itemsInPage = 10;
 
     @RequestMapping(value = "/feedbacks", method = RequestMethod.GET)
     public ModelAndView getAllFeedbacks(HttpServletRequest request) {
@@ -166,70 +166,53 @@ public class InterviewFeedbackController {
 
         return modelAndView;
     }
-//
-//    @RequestMapping(value = "/feedbacks/{id:\\d+}/edit", method = RequestMethod.POST)
-//    public ModelAndView editInterviewFee(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
-//        logging.runMe(request);
-//        ModelAndView modelAndView;
-//        try (Connection connection = ConnectorDB.getConnection()) {
-//            String position = request.getParameter("position");
-//            position = position == null ? "" : position.trim();
-//            if (position.equals("")) {
-//                throw new IllegalArgumentException("Field Position is empty");
-//            }
-//            float salaryInDollarsFrom;
-//            try {
-//                salaryInDollarsFrom= Float.parseFloat(request.getParameter("salary_in_dollars_from"));
-//            }
-//            catch (NumberFormatException | NullPointerException e) {
-//                salaryInDollarsFrom = 0;
-//            }
-//            float salaryInDollarsTo;
-//            try {
-//                salaryInDollarsTo= Float.parseFloat(request.getParameter("salary_in_dollars_to"));
-//            }
-//            catch (NumberFormatException | NullPointerException e) {
-//                salaryInDollarsTo = 0;
-//            }
-//            VacancyState vacancyState;
-//            try {
-//                vacancyState = VacancyState.valueOf(request.getParameter("state"));
-//            }
-//            catch (IllegalArgumentException | NullPointerException e) {
-//                throw new IllegalArgumentException("Field State is empty");
-//            }
-//            float experienceYearsRequire;
-//            try {
-//                experienceYearsRequire= Float.parseFloat(request.getParameter("experience_years_require"));
-//            }
-//            catch (NumberFormatException | NullPointerException e) {
-//                experienceYearsRequire = 0;
-//            }
-//
-//            User developer;
-//            try {
-//                long idUser = Long.parseLong(request.getParameter("developer"));
-//                developer = new User(idUser);
-//            }
-//            catch (NumberFormatException | NullPointerException e) {
-//                throw new IllegalArgumentException("Field State is empty");
-//            }
-//            VacancyDao vacancyDao = new VacancyDao(connection);
-//            Vacancy vacancy = new Vacancy(position, salaryInDollarsFrom, salaryInDollarsTo,
-//                    vacancyState, experienceYearsRequire, developer);
-//            vacancy.setId(id);
-//            vacancyDao.updateEntity(vacancy);
-//            modelAndView = new ModelAndView("redirect:" + "/vacancies/" + id);
-//        } catch (IllegalArgumentException e) {
-//            modelAndView = getInterview(id, request);
-//            modelAndView.addObject("error", "Name must be filled");
-//        }
-//        catch (Exception e) {
-//            logging.runMe(e);
-//            modelAndView = new ModelAndView("errors/500");
-//        }
-//        return modelAndView;
-//    }
+
+    @RequestMapping(value = "/feedbacks/{id:\\d+}/edit", method = RequestMethod.POST)
+    public ModelAndView editInterviewFee(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+        logging.runMe(request);
+        ModelAndView modelAndView;
+        try (Connection connection = ConnectorDB.getConnection()) {
+            String reason = request.getParameter("reason");
+            reason = reason == null ? "" : reason.trim();
+            if (reason.equals("")) {
+                throw new IllegalArgumentException("Field reason is empty");
+            }
+            User developer;
+            try {
+                long idUser = Long.parseLong(request.getParameter("developer"));
+                developer = new User(idUser);
+            }
+            catch (NumberFormatException | NullPointerException e) {
+                throw new IllegalArgumentException("Field interviewer is empty");
+            }
+            Interview interview;
+            try {
+                long idInterview = Long.parseLong(request.getParameter("interview"));
+                interview = new Interview(idInterview);
+            }
+            catch (NumberFormatException | NullPointerException e) {
+                throw new IllegalArgumentException("Field interview is empty");
+            }
+            String state = request.getParameter("state");
+            state = state == null ? "" : state.trim();
+            if (state.equals("")) {
+                throw new IllegalArgumentException("Field state is empty");
+            }
+            InterviewFeedbackDao interviewFeedbackDao=new InterviewFeedbackDao(connection);
+            InterviewFeedback interviewFeedback=new InterviewFeedback(interview,developer,reason,state);
+            interviewFeedback.setId(id);
+            interviewFeedbackDao.updateEntity(interviewFeedback);
+            modelAndView = new ModelAndView("redirect:" + "/feedbacks/" + id);
+        } catch (IllegalArgumentException e) {
+            modelAndView = getFeedback(id, request);
+            modelAndView.addObject("error", "Name must be filled");
+        }
+        catch (Exception e) {
+            logging.runMe(e);
+            modelAndView = new ModelAndView("errors/500");
+        }
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/feedbacks/{id:\\d+}", method = RequestMethod.GET)
     public ModelAndView getFeedback(@PathVariable long id, HttpServletRequest request) {
@@ -246,31 +229,32 @@ public class InterviewFeedbackController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = "/vacancies/filtering", method = RequestMethod.POST)
-//    public ModelAndView getFilteredEntities(HttpServletRequest request) {
-//        logging.runMe(request);
-//        ModelAndView modelAndView = new ModelAndView("vacancies/vacancies");
-//        try (Connection connection = ConnectorDB.getConnection()) {
-//            VacancyDao vacancyDao = new VacancyDao(connection);
-//            String position = request.getParameter("position").trim();
-//            String salaryInDollarsFrom = request.getParameter("salary_in_dollars_from").trim();
-//            String salaryInDollarsTo = request.getParameter("salary_in_dollars_to").trim();
-//            String vacancyState = request.getParameter("state").trim();
-//            String experienceYearsRequire = request.getParameter("experience_years_require");
-//            String developerId = request.getParameter("developer");
-//            System.out.println(developerId);
-//            List<Vacancy> vacancies = vacancyDao.getFilteredEntitiesPage(position, salaryInDollarsFrom,
-//                    salaryInDollarsTo, vacancyState, experienceYearsRequire, developerId);
-//            VacancyState[] vacancyStates = VacancyState.values();
-//            UserDao userDao = new UserDao(connection);
-//            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
-//            modelAndView.addObject("users_list", allUsers);
-//            modelAndView.addObject("states", vacancyStates);
-//            modelAndView.addObject("vacancies_list", vacancies);
-//        } catch (Exception e) {
-//            logging.runMe(e);
-//            modelAndView = new ModelAndView("errors/500");
-//        }
-//        return modelAndView;
-//    }
+    @RequestMapping(value = "/feedbacks/filtering", method = RequestMethod.POST)
+    public ModelAndView getFilteredEntities(HttpServletRequest request) {
+        logging.runMe(request);
+        ModelAndView modelAndView = new ModelAndView("interview_feedbacks/interview_feedbacks");
+        try (Connection connection = ConnectorDB.getConnection()) {
+            InterviewFeedbackDao interviewFeedbackDao = new InterviewFeedbackDao(connection);
+            String reason = request.getParameter("reason").trim();
+            String state = request.getParameter("state").trim();
+            String developerId = request.getParameter("interviewer");
+            String interviewId = request.getParameter("interview");
+            System.out.println(developerId);
+            List<InterviewFeedback> interviewFeedbackList = interviewFeedbackDao.getFilteredEntitiesPage(interviewId,developerId,reason,state);
+            UserDao userDao = new UserDao(connection);
+            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
+            InterviewDao interviewDao=new InterviewDao(connection);
+            List<Interview> allInterviews=interviewDao.getSortedEntitiesPage(1,"plan_date",true,100);
+            FeedbackStateDao feedbackStateDao = new FeedbackStateDao(connection);
+            List<FeedbackState> feedbackStates = feedbackStateDao.getSortedEntitiesPage();
+            modelAndView.addObject("users_list", allUsers);
+            modelAndView.addObject("interviews_list",allInterviews);
+            modelAndView.addObject("states", feedbackStates);
+            modelAndView.addObject("feedbacks_list", interviewFeedbackList);
+        } catch (Exception e) {
+            logging.runMe(e);
+            modelAndView = new ModelAndView("errors/500");
+        }
+        return modelAndView;
+    }
 }
