@@ -24,7 +24,8 @@ public abstract class AbstractDao<T extends Entity> {
     public List<T> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage)
             throws SQLException {
         List<T> allEntitiesList = new ArrayList<>();
-        SQL_SELECT_SORTED_PAGE = String.format(SQL_SELECT_SORTED_PAGE, sortedField, order ? "ASC" : "DESC");
+        SQL_SELECT_SORTED_PAGE = String.format(SQL_SELECT_SORTED_PAGE, sortedField,
+                order ? "ASC" : "DESC");
         try (PreparedStatement selectPrepareStatement = connection.prepareStatement(SQL_SELECT_SORTED_PAGE)) {
             selectPrepareStatement.setInt(1, (pageNumber - 1) * itemsNumberInPage);
             selectPrepareStatement.setInt(2, itemsNumberInPage);

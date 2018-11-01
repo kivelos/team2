@@ -19,8 +19,8 @@ import java.util.List;
 @Controller
 public class UserController {
     private Logging logging = new Logging();
-    static private boolean sortType=true;
-    static private String sortedField="surname";
+    static private boolean sortType = true;
+    static private String sortedField = "surname";
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView getAllUsers(HttpServletRequest request) {
@@ -36,7 +36,7 @@ public class UserController {
             if (sortedField == null) {
                 sortedField = "surname";
             }
-            List<User> users = userDao.getSortedEntitiesPage(1,sortedField,sortType,3);
+            List<User> users = userDao.getSortedEntitiesPage(1, sortedField, sortType,3);
             modelAndView.addObject("users_list", users);
             modelAndView.addObject("page",1);
         } catch (SQLException e) {
@@ -64,7 +64,7 @@ public class UserController {
                 //users = userDao.getSortedEntitiesPage(page, sortedField, sortType,3);
             }
             modelAndView.addObject("users_list", users);
-            modelAndView.addObject("page",page);
+            modelAndView.addObject("page", page);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -89,8 +89,8 @@ public class UserController {
             UserDao userDao = new UserDao(connection);
             List<User> users = userDao.getSortedEntitiesPage(1,"email",true,3);
             modelAndView.addObject("users_list", users);
-            if(isCorrectInputDates(surname,password,email,modelAndView)){
-                User user = new User(email, password, name, surname,state);
+            if(isCorrectInputDates(surname, password, email, modelAndView)){
+                User user = new User(email, password, name, surname, state);
                 userDao.createEntity(user);
                 modelAndView.setViewName("redirect:" + "/users/" + user.getId());
             }
@@ -105,7 +105,7 @@ public class UserController {
         }
     }
 
-    private boolean isCorrectInputDates(String surname, String password, String email,ModelAndView modelAndView) {
+    private boolean isCorrectInputDates(String surname, String password, String email, ModelAndView modelAndView) {
         if (surname.equals("")||password.equals("")||email.equals("")) {
             modelAndView.addObject("mistake", "Not enough dates!");
             return false;
@@ -144,7 +144,7 @@ public class UserController {
                 state= User.State.BLOCKED;
             if(isCorrectInputDates(surname,password,email,modelAndView)) {
                 UserDao userDao = new UserDao(connection);
-                User user = new User(email, password, name, surname,state);
+                User user = new User(email, password, name, surname, state);
                 user.setId(id);
                 userDao.updateEntity(user);
             }
@@ -186,7 +186,7 @@ public class UserController {
             String name = request.getParameter("name").trim();
             String surname=request.getParameter("surname").trim();
             String userState = request.getParameter("state");
-            List<User> users = userDao.getFilteredEntitiesPage(email,password,name, surname,userState);
+            List<User> users = userDao.getFilteredEntitiesPage(email, password, name, surname, userState);
             modelAndView.addObject("users_list", users);
         } catch (SQLException e) {
             e.printStackTrace();

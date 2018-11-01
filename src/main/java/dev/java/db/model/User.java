@@ -16,47 +16,47 @@ public class User extends Entity {
     }
 
     public User(String email, String password, String name, String surname,State state){
-        this.email=email;
-        this.surname=surname;
-        this.name=name;
-        this.password=password;
-        this.state=state;
+        this.email = email;
+        this.surname = surname;
+        this.name = name;
+        this.password = password;
+        this.state = state;
     }
 
-    public String getEmail() {
+    public final String getEmail() {
         return email;
     }
-    public String getPassword() {
+    public final String getPassword() {
         return password;
     }
-    public String getSurname() {
+    public final String getSurname() {
         return surname;
     }
-    public String getName() {
+    public final String getName() {
         return name;
     }
-    public State getState() {
+    public final State getState() {
         return state;
     }
 
-    public void setEmail(String email) {
+    public final void setEmail(String email) {
         this.email = email;
     }
-    public void setPassword(String password) {
+    public final void setPassword(String password) {
         this.password = password;
     }
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
-    public void setState(State state) {
+    public final void setState(State state) {
         this.state = state;
     }
-    public void setSurname(String surname) {
+    public final void setSurname(String surname) {
         this.surname = surname;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
@@ -76,10 +76,10 @@ public class User extends Entity {
     public String toString() {
         return "User{" +
                 "E-mail: "+email+"\n" +
-                "Password: "+password +
-                "Surname: "+surname+"\n" +
-                "Name: "+name+"\n" +
-                "State: "+state+"}";
+                "Password: " + password +
+                "Surname: " + surname+"\n" +
+                "Name: " + name+"\n" +
+                "State: " + state + "}";
     }
 
     static public boolean isPasswordValid(String str){

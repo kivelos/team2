@@ -16,16 +16,16 @@ public class CandidateDao extends AbstractDao<Candidate> {
         super(connection);
 
         SQL_SELECT_SORTED_PAGE = "SELECT * FROM candidate ORDER BY %s %s LIMIT ?, ?";
-        SQL_INSERT = "INSERT INTO candidate " +
-                "(name, surname, birthday, salary_in_dollars, candidate_state) " +
-                "VALUES (?, ?, ?, ?, ?)";
-        SQL_UPDATE = "UPDATE candidate " +
-                "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=? " +
-                "WHERE id=?";
-        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM candidate " +
-                "WHERE (name=? OR ?='') AND (surname=? OR ?='') AND " +
-                "(birthday=? OR ?='') AND (salary_in_dollars=? OR ?='') " +
-                "AND (candidate_state=? OR ?='')";
+        SQL_INSERT = "INSERT INTO candidate "
+                + "(name, surname, birthday, salary_in_dollars, candidate_state) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        SQL_UPDATE = "UPDATE candidate "
+                + "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=? "
+                + "WHERE id=?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM candidate "
+                + "WHERE (name=? OR ?='') AND (surname=? OR ?='') AND "
+                + "(birthday=? OR ?='') AND (salary_in_dollars=? OR ?='') "
+                + "AND (candidate_state=? OR ?='')";
     }
 
 
@@ -44,13 +44,15 @@ public class CandidateDao extends AbstractDao<Candidate> {
 
 
     @Override
-    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
+    protected final void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
             throws SQLException {
-        prepareStatement.setString(1, candidate.getName());
-        prepareStatement.setString(2, candidate.getSurname());
-        prepareStatement.setDate(3, candidate.getBirthday(), Calendar.getInstance());
-        prepareStatement.setFloat(4, candidate.getSalaryInDollars());
-        prepareStatement.setString(5, candidate.getCandidateState());
+        int parametrIndex=1;
+        prepareStatement.setString(parametrIndex++, candidate.getName());
+        prepareStatement.setString(parametrIndex++, candidate.getSurname());
+        prepareStatement.setDate(parametrIndex++, candidate.getBirthday(),
+                Calendar.getInstance());
+        prepareStatement.setFloat(parametrIndex++, candidate.getSalaryInDollars());
+        prepareStatement.setString(parametrIndex, candidate.getCandidateState());
     }
 
     @Override

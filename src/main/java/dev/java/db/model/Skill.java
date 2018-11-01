@@ -8,22 +8,21 @@ public class Skill extends Entity {
     private List<Vacancy> correspondingVacancies;
     private List<Candidate> correspondingCandidates;
 
-    public Skill() {
-    }
+    public Skill() {}
 
     public Skill(String name) {
         this.name = name.toUpperCase();
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name.toUpperCase();
     }
 
-    public List<Vacancy> getCorrespondingVacancies() {
+    public final List<Vacancy> getCorrespondingVacancies() {
         return correspondingVacancies;
     }
 
@@ -33,20 +32,20 @@ public class Skill extends Entity {
         return true;
     }
 
-    public void setCorrespondingVacancies(List<Vacancy> correspondingVacancies) {
+    public final void setCorrespondingVacancies(List<Vacancy> correspondingVacancies) {
         this.correspondingVacancies = correspondingVacancies;
     }
 
-    public List<Candidate> getCorrespondingCandidates() {
+    public final List<Candidate> getCorrespondingCandidates() {
         return correspondingCandidates;
     }
 
-    public void setCorrespondingCandidates(List<Candidate> correspondingCandidates) {
+    public final void setCorrespondingCandidates(List<Candidate> correspondingCandidates) {
         this.correspondingCandidates = correspondingCandidates;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Skill skill = (Skill) o;

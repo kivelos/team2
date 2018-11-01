@@ -10,24 +10,23 @@ import java.sql.SQLException;
 public class UserDao extends AbstractDao<User> {
 
     private static String SQL_SELECT_BY_ID = "SELECT * FROM user AS c WHERE c.id=?";
-    private static String SQL_SELECT_BY_EMAIL = "SELECT * FROM user AS c WHERE c.email=?";
 
     public UserDao(Connection connection) {
         super(connection);
         SQL_SELECT_SORTED_PAGE = "SELECT * FROM user ORDER BY %s %s LIMIT ?, ?";
-        SQL_INSERT = "INSERT INTO user " +
-                "(email,password, surname, name, user_state) " +
-                "VALUES (?, ?, ?, ?, ?)";
-        SQL_UPDATE = "UPDATE user " +
-                "SET email=?, password=?, surname=?, name=?, user_state=? " +
-                "WHERE id=?";
-        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM user " +
-                "WHERE (email=? OR ?='') AND (password=? OR ?='') AND " +
-                "(name=? OR ?='') AND (surname=? OR ?='') " +
-                "AND (user_state=? OR ?='')";
+        SQL_INSERT = "INSERT INTO user "
+                + "(email,password, surname, name, user_state) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        SQL_UPDATE = "UPDATE user "
+                + "SET email=?, password=?, surname=?, name=?, user_state=? "
+                + "WHERE id=?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM user "
+                + "WHERE (email=? OR ?='') AND (password=? OR ?='') AND "
+                + "(name=? OR ?='') AND (surname=? OR ?='') "
+                + "AND (user_state=? OR ?='')";
     }
 
-    public User getEntityById(long id) throws SQLException {
+    public final User getEntityById(long id) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             getByIdPrepareStatement.setLong(1, id);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
@@ -40,22 +39,8 @@ public class UserDao extends AbstractDao<User> {
         }
     }
 
-    public User getUserByEmail(String email) throws SQLException {
-        try (PreparedStatement getByEmailPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_EMAIL)) {
-            getByEmailPrepareStatement.setString(1,email);
-            ResultSet entity = getByEmailPrepareStatement.executeQuery();
-            if (entity.next()) {
-                User user = setEntityFields(entity);
-                entity.close();
-                return user;
-            }
-            return null;
-        }
-    }
-
-
     @Override
-    protected User setEntityFields(ResultSet entityTableRow) throws SQLException {
+    protected final User setEntityFields(ResultSet entityTableRow) throws SQLException {
         User user = new User();
         user.setId(entityTableRow.getLong("id"));
         user.setEmail(entityTableRow.getString("email"));

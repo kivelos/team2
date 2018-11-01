@@ -126,15 +126,18 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.GET)
-    public ModelAndView editSkill(@PathVariable String name, HttpServletRequest request) {
+    public ModelAndView editSkill(@PathVariable String name,
+                                  HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = getSkill(name, request);
         modelAndView.setViewName("skills/skill_edit");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.POST)
-    public ModelAndView editSkill(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/skills/{name:\\w+}/edit",
+            method = RequestMethod.POST)
+    public ModelAndView editSkill(@PathVariable String name,
+                                  HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {

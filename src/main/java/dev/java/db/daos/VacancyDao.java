@@ -18,16 +18,16 @@ public class VacancyDao extends AbstractDao<Vacancy> {
         super(connection);
         SQL_SELECT_SORTED_PAGE = "SELECT * FROM vacancy ORDER BY %s %s LIMIT ?, ?";
         SQL_INSERT = "INSERT INTO vacancy " +
-                "(position, salary_in_dollars_from, salary_in_dollars_to, " +
-                "vacancy_state, experience_years_require, id_developer) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                "(position, salary_in_dollars_from, salary_in_dollars_to, "
+                + "vacancy_state, experience_years_require, id_developer) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         SQL_UPDATE = "UPDATE vacancy " +
-                "SET position=?, salary_in_dollars_from=?, salary_in_dollars_to=?, " +
-                "vacancy_state=?, experience_years_require=?, id_developer=? " +
-                "WHERE id=?";
-        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM vacancy " +
-                "WHERE (position=? OR ?='')  AND (salary_in_dollars_from=? OR ?='') AND (salary_in_dollars_to=? OR ?='')" +
-                "AND (vacancy_state=? OR ?='') AND (experience_years_require=? OR ?='') AND (id_developer=? OR ?='')";
+                "SET position=?, salary_in_dollars_from=?, salary_in_dollars_to=?, "
+                + "vacancy_state=?, experience_years_require=?, id_developer=? "
+                + "WHERE id=?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM vacancy "
+                + "WHERE (position=? OR ?='')  AND (salary_in_dollars_from=? OR ?='') AND (salary_in_dollars_to=? OR ?='')"
+                + "AND (vacancy_state=? OR ?='') AND (experience_years_require=? OR ?='') AND (id_developer=? OR ?='')";
     }
 
     @Override

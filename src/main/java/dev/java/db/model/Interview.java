@@ -1,6 +1,5 @@
 package dev.java.db.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -25,40 +24,40 @@ public class Interview extends Entity {
         this.factDate = factDate;
     }
 
-    public Candidate getCandidate() {
+    public final Candidate getCandidate() {
         return candidate;
     }
 
-    public void setCandidate(Candidate candidate) {
+    public final void setCandidate(Candidate candidate) {
         this.candidate = candidate;
     }
 
-    public Vacancy getVacancy() {
+    public final Vacancy getVacancy() {
         return vacancy;
     }
 
-    public void setVacancy(Vacancy vacancy) {
+    public final void setVacancy(Vacancy vacancy) {
         this.vacancy = vacancy;
     }
 
-    public Timestamp getPlanDate() {
+    public final Timestamp getPlanDate() {
         return planDate;
     }
 
-    public void setPlanDate(Timestamp planDate) {
+    public final void setPlanDate(Timestamp planDate) {
         this.planDate = planDate;
     }
 
-    public Timestamp getFactDate() {
+    public final Timestamp getFactDate() {
         return factDate;
     }
 
-    public void setFactDate(Timestamp factDate) {
+    public final void setFactDate(Timestamp factDate) {
         this.factDate = factDate;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Interview interview = (Interview) o;

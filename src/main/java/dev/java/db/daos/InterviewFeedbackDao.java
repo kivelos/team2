@@ -1,8 +1,6 @@
 package dev.java.db.daos;
 
-import dev.java.db.model.Interview;
 import dev.java.db.model.InterviewFeedback;
-import dev.java.db.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,24 +9,29 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
-    private static String SQL_SELECT_BY_ID = "SELECT * FROM inteview_feedback AS c WHERE c.id=?";
+    private static String SQL_SELECT_BY_ID = "SELECT * FROM inteview_feedback "
+            + "AS c WHERE c.id=?";
 
     public InterviewFeedbackDao(Connection connection) {
         super(connection);
-        SQL_SELECT_SORTED_PAGE = "SELECT * FROM inteview_feedback ORDER BY %s %s LIMIT ?, ?";
-        SQL_INSERT = "INSERT INTO inteview_feedback " +
-                "(id_interview, id_interviewer, reason, feedback_state) " +
-                "VALUES (?, ?, ?, ?)";
-        SQL_UPDATE = "UPDATE inteview_feedback " +
-                "SET id_interview=?, id_interviewer=?, reason=?, feedback_state=? " +
-                "WHERE id=?";
-        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM inteview_feedback " +
-                "WHERE (id_interview=? OR ?='') AND (id_interviewer=? OR ?='') AND (reason=? OR ?='') AND (feedback_state=? OR ?='')";
+        SQL_SELECT_SORTED_PAGE = "SELECT * FROM inteview_feedback "
+                + "ORDER BY %s %s LIMIT ?, ?";
+        SQL_INSERT = "INSERT INTO inteview_feedback "
+                + "(id_interview, id_interviewer, reason, feedback_state) "
+                + "VALUES (?, ?, ?, ?)";
+        SQL_UPDATE = "UPDATE inteview_feedback "
+                + "SET id_interview=?, id_interviewer=?, reason=?, feedback_state=? "
+                + "WHERE id=?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM inteview_feedback "
+                + "WHERE (id_interview=? OR ?='') AND (id_interviewer=? OR ?='') "
+                + "AND (reason=? OR ?='') AND (feedback_state=? OR ?='')";
     }
 
     @Override
-    public List<InterviewFeedback> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
-        List<InterviewFeedback> interviewFeedbacks = super.getSortedEntitiesPage(pageNumber, sortedField, order, itemsNumberInPage);
+    public final List<InterviewFeedback> getSortedEntitiesPage(int pageNumber,
+           String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+        List<InterviewFeedback> interviewFeedbacks = super.getSortedEntitiesPage(pageNumber,
+                sortedField, order, itemsNumberInPage);
         InterviewDao interviewDao = new InterviewDao(connection);
         for (InterviewFeedback feedback: interviewFeedbacks) {
             feedback.setInterview(interviewDao.getEntityById(feedback.getInterview().getId()));
@@ -41,7 +44,7 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
-    protected InterviewFeedback setEntityFields(ResultSet entityTableRow) throws SQLException {
+    protected final InterviewFeedback setEntityFields(ResultSet entityTableRow) throws SQLException {
         InterviewFeedback interviewFeedback = new InterviewFeedback();
         interviewFeedback.setId(entityTableRow.getLong("id"));
         InterviewDao interviewDao=new InterviewDao(connection);
@@ -54,8 +57,8 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
-    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, InterviewFeedback entity)
-            throws SQLException {
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement,
+                                                          InterviewFeedback entity) throws SQLException {
         prepareStatement.setLong(1, entity.getInterview().getId());
         prepareStatement.setLong(2, entity.getInterviewer().getId());
         prepareStatement.setString(3, entity.getReason());
@@ -64,8 +67,8 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
-    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, InterviewFeedback entity)
-            throws SQLException {
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
+                                                          InterviewFeedback entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(5, entity.getId());
     }

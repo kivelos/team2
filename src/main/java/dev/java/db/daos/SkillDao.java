@@ -16,14 +16,14 @@ public class SkillDao extends AbstractDao<Skill> {
     public SkillDao(Connection connection) {
         super(connection);
         SQL_SELECT_SORTED_PAGE = "SELECT * FROM skill ORDER BY %s %s LIMIT ?, ?";
-        SQL_INSERT = "INSERT INTO skill " +
-                "(name) " +
-                "VALUES (?)";
-        SQL_UPDATE = "UPDATE skill " +
-                "SET name=? " +
-                "WHERE name=?";
-        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM skill " +
-                "WHERE  (name=? OR ?='')";
+        SQL_INSERT = "INSERT INTO skill "
+                + "(name) "
+                + "VALUES (?)";
+        SQL_UPDATE = "UPDATE skill "
+                + "SET name=? "
+                + "WHERE name=?";
+        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM skill "
+                + "WHERE  (name=? OR ?='')";
     }
 
     @Override
@@ -68,7 +68,8 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
+                                                          Skill skill)
             throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, skill);
         prepareStatement.setString(2, skill.getName());
@@ -76,7 +77,7 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    protected Skill setEntityFields(ResultSet candidateTableRow) throws SQLException {
+    protected final Skill setEntityFields(ResultSet candidateTableRow) throws SQLException {
         Skill skill = new Skill();
         skill.setName(candidateTableRow.getString("name"));
         return skill;

@@ -28,6 +28,7 @@ public class InterviewController {
     private static boolean sortType = true;
     private static String sortedField = "plan_date";
     private static int itemsInPage = 3;
+    private static int itemsInFilteringPage=100;
 
     @RequestMapping(value = "/interviews", method = RequestMethod.GET)
     public ModelAndView getAllInterviews(HttpServletRequest request) {
@@ -46,9 +47,9 @@ public class InterviewController {
             }
             List<Interview> interviews = interviewDao.getSortedEntitiesPage(1, sortedField, sortType, itemsInPage);
             CandidateDao candidateDao = new CandidateDao(connection);
-            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "surname", true, 100);
+            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "surname", true, itemsInFilteringPage);
             VacancyDao vacancyDao = new VacancyDao(connection);
-            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(1, "position", true, 100);
+            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(1, "position", true, itemsInFilteringPage);
             modelAndView = new ModelAndView("interviews/interviews");
             modelAndView.addObject("interviews_list", interviews);
             modelAndView.addObject("candidates_list", candidates);
@@ -62,26 +63,32 @@ public class InterviewController {
     }
 
     @RequestMapping(value = "/interviews/page/{page:\\d+}", method = RequestMethod.GET)
-    public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
+    public ModelAndView nextPage(@PathVariable int page,
+                                 HttpServletRequest request) {
         ModelAndView modelAndView;
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
             InterviewDao interviewDao = new InterviewDao(connection);
             if (page == 0) {
                 page = 1;
-                modelAndView = new ModelAndView("redirect:/interviews/page/" + page);
+                modelAndView = new ModelAndView("redirect:/interviews/page/"
+                        + page);
                 return modelAndView;
             }
-            List<Interview> interviews = interviewDao.getSortedEntitiesPage(page, sortedField, sortType, itemsInPage);
-            if(interviews.isEmpty() && page != 1) {
+            List<Interview> interviews = interviewDao.getSortedEntitiesPage(page,
+                    sortedField, sortType, itemsInPage);
+            if (interviews.isEmpty() && page != 1) {
                 page--;
-                modelAndView = new ModelAndView("redirect:/interviews/page/" + page);
+                modelAndView = new ModelAndView("redirect:/interviews/page/"
+                        + page);
                 return modelAndView;
             }
             CandidateDao candidateDao = new CandidateDao(connection);
-            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "surname", true, 100);
+            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1,
+                    "surname", true, itemsInFilteringPage);
             VacancyDao vacancyDao = new VacancyDao(connection);
-            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(1, "position", true, 100);
+            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(1,
+                    "position", true, itemsInFilteringPage);
             modelAndView = new ModelAndView("interviews/interviews");
             modelAndView.addObject("interviews_list", interviews);
             modelAndView.addObject("candidates_list", candidates);

@@ -22,36 +22,36 @@ public class InterviewFeedback extends Entity {
         return interview;
     }
 
-    public void setInterview(Interview interview) {
+    public final void setInterview(Interview interview) {
         this.interview = interview;
     }
 
-    public User getInterviewer() {
+    public final User getInterviewer() {
         return interviewer;
     }
 
-    public void setInterviewer(User interviewer) {
+    public final void setInterviewer(User interviewer) {
         this.interviewer = interviewer;
     }
 
-    public String getReason() {
+    public final String getReason() {
         return reason;
     }
 
-    public void setReason(String reason) {
+    public final void setReason(String reason) {
         this.reason = reason;
     }
 
-    public String getFeedbackState() {
+    public final String getFeedbackState() {
         return feedbackState;
     }
 
-    public void setFeedbackState(String feedbackState) {
+    public final void setFeedbackState(String feedbackState) {
         this.feedbackState = feedbackState;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InterviewFeedback that = (InterviewFeedback) o;
@@ -68,11 +68,10 @@ public class InterviewFeedback extends Entity {
 
     @Override
     public String toString() {
-        return "InterviewFeedback{" +
-                "interview=" + interview +
-                ", interviewer=" + interviewer +
-                ", reason='" + reason + '\'' +
-                ", feedbackState='" + feedbackState + '\'' +
-                '}';
+        return "InterviewFeedback{"
+                + "interview=" + interview
+                + ", interviewer=" + interviewer
+                + ", reason='" + reason + '\''
+                + ", feedbackState='" + feedbackState + '\'' + '}';
     }
 }
