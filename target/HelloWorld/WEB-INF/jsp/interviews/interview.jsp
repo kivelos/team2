@@ -23,8 +23,8 @@
         <p><a href="/vacancies/${interview.vacancy.id}">${interview.vacancy.position}</a></p>
     </div>
 
-    <div>
-        <a href="/interviews/${interview.id}/edit">Edit vacancy</a>
+    <div id="c3" style="margin-top: 220px; text-align: center;">
+        <a href="/interviews/${interview.id}/edit">Edit an interview</a>
         <a href="/interviews">Interviews List</a>
     </div>
 </div>
