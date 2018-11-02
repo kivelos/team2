@@ -27,11 +27,9 @@ public class InterviewController {
     private Logging logging = new Logging();
     private static boolean sortType = true;
     private static String sortedField = "plan_date";
-    private static int itemsInPage = 3;
-    private static int itemsInFilteringPage=100;
 
     @RequestMapping(value = "/interviews", method = RequestMethod.GET)
-    public ModelAndView getAllInterviews(HttpServletRequest request) {
+    public final ModelAndView getAllInterviews(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -45,11 +43,11 @@ public class InterviewController {
             if (sortedField == null) {
                 sortedField = "plan_date";
             }
-            List<Interview> interviews = interviewDao.getSortedEntitiesPage(1, sortedField, sortType, itemsInPage);
+            List<Interview> interviews = interviewDao.getSortedEntitiesPage(1, sortedField, sortType,GeneralConstant.itemsInPage);
             CandidateDao candidateDao = new CandidateDao(connection);
-            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "surname", true, itemsInFilteringPage);
+            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, "surname", true, GeneralConstant.filteringItemsInPage);
             VacancyDao vacancyDao = new VacancyDao(connection);
-            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(1, "position", true, itemsInFilteringPage);
+            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(1, "position", true, GeneralConstant.filteringItemsInPage);
             modelAndView = new ModelAndView("interviews/interviews");
             modelAndView.addObject("interviews_list", interviews);
             modelAndView.addObject("candidates_list", candidates);
@@ -63,7 +61,7 @@ public class InterviewController {
     }
 
     @RequestMapping(value = "/interviews/page/{page:\\d+}", method = RequestMethod.GET)
-    public ModelAndView nextPage(@PathVariable int page,
+    public final ModelAndView nextPage(@PathVariable int page,
                                  HttpServletRequest request) {
         ModelAndView modelAndView;
         logging.runMe(request);
@@ -76,7 +74,7 @@ public class InterviewController {
                 return modelAndView;
             }
             List<Interview> interviews = interviewDao.getSortedEntitiesPage(page,
-                    sortedField, sortType, itemsInPage);
+                    sortedField, sortType, GeneralConstant.itemsInPage);
             if (interviews.isEmpty() && page != 1) {
                 page--;
                 modelAndView = new ModelAndView("redirect:/interviews/page/"
@@ -85,10 +83,10 @@ public class InterviewController {
             }
             CandidateDao candidateDao = new CandidateDao(connection);
             List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1,
-                    "surname", true, itemsInFilteringPage);
+                    "surname", true, GeneralConstant.filteringItemsInPage);
             VacancyDao vacancyDao = new VacancyDao(connection);
             List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(1,
-                    "position", true, itemsInFilteringPage);
+                    "position", true, GeneralConstant.filteringItemsInPage);
             modelAndView = new ModelAndView("interviews/interviews");
             modelAndView.addObject("interviews_list", interviews);
             modelAndView.addObject("candidates_list", candidates);
@@ -102,7 +100,7 @@ public class InterviewController {
     }
 
     @RequestMapping(value = "/interviews", method = RequestMethod.POST)
-    public ModelAndView addInterview(HttpServletRequest request) {
+    public final ModelAndView addInterview(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -144,12 +142,10 @@ public class InterviewController {
             Interview interview = new Interview(candidate, vacancy, planDate, factDate);
             interviewDao.createEntity(interview);
             modelAndView = new ModelAndView("redirect:" + "/interviews/" + interview.getId());
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             modelAndView = getAllInterviews(request);
             modelAndView.addObject("error", e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logging.runMe(e);
             modelAndView = new ModelAndView("errors/500");
         }
@@ -157,7 +153,7 @@ public class InterviewController {
     }
 
     @RequestMapping(value = "/interviews/{id:\\d+}/edit", method = RequestMethod.GET)
-    public ModelAndView editInterview(@PathVariable long id, HttpServletRequest request) {
+    public final ModelAndView editInterview(@PathVariable long id, HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("interviews/interview_edit");
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -170,17 +166,15 @@ public class InterviewController {
             modelAndView.addObject("candidates", allCandidates);
             modelAndView.addObject("vacancies", allVacancies);
             modelAndView.addObject("interview", interview);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logging.runMe(e);
             modelAndView.setViewName("errors/500");
         }
-
         return modelAndView;
     }
 
     @RequestMapping(value = "/interviews/{id:\\d+}/edit", method = RequestMethod.POST)
-    public ModelAndView editInterview(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+    public final ModelAndView editInterview(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -214,8 +208,7 @@ public class InterviewController {
             try {
                 long idVacancy = Long.parseLong(request.getParameter("vacancy"));
                 vacancy = new Vacancy(idVacancy);
-            }
-            catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 throw new IllegalArgumentException("Field candidate is empty");
             }
             InterviewDao interviewDao = new InterviewDao(connection);
@@ -226,8 +219,7 @@ public class InterviewController {
         } catch (IllegalArgumentException e) {
             modelAndView = getInterview(id, request);
             modelAndView.addObject("error", "Name must be filled");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logging.runMe(e);
             modelAndView = new ModelAndView("errors/500");
         }
@@ -235,7 +227,7 @@ public class InterviewController {
     }
 
     @RequestMapping(value = "/interviews/{id:\\d+}", method = RequestMethod.GET)
-    public ModelAndView getInterview(@PathVariable long id, HttpServletRequest request) {
+    public final ModelAndView getInterview(@PathVariable long id, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("interviews/interview");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {

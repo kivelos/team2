@@ -26,7 +26,7 @@ public class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
-    public List<Interview> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+    public final List<Interview> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
         List<Interview> interviews = super.getSortedEntitiesPage(pageNumber, sortedField, order, itemsNumberInPage);
         CandidateDao candidateDao = new CandidateDao(connection);
         for (Interview interview: interviews) {
@@ -40,7 +40,7 @@ public class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
-    protected Interview setEntityFields(ResultSet entityTableRow) throws SQLException {
+    protected final Interview setEntityFields(ResultSet entityTableRow) throws SQLException {
         Interview interview = new Interview();
         interview.setId(entityTableRow.getLong("id"));
         CandidateDao candidateDao = new CandidateDao(connection);
@@ -55,7 +55,7 @@ public class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
-    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Interview entity)
+    protected final void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Interview entity)
             throws SQLException {
         prepareStatement.setLong(1, entity.getCandidate().getId());
         prepareStatement.setLong(2, entity.getVacancy().getId());

@@ -26,7 +26,7 @@ public class SkillController {
     private static int itemsInPage = 3;
 
     @RequestMapping(value = "/skills", method = RequestMethod.GET)
-    public ModelAndView getAllSkills(HttpServletRequest request) {
+    public final ModelAndView getAllSkills(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("skills/skills");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -45,7 +45,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills/page/{page:\\d+}", method = RequestMethod.GET)
-    public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
+    public final ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
         ModelAndView modelAndView;
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -55,7 +55,8 @@ public class SkillController {
                 modelAndView = new ModelAndView("redirect:/skills/page/" + page);
                 return modelAndView;
             }
-            List<Skill> skills = skillDao.getSortedEntitiesPage(page, sortedField, sortType, itemsInPage);
+            List<Skill> skills = skillDao.getSortedEntitiesPage
+                    (page, sortedField, sortType, itemsInPage);
             if(skills.isEmpty() && page != 1) {
                 page--;
                 modelAndView = new ModelAndView("redirect:/skills/page/" + page);
@@ -73,7 +74,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills", method = RequestMethod.POST)
-    public ModelAndView addSkill(HttpServletRequest request, HttpServletResponse response) {
+    public final ModelAndView addSkill(HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("skills/skills");
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -112,7 +113,7 @@ public class SkillController {
 
 
     @RequestMapping(value = "/skills/{name:\\w+}", method = RequestMethod.GET)
-    public ModelAndView getSkill(@PathVariable String name, HttpServletRequest request) {
+    public final ModelAndView getSkill(@PathVariable String name, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("skills/skill");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -126,7 +127,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.GET)
-    public ModelAndView editSkill(@PathVariable String name,
+    public final ModelAndView editSkill(@PathVariable String name,
                                   HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = getSkill(name, request);
@@ -134,10 +135,9 @@ public class SkillController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/skills/{name:\\w+}/edit",
-            method = RequestMethod.POST)
-    public ModelAndView editSkill(@PathVariable String name,
-                                  HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.POST)
+    public final ModelAndView editSkill
+            (@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -161,7 +161,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills/filtering", method = RequestMethod.POST)
-    public ModelAndView getFilteredEntities(HttpServletRequest request) {
+    public final ModelAndView getFilteredEntities(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("skills/skills");
         try (Connection connection = ConnectorDB.getConnection()) {

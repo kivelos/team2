@@ -31,7 +31,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
     }
 
     @Override
-    public List<Vacancy> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+    public final List<Vacancy> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
         List<Vacancy> vacancies = super.getSortedEntitiesPage(pageNumber, sortedField, order, itemsNumberInPage);
         UserDao userDao = new UserDao(connection);
         for (Vacancy vacancy: vacancies) {
@@ -40,7 +40,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
         return vacancies;
     }
 
-    public Vacancy getEntityById(long id) throws SQLException {
+    public final Vacancy getEntityById(long id) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             getByIdPrepareStatement.setLong(1, id);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
@@ -54,7 +54,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
     }
 
     @Override
-    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
+    protected final void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
             throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, vacancy);
         prepareStatement.setLong(7, vacancy.getId());
@@ -62,7 +62,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
     }
 
     @Override
-    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
+    protected final void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
             throws SQLException {
         prepareStatement.setString(1, vacancy.getPosition());
         prepareStatement.setFloat(2, vacancy.getSalaryInDollarsFrom());
@@ -73,7 +73,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
     }
 
     @Override
-    protected Vacancy setEntityFields(ResultSet vacancyTableRow) throws SQLException {
+    protected final Vacancy setEntityFields(ResultSet vacancyTableRow) throws SQLException {
         Vacancy vacancy = new Vacancy();
         vacancy.setId(vacancyTableRow.getLong("id"));
         vacancy.setPosition(vacancyTableRow.getString("position"));

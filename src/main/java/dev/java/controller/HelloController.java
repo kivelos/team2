@@ -24,12 +24,12 @@ public class HelloController {
     private Logging logging = new Logging();
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String sayHello(HttpServletRequest request) {
+    public final String sayHello(HttpServletRequest request) {
         logging.runMe(request);
         return "index";
     }
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ModelAndView getBirthday(HttpServletRequest request, ModelMap map) {
+    public final ModelAndView getBirthday(HttpServletRequest request, ModelMap map) {
         logging.runMe(request);
         String sBirthDate = request.getParameter("birthDate");
         Date birthDate = DateProcessor.tryParseDate(sBirthDate);

@@ -29,7 +29,7 @@ public class CandidateDao extends AbstractDao<Candidate> {
     }
 
 
-    public Candidate getEntityById(long id) throws SQLException {
+    public final Candidate getEntityById(long id) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             getByIdPrepareStatement.setLong(1, id);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
@@ -56,7 +56,7 @@ public class CandidateDao extends AbstractDao<Candidate> {
     }
 
     @Override
-    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
+    protected final void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
             throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, candidate);
         prepareStatement.setLong(6, candidate.getId());
@@ -64,7 +64,7 @@ public class CandidateDao extends AbstractDao<Candidate> {
     }
 
     @Override
-    protected Candidate setEntityFields(ResultSet candidateTableRow) throws SQLException {
+    protected final Candidate setEntityFields(ResultSet candidateTableRow) throws SQLException {
         Candidate candidate = new Candidate();
         candidate.setId(candidateTableRow.getLong("id"));
         candidate.setName(candidateTableRow.getString("name"));

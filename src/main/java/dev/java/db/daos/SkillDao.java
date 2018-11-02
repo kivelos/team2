@@ -27,7 +27,7 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    public boolean createEntity(Skill entity) throws SQLException {
+    public final boolean createEntity(Skill entity) throws SQLException {
         try (PreparedStatement insertPrepareStatement = connection.prepareStatement(SQL_INSERT)) {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
             int status =  insertPrepareStatement.executeUpdate();
@@ -36,11 +36,11 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    public boolean updateEntity(Skill entity) {
+    public final boolean updateEntity(Skill entity) {
         throw new UnsupportedOperationException();
     }
 
-    public boolean deleteEntity(Skill entity) throws SQLException {
+    public final boolean deleteEntity(Skill entity) throws SQLException {
         try (PreparedStatement insertPrepareStatement = connection.prepareStatement(SQL_DELETE)) {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
             int status =  insertPrepareStatement.executeUpdate();
@@ -48,7 +48,7 @@ public class SkillDao extends AbstractDao<Skill> {
         }
     }
 
-    public Skill getEntityByName(String name) throws SQLException {
+    public final Skill getEntityByName(String name) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_NAME)) {
             getByIdPrepareStatement.setString(1, name);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
@@ -62,15 +62,14 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
+    protected final void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
             throws SQLException {
         prepareStatement.setString(1, skill.getName());
     }
 
     @Override
-    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
-                                                          Skill skill)
-            throws SQLException {
+    protected final void setValuesForUpdateIntoPrepareStatement
+            (PreparedStatement prepareStatement, Skill skill) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, skill);
         prepareStatement.setString(2, skill.getName());
 

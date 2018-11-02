@@ -9,6 +9,7 @@ dev\java\db\model\Vacancy.class
 dev\java\controller\CandidateController.class
 dev\java\db\daos\AbstractDao.class
 dev\java\db\daos\UserDao.class
+dev\java\controller\GeneralConstant.class
 dev\java\db\model\Table.class
 dev\java\db\model\Entity.class
 dev\java\db\model\contacts\Contact.class

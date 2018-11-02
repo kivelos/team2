@@ -57,7 +57,7 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
-    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement,
+    protected final void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           InterviewFeedback entity) throws SQLException {
         prepareStatement.setLong(1, entity.getInterview().getId());
         prepareStatement.setLong(2, entity.getInterviewer().getId());
@@ -67,13 +67,13 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
-    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
-                                                          InterviewFeedback entity) throws SQLException {
+    protected final void setValuesForUpdateIntoPrepareStatement
+            (PreparedStatement prepareStatement, InterviewFeedback entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(5, entity.getId());
     }
 
-    public InterviewFeedback getEntityById(long id) throws SQLException {
+    public final InterviewFeedback getEntityById(long id) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             getByIdPrepareStatement.setLong(1, id);
             ResultSet entity = getByIdPrepareStatement.executeQuery();

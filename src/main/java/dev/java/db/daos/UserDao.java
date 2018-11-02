@@ -52,7 +52,7 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user) throws SQLException {
+    protected final void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user) throws SQLException {
         prepareStatement.setString(1, user.getEmail());
         prepareStatement.setString(2, user.getPassword());
         prepareStatement.setString(3, user.getSurname());
@@ -61,7 +61,7 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, User entity) throws SQLException {
+    protected final void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, User entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(6, entity.getId());
     }

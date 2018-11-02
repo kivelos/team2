@@ -23,7 +23,7 @@ public class UserController {
     static private String sortedField = "surname";
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public ModelAndView getAllUsers(HttpServletRequest request) {
+    public final ModelAndView getAllUsers(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("users/users");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -36,7 +36,7 @@ public class UserController {
             if (sortedField == null) {
                 sortedField = "surname";
             }
-            List<User> users = userDao.getSortedEntitiesPage(1, sortedField, sortType,3);
+            List<User> users = userDao.getSortedEntitiesPage(1, sortedField, sortType,GeneralConstant.itemsInPage);
             modelAndView.addObject("users_list", users);
             modelAndView.addObject("page",1);
         } catch (SQLException e) {
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/page/{page:\\d+}", method = RequestMethod.GET)
-    public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
+    public final ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("users/users");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -56,7 +56,7 @@ public class UserController {
                 modelAndView = new ModelAndView("redirect:/users/page/" + page);
                 return modelAndView;
             }
-            List<User> users = userDao.getSortedEntitiesPage(page, sortedField, sortType,3);
+            List<User> users = userDao.getSortedEntitiesPage(page, sortedField, sortType,GeneralConstant.itemsInPage);
             if(users.isEmpty() && page != 1) {
                 page--;
                 modelAndView = new ModelAndView("redirect:/users/page/" + page);
@@ -73,23 +73,23 @@ public class UserController {
 
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ModelAndView addUser(HttpServletRequest request, HttpServletResponse response) {
+    public final ModelAndView addUser(HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("users/users");
         try (Connection connection = ConnectorDB.getConnection()) {
             String surname = request.getParameter("surname").trim();
             String name = request.getParameter("name").trim();
-            String password=request.getParameter("password").trim();
-            String email=request.getParameter("email").trim();
+            String password = request.getParameter("password").trim();
+            String email = request.getParameter("email").trim();
             User.State state;
             if(request.getParameter("state").equals("ACTIVE"))
-                state= User.State.ACTIVE;
+                state = User.State.ACTIVE;
             else
-                state= User.State.BLOCKED;
+                state = User.State.BLOCKED;
             UserDao userDao = new UserDao(connection);
-            List<User> users = userDao.getSortedEntitiesPage(1,"email",true,3);
+            List<User> users = userDao.getSortedEntitiesPage(1,"email",true,GeneralConstant.itemsInPage);
             modelAndView.addObject("users_list", users);
-            if(isCorrectInputDates(surname, password, email, modelAndView)){
+            if (isCorrectInputDates(surname, password, email, modelAndView)){
                 User user = new User(email, password, name, surname, state);
                 userDao.createEntity(user);
                 modelAndView.setViewName("redirect:" + "/users/" + user.getId());
@@ -120,7 +120,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/{id:\\d+}/edit", method = RequestMethod.GET)
-    public ModelAndView editUser(@PathVariable long id, HttpServletRequest request) {
+    public final ModelAndView editUser(@PathVariable long id, HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = getUser(id, request);
         modelAndView.addObject("Active", User.State.ACTIVE);
@@ -129,7 +129,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/{id:\\d+}/edit", method = RequestMethod.POST)
-    public ModelAndView editUser(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+    public final ModelAndView editUser(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("redirect:" + "/users/" + id);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -138,11 +138,11 @@ public class UserController {
             String password=request.getParameter("password").trim();
             String email=request.getParameter("email").trim();
             User.State state;
-            if(request.getParameter("state").equals("ACTIVE"))
-                state= User.State.ACTIVE;
+            if (request.getParameter("state").equals("ACTIVE"))
+                state = User.State.ACTIVE;
             else
-                state= User.State.BLOCKED;
-            if(isCorrectInputDates(surname,password,email,modelAndView)) {
+                state = User.State.BLOCKED;
+            if (isCorrectInputDates(surname,password,email,modelAndView)) {
                 UserDao userDao = new UserDao(connection);
                 User user = new User(email, password, name, surname, state);
                 user.setId(id);
@@ -153,8 +153,7 @@ public class UserController {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return modelAndView;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return modelAndView;
@@ -184,7 +183,7 @@ public class UserController {
             String email = request.getParameter("email").trim();
             String password = request.getParameter("password").trim();
             String name = request.getParameter("name").trim();
-            String surname=request.getParameter("surname").trim();
+            String surname = request.getParameter("surname").trim();
             String userState = request.getParameter("state");
             List<User> users = userDao.getFilteredEntitiesPage(email, password, name, surname, userState);
             modelAndView.addObject("users_list", users);

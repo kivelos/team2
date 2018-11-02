@@ -15,7 +15,7 @@ public class FeedbackStateDao {
         this.connection = connection;
     }
 
-    public List<FeedbackState> getSortedEntitiesPage() throws SQLException {
+    public final List<FeedbackState> getSortedEntitiesPage() throws SQLException {
         List<FeedbackState> states = new ArrayList<>();
         try (Statement statement = connection.createStatement()){
             ResultSet state = statement.executeQuery("SELECT * FROM feedback_state");

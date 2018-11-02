@@ -23,10 +23,11 @@ public class VacancyController {
     private Logging logging = new Logging();
     private static boolean sortType = true;
     private static String sortedField = "position";
-    private static int itemsInPage = 3;
+    private static final int itemsInPage = 3;
+    private static final int filteringItemsInPage=100;
 
     @RequestMapping(value = "/vacancies", method = RequestMethod.GET)
-    public ModelAndView getAllVacancies(HttpServletRequest request) {
+    public final ModelAndView getAllVacancies(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -40,10 +41,11 @@ public class VacancyController {
             if (sortedField == null) {
                 sortedField = "position";
             }
-            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(1, sortedField, sortType, itemsInPage);
+            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage
+                    (1, sortedField, sortType, itemsInPage);
             VacancyState[] vacanciesStates = VacancyState.values();
             UserDao userDao = new UserDao(connection);
-            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
+            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, filteringItemsInPage);
             modelAndView = new ModelAndView("vacancies/vacancies");
             modelAndView.addObject("states", vacanciesStates);
             modelAndView.addObject("vacancies_list", vacancies);
@@ -57,7 +59,7 @@ public class VacancyController {
     }
 
     @RequestMapping(value = "/vacancies/page/{page:\\d+}", method = RequestMethod.GET)
-    public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
+    public final ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
         ModelAndView modelAndView;
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -67,14 +69,15 @@ public class VacancyController {
                 modelAndView = new ModelAndView("redirect:/vacancies/page/" + page);
                 return modelAndView;
             }
-            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(page, sortedField, sortType, itemsInPage);
-            if(vacancies.isEmpty() && page != 1) {
+            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage
+                    (page, sortedField, sortType, itemsInPage);
+            if (vacancies.isEmpty() && page != 1) {
                 page--;
                 modelAndView = new ModelAndView("redirect:/vacancies/page/" + page);
                 return modelAndView;
             }
             UserDao userDao = new UserDao(connection);
-            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
+            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, filteringItemsInPage);
 
             VacancyState[] vacanciesStates = VacancyState.values();
             modelAndView = new ModelAndView("vacancies/vacancies");
@@ -90,7 +93,7 @@ public class VacancyController {
     }
 
     @RequestMapping(value = "/vacancies", method = RequestMethod.POST)
-    public ModelAndView addCandidate(HttpServletRequest request) {
+    public final ModelAndView addCandidate(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -102,37 +105,32 @@ public class VacancyController {
             float salaryInDollarsFrom;
             try {
                 salaryInDollarsFrom= Float.parseFloat(request.getParameter("salary_in_dollars_from"));
-            }
-            catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 salaryInDollarsFrom = 0;
             }
             float salaryInDollarsTo;
             try {
                 salaryInDollarsTo= Float.parseFloat(request.getParameter("salary_in_dollars_to"));
-            }
-            catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 salaryInDollarsTo = 0;
             }
             VacancyState vacancyState;
             try {
                 vacancyState = VacancyState.valueOf(request.getParameter("state"));
-            }
-            catch (IllegalArgumentException | NullPointerException e) {
+            } catch (IllegalArgumentException | NullPointerException e) {
                 throw new IllegalArgumentException("Field State is empty");
             }
             float experienceYearsRequire;
             try {
                 experienceYearsRequire= Float.parseFloat(request.getParameter("experience_years_require"));
-            }
-            catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 experienceYearsRequire = 0;
             }
             User developer;
             try {
                 long idUser = Long.parseLong(request.getParameter("developer"));
                 developer = new User(idUser);
-            }
-            catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 throw new IllegalArgumentException("Field State is empty");
             }
             VacancyDao vacancyDao = new VacancyDao(connection);
@@ -140,12 +138,10 @@ public class VacancyController {
                     vacancyState, experienceYearsRequire, developer);
             vacancyDao.createEntity(vacancy);
             modelAndView = new ModelAndView("redirect:" + "/vacancies/" + vacancy.getId());
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             modelAndView = getAllVacancies(request);
             modelAndView.addObject("error", e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logging.runMe(e);
             modelAndView = new ModelAndView("errors/500");
         }
@@ -153,7 +149,7 @@ public class VacancyController {
     }
 
     @RequestMapping(value = "/vacancies/{id:\\d+}/edit", method = RequestMethod.GET)
-    public ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request) {
+    public final ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = getCandidate(id, request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -163,8 +159,7 @@ public class VacancyController {
             modelAndView.addObject("states", vacancyStates);
             modelAndView.addObject("users", allUsers);
             modelAndView.setViewName("vacancies/vacancy_edit");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logging.runMe(e);
             modelAndView.setViewName("errors/500");
         }
@@ -173,7 +168,7 @@ public class VacancyController {
     }
 
     @RequestMapping(value = "/vacancies/{id:\\d+}/edit", method = RequestMethod.POST)
-    public ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+    public final ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -185,29 +180,25 @@ public class VacancyController {
             float salaryInDollarsFrom;
             try {
                 salaryInDollarsFrom= Float.parseFloat(request.getParameter("salary_in_dollars_from"));
-            }
-            catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 salaryInDollarsFrom = 0;
             }
             float salaryInDollarsTo;
             try {
                 salaryInDollarsTo= Float.parseFloat(request.getParameter("salary_in_dollars_to"));
-            }
-            catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 salaryInDollarsTo = 0;
             }
             VacancyState vacancyState;
             try {
                 vacancyState = VacancyState.valueOf(request.getParameter("state"));
-            }
-            catch (IllegalArgumentException | NullPointerException e) {
+            } catch (IllegalArgumentException | NullPointerException e) {
                 throw new IllegalArgumentException("Field State is empty");
             }
             float experienceYearsRequire;
             try {
                 experienceYearsRequire= Float.parseFloat(request.getParameter("experience_years_require"));
-            }
-            catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 experienceYearsRequire = 0;
             }
 
@@ -215,8 +206,7 @@ public class VacancyController {
             try {
                 long idUser = Long.parseLong(request.getParameter("developer"));
                 developer = new User(idUser);
-            }
-            catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 throw new IllegalArgumentException("Field State is empty");
             }
             VacancyDao vacancyDao = new VacancyDao(connection);
@@ -228,8 +218,7 @@ public class VacancyController {
         } catch (IllegalArgumentException e) {
             modelAndView = getCandidate(id, request);
             modelAndView.addObject("error", "Name must be filled");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logging.runMe(e);
             modelAndView = new ModelAndView("errors/500");
         }
@@ -237,7 +226,7 @@ public class VacancyController {
     }
 
     @RequestMapping(value = "/vacancies/{id:\\d+}", method = RequestMethod.GET)
-    public ModelAndView getCandidate(@PathVariable long id, HttpServletRequest request) {
+    public final ModelAndView getCandidate(@PathVariable long id, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("vacancies/vacancy");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -255,7 +244,7 @@ public class VacancyController {
     }
 
     @RequestMapping(value = "/vacancies/filtering", method = RequestMethod.POST)
-    public ModelAndView getFilteredEntities(HttpServletRequest request) {
+    public final ModelAndView getFilteredEntities(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("vacancies/vacancies");
         try (Connection connection = ConnectorDB.getConnection()) {
