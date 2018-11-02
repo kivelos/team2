@@ -2,20 +2,20 @@ package dev.java.controller;
 
 import dev.java.Logging;
 import dev.java.db.ConnectorDB;
-import dev.java.db.daos.UserDao;
 import dev.java.db.daos.VacancyDao;
-import dev.java.db.model.User;
 import dev.java.db.model.Vacancy;
-import dev.java.db.model.VacancyState;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -26,7 +26,102 @@ public class VacancyController {
     private static final int itemsInPage = 3;
     private static final int filteringItemsInPage=100;
 
-    @RequestMapping(value = "/vacancies", method = RequestMethod.GET)
+    private static VacancyDao vacancyDao;
+    private static Connection connection;
+
+    @PostConstruct
+    public void initialize() {
+        try {
+            connection = ConnectorDB.getConnection();
+            vacancyDao = new VacancyDao(connection);
+        } catch (SQLException e) {
+            logging.runMe(e);
+        }
+    }
+
+    @PreDestroy
+    public void destroy() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            logging.runMe(e);
+        }
+    }
+
+    @GetMapping("/vacancies")
+    public ResponseEntity getAllVacancies(HttpServletRequest request) {
+        logging.runMe(request);
+        List<Vacancy> allVacancies;
+        try {
+            allVacancies = vacancyDao.getSortedEntitiesPage(1, sortedField, true, itemsInPage);
+            return ResponseEntity.ok(allVacancies);
+        } catch (SQLException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @PostMapping("/vacancies")
+    public ResponseEntity createVacancy(@RequestBody Vacancy vacancy, HttpServletRequest request) {
+        logging.runMe(request);
+        try {
+            if (vacancyDao.createEntity(vacancy)) {
+                return ResponseEntity.created(new URI("/vacancy/" + vacancy.getId()))
+                        .body("Created");
+            }
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Invalid Input");
+        } catch (SQLException | URISyntaxException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @GetMapping("/vacancy/{id:\\d+}")
+    public ResponseEntity getVacancy(@PathVariable long id, HttpServletRequest request) {
+        logging.runMe(request);
+        try {
+            Vacancy vacancy = vacancyDao.getEntityById(id);
+            if (vacancy == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(vacancy);
+        } catch (SQLException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @PutMapping("/vacancy/{id:\\d+}")
+    public ResponseEntity updateVacancy(@PathVariable long id, @RequestBody Vacancy vacancy,
+                                        HttpServletRequest request) {
+        logging.runMe(request);
+        try {
+            if (vacancyDao.updateEntity(vacancy)) {
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.notFound().build();
+        } catch (SQLException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @DeleteMapping("/vacancy/{id:\\d+}")
+    public ResponseEntity deleteVacancy(@PathVariable long id, HttpServletRequest request) {
+        logging.runMe(request);
+        try {
+            if (vacancyDao.deleteEntity(new Vacancy(id))) {
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.notFound().build();
+        } catch (SQLException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    private ResponseEntity getResponseEntityOnServerError(Exception e) {
+        logging.runMe(e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error");
+    }
+
+
+    /*@RequestMapping(value = "/vacancies", method = RequestMethod.GET)
     public final ModelAndView getAllVacancies(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView;
@@ -151,7 +246,7 @@ public class VacancyController {
     @RequestMapping(value = "/vacancies/{id:\\d+}/edit", method = RequestMethod.GET)
     public final ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request) {
         logging.runMe(request);
-        ModelAndView modelAndView = getCandidate(id, request);
+        ModelAndView modelAndView = getVacancy(id, request);
         try (Connection connection = ConnectorDB.getConnection()) {
             UserDao userDao = new UserDao(connection);
             List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
@@ -216,7 +311,7 @@ public class VacancyController {
             vacancyDao.updateEntity(vacancy);
             modelAndView = new ModelAndView("redirect:" + "/vacancies/" + id);
         } catch (IllegalArgumentException e) {
-            modelAndView = getCandidate(id, request);
+            modelAndView = getVacancy(id, request);
             modelAndView.addObject("error", "Name must be filled");
         } catch (Exception e) {
             logging.runMe(e);
@@ -226,7 +321,7 @@ public class VacancyController {
     }
 
     @RequestMapping(value = "/vacancies/{id:\\d+}", method = RequestMethod.GET)
-    public final ModelAndView getCandidate(@PathVariable long id, HttpServletRequest request) {
+    public final ModelAndView getVacancy(@PathVariable long id, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("vacancies/vacancy");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -271,5 +366,5 @@ public class VacancyController {
             modelAndView = new ModelAndView("errors/500");
         }
         return modelAndView;
-    }
+    }*/
 }

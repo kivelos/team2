@@ -185,7 +185,7 @@ public final class CandidateController {
             modelAndView = new ModelAndView("redirect:" + "/candidates/" + candidate.getId());
         }
         catch (IllegalArgumentException e) {
-            modelAndView = getAllCandidates(request);
+            modelAndView = getAllVacancies(request);
             modelAndView.addObject("error", "Name must be filled");
         }
         catch (Exception e) {
@@ -198,7 +198,7 @@ public final class CandidateController {
     @RequestMapping(value = "/candidates/{id:\\d+}/edit", method = RequestMethod.GET)
     public ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request) {
         logging.runMe(request);
-        ModelAndView modelAndView = getCandidate(id, request);
+        ModelAndView modelAndView = getVacancy(id, request);
         try (Connection connection = ConnectorDB.getConnection()){
             CandidateStateDao candidateStateDao = new CandidateStateDao(connection);
             List<CandidateState> candidateStates = candidateStateDao.getSortedEntitiesPage();
@@ -245,7 +245,7 @@ public final class CandidateController {
             candidateDao.updateEntity(candidate);
             modelAndView = new ModelAndView("redirect:" + "/candidates/" + id);
         } catch (IllegalArgumentException e) {
-            modelAndView = getCandidate(id, request);
+            modelAndView = getVacancy(id, request);
             modelAndView.addObject("error", "Name must be filled");
         }
         catch (Exception e) {
@@ -256,7 +256,7 @@ public final class CandidateController {
     }
 
     @RequestMapping(value = "/candidates/{id:\\d+}", method = RequestMethod.GET)
-    public ModelAndView getCandidate(@PathVariable long id, HttpServletRequest request) {
+    public ModelAndView getVacancy(@PathVariable long id, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("candidates/candidate");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
