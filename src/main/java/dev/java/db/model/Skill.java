@@ -3,7 +3,7 @@ package dev.java.db.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Skill extends Entity {
+public final class Skill extends Entity {
     private String name;
     private List<Vacancy> correspondingVacancies;
     private List<Candidate> correspondingCandidates;
@@ -14,15 +14,15 @@ public class Skill extends Entity {
         this.name = name.toUpperCase();
     }
 
-    public final String getName() {
+    public  String getName() {
         return name;
     }
 
-    public final void setName(String name) {
+    public  void setName(String name) {
         this.name = name.toUpperCase();
     }
 
-    public final List<Vacancy> getCorrespondingVacancies() {
+    public  List<Vacancy> getCorrespondingVacancies() {
         return correspondingVacancies;
     }
 
@@ -32,20 +32,20 @@ public class Skill extends Entity {
         return true;
     }
 
-    public final void setCorrespondingVacancies(List<Vacancy> correspondingVacancies) {
+    public  void setCorrespondingVacancies(List<Vacancy> correspondingVacancies) {
         this.correspondingVacancies = correspondingVacancies;
     }
 
-    public final List<Candidate> getCorrespondingCandidates() {
+    public  List<Candidate> getCorrespondingCandidates() {
         return correspondingCandidates;
     }
 
-    public final void setCorrespondingCandidates(List<Candidate> correspondingCandidates) {
+    public  void setCorrespondingCandidates(List<Candidate> correspondingCandidates) {
         this.correspondingCandidates = correspondingCandidates;
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public  boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Skill skill = (Skill) o;

@@ -9,13 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedbackStateDao {
+public final class FeedbackStateDao {
     private Connection connection;
     public FeedbackStateDao(Connection connection) {
         this.connection = connection;
     }
 
-    public final List<FeedbackState> getSortedEntitiesPage() throws SQLException {
+    public List<FeedbackState> getSortedEntitiesPage() throws SQLException {
         List<FeedbackState> states = new ArrayList<>();
         try (Statement statement = connection.createStatement()){
             ResultSet state = statement.executeQuery("SELECT * FROM feedback_state");

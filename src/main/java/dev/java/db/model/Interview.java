@@ -3,7 +3,7 @@ package dev.java.db.model;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Interview extends Entity {
+public final class Interview extends Entity {
     private Candidate candidate;
     private Vacancy vacancy;
     private Timestamp planDate;
@@ -24,40 +24,40 @@ public class Interview extends Entity {
         this.factDate = factDate;
     }
 
-    public final Candidate getCandidate() {
+    public  Candidate getCandidate() {
         return candidate;
     }
 
-    public final void setCandidate(Candidate candidate) {
+    public  void setCandidate(Candidate candidate) {
         this.candidate = candidate;
     }
 
-    public final Vacancy getVacancy() {
+    public  Vacancy getVacancy() {
         return vacancy;
     }
 
-    public final void setVacancy(Vacancy vacancy) {
+    public  void setVacancy(Vacancy vacancy) {
         this.vacancy = vacancy;
     }
 
-    public final Timestamp getPlanDate() {
+    public  Timestamp getPlanDate() {
         return planDate;
     }
 
-    public final void setPlanDate(Timestamp planDate) {
+    public  void setPlanDate(Timestamp planDate) {
         this.planDate = planDate;
     }
 
-    public final Timestamp getFactDate() {
+    public  Timestamp getFactDate() {
         return factDate;
     }
 
-    public final void setFactDate(Timestamp factDate) {
+    public  void setFactDate(Timestamp factDate) {
         this.factDate = factDate;
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public  boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Interview interview = (Interview) o;

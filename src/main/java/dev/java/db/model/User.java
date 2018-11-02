@@ -2,7 +2,7 @@ package dev.java.db.model;
 
 import java.util.Objects;
 
-public class User extends Entity {
+public final class User extends Entity {
     private String email;
     private String password;
     private String surname;
@@ -23,40 +23,40 @@ public class User extends Entity {
         this.state = state;
     }
 
-    public final String getEmail() {
+    public  String getEmail() {
         return email;
     }
-    public final String getPassword() {
+    public  String getPassword() {
         return password;
     }
-    public final String getSurname() {
+    public  String getSurname() {
         return surname;
     }
-    public final String getName() {
+    public  String getName() {
         return name;
     }
-    public final State getState() {
+    public  State getState() {
         return state;
     }
 
-    public final void setEmail(String email) {
+    public  void setEmail(String email) {
         this.email = email;
     }
-    public final void setPassword(String password) {
+    public  void setPassword(String password) {
         this.password = password;
     }
-    public final void setName(String name) {
+    public  void setName(String name) {
         this.name = name;
     }
-    public final void setState(State state) {
+    public  void setState(State state) {
         this.state = state;
     }
-    public final void setSurname(String surname) {
+    public  void setSurname(String surname) {
         this.surname = surname;
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public  boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;

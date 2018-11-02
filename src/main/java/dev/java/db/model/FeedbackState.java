@@ -2,23 +2,23 @@ package dev.java.db.model;
 
 import java.util.Objects;
 
-public class FeedbackState {
+public final class FeedbackState {
     private String name;
 
     public FeedbackState(String name) {
         this.name = name;
     }
 
-    public final String getName() {
+    public  String getName() {
         return name;
     }
 
-    public final void setName(String name) {
+    public  void setName(String name) {
         this.name = name;
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public  boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FeedbackState that = (FeedbackState) o;

@@ -10,28 +10,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class VacancyDao extends AbstractDao<Vacancy> {
+public final class VacancyDao extends AbstractDao<Vacancy> {
 
     private static String SQL_SELECT_BY_ID = "SELECT * FROM vacancy AS v WHERE v.id=?";
 
     public VacancyDao(Connection connection) {
         super(connection);
-        SQL_SELECT_SORTED_PAGE = "SELECT * FROM vacancy ORDER BY %s %s LIMIT ?, ?";
-        SQL_INSERT = "INSERT INTO vacancy " +
+        sqlSelectSortedPage = "SELECT * FROM vacancy ORDER BY %s %s LIMIT ?, ?";
+        sqlInsert = "INSERT INTO vacancy " +
                 "(position, salary_in_dollars_from, salary_in_dollars_to, "
                 + "vacancy_state, experience_years_require, id_developer) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
-        SQL_UPDATE = "UPDATE vacancy " +
+        sqlUpdate = "UPDATE vacancy " +
                 "SET position=?, salary_in_dollars_from=?, salary_in_dollars_to=?, "
                 + "vacancy_state=?, experience_years_require=?, id_developer=? "
                 + "WHERE id=?";
-        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM vacancy "
+        sqlSelectFilteredEntities = "SELECT * FROM vacancy "
                 + "WHERE (position=? OR ?='')  AND (salary_in_dollars_from=? OR ?='') AND (salary_in_dollars_to=? OR ?='')"
                 + "AND (vacancy_state=? OR ?='') AND (experience_years_require=? OR ?='') AND (id_developer=? OR ?='')";
     }
 
     @Override
-    public final List<Vacancy> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+    public  List<Vacancy> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
         List<Vacancy> vacancies = super.getSortedEntitiesPage(pageNumber, sortedField, order, itemsNumberInPage);
         UserDao userDao = new UserDao(connection);
         for (Vacancy vacancy: vacancies) {
@@ -40,7 +40,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
         return vacancies;
     }
 
-    public final Vacancy getEntityById(long id) throws SQLException {
+    public  Vacancy getEntityById(long id) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             getByIdPrepareStatement.setLong(1, id);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
@@ -54,7 +54,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
     }
 
     @Override
-    protected final void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
+    protected  void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
             throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, vacancy);
         prepareStatement.setLong(7, vacancy.getId());
@@ -62,7 +62,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
     }
 
     @Override
-    protected final void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
+    protected  void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Vacancy vacancy)
             throws SQLException {
         prepareStatement.setString(1, vacancy.getPosition());
         prepareStatement.setFloat(2, vacancy.getSalaryInDollarsFrom());
@@ -73,7 +73,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
     }
 
     @Override
-    protected final Vacancy setEntityFields(ResultSet vacancyTableRow) throws SQLException {
+    protected  Vacancy setEntityFields(ResultSet vacancyTableRow) throws SQLException {
         Vacancy vacancy = new Vacancy();
         vacancy.setId(vacancyTableRow.getLong("id"));
         vacancy.setPosition(vacancyTableRow.getString("position"));
@@ -83,5 +83,11 @@ public class VacancyDao extends AbstractDao<Vacancy> {
         vacancy.setExperienceYearsRequire(vacancyTableRow.getFloat("experience_years_require"));
         vacancy.setDeveloper(new User(vacancyTableRow.getLong("id_developer")));
         return vacancy;
+    }
+
+    @Override
+    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement, 
+                                                          Vacancy entity) throws SQLException {
+        prepareStatement.setLong(1, entity.getId());
     }
 }

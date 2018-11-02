@@ -2,7 +2,7 @@ package dev.java.db.model;
 
 import java.util.Objects;
 
-public class InterviewFeedback extends Entity {
+public final class InterviewFeedback extends Entity {
     private Interview interview;
     private User interviewer;
     private String reason;
@@ -22,36 +22,36 @@ public class InterviewFeedback extends Entity {
         return interview;
     }
 
-    public final void setInterview(Interview interview) {
+    public  void setInterview(Interview interview) {
         this.interview = interview;
     }
 
-    public final User getInterviewer() {
+    public  User getInterviewer() {
         return interviewer;
     }
 
-    public final void setInterviewer(User interviewer) {
+    public  void setInterviewer(User interviewer) {
         this.interviewer = interviewer;
     }
 
-    public final String getReason() {
+    public  String getReason() {
         return reason;
     }
 
-    public final void setReason(String reason) {
+    public  void setReason(String reason) {
         this.reason = reason;
     }
 
-    public final String getFeedbackState() {
+    public  String getFeedbackState() {
         return feedbackState;
     }
 
-    public final void setFeedbackState(String feedbackState) {
+    public  void setFeedbackState(String feedbackState) {
         this.feedbackState = feedbackState;
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public  boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InterviewFeedback that = (InterviewFeedback) o;

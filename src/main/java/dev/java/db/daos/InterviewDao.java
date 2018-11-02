@@ -9,24 +9,24 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
-public class InterviewDao extends AbstractDao<Interview> {
+public final class InterviewDao extends AbstractDao<Interview> {
     private static String SQL_SELECT_BY_ID = "SELECT * FROM interview AS c WHERE c.id=?";
 
     public InterviewDao(Connection connection) {
         super(connection);
-        SQL_SELECT_SORTED_PAGE = "SELECT * FROM interview ORDER BY %s %s LIMIT ?, ?";
-        SQL_INSERT = "INSERT INTO interview "
+        sqlSelectSortedPage = "SELECT * FROM interview ORDER BY %s %s LIMIT ?, ?";
+        sqlInsert = "INSERT INTO interview "
                 + "(id_candidate, id_vacancy, plan_date, fact_date) "
                 + "VALUES (?, ?, ?, ?)";
-        SQL_UPDATE = "UPDATE interview "
+        sqlUpdate = "UPDATE interview "
                 + "SET id_candidate=?, id_vacancy=?, plan_date=?, fact_date=? "
                 + "WHERE id=?";
-        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM interview "
+        sqlSelectFilteredEntities = "SELECT * FROM interview "
                 + "WHERE (id_candidate=? OR ?='') AND (id_vacancy=? OR ?='') AND (plan_date=? OR ?='')AND (fact_date=? OR ?='')";
     }
 
     @Override
-    public final List<Interview> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+    public  List<Interview> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
         List<Interview> interviews = super.getSortedEntitiesPage(pageNumber, sortedField, order, itemsNumberInPage);
         CandidateDao candidateDao = new CandidateDao(connection);
         for (Interview interview: interviews) {
@@ -40,7 +40,7 @@ public class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
-    protected final Interview setEntityFields(ResultSet entityTableRow) throws SQLException {
+    protected  Interview setEntityFields(ResultSet entityTableRow) throws SQLException {
         Interview interview = new Interview();
         interview.setId(entityTableRow.getLong("id"));
         CandidateDao candidateDao = new CandidateDao(connection);
@@ -55,7 +55,7 @@ public class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
-    protected final void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Interview entity)
+    protected  void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Interview entity)
             throws SQLException {
         prepareStatement.setLong(1, entity.getCandidate().getId());
         prepareStatement.setLong(2, entity.getVacancy().getId());
@@ -65,13 +65,13 @@ public class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
-    protected final void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
+    protected  void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
                                                                 Interview entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(5, entity.getId());
     }
 
-    public final Interview getEntityById(long id) throws SQLException {
+    public  Interview getEntityById(long id) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement =
                      connection.prepareStatement(SQL_SELECT_BY_ID)) {
             getByIdPrepareStatement.setLong(1, id);
@@ -83,5 +83,11 @@ public class InterviewDao extends AbstractDao<Interview> {
             }
             return null;
         }
+    }
+
+    @Override
+    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement, 
+                                                          Interview entity) throws SQLException {
+        prepareStatement.setLong(1, entity.getId());
     }
 }

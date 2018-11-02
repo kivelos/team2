@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Candidate extends Entity {
+public final class Candidate extends Entity {
     private String name;
     private String surname;
     private Date birthday;
@@ -35,104 +35,108 @@ public class Candidate extends Entity {
         this.salaryInDollars = salaryInDollars;
     }
 
-    public final String getName() {
+    public String getName() {
         return name;
     }
 
-    public final void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public final String getSurname() {
+    public String getSurname() {
         return surname;
     }
 
-    public final void setSurname(String surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    public final Date getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public final void setBirthday(Date birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
-    public final float getSalaryInDollars() {
+    public float getSalaryInDollars() {
         return salaryInDollars;
     }
 
-    public final void setSalaryInDollars(float salaryInDollars) {
+    public void setSalaryInDollars(float salaryInDollars) {
         this.salaryInDollars = salaryInDollars;
     }
 
-    public final String getCandidateState() {
+    public String getCandidateState() {
         return candidateState;
     }
 
-    public final void setCandidateState(String candidateState) {
+    public void setCandidateState(String candidateState) {
         this.candidateState = candidateState;
     }
 
-    public final List<Attachment> getAttachments() {
+    public List<Attachment> getAttachments() {
         return attachments;
     }
 
-    public final void setAttachments(List<Attachment> attachments) {
+    public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
     }
 
-    public final List<Experience> getExperiences() {
+    public List<Experience> getExperiences() {
         return experiences;
     }
 
-    public final void setExperiences(List<Experience> experiences) {
+    public void setExperiences(List<Experience> experiences) {
         this.experiences = experiences;
     }
 
-    public final List<Contact> getContacts() {
+    public List<Contact> getContacts() {
         return contacts;
     }
 
-    public final void setContacts(List<Contact> contacts) {
+    public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
     }
 
-    public final List<Skill> getCompetences() {
+    public List<Skill> getCompetences() {
         return competences;
     }
 
-    public final void setCompetences(List<Skill> competences) {
+    public void setCompetences(List<Skill> competences) {
         this.competences = competences;
     }
 
-    public final List<Vacancy> getPassedVacancies() {
+    public List<Vacancy> getPassedVacancies() {
         return passedVacancies;
     }
 
-    public final void setPassedVacancies(List<Vacancy> passedVacancies) {
+    public void setPassedVacancies(List<Vacancy> passedVacancies) {
         this.passedVacancies = passedVacancies;
     }
 
-    public final List<Interview> getInterviews() {
+    public List<Interview> getInterviews() {
         return interviews;
     }
 
-    public final void setInterviews(List<Interview> interviews) {
+    public void setInterviews(List<Interview> interviews) {
         this.interviews = interviews;
     }
 
     @Override
-    public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public  boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Candidate candidate = (Candidate) o;
-        return Float.compare(candidate.salaryInDollars, salaryInDollars) == 0 &&
-                Objects.equals(name, candidate.name) &&
-                Objects.equals(surname, candidate.surname) &&
-                Objects.equals(birthday, candidate.birthday) &&
-                Objects.equals(candidateState, candidate.candidateState);
+        return Float.compare(candidate.salaryInDollars, salaryInDollars) == 0
+                && Objects.equals(name, candidate.name)
+                && Objects.equals(surname, candidate.surname)
+                && Objects.equals(birthday, candidate.birthday)
+                && Objects.equals(candidateState, candidate.candidateState);
     }
 
     @Override
@@ -142,8 +146,8 @@ public class Candidate extends Entity {
 
     @Override
     public String toString() {
-        return "Candidate{" +
-                "name='" + name + '\''
+        return "Candidate{"
+                + "name='" + name + '\''
                 + ", surname='" + surname + '\''
                 + ", birthday=" + birthday
                 + ", salaryInDollars=" + salaryInDollars

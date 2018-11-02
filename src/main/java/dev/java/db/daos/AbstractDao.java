@@ -9,13 +9,15 @@ import java.util.List;
 public abstract class AbstractDao<T extends Entity> {
     protected Connection connection;
     //language=SQL
-    protected static String SQL_SELECT_SORTED_PAGE;
+    protected String sqlSelectSortedPage;
     //language=SQL
-    protected static String SQL_INSERT;
+    protected String sqlInsert;
     //language=SQL
-    protected static String SQL_UPDATE;
+    protected String sqlUpdate;
     //language=SQL
-    protected static String SQL_SELECT_FILTERED_ENTITIES;
+    protected String sqlSelectFilteredEntities;
+    //language=SQL
+    protected String sqlDelete;
 
     public AbstractDao(Connection connection) {
         this.connection = connection;
@@ -24,9 +26,9 @@ public abstract class AbstractDao<T extends Entity> {
     public List<T> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage)
             throws SQLException {
         List<T> allEntitiesList = new ArrayList<>();
-        SQL_SELECT_SORTED_PAGE = String.format(SQL_SELECT_SORTED_PAGE, sortedField,
+        sqlSelectSortedPage = String.format(sqlSelectSortedPage, sortedField,
                 order ? "ASC" : "DESC");
-        try (PreparedStatement selectPrepareStatement = connection.prepareStatement(SQL_SELECT_SORTED_PAGE)) {
+        try (PreparedStatement selectPrepareStatement = connection.prepareStatement(sqlSelectSortedPage)) {
             selectPrepareStatement.setInt(1, (pageNumber - 1) * itemsNumberInPage);
             selectPrepareStatement.setInt(2, itemsNumberInPage);
             ResultSet entityTableRow = selectPrepareStatement.executeQuery();
@@ -42,7 +44,7 @@ public abstract class AbstractDao<T extends Entity> {
     public List<T> getFilteredEntitiesPage(String... params)
             throws SQLException {
         List<T> allEntitiesList = new ArrayList<>();
-        try (PreparedStatement selectPrepareStatement = connection.prepareStatement(SQL_SELECT_FILTERED_ENTITIES)) {
+        try (PreparedStatement selectPrepareStatement = connection.prepareStatement(sqlSelectFilteredEntities)) {
             for (int i = 0; i < params.length; i++) {
                 selectPrepareStatement.setString(i * 2 + 1, params[i]);
                 selectPrepareStatement.setString(i * 2 + 2, params[i]);
@@ -59,7 +61,7 @@ public abstract class AbstractDao<T extends Entity> {
     }
 
     public boolean createEntity(T entity) throws SQLException {
-        try (PreparedStatement insertPrepareStatement = connection.prepareStatement(SQL_INSERT,
+        try (PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlInsert,
                 Statement.RETURN_GENERATED_KEYS)) {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
             int status =  insertPrepareStatement.executeUpdate();
@@ -76,17 +78,30 @@ public abstract class AbstractDao<T extends Entity> {
         }
     }
     public boolean updateEntity(T entity) throws SQLException {
-        try (PreparedStatement updatePrepareStatement = connection.prepareStatement(SQL_UPDATE)) {
+        try (PreparedStatement updatePrepareStatement
+                     = connection.prepareStatement(sqlUpdate)) {
             setValuesForUpdateIntoPrepareStatement(updatePrepareStatement, entity);
             return updatePrepareStatement.executeUpdate() > 0;
         }
     }
 
-    protected abstract T setEntityFields(ResultSet entityTableRow) throws SQLException;
-    protected abstract void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, T entity)
-            throws SQLException;
-    protected abstract void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, T entity)
-            throws SQLException;
+    public boolean deleteEntity(T entity) throws SQLException {
+        try (PreparedStatement deletePrepareStatement
+                     = connection.prepareStatement(sqlDelete)) {
+            setValuesForDeleteIntoPrepareStatement(deletePrepareStatement, entity);
+            return deletePrepareStatement.executeUpdate() > 0;
+        }
+    }
 
+    protected abstract T setEntityFields(ResultSet entityTableRow) throws SQLException;
+    protected abstract void setValuesForInsertIntoPrepareStatement(
+            PreparedStatement prepareStatement, T entity)
+            throws SQLException;
+    protected abstract void setValuesForUpdateIntoPrepareStatement(
+            PreparedStatement prepareStatement, T entity)
+            throws SQLException;
+    protected abstract void setValuesForDeleteIntoPrepareStatement(
+            PreparedStatement prepareStatement, T entity)
+            throws SQLException;
 
 }

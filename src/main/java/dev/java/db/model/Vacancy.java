@@ -3,7 +3,7 @@ package dev.java.db.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Vacancy extends Entity {
+public final class Vacancy extends Entity {
     private String position;
     private float salaryInDollarsFrom;
     private float salaryInDollarsTo;
@@ -31,80 +31,80 @@ public class Vacancy extends Entity {
         this.developer = developer;
     }
 
-    public final String getPosition() {
+    public  String getPosition() {
         return position;
     }
 
-    public final void setPosition(String position) {
+    public  void setPosition(String position) {
         this.position = position;
     }
 
-    public final float getSalaryInDollarsFrom() {
+    public  float getSalaryInDollarsFrom() {
         return salaryInDollarsFrom;
     }
 
-    public final void setSalaryInDollarsFrom(float salaryInDollarsFrom) {
+    public  void setSalaryInDollarsFrom(float salaryInDollarsFrom) {
         this.salaryInDollarsFrom = salaryInDollarsFrom;
     }
 
-    public final float getSalaryInDollarsTo() {
+    public  float getSalaryInDollarsTo() {
         return salaryInDollarsTo;
     }
 
-    public final void setSalaryInDollarsTo(float salaryInDollarsTo) {
+    public  void setSalaryInDollarsTo(float salaryInDollarsTo) {
         this.salaryInDollarsTo = salaryInDollarsTo;
     }
 
-    public final VacancyState getVacancyState() {
+    public  VacancyState getVacancyState() {
         return vacancyState;
     }
 
-    public final void setVacancyState(VacancyState vacancyState) {
+    public  void setVacancyState(VacancyState vacancyState) {
         this.vacancyState = vacancyState;
     }
 
-    public final float getExperienceYearsRequire() {
+    public  float getExperienceYearsRequire() {
         return experienceYearsRequire;
     }
 
-    public final void setExperienceYearsRequire(float experienceYearsRequire) {
+    public  void setExperienceYearsRequire(float experienceYearsRequire) {
         this.experienceYearsRequire = experienceYearsRequire;
     }
 
-    public final User getDeveloper() {
+    public  User getDeveloper() {
         return developer;
     }
 
-    public final void setDeveloper(User developer) {
+    public  void setDeveloper(User developer) {
         this.developer = developer;
     }
 
-    public final List<Interview> getInterviews() {
+    public  List<Interview> getInterviews() {
         return interviews;
     }
 
-    public final void setInterviews(List<Interview> interviews) {
+    public  void setInterviews(List<Interview> interviews) {
         this.interviews = interviews;
     }
 
-    public final List<Candidate> getPassedCandidates() {
+    public  List<Candidate> getPassedCandidates() {
         return passedCandidates;
     }
 
-    public final void setPassedCandidates(List<Candidate> passedCandidates) {
+    public  void setPassedCandidates(List<Candidate> passedCandidates) {
         this.passedCandidates = passedCandidates;
     }
 
-    public final List<Skill> getSkillRequirements() {
+    public  List<Skill> getSkillRequirements() {
         return skillRequirements;
     }
 
-    public final void setSkillRequirements(List<Skill> skillRequirements) {
+    public  void setSkillRequirements(List<Skill> skillRequirements) {
         this.skillRequirements = skillRequirements;
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public  boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vacancy vacancy = (Vacancy) o;

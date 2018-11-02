@@ -3,60 +3,126 @@ package dev.java.controller;
 import dev.java.Logging;
 import dev.java.db.ConnectorDB;
 import dev.java.db.daos.CandidateDao;
-import dev.java.db.daos.CandidateStateDao;
 import dev.java.db.model.Candidate;
-import dev.java.db.model.CandidateState;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
-@Controller
-public class CandidateController {
+@RestController
+public final class CandidateController {
 
-    private Logging logging = new Logging();
-    private static boolean sortType = true;
+    private final Logging logging = new Logging();
+    private final boolean sortType = true;
     private static String sortedField = "surname";
+    private static int itemsInPage = 3;
 
-    @RequestMapping(value = "/candidates", method = RequestMethod.GET)
-    public final ModelAndView getAllCandidates(HttpServletRequest request) {
-        logging.runMe(request);
-        ModelAndView modelAndView;
-        try (Connection connection = ConnectorDB.getConnection()) {
-            CandidateDao candidateDao = new CandidateDao(connection);
-            String sort = request.getParameter("sort");
-            boolean sortType = true;
-            if (sort != null) {
-                sortType = !sort.equals("desc");
-            }
-            String sortedField = request.getParameter("field");
-            if (sortedField == null) {
-                sortedField = "surname";
-            }
-            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(1, sortedField, sortType, GeneralConstant.itemsInPage);
-            CandidateStateDao candidateStateDao = new CandidateStateDao(connection);
-            List<CandidateState> candidateStates = candidateStateDao.getSortedEntitiesPage();
-            modelAndView = new ModelAndView("candidates/candidates");
-            modelAndView.addObject("states", candidateStates);
-            modelAndView.addObject("candidates_list", candidates);
-            modelAndView.addObject("page",1);
-        } catch (Exception e) {
+    private static CandidateDao candidateDao;
+    private static Connection connection;
+
+    @PostConstruct
+    public void initialize() {
+        try {
+            connection = ConnectorDB.getConnection();
+            candidateDao = new CandidateDao(connection);
+        } catch (SQLException e) {
             logging.runMe(e);
-            modelAndView = new ModelAndView("errors/500");
         }
-        return modelAndView;
     }
 
-    @RequestMapping(value = "/candidates/page/{page:\\d+}", method = RequestMethod.GET)
-    public final ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
+    @PreDestroy
+    public void destroy() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            logging.runMe(e);
+        }
+    }
+
+    @GetMapping("/candidates")
+    public ResponseEntity getAllCandidates(HttpServletRequest request) {
+        logging.runMe(request);
+        List<Candidate> allCandidates;
+        try {
+            allCandidates = candidateDao.getSortedEntitiesPage(1, sortedField, true, itemsInPage);
+            return ResponseEntity.ok(allCandidates);
+        } catch (SQLException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @PostMapping("/candidates")
+    public ResponseEntity createCandidate(@RequestBody Candidate candidate, HttpServletRequest request) {
+        logging.runMe(request);
+        try {
+            if (candidateDao.createEntity(candidate)) {
+                return ResponseEntity.created(new URI("/candidate/" + candidate.getId()))
+                        .body("Created");
+            }
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Invalid Input");
+        } catch (SQLException | URISyntaxException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @GetMapping("/candidate/{id:\\d+}")
+    public ResponseEntity getCandidate(@PathVariable long id, HttpServletRequest request) {
+        logging.runMe(request);
+        try {
+            Candidate candidate = candidateDao.getEntityById(id);
+            if (candidate == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(candidate);
+        } catch (SQLException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @PutMapping("/candidate/{id:\\d+}")
+    public ResponseEntity updateCandidate(@PathVariable long id, @RequestBody Candidate candidate,
+                                          HttpServletRequest request) {
+        logging.runMe(request);
+        try {
+            if (candidateDao.updateEntity(candidate)) {
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.notFound().build();
+        } catch (SQLException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @DeleteMapping("/candidate/{id:\\d+}")
+    public ResponseEntity deleteCandidate(@PathVariable long id, HttpServletRequest request) {
+        logging.runMe(request);
+        try {
+            if (candidateDao.deleteEntity(new Candidate(id))) {
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.notFound().build();
+        } catch (SQLException e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    private ResponseEntity getResponseEntityOnServerError(Exception e) {
+        logging.runMe(e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error");
+    }
+
+
+
+    /*@RequestMapping(value = "/candidates/page/{page:\\d+}", method = RequestMethod.GET)
+    public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
         ModelAndView modelAndView;
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -66,7 +132,7 @@ public class CandidateController {
                 modelAndView = new ModelAndView("redirect:/candidates/page/" + page);
                 return modelAndView;
             }
-            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(page, sortedField, sortType, GeneralConstant.itemsInPage);
+            List<Candidate> candidates = candidateDao.getSortedEntitiesPage(page, sortedField, sortType, itemsInPage);
             if(candidates.isEmpty() && page != 1) {
                 page--;
                 modelAndView = new ModelAndView("redirect:/candidates/page/" + page);
@@ -88,7 +154,7 @@ public class CandidateController {
     }
 
     @RequestMapping(value = "/candidates", method = RequestMethod.POST)
-    public final ModelAndView addCandidate(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView addCandidate(HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -130,7 +196,7 @@ public class CandidateController {
     }
 
     @RequestMapping(value = "/candidates/{id:\\d+}/edit", method = RequestMethod.GET)
-    public final ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request) {
+    public ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = getCandidate(id, request);
         try (Connection connection = ConnectorDB.getConnection()){
@@ -148,7 +214,7 @@ public class CandidateController {
     }
 
     @RequestMapping(value = "/candidates/{id:\\d+}/edit", method = RequestMethod.POST)
-    public final ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView editCandidate(@PathVariable long id, HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -181,7 +247,8 @@ public class CandidateController {
         } catch (IllegalArgumentException e) {
             modelAndView = getCandidate(id, request);
             modelAndView.addObject("error", "Name must be filled");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             logging.runMe(e);
             modelAndView = new ModelAndView("errors/500");
         }
@@ -189,7 +256,7 @@ public class CandidateController {
     }
 
     @RequestMapping(value = "/candidates/{id:\\d+}", method = RequestMethod.GET)
-    public final ModelAndView getCandidate(@PathVariable long id, HttpServletRequest request) {
+    public ModelAndView getCandidate(@PathVariable long id, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("candidates/candidate");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -204,7 +271,7 @@ public class CandidateController {
     }
 
     @RequestMapping(value = "/candidates/filtering", method = RequestMethod.POST)
-    public final ModelAndView getFilteredEntities(HttpServletRequest request) {
+    public ModelAndView getFilteredEntities(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("candidates/candidates");
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -225,5 +292,5 @@ public class CandidateController {
             modelAndView = new ModelAndView("errors/500");
         }
         return modelAndView;
-    }
+    }*/
 }

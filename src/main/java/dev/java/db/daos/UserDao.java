@@ -7,26 +7,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDao extends AbstractDao<User> {
+public final class UserDao extends AbstractDao<User> {
 
     private static String SQL_SELECT_BY_ID = "SELECT * FROM user AS c WHERE c.id=?";
 
     public UserDao(Connection connection) {
         super(connection);
-        SQL_SELECT_SORTED_PAGE = "SELECT * FROM user ORDER BY %s %s LIMIT ?, ?";
-        SQL_INSERT = "INSERT INTO user "
+        sqlSelectSortedPage = "SELECT * FROM user ORDER BY %s %s LIMIT ?, ?";
+        sqlInsert = "INSERT INTO user "
                 + "(email,password, surname, name, user_state) "
                 + "VALUES (?, ?, ?, ?, ?)";
-        SQL_UPDATE = "UPDATE user "
+        sqlUpdate = "UPDATE user "
                 + "SET email=?, password=?, surname=?, name=?, user_state=? "
                 + "WHERE id=?";
-        SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM user "
+        sqlSelectFilteredEntities = "SELECT * FROM user "
                 + "WHERE (email=? OR ?='') AND (password=? OR ?='') AND "
                 + "(name=? OR ?='') AND (surname=? OR ?='') "
                 + "AND (user_state=? OR ?='')";
     }
 
-    public final User getEntityById(long id) throws SQLException {
+    public  User getEntityById(long id) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
             getByIdPrepareStatement.setLong(1, id);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
@@ -40,7 +40,7 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected final User setEntityFields(ResultSet entityTableRow) throws SQLException {
+    protected  User setEntityFields(ResultSet entityTableRow) throws SQLException {
         User user = new User();
         user.setId(entityTableRow.getLong("id"));
         user.setEmail(entityTableRow.getString("email"));
@@ -52,7 +52,7 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected final void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user) throws SQLException {
+    protected  void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user) throws SQLException {
         prepareStatement.setString(1, user.getEmail());
         prepareStatement.setString(2, user.getPassword());
         prepareStatement.setString(3, user.getSurname());
@@ -61,8 +61,14 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected final void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, User entity) throws SQLException {
+    protected  void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, User entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(6, entity.getId());
+    }
+
+    @Override
+    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement, 
+                                                          User entity) throws SQLException {
+        prepareStatement.setLong(1, entity.getId());
     }
 }
