@@ -10,7 +10,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public final class InterviewDao extends AbstractDao<Interview> {
-    private static String SQL_SELECT_BY_ID = "SELECT * FROM interview AS c WHERE c.id=?";
 
     public InterviewDao(Connection connection) {
         super(connection);
@@ -23,6 +22,7 @@ public final class InterviewDao extends AbstractDao<Interview> {
                 + "WHERE id=?";
         sqlSelectFilteredEntities = "SELECT * FROM interview "
                 + "WHERE (id_candidate=? OR ?='') AND (id_vacancy=? OR ?='') AND (plan_date=? OR ?='')AND (fact_date=? OR ?='')";
+        sqlSelectById = "SELECT * FROM interview AS c WHERE c.id=?";
     }
 
     @Override
@@ -71,19 +71,6 @@ public final class InterviewDao extends AbstractDao<Interview> {
         prepareStatement.setLong(5, entity.getId());
     }
 
-    public  Interview getEntityById(long id) throws SQLException {
-        try (PreparedStatement getByIdPrepareStatement =
-                     connection.prepareStatement(SQL_SELECT_BY_ID)) {
-            getByIdPrepareStatement.setLong(1, id);
-            ResultSet entity = getByIdPrepareStatement.executeQuery();
-            if (entity.next()) {
-                Interview interview = setEntityFields(entity);
-                entity.close();
-                return interview;
-            }
-            return null;
-        }
-    }
 
     @Override
     protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement, 

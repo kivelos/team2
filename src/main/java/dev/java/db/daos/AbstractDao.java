@@ -18,6 +18,8 @@ public abstract class AbstractDao<T extends Entity> {
     protected String sqlSelectFilteredEntities;
     //language=SQL
     protected String sqlDelete;
+    //language=SQL
+    protected String sqlSelectById;
 
     public AbstractDao(Connection connection) {
         this.connection = connection;
@@ -90,6 +92,19 @@ public abstract class AbstractDao<T extends Entity> {
                      = connection.prepareStatement(sqlDelete)) {
             setValuesForDeleteIntoPrepareStatement(deletePrepareStatement, entity);
             return deletePrepareStatement.executeUpdate() > 0;
+        }
+    }
+
+    public T getEntityById(long id) throws SQLException {
+        try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(sqlSelectById)) {
+            getByIdPrepareStatement.setLong(1, id);
+            ResultSet entity = getByIdPrepareStatement.executeQuery();
+            if (entity.next()) {
+                T newEntity = setEntityFields(entity);
+                entity.close();
+                return newEntity;
+            }
+            return null;
         }
     }
 

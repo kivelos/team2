@@ -1,123 +1,57 @@
 package dev.java.controller;
 
-import dev.java.Logging;
-import dev.java.db.ConnectorDB;
 import dev.java.db.daos.CandidateDao;
 import dev.java.db.model.Candidate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-public final class CandidateController {
-
-    private final Logging logging = new Logging();
-    private final boolean sortType = true;
-    private static String sortedField = "surname";
-    private static int itemsInPage = 3;
-
-    private static CandidateDao candidateDao;
-    private static Connection connection;
+public final class CandidateController extends AbstractController<Candidate> {
 
     @PostConstruct
+    @Override
     public void initialize() {
-        try {
-            connection = ConnectorDB.getConnection();
-            candidateDao = new CandidateDao(connection);
-        } catch (SQLException e) {
-            logging.runMe(e);
-        }
+        super.initialize();
+        sortedField = "surname";
+        url = "/candidate/";
+        abstractDao = new CandidateDao(connection);
     }
 
-    @PreDestroy
-    public void destroy() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            logging.runMe(e);
-        }
-    }
-
+    @Override
     @GetMapping("/candidates")
-    public ResponseEntity getAllCandidates(HttpServletRequest request) {
-        logging.runMe(request);
-        List<Candidate> allCandidates;
-        try {
-            allCandidates = candidateDao.getSortedEntitiesPage(1, sortedField, true, itemsInPage);
-            return ResponseEntity.ok(allCandidates);
-        } catch (SQLException e) {
-            return getResponseEntityOnServerError(e);
-        }
+    public ResponseEntity getAllEntities(HttpServletRequest request) {
+        return super.getAllEntities(request);
     }
 
+    @Override
     @PostMapping("/candidates")
-    public ResponseEntity createCandidate(@RequestBody Candidate candidate, HttpServletRequest request) {
-        logging.runMe(request);
-        try {
-            if (candidateDao.createEntity(candidate)) {
-                return ResponseEntity.created(new URI("/candidate/" + candidate.getId()))
-                        .body("Created");
-            }
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Invalid Input");
-        } catch (SQLException | URISyntaxException e) {
-            return getResponseEntityOnServerError(e);
-        }
+    public ResponseEntity createEntity(@RequestBody Candidate candidate, HttpServletRequest request) {
+        return super.createEntity(candidate, request);
     }
 
+    @Override
     @GetMapping("/candidate/{id:\\d+}")
-    public ResponseEntity getCandidate(@PathVariable long id, HttpServletRequest request) {
-        logging.runMe(request);
-        try {
-            Candidate candidate = candidateDao.getEntityById(id);
-            if (candidate == null) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(candidate);
-        } catch (SQLException e) {
-            return getResponseEntityOnServerError(e);
-        }
+    public ResponseEntity getEntity(@PathVariable long id, HttpServletRequest request) {
+        return super.getEntity(id, request);
     }
 
+    @Override
     @PutMapping("/candidate/{id:\\d+}")
-    public ResponseEntity updateCandidate(@PathVariable long id, @RequestBody Candidate candidate,
+    public ResponseEntity updateEntity(@PathVariable long id, @RequestBody Candidate candidate,
                                           HttpServletRequest request) {
-        logging.runMe(request);
-        try {
-            if (candidateDao.updateEntity(candidate)) {
-                return ResponseEntity.ok().build();
-            }
-            return ResponseEntity.notFound().build();
-        } catch (SQLException e) {
-            return getResponseEntityOnServerError(e);
-        }
+       return super.updateEntity(id, candidate, request);
     }
 
+    @Override
     @DeleteMapping("/candidate/{id:\\d+}")
-    public ResponseEntity deleteCandidate(@PathVariable long id, HttpServletRequest request) {
-        logging.runMe(request);
-        try {
-            if (candidateDao.deleteEntity(new Candidate(id))) {
-                return ResponseEntity.ok().build();
-            }
-            return ResponseEntity.notFound().build();
-        } catch (SQLException e) {
-            return getResponseEntityOnServerError(e);
-        }
+    public ResponseEntity deleteEntity(@PathVariable long id, HttpServletRequest request) {
+        return super.deleteEntity(id, request);
     }
 
-    private ResponseEntity getResponseEntityOnServerError(Exception e) {
-        logging.runMe(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error");
-    }
 
 
 

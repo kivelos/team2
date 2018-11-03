@@ -10,7 +10,10 @@ import java.util.Calendar;
 
 public final class CandidateDao extends AbstractDao<Candidate> {
 
-    private String sqlSelectById = "SELECT * FROM candidate AS c WHERE c.id=?";
+    //language=SQL
+    private String sqlSelectSkills = "SELECT skill.name FROM skill " +
+            "JOIN vacancy_requirement v on skill.name = v.skill " +
+            "WHERE v.id_vacancy=?";
 
     public CandidateDao(Connection connection) {
         super(connection);
@@ -26,21 +29,9 @@ public final class CandidateDao extends AbstractDao<Candidate> {
                 + "WHERE (name=? OR ?='') AND (surname=? OR ?='') AND "
                 + "(birthday=? OR ?='') AND (salary_in_dollars=? OR ?='') "
                 + "AND (candidate_state=? OR ?='')";
+        sqlSelectById = "SELECT * FROM candidate AS c WHERE c.id=?";
     }
 
-
-    public  Candidate getEntityById(long id) throws SQLException {
-        try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(sqlSelectById)) {
-            getByIdPrepareStatement.setLong(1, id);
-            ResultSet entity = getByIdPrepareStatement.executeQuery();
-            if (entity.next()) {
-                Candidate candidate = setEntityFields(entity);
-                entity.close();
-                return candidate;
-            }
-            return null;
-        }
-    }
 
 
     @Override

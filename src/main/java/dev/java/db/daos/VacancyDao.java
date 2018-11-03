@@ -12,8 +12,6 @@ import java.util.List;
 
 public final class VacancyDao extends AbstractDao<Vacancy> {
 
-    private static String SQL_SELECT_BY_ID = "SELECT * FROM vacancy AS v WHERE v.id=?";
-
     public VacancyDao(Connection connection) {
         super(connection);
         sqlSelectSortedPage = "SELECT * FROM vacancy ORDER BY %s %s LIMIT ?, ?";
@@ -28,6 +26,7 @@ public final class VacancyDao extends AbstractDao<Vacancy> {
         sqlSelectFilteredEntities = "SELECT * FROM vacancy "
                 + "WHERE (position=? OR ?='')  AND (salary_in_dollars_from=? OR ?='') AND (salary_in_dollars_to=? OR ?='')"
                 + "AND (vacancy_state=? OR ?='') AND (experience_years_require=? OR ?='') AND (id_developer=? OR ?='')";
+        sqlSelectById = "SELECT * FROM vacancy AS v WHERE v.id=?";
     }
 
     @Override
@@ -38,19 +37,6 @@ public final class VacancyDao extends AbstractDao<Vacancy> {
             vacancy.setDeveloper(userDao.getEntityById(vacancy.getDeveloper().getId()));
         }
         return vacancies;
-    }
-
-    public  Vacancy getEntityById(long id) throws SQLException {
-        try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
-            getByIdPrepareStatement.setLong(1, id);
-            ResultSet entity = getByIdPrepareStatement.executeQuery();
-            if (entity.next()) {
-                Vacancy vacancy = setEntityFields(entity);
-                entity.close();
-                return vacancy;
-            }
-            return null;
-        }
     }
 
     @Override

@@ -23,6 +23,7 @@
         <servlet-api.version>4.0.0</servlet-api.version>
         <junit.version>4.12</junit.version>
         <mysql.connector.version>8.0.12</mysql.connector.version>
+        <jackson.version>2.9.4</jackson.version>
     </properties>
 
     <dependencies>
@@ -75,6 +76,12 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 

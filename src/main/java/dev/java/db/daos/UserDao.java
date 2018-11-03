@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 public final class UserDao extends AbstractDao<User> {
 
-    private static String SQL_SELECT_BY_ID = "SELECT * FROM user AS c WHERE c.id=?";
 
     public UserDao(Connection connection) {
         super(connection);
@@ -24,19 +23,7 @@ public final class UserDao extends AbstractDao<User> {
                 + "WHERE (email=? OR ?='') AND (password=? OR ?='') AND "
                 + "(name=? OR ?='') AND (surname=? OR ?='') "
                 + "AND (user_state=? OR ?='')";
-    }
-
-    public  User getEntityById(long id) throws SQLException {
-        try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_ID)) {
-            getByIdPrepareStatement.setLong(1, id);
-            ResultSet entity = getByIdPrepareStatement.executeQuery();
-            if (entity.next()) {
-                User user = setEntityFields(entity);
-                entity.close();
-                return user;
-            }
-            return null;
-        }
+        sqlSelectById = "SELECT * FROM user AS c WHERE c.id=?";
     }
 
     @Override
