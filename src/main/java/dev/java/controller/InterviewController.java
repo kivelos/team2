@@ -247,31 +247,32 @@ public class InterviewController {
         return modelAndView;
     }
 
-    /*@RequestMapping(value = "/vacancies/filtering", method = RequestMethod.POST)
+    @RequestMapping(value = "/interviews/filtering", method = RequestMethod.POST)
     public ModelAndView getFilteredEntities(HttpServletRequest request) {
         logging.runMe(request);
-        ModelAndView modelAndView = new ModelAndView("vacancies/vacancies");
+        ModelAndView modelAndView = new ModelAndView("interviews/interviews");
         try (Connection connection = ConnectorDB.getConnection()) {
+            InterviewDao interviewDao = new InterviewDao(connection);
+            String planDate = request.getParameter("plan_date").trim();
+
+            String factDate =  request.getParameter("fact_date").trim();
+
+            String candidateId = request.getParameter("candidate").trim();
+            System.out.println(candidateId);
+            String vacancyId = request.getParameter("vacancy").trim();
+            System.out.println(vacancyId);
+            List<Interview> interviews = interviewDao.getFilteredEntitiesPage(candidateId,vacancyId,planDate,factDate);
+            CandidateDao candidateDao = new CandidateDao(connection);
+            List<Candidate> allCandidates = candidateDao.getSortedEntitiesPage(1,"surname",true,100);
+            modelAndView.addObject("candidates_list",allCandidates);
             VacancyDao vacancyDao = new VacancyDao(connection);
-            String position = request.getParameter("position").trim();
-            String salaryInDollarsFrom = request.getParameter("salary_in_dollars_from").trim();
-            String salaryInDollarsTo = request.getParameter("salary_in_dollars_to").trim();
-            String vacancyState = request.getParameter("state").trim();
-            String experienceYearsRequire = request.getParameter("experience_years_require");
-            String developerId = request.getParameter("developer");
-            System.out.println(developerId);
-            List<Vacancy> vacancies = vacancyDao.getFilteredEntitiesPage(position, salaryInDollarsFrom,
-                    salaryInDollarsTo, vacancyState, experienceYearsRequire, developerId);
-            VacancyState[] vacancyStates = VacancyState.values();
-            UserDao userDao = new UserDao(connection);
-            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
-            modelAndView.addObject("users_list", allUsers);
-            modelAndView.addObject("states", vacancyStates);
-            modelAndView.addObject("vacancies_list", vacancies);
+            List<Vacancy> allVacancies = vacancyDao.getSortedEntitiesPage(1,"position",true,100);
+            modelAndView.addObject("vacancies_list",allVacancies);
+            modelAndView.addObject("interviews_list",interviews);
         } catch (Exception e) {
             logging.runMe(e);
             modelAndView = new ModelAndView("errors/500");
         }
         return modelAndView;
-    }*/
+    }
 }

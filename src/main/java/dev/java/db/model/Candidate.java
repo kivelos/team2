@@ -28,11 +28,12 @@ public class Candidate extends Entity {
         super(id);
     }
 
-    public Candidate(String name, String surname, Date birthday, float salaryInDollars) {
+    public Candidate(String name, String surname, Date birthday, float salaryInDollars, String candidateState) {
         this.name = name;
         this.surname = surname;
         this.birthday = birthday;
         this.salaryInDollars = salaryInDollars;
+        this.candidateState = candidateState;
     }
 
     public final String getName() {

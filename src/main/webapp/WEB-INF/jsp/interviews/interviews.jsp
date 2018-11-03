@@ -9,8 +9,8 @@
 <h1>Interviews List</h1>
 Filtering
 <form action="/interviews/filtering" method="post">
-    Plan date: <input type="datetime-local" name="plan_date"><br>
-    Fact date: <input type="datetime-local" name="fact_date"><br>
+    Plan Date:  <input type="datetime-local"  name="plan_date" value="${interview.planDate}"><br>
+    Fact Date:  <input type="datetime-local"  name="fact_date" value="${interview.factDate}"><br>
     Candidate:
     <select name="candidate">
         <option value="">Choose candidate</option>

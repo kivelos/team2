@@ -18,7 +18,6 @@
     Salary in dollars: <input type="number" name="salary_in_dollars" step="0.01" min="0.00"
                               value="${candidate.salaryInDollars}"><br>
     Status: <select name="state">
-    <option value="" selected>Choose State</option>
     <c:forEach var="state" items="${states}">
         <c:choose>
             <c:when test="${state.name == candidate.candidateState}">

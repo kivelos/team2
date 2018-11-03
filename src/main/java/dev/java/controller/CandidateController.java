@@ -113,8 +113,9 @@ public class CandidateController {
             catch (IllegalArgumentException e) {
                 salaryInDollars = 0;
             }
+            String candidateState = request.getParameter("state");
             CandidateDao candidateDao = new CandidateDao(connection);
-            Candidate candidate = new Candidate(name, surname, date, salaryInDollars);
+            Candidate candidate = new Candidate(name, surname, date, salaryInDollars, candidateState);
             candidateDao.createEntity(candidate);
             modelAndView = new ModelAndView("redirect:" + "/candidates/" + candidate.getId());
         }
@@ -171,11 +172,10 @@ public class CandidateController {
             catch (NumberFormatException | NullPointerException e) {
                 salaryInDollars = 0;
             }
-            String state = request.getParameter("state");
+            String candidateState = request.getParameter("state");
             CandidateDao candidateDao = new CandidateDao(connection);
-            Candidate candidate = new Candidate(name, surname, date, salaryInDollars);
+            Candidate candidate = new Candidate(name, surname, date, salaryInDollars, candidateState);
             candidate.setId(id);
-            candidate.setCandidateState(state);
             candidateDao.updateEntity(candidate);
             modelAndView = new ModelAndView("redirect:" + "/candidates/" + id);
         } catch (IllegalArgumentException e) {

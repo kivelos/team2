@@ -82,7 +82,7 @@ public class UserController {
             String password = request.getParameter("password").trim();
             String email = request.getParameter("email").trim();
             User.State state;
-            if(request.getParameter("state").equals("ACTIVE"))
+            if(request.getParameter("state").toUpperCase().equals("ACTIVE"))
                 state = User.State.ACTIVE;
             else
                 state = User.State.BLOCKED;

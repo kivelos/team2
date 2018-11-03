@@ -76,7 +76,6 @@ Add new candidate<br>
     Salary in dollars: <input type="number" name="salary_in_dollars" step="0.01" min="0.00"><br>
     Status:
     <select name="state">
-        <option value="">Choose status</option>
         <c:forEach var="state" items="${states}">
             <option value="${state.name}">${state.name}</option>
         </c:forEach>
