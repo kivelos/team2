@@ -145,6 +145,9 @@ public class SkillController {
             if (replaceName.equals("")) {
                 throw new IllegalArgumentException("Field Name is empty");
             }
+            if (!Skill.isNameSkillValid(replaceName)){
+                throw new IllegalArgumentException("Field Name is not correct");
+            }
             SkillDao skillDao = new SkillDao(connection);
             skillDao.deleteEntity(new Skill(name));
             skillDao.createEntity(new Skill(replaceName));

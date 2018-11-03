@@ -77,7 +77,6 @@ public class CandidateController {
             List<CandidateState> candidateStates = candidateStateDao.getSortedEntitiesPage();
             modelAndView = new ModelAndView("candidates/candidates");
             modelAndView.addObject("states", candidateStates);
-            modelAndView = new ModelAndView("candidates/candidates");
             modelAndView.addObject("candidates_list", candidates);
             modelAndView.addObject("page", page);
         } catch (Exception e) {

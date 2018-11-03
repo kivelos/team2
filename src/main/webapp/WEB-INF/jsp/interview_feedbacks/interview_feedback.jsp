@@ -13,7 +13,7 @@
     <div id="c1">
         <p>Candidate:</p>
         <p>Vacancy: </p>
-        <p>Interviewer</p>: </p>
+        <p>Interviewer:</p>
         <p>Reason: </p>
         <p>State: </p>
     </div>

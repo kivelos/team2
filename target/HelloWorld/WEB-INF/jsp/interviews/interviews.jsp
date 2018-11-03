@@ -65,7 +65,7 @@ Page ${page}
 <a href="/interviews/page/${page + 1}">Next</a>
 
 <br><br>
-Add new vacancy<br>
+Add new interview<br>
 <form action="/interviews" method="post">
     Plan date: <input type="datetime-local" name="plan_date"><br>
     Fact date: <input type="datetime-local" name="fact_date"><br>

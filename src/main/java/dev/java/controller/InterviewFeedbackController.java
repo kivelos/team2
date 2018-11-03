@@ -35,11 +35,11 @@ public class InterviewFeedbackController {
             InterviewFeedbackDao interviewFeedbackDao
                     = new InterviewFeedbackDao(connection);
             String sort = request.getParameter("sort");
-            boolean sortType = true;
+            sortType = true;
             if (sort != null) {
                 sortType = !sort.equals("desc");
             }
-            String sortedField = request.getParameter("field");
+            sortedField = request.getParameter("field");
             if (sortedField == null) {
                 sortedField = "id_interview";
             }
@@ -68,38 +68,44 @@ public class InterviewFeedbackController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = "/vacancies/page/{page:\\d+}", method = RequestMethod.GET)
-//    public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
-//        ModelAndView modelAndView;
-//        logging.runMe(request);
-//        try (Connection connection = ConnectorDB.getConnection()) {
-//            VacancyDao vacancyDao = new VacancyDao(connection);
-//            if (page == 0) {
-//                page = 1;
-//                modelAndView = new ModelAndView("redirect:/vacancies/page/" + page);
-//                return modelAndView;
-//            }
-//            List<Vacancy> vacancies = vacancyDao.getSortedEntitiesPage(page, sortedField, sortType, itemsInPage);
-//            if (vacancies.isEmpty() && page != 1) {
-//                page--;
-//                modelAndView = new ModelAndView("redirect:/vacancies/page/" + page);
-//                return modelAndView;
-//            }
-//            UserDao userDao = new UserDao(connection);
-//            List<User> allUsers = userDao.getSortedEntitiesPage(1, "surname", true, 100);
-//            VacancyState[] vacanciesStates = VacancyState.values();
-//            modelAndView = new ModelAndView("vacancies/vacancies");
-//            modelAndView.addObject("vacancies_list", vacancies);
-//            modelAndView.addObject("states", vacanciesStates);
-//            modelAndView.addObject("users_list", allUsers);
-//            modelAndView.addObject("page", page);
-//        } catch (Exception e) {
-//            logging.runMe(e);
-//            modelAndView = new ModelAndView("errors/500");
-//        }
-//        return modelAndView;
-//    }
-//
+    @RequestMapping(value = "/feedbacks/page/{page:\\d+}", method = RequestMethod.GET)
+    public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
+        ModelAndView modelAndView;
+        logging.runMe(request);
+        try (Connection connection = ConnectorDB.getConnection()) {
+            InterviewFeedbackDao interviewFeedbackDao = new InterviewFeedbackDao(connection);
+            if (page == 0) {
+                page = 1;
+                modelAndView = new ModelAndView("redirect:/feedbacks/page/" + page);
+                return modelAndView;
+            }
+            List<InterviewFeedback> interviewFeedbacks = interviewFeedbackDao.getSortedEntitiesPage(page, sortedField, sortType, GeneralConstant.itemsInPage);
+            if (interviewFeedbacks.isEmpty() && page != 1) {
+                page--;
+                modelAndView = new ModelAndView("redirect:/feedbacks/page/" + page);
+                return modelAndView;
+            }
+            FeedbackStateDao feedbackStateDao = new FeedbackStateDao(connection);
+            List<FeedbackState> feedbackStates = feedbackStateDao.getSortedEntitiesPage();
+            UserDao userDao = new UserDao(connection);
+            List<User> allUsers = userDao.getSortedEntitiesPage(1,
+                    "surname", true, GeneralConstant.filteringItemsInPage);
+            InterviewDao interviewDao = new InterviewDao(connection);
+            List<Interview> allInterviews = interviewDao.getSortedEntitiesPage(1,
+                    "plan_date", true, GeneralConstant.filteringItemsInPage);
+            modelAndView = new ModelAndView("interview_feedbacks/interview_feedbacks");
+            modelAndView.addObject("states", feedbackStates);
+            modelAndView.addObject("feedbacks_list", interviewFeedbacks);
+            modelAndView.addObject("users_list", allUsers);
+            modelAndView.addObject("interviews_list", allInterviews);
+            modelAndView.addObject("page", page);
+        } catch (Exception e) {
+            logging.runMe(e);
+            modelAndView = new ModelAndView("errors/500");
+        }
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/feedbacks", method = RequestMethod.POST)
     public final ModelAndView addFeedback(HttpServletRequest request) {
         logging.runMe(request);

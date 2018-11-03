@@ -91,7 +91,7 @@ public class InterviewController {
             modelAndView.addObject("interviews_list", interviews);
             modelAndView.addObject("candidates_list", candidates);
             modelAndView.addObject("vacancies_list", vacancies);
-            modelAndView.addObject("page",1);
+            modelAndView.addObject("page",page);
         } catch (Exception e) {
             logging.runMe(e);
             modelAndView = new ModelAndView("errors/500");

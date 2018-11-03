@@ -11,7 +11,7 @@ public class Skill extends Entity {
     public Skill() {}
 
     public Skill(String name) {
-        this.name = name.toUpperCase();
+        this.name = name;
     }
 
     public final String getName() {
@@ -19,7 +19,7 @@ public class Skill extends Entity {
     }
 
     public final void setName(String name) {
-        this.name = name.toUpperCase();
+        this.name = name;
     }
 
     public final List<Vacancy> getCorrespondingVacancies() {
@@ -29,6 +29,10 @@ public class Skill extends Entity {
     static public boolean isNameSkillValid(String str){
         if("".equals(str))
             return false;
+        str=str.toUpperCase();
+        for (int i=0;i<str.length();i++)
+            if (!(str.charAt(i)>=48&&str.charAt(i)<=57)&&!(str.charAt(i)>=65&&str.charAt(i)<=90)&&str.charAt(i)!='_')
+                return false;
         return true;
     }
 
