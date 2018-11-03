@@ -67,7 +67,8 @@ public final class VacancyDao extends AbstractDao<Vacancy> {
         vacancy.setSalaryInDollarsTo(vacancyTableRow.getFloat("salary_in_dollars_to"));
         vacancy.setVacancyState(VacancyState.valueOf(vacancyTableRow.getString("vacancy_state")));
         vacancy.setExperienceYearsRequire(vacancyTableRow.getFloat("experience_years_require"));
-        vacancy.setDeveloper(new User(vacancyTableRow.getLong("id_developer")));
+        UserDao userDao=new UserDao(connection);
+        vacancy.setDeveloper(userDao.getEntityById(vacancyTableRow.getLong("id_developer")));
         return vacancy;
     }
 

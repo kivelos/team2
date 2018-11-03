@@ -3,7 +3,7 @@ package dev.java.db.model;
 import java.util.List;
 import java.util.Objects;
 
-public final class Skill extends Entity {
+public class Skill extends Entity {
     private String name;
     private List<Vacancy> correspondingVacancies;
     private List<Candidate> correspondingCandidates;
@@ -11,41 +11,45 @@ public final class Skill extends Entity {
     public Skill() {}
 
     public Skill(String name) {
-        this.name = name.toUpperCase();
+        this.name = name;
     }
 
-    public  String getName() {
+    public final String getName() {
         return name;
     }
 
-    public  void setName(String name) {
-        this.name = name.toUpperCase();
+    public final void setName(String name) {
+        this.name = name;
     }
 
-    public  List<Vacancy> getCorrespondingVacancies() {
+    public final List<Vacancy> getCorrespondingVacancies() {
         return correspondingVacancies;
     }
 
     static public boolean isNameSkillValid(String str){
         if("".equals(str))
             return false;
+        str=str.toUpperCase();
+        for (int i=0;i<str.length();i++)
+            if (!(str.charAt(i)>=48&&str.charAt(i)<=57)&&!(str.charAt(i)>=65&&str.charAt(i)<=90)&&str.charAt(i)!='_')
+                return false;
         return true;
     }
 
-    public  void setCorrespondingVacancies(List<Vacancy> correspondingVacancies) {
+    public final void setCorrespondingVacancies(List<Vacancy> correspondingVacancies) {
         this.correspondingVacancies = correspondingVacancies;
     }
 
-    public  List<Candidate> getCorrespondingCandidates() {
+    public final List<Candidate> getCorrespondingCandidates() {
         return correspondingCandidates;
     }
 
-    public  void setCorrespondingCandidates(List<Candidate> correspondingCandidates) {
+    public final void setCorrespondingCandidates(List<Candidate> correspondingCandidates) {
         this.correspondingCandidates = correspondingCandidates;
     }
 
     @Override
-    public  boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Skill skill = (Skill) o;

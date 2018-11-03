@@ -12,18 +12,18 @@ public final class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
 
     public InterviewFeedbackDao(Connection connection) {
         super(connection);
-        sqlSelectSortedPage = "SELECT * FROM inteview_feedback "
+        sqlSelectSortedPage = "SELECT * FROM interview_feedback "
                 + "ORDER BY %s %s LIMIT ?, ?";
-        sqlInsert = "INSERT INTO inteview_feedback "
+        sqlInsert = "INSERT INTO interview_feedback "
                 + "(id_interview, id_interviewer, reason, feedback_state) "
                 + "VALUES (?, ?, ?, ?)";
-        sqlUpdate = "UPDATE inteview_feedback "
+        sqlUpdate = "UPDATE interview_feedback "
                 + "SET id_interview=?, id_interviewer=?, reason=?, feedback_state=? "
                 + "WHERE id=?";
-        sqlSelectFilteredEntities = "SELECT * FROM inteview_feedback "
+        sqlSelectFilteredEntities = "SELECT * FROM interview_feedback "
                 + "WHERE (id_interview=? OR ?='') AND (id_interviewer=? OR ?='') "
                 + "AND (reason=? OR ?='') AND (feedback_state=? OR ?='')";
-        sqlSelectById = "SELECT * FROM inteview_feedback "
+        sqlSelectById = "SELECT * FROM interview_feedback "
                 + "AS c WHERE c.id=?";
     }
 

@@ -51,7 +51,6 @@ public abstract class AbstractController<T extends Entity> {
         List<T> allEntities;
         try {
             allEntities = abstractDao.getSortedEntitiesPage(1, sortedField, true, itemsInPage);
-            System.out.println(allEntities);
             return ResponseEntity.ok(allEntities);
         } catch (SQLException e) {
             return getResponseEntityOnServerError(e);
