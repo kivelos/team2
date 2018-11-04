@@ -14,7 +14,7 @@
         <p>Surname:</p>
         <p>Name: </p>
         <p>Birthday: </p>
-        <p>Salaty: </p>
+        <p>Salary: </p>
         <p>State: </p>
     </div>
     <div id="c2">
