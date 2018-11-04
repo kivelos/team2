@@ -10,7 +10,6 @@ dev\java\controller\CandidateController.class
 dev\java\db\daos\AbstractDao.class
 dev\java\db\daos\UserDao.class
 dev\java\controller\GeneralConstant.class
-dev\java\db\model\Table.class
 dev\java\db\model\Entity.class
 dev\java\db\model\contacts\Contact.class
 dev\java\db\model\attachments\Attachment.class
@@ -23,6 +22,7 @@ dev\java\db\daos\FeedbackStateDao.class
 dev\java\db\daos\InterviewDao.class
 dev\java\controller\UserController.class
 dev\java\controller\InterviewController.class
+dev\java\controller\AbstractController.class
 dev\java\db\model\Skill.class
 dev\java\Logging.class
 dev\java\db\model\contacts\ContactType.class

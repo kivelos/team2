@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 
-public final class CandidateDao extends AbstractDao<Candidate> {
+public class CandidateDao extends AbstractDao<Candidate> {
 
     //language=SQL
     private String sqlSelectSkills = "SELECT skill.name FROM skill " +

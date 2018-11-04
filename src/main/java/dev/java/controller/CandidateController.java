@@ -1,5 +1,6 @@
 package dev.java.controller;
 
+import dev.java.db.daos.AbstractDao;
 import dev.java.db.daos.CandidateDao;
 import dev.java.db.model.Candidate;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Connection;
 
 @RestController
 public final class CandidateController extends AbstractController<Candidate> {
@@ -17,7 +19,14 @@ public final class CandidateController extends AbstractController<Candidate> {
         super.initialize();
         sortedField = "surname";
         url = "/candidate/";
+        System.out.println("here");
         abstractDao = new CandidateDao(connection);
+    }
+
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
     }
 
     @Override
