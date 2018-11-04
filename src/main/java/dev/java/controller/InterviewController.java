@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 @Controller
 public class InterviewController {
@@ -99,29 +101,32 @@ public class InterviewController {
         return modelAndView;
     }
 
+    private Timestamp parseWebDate(String sDate) {
+        Timestamp res = null;
+        try {
+            sDate = sDate.replace('T', ' ');
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            dateFormat.setTimeZone(TimeZone.getDefault());
+            java.util.Date date = dateFormat.parse(sDate);
+            res = new Timestamp(date.getTime());
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Field date is empty");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     @RequestMapping(value = "/interviews", method = RequestMethod.POST)
     public final ModelAndView addInterview(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
-            Timestamp planDate;
-            try {
-                String datetime = request.getParameter("plan_date");
-                datetime = datetime.replace('T', ' ') + ":00";
-                planDate = Timestamp.valueOf(datetime);
-            }
-            catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Field Plan_date is empty");
-            }
-            Timestamp factDate;
-            try {
-                String datetime = request.getParameter("fact_date");
-                datetime = datetime.replace('T', ' ') + ":00";
-                factDate = Timestamp.valueOf(datetime);
-            }
-            catch (IllegalArgumentException e) {
-                factDate = null;
-            }
+            String sPlanDate = request.getParameter("plan_date");
+            Timestamp planDate = parseWebDate(sPlanDate);
+            String sFactDate = request.getParameter("fact_date");
+            Timestamp factDate = parseWebDate(sFactDate);
             Candidate candidate;
             try {
                 long idCandidate = Long.parseLong(request.getParameter("candidate"));
@@ -253,15 +258,11 @@ public class InterviewController {
         ModelAndView modelAndView = new ModelAndView("interviews/interviews");
         try (Connection connection = ConnectorDB.getConnection()) {
             InterviewDao interviewDao = new InterviewDao(connection);
-            String planDate = request.getParameter("plan_date").trim();
-
-            String factDate =  request.getParameter("fact_date").trim();
-
             String candidateId = request.getParameter("candidate").trim();
             System.out.println(candidateId);
             String vacancyId = request.getParameter("vacancy").trim();
             System.out.println(vacancyId);
-            List<Interview> interviews = interviewDao.getFilteredEntitiesPage(candidateId,vacancyId,planDate,factDate);
+            List<Interview> interviews = interviewDao.getFilteredEntitiesPage(candidateId,vacancyId);
             CandidateDao candidateDao = new CandidateDao(connection);
             List<Candidate> allCandidates = candidateDao.getSortedEntitiesPage(1,"surname",true,100);
             modelAndView.addObject("candidates_list",allCandidates);

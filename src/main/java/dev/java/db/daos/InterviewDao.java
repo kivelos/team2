@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class InterviewDao extends AbstractDao<Interview> {
     private static String SQL_SELECT_BY_ID = "SELECT * FROM interview AS c WHERE c.id=?";
@@ -22,7 +23,7 @@ public class InterviewDao extends AbstractDao<Interview> {
                 + "SET id_candidate=?, id_vacancy=?, plan_date=?, fact_date=? "
                 + "WHERE id=?";
         SQL_SELECT_FILTERED_ENTITIES = "SELECT * FROM interview "
-                + "WHERE (id_candidate=? OR ?='') AND (id_vacancy=? OR ?='') AND (plan_date=? OR ?='')AND (fact_date=? OR ?='')";
+                + "WHERE (id_candidate=? OR ?='') AND (id_vacancy=? OR ?='')";
     }
 
     @Override
@@ -49,8 +50,11 @@ public class InterviewDao extends AbstractDao<Interview> {
         VacancyDao vacancyDao = new VacancyDao(connection);
         interview.setVacancy(vacancyDao.getEntityById(entityTableRow.
                 getLong("id_vacancy")));
-        interview.setPlanDate(entityTableRow.getTimestamp("plan_date"));
-        interview.setFactDate(entityTableRow.getTimestamp("fact_date"));
+
+        java.util.Calendar cal = Calendar.getInstance();
+        cal.setTimeZone(TimeZone.getDefault());
+        interview.setPlanDate(entityTableRow.getTimestamp("plan_date", cal));
+        interview.setFactDate(entityTableRow.getTimestamp("fact_date", cal));
         return interview;
     }
 
