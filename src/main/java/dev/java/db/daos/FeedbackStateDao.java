@@ -11,13 +11,14 @@ import java.util.List;
 
 public final class FeedbackStateDao {
     private Connection connection;
+
     public FeedbackStateDao(Connection connection) {
         this.connection = connection;
     }
 
     public List<FeedbackState> getSortedEntitiesPage() throws SQLException {
         List<FeedbackState> states = new ArrayList<>();
-        try (Statement statement = connection.createStatement()){
+        try (Statement statement = connection.createStatement()) {
             ResultSet state = statement.executeQuery("SELECT * FROM feedback_state");
             while (state.next()) {
                 states.add(new FeedbackState(state.getString("name")));

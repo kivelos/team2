@@ -26,21 +26,22 @@ public final class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
-    public  List<Interview> getSortedEntitiesPage(int pageNumber, String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+    public List<Interview> getSortedEntitiesPage(int pageNumber, String sortedField,
+                                                 boolean order, int itemsNumberInPage) throws SQLException {
         List<Interview> interviews = super.getSortedEntitiesPage(pageNumber, sortedField, order, itemsNumberInPage);
         CandidateDao candidateDao = new CandidateDao(connection);
-        for (Interview interview: interviews) {
+        for (Interview interview : interviews) {
             interview.setCandidate(candidateDao.getEntityById(interview.getCandidate().getId()));
         }
         VacancyDao vacancyDao = new VacancyDao(connection);
-        for (Interview interview: interviews) {
+        for (Interview interview : interviews) {
             interview.setVacancy(vacancyDao.getEntityById(interview.getVacancy().getId()));
         }
         return interviews;
     }
 
     @Override
-    protected  Interview setEntityFields(ResultSet entityTableRow) throws SQLException {
+    protected Interview setEntityFields(ResultSet entityTableRow) throws SQLException {
         Interview interview = new Interview();
         interview.setId(entityTableRow.getLong("id"));
         CandidateDao candidateDao = new CandidateDao(connection);
@@ -55,7 +56,7 @@ public final class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
-    protected  void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Interview entity)
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Interview entity)
             throws SQLException {
         prepareStatement.setLong(1, entity.getCandidate().getId());
         prepareStatement.setLong(2, entity.getVacancy().getId());
@@ -65,15 +66,15 @@ public final class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
-    protected  void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
-                                                                Interview entity) throws SQLException {
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
+                                                          Interview entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(5, entity.getId());
     }
 
 
     @Override
-    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement, 
+    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           Interview entity) throws SQLException {
         prepareStatement.setLong(1, entity.getId());
     }

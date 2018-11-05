@@ -27,7 +27,7 @@ public final class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected  User setEntityFields(ResultSet entityTableRow) throws SQLException {
+    protected User setEntityFields(ResultSet entityTableRow) throws SQLException {
         User user = new User();
         user.setId(entityTableRow.getLong("id"));
         user.setEmail(entityTableRow.getString("email"));
@@ -39,7 +39,7 @@ public final class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected  void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user) throws SQLException {
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user) throws SQLException {
         prepareStatement.setString(1, user.getEmail());
         prepareStatement.setString(2, user.getPassword());
         prepareStatement.setString(3, user.getSurname());
@@ -48,13 +48,14 @@ public final class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected  void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, User entity) throws SQLException {
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
+                                                          User entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(6, entity.getId());
     }
 
     @Override
-    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement, 
+    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           User entity) throws SQLException {
         prepareStatement.setLong(1, entity.getId());
     }

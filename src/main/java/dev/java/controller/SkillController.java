@@ -1,5 +1,6 @@
 package dev.java.controller;
 
+import dev.java.Logging;
 import dev.java.db.ConnectorDB;
 import dev.java.db.daos.SkillDao;
 import dev.java.db.model.Skill;
@@ -8,22 +9,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import dev.java.Logging;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
+
+import static dev.java.db.model.Skill.*;
 
 @Controller
 public class SkillController {
 
-    private Logging logging = new Logging();
     private static boolean sortType = true;
     private static String sortedField = "name";
     private static int itemsInPage = 3;
+    private Logging logging = new Logging();
 
     @RequestMapping(value = "/skills", method = RequestMethod.GET)
     public final ModelAndView getAllSkills(HttpServletRequest request) {
@@ -35,9 +36,9 @@ public class SkillController {
             if (sort != null) {
                 sortType = !sort.equals("desc");
             }
-            List<Skill> skills = skillDao.getSortedEntitiesPage(1,"name",sortType,3);
+            List<Skill> skills = skillDao.getSortedEntitiesPage(1, "name", sortType, 3);
             modelAndView.addObject("skills_list", skills);
-            modelAndView.addObject("page",1);
+            modelAndView.addObject("page", 1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,9 +56,8 @@ public class SkillController {
                 modelAndView = new ModelAndView("redirect:/skills/page/" + page);
                 return modelAndView;
             }
-            List<Skill> skills = skillDao.getSortedEntitiesPage
-                    (page, sortedField, sortType, itemsInPage);
-            if(skills.isEmpty() && page != 1) {
+            List<Skill> skills = skillDao.getSortedEntitiesPage(page, sortedField, sortType, itemsInPage);
+            if (skills.isEmpty() && page != 1) {
                 page--;
                 modelAndView = new ModelAndView("redirect:/skills/page/" + page);
                 return modelAndView;
@@ -102,14 +102,13 @@ public class SkillController {
         }
     }
 
-    private boolean isCorrectInputDates (String name, ModelAndView modelAndView){
-        if(!Skill.isNameSkillValid(name)) {
+    private boolean isCorrectInputDates(String name, ModelAndView modelAndView) {
+        if (!Skill.isNameSkillValid(name)) {
             modelAndView.addObject("mistake", "Wrong name of skill!");
             return false;
         }
         return true;
     }
-
 
 
     @RequestMapping(value = "/skills/{name:\\w+}", method = RequestMethod.GET)
@@ -128,7 +127,7 @@ public class SkillController {
 
     @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.GET)
     public final ModelAndView editSkill(@PathVariable String name,
-                                  HttpServletRequest request) {
+                                        HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = getSkill(name, request);
         modelAndView.setViewName("skills/skill_edit");
@@ -136,8 +135,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.POST)
-    public final ModelAndView editSkill
-            (@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+    public final ModelAndView editSkill(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -152,8 +150,7 @@ public class SkillController {
         } catch (IllegalArgumentException e) {
             modelAndView = getSkill(name, request);
             modelAndView.addObject("error", "Name must be filled");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logging.runMe(e);
             modelAndView = new ModelAndView("errors/500");
         }

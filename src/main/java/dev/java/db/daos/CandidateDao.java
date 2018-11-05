@@ -11,9 +11,9 @@ import java.util.Calendar;
 public class CandidateDao extends AbstractDao<Candidate> {
 
     //language=SQL
-    private String sqlSelectSkills = "SELECT skill.name FROM skill " +
-            "JOIN vacancy_requirement v on skill.name = v.skill " +
-            "WHERE v.id_vacancy=?";
+    private String sqlSelectSkills = "SELECT skill.name FROM skill "
+            + "JOIN vacancy_requirement v on skill.name = v.skill "
+            + "WHERE v.id_vacancy=?";
 
     public CandidateDao(Connection connection) {
         super(connection);
@@ -33,9 +33,8 @@ public class CandidateDao extends AbstractDao<Candidate> {
     }
 
 
-
     @Override
-    protected  void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
             throws SQLException {
         int parameterIndex = 1;
         prepareStatement.setString(parameterIndex++, candidate.getName());
@@ -47,7 +46,7 @@ public class CandidateDao extends AbstractDao<Candidate> {
     }
 
     @Override
-    protected  void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
+    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
             throws SQLException {
         int parameterIndex = 6;
         setValuesForInsertIntoPrepareStatement(prepareStatement, candidate);
@@ -56,7 +55,7 @@ public class CandidateDao extends AbstractDao<Candidate> {
     }
 
     @Override
-    protected  Candidate setEntityFields(ResultSet candidateTableRow) throws SQLException {
+    protected Candidate setEntityFields(ResultSet candidateTableRow) throws SQLException {
         Candidate candidate = new Candidate();
         candidate.setId(candidateTableRow.getLong("id"));
         candidate.setName(candidateTableRow.getString("name"));

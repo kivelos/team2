@@ -27,28 +27,28 @@ public final class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    public  boolean createEntity(Skill entity) throws SQLException {
+    public boolean createEntity(Skill entity) throws SQLException {
         try (PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlInsert)) {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
-            int status =  insertPrepareStatement.executeUpdate();
+            int status = insertPrepareStatement.executeUpdate();
             return status > 0;
         }
     }
 
     @Override
-    public  boolean updateEntity(Skill entity) {
+    public boolean updateEntity(Skill entity) {
         throw new UnsupportedOperationException();
     }
 
-    public  boolean deleteEntity(Skill entity) throws SQLException {
+    public boolean deleteEntity(Skill entity) throws SQLException {
         try (PreparedStatement insertPrepareStatement = connection.prepareStatement(SQL_DELETE)) {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
-            int status =  insertPrepareStatement.executeUpdate();
+            int status = insertPrepareStatement.executeUpdate();
             return status > 0;
         }
     }
 
-    public  Skill getEntityByName(String name) throws SQLException {
+    public Skill getEntityByName(String name) throws SQLException {
         try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_NAME)) {
             getByIdPrepareStatement.setString(1, name);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
@@ -62,13 +62,13 @@ public final class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    protected  void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
             throws SQLException {
         prepareStatement.setString(1, skill.getName());
     }
 
     @Override
-    protected  void setValuesForUpdateIntoPrepareStatement
+    protected void setValuesForUpdateIntoPrepareStatement
             (PreparedStatement prepareStatement, Skill skill) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, skill);
         prepareStatement.setString(2, skill.getName());
@@ -76,7 +76,7 @@ public final class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    protected  Skill setEntityFields(ResultSet candidateTableRow) throws SQLException {
+    protected Skill setEntityFields(ResultSet candidateTableRow) throws SQLException {
         Skill skill = new Skill();
         skill.setName(candidateTableRow.getString("name"));
         return skill;

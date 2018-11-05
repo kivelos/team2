@@ -124,14 +124,14 @@ public final class Candidate extends Entity {
     }
 
     @Override
-    public  boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Candidate candidate = (Candidate) o;
+        Candidate candidate = (Candidate) object;
         return Float.compare(candidate.salaryInDollars, salaryInDollars) == 0
                 && Objects.equals(name, candidate.name)
                 && Objects.equals(surname, candidate.surname)
@@ -151,6 +151,7 @@ public final class Candidate extends Entity {
                 + ", surname='" + surname + '\''
                 + ", birthday=" + birthday
                 + ", salaryInDollars=" + salaryInDollars
-                + ", candidateState='" + candidateState + '\'' + '}';
+                + ", candidateState='" + candidateState + '\''
+                + '}';
     }
 }

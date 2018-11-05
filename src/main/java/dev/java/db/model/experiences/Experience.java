@@ -33,11 +33,14 @@ public class Experience {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Experience that = (Experience) o;
-        return Objects.equals(dateFrom, that.dateFrom) &&
-                Objects.equals(dateTo, that.dateTo);
+        return Objects.equals(dateFrom, that.dateFrom) && Objects.equals(dateTo, that.dateTo);
     }
 
     @Override

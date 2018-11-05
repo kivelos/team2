@@ -22,43 +22,47 @@ public final class InterviewFeedback extends Entity {
         return interview;
     }
 
-    public  void setInterview(Interview interview) {
+    public void setInterview(Interview interview) {
         this.interview = interview;
     }
 
-    public  User getInterviewer() {
+    public User getInterviewer() {
         return interviewer;
     }
 
-    public  void setInterviewer(User interviewer) {
+    public void setInterviewer(User interviewer) {
         this.interviewer = interviewer;
     }
 
-    public  String getReason() {
+    public String getReason() {
         return reason;
     }
 
-    public  void setReason(String reason) {
+    public void setReason(String reason) {
         this.reason = reason;
     }
 
-    public  String getFeedbackState() {
+    public String getFeedbackState() {
         return feedbackState;
     }
 
-    public  void setFeedbackState(String feedbackState) {
+    public void setFeedbackState(String feedbackState) {
         this.feedbackState = feedbackState;
     }
 
     @Override
-    public  boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         InterviewFeedback that = (InterviewFeedback) o;
-        return Objects.equals(interview, that.interview) &&
-                Objects.equals(interviewer, that.interviewer) &&
-                Objects.equals(reason, that.reason) &&
-                Objects.equals(feedbackState, that.feedbackState);
+        return Objects.equals(interview, that.interview)
+                && Objects.equals(interviewer, that.interviewer)
+                && Objects.equals(reason, that.reason)
+                && Objects.equals(feedbackState, that.feedbackState);
     }
 
     @Override

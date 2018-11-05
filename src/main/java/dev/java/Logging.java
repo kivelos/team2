@@ -4,10 +4,10 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Logging {
+public final class Logging {
     private static Logger logger = Logger.getLogger(Logging.class.getName());
 
-    public void runMe(HttpServletRequest request){
+    public void runMe(HttpServletRequest request) {
         logger.info(request.getMethod() + " " + request.getRequestURI());
     }
 

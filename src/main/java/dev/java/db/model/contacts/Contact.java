@@ -32,11 +32,14 @@ public class Contact {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Contact contact = (Contact) o;
-        return type == contact.type &&
-                Objects.equals(details, contact.details);
+        return type == contact.type && Objects.equals(details, contact.details);
     }
 
     @Override

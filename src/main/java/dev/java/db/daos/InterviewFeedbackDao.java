@@ -28,28 +28,28 @@ public final class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
-    public  List<InterviewFeedback> getSortedEntitiesPage(int pageNumber,
-           String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+    public List<InterviewFeedback> getSortedEntitiesPage(int pageNumber,
+                                                         String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
         List<InterviewFeedback> interviewFeedbacks = super.getSortedEntitiesPage(pageNumber,
                 sortedField, order, itemsNumberInPage);
         InterviewDao interviewDao = new InterviewDao(connection);
-        for (InterviewFeedback feedback: interviewFeedbacks) {
+        for (InterviewFeedback feedback : interviewFeedbacks) {
             feedback.setInterview(interviewDao.getEntityById(feedback.getInterview().getId()));
         }
         UserDao userDao = new UserDao(connection);
-        for (InterviewFeedback feedback: interviewFeedbacks) {
+        for (InterviewFeedback feedback : interviewFeedbacks) {
             feedback.setInterviewer(userDao.getEntityById(feedback.getInterviewer().getId()));
         }
         return interviewFeedbacks;
     }
 
     @Override
-    protected  InterviewFeedback setEntityFields(ResultSet entityTableRow) throws SQLException {
+    protected InterviewFeedback setEntityFields(ResultSet entityTableRow) throws SQLException {
         InterviewFeedback interviewFeedback = new InterviewFeedback();
         interviewFeedback.setId(entityTableRow.getLong("id"));
-        InterviewDao interviewDao=new InterviewDao(connection);
+        InterviewDao interviewDao = new InterviewDao(connection);
         interviewFeedback.setInterview(interviewDao.getEntityById(entityTableRow.getLong("id_interview")));
-        UserDao userDao=new UserDao(connection);
+        UserDao userDao = new UserDao(connection);
         interviewFeedback.setInterviewer(userDao.getEntityById(entityTableRow.getLong("id_interviewer")));
         interviewFeedback.setReason(entityTableRow.getString("reason"));
         interviewFeedback.setFeedbackState(entityTableRow.getString("feedback_state"));
@@ -57,7 +57,7 @@ public final class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
-    protected  void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement,
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           InterviewFeedback entity) throws SQLException {
         prepareStatement.setLong(1, entity.getInterview().getId());
         prepareStatement.setLong(2, entity.getInterviewer().getId());
@@ -67,7 +67,7 @@ public final class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
-    protected  void setValuesForUpdateIntoPrepareStatement
+    protected void setValuesForUpdateIntoPrepareStatement
             (PreparedStatement prepareStatement, InterviewFeedback entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(5, entity.getId());
@@ -75,7 +75,7 @@ public final class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
 
 
     @Override
-    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement, 
+    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           InterviewFeedback entity) throws SQLException {
         prepareStatement.setLong(1, entity.getId());
     }

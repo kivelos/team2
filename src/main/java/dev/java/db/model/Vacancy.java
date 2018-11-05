@@ -31,105 +31,117 @@ public final class Vacancy extends Entity {
         this.developer = developer;
     }
 
-    public  String getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public  void setPosition(String position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 
-    public  float getSalaryInDollarsFrom() {
+    public float getSalaryInDollarsFrom() {
         return salaryInDollarsFrom;
     }
 
-    public  void setSalaryInDollarsFrom(float salaryInDollarsFrom) {
+    public void setSalaryInDollarsFrom(float salaryInDollarsFrom) {
         this.salaryInDollarsFrom = salaryInDollarsFrom;
     }
 
-    public  float getSalaryInDollarsTo() {
+    public float getSalaryInDollarsTo() {
         return salaryInDollarsTo;
     }
 
-    public  void setSalaryInDollarsTo(float salaryInDollarsTo) {
+    public void setSalaryInDollarsTo(float salaryInDollarsTo) {
         this.salaryInDollarsTo = salaryInDollarsTo;
     }
 
-    public  VacancyState getVacancyState() {
+    public VacancyState getVacancyState() {
         return vacancyState;
     }
 
-    public  void setVacancyState(VacancyState vacancyState) {
+    public void setVacancyState(VacancyState vacancyState) {
         this.vacancyState = vacancyState;
     }
 
-    public  float getExperienceYearsRequire() {
+    public float getExperienceYearsRequire() {
         return experienceYearsRequire;
     }
 
-    public  void setExperienceYearsRequire(float experienceYearsRequire) {
+    public void setExperienceYearsRequire(float experienceYearsRequire) {
         this.experienceYearsRequire = experienceYearsRequire;
     }
 
-    public  User getDeveloper() {
+    public User getDeveloper() {
         return developer;
     }
 
-    public  void setDeveloper(User developer) {
+    public void setDeveloper(User developer) {
         this.developer = developer;
     }
 
-    public  List<Interview> getInterviews() {
+    public List<Interview> getInterviews() {
         return interviews;
     }
 
-    public  void setInterviews(List<Interview> interviews) {
+    public void setInterviews(List<Interview> interviews) {
         this.interviews = interviews;
     }
 
-    public  List<Candidate> getPassedCandidates() {
+    public List<Candidate> getPassedCandidates() {
         return passedCandidates;
     }
 
-    public  void setPassedCandidates(List<Candidate> passedCandidates) {
+    public void setPassedCandidates(List<Candidate> passedCandidates) {
         this.passedCandidates = passedCandidates;
     }
 
-    public  List<Skill> getSkillRequirements() {
+    public List<Skill> getSkillRequirements() {
         return skillRequirements;
     }
 
-    public  void setSkillRequirements(List<Skill> skillRequirements) {
+    public void setSkillRequirements(List<Skill> skillRequirements) {
         this.skillRequirements = skillRequirements;
     }
 
     @Override
-    public  boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Vacancy vacancy = (Vacancy) o;
-        return Float.compare(vacancy.salaryInDollarsFrom, salaryInDollarsFrom) == 0 &&
-                Float.compare(vacancy.salaryInDollarsTo, salaryInDollarsTo) == 0 &&
-                Float.compare(vacancy.experienceYearsRequire, experienceYearsRequire) == 0 &&
-                Objects.equals(position, vacancy.position) &&
-                vacancyState == vacancy.vacancyState &&
-                Objects.equals(developer, vacancy.developer);
+        return Float.compare(vacancy.salaryInDollarsFrom, salaryInDollarsFrom) == 0
+                && Float.compare(vacancy.salaryInDollarsTo, salaryInDollarsTo) == 0
+                && Float.compare(vacancy.experienceYearsRequire, experienceYearsRequire) == 0
+                && Objects.equals(position, vacancy.position)
+                && vacancyState == vacancy.vacancyState
+                && Objects.equals(developer, vacancy.developer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(position, salaryInDollarsFrom, salaryInDollarsTo, vacancyState, experienceYearsRequire, developer);
+        return Objects.hash(position, salaryInDollarsFrom, salaryInDollarsTo,
+                vacancyState, experienceYearsRequire, developer);
     }
 
     @Override
     public String toString() {
-        return "Vacancy{" +
-                "position='" + position + '\'' +
-                ", salaryInDollarsFrom=" + salaryInDollarsFrom +
-                ", salaryInDollarsTo=" + salaryInDollarsTo +
-                ", vacancyState=" + vacancyState +
-                ", experienceYearsRequire=" + experienceYearsRequire +
-                ", developer=" + developer +
-                '}';
+        return "Vacancy{"
+                + "position='"
+                + position
+                + '\''
+                + ", salaryInDollarsFrom="
+                + salaryInDollarsFrom
+                + ", salaryInDollarsTo="
+                + salaryInDollarsTo
+                + ", vacancyState="
+                + vacancyState
+                + ", experienceYearsRequire="
+                + experienceYearsRequire
+                + ", developer="
+                + developer
+                + '}';
     }
 }

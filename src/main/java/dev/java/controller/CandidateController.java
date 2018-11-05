@@ -1,6 +1,5 @@
 package dev.java.controller;
 
-import dev.java.db.daos.AbstractDao;
 import dev.java.db.daos.CandidateDao;
 import dev.java.db.model.Candidate;
 import org.springframework.http.ResponseEntity;
@@ -8,10 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Connection;
 
 @RestController
-public final class CandidateController extends AbstractController<Candidate> {
+public class CandidateController extends AbstractController<Candidate> {
 
     @PostConstruct
     @Override
@@ -50,8 +48,8 @@ public final class CandidateController extends AbstractController<Candidate> {
     @Override
     @PutMapping("/candidate/{id:\\d+}")
     public ResponseEntity updateEntity(@PathVariable long id, @RequestBody Candidate candidate,
-                                          HttpServletRequest request) {
-       return super.updateEntity(id, candidate, request);
+                                       HttpServletRequest request) {
+        return super.updateEntity(id, candidate, request);
     }
 
     @Override

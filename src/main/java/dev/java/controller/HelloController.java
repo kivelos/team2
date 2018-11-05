@@ -28,6 +28,7 @@ public class HelloController {
         logging.runMe(request);
         return "index";
     }
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public final ModelAndView getBirthday(HttpServletRequest request, ModelMap map) {
         logging.runMe(request);
@@ -47,9 +48,9 @@ public class HelloController {
 
     @ModelAttribute
     public void addAttributes(Model model) {
-        Date currentTime=new Date();
-        SimpleDateFormat myFormat=new SimpleDateFormat("HH:mm:ss");
-        model.addAttribute("time",myFormat.format(currentTime));
+        Date currentTime = new Date();
+        SimpleDateFormat myFormat = new SimpleDateFormat("HH:mm:ss");
+        model.addAttribute("time", myFormat.format(currentTime));
         model.addAttribute("author", "Team Liquid");
         model.addAttribute("version", buildVersion);
     }

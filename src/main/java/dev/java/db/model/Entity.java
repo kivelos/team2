@@ -1,10 +1,10 @@
 package dev.java.db.model;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public abstract class Entity implements Serializable, Cloneable {
     private long id;
+
     public Entity() {
     }
 
@@ -19,4 +19,5 @@ public abstract class Entity implements Serializable, Cloneable {
     public final void setId(long id) {
         this.id = id;
     }
+
 }

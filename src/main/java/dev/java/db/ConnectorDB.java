@@ -1,15 +1,11 @@
 package dev.java.db;
 
-import dev.java.db.daos.CandidateDao;
 import dev.java.db.daos.InterviewDao;
-import dev.java.db.daos.SkillDao;
-import dev.java.db.daos.UserDao;
-import dev.java.db.model.Candidate;
 import dev.java.db.model.Interview;
 
-
-import java.sql.*;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ConnectorDB {

@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-public class VacancyController extends AbstractController<Vacancy>{
+public class VacancyController extends AbstractController<Vacancy> {
     @PostConstruct
     @Override
     public void initialize() {

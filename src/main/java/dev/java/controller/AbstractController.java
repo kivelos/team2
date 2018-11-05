@@ -6,7 +6,8 @@ import dev.java.db.daos.AbstractDao;
 import dev.java.db.model.Entity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -22,10 +23,9 @@ public abstract class AbstractController<T extends Entity> {
     private final boolean sortType = true;
     protected String sortedField;
     protected String url;
-    private int itemsInPage = 3;
-
     protected AbstractDao<T> abstractDao;
     protected Connection connection;
+    private int itemsInPage = 3;
 
     @PostConstruct
     public void initialize() {

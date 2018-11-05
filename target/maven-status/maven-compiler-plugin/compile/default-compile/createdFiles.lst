@@ -13,6 +13,7 @@ dev\java\controller\GeneralConstant.class
 dev\java\db\model\Entity.class
 dev\java\db\model\contacts\Contact.class
 dev\java\db\model\attachments\Attachment.class
+dev\java\controller\SimpleController.class
 dev\java\DateProcessor.class
 dev\java\db\daos\CandidateStateDao.class
 dev\java\controller\HelloController.class

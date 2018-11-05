@@ -10,8 +10,7 @@ public final class Interview extends Entity {
     private Timestamp factDate;
 
 
-    public Interview() {
-    }
+    public Interview() { }
 
     public Interview(long id) {
         super(id);
@@ -24,47 +23,51 @@ public final class Interview extends Entity {
         this.factDate = factDate;
     }
 
-    public  Candidate getCandidate() {
+    public Candidate getCandidate() {
         return candidate;
     }
 
-    public  void setCandidate(Candidate candidate) {
+    public void setCandidate(Candidate candidate) {
         this.candidate = candidate;
     }
 
-    public  Vacancy getVacancy() {
+    public Vacancy getVacancy() {
         return vacancy;
     }
 
-    public  void setVacancy(Vacancy vacancy) {
+    public void setVacancy(Vacancy vacancy) {
         this.vacancy = vacancy;
     }
 
-    public  Timestamp getPlanDate() {
+    public Timestamp getPlanDate() {
         return planDate;
     }
 
-    public  void setPlanDate(Timestamp planDate) {
+    public void setPlanDate(Timestamp planDate) {
         this.planDate = planDate;
     }
 
-    public  Timestamp getFactDate() {
+    public Timestamp getFactDate() {
         return factDate;
     }
 
-    public  void setFactDate(Timestamp factDate) {
+    public void setFactDate(Timestamp factDate) {
         this.factDate = factDate;
     }
 
     @Override
-    public  boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Interview interview = (Interview) o;
-        return Objects.equals(candidate, interview.candidate) &&
-                Objects.equals(vacancy, interview.vacancy) &&
-                Objects.equals(planDate, interview.planDate) &&
-                Objects.equals(factDate, interview.factDate);
+        return Objects.equals(candidate, interview.candidate)
+                && Objects.equals(vacancy, interview.vacancy)
+                && Objects.equals(planDate, interview.planDate)
+                && Objects.equals(factDate, interview.factDate);
     }
 
     @Override
@@ -74,11 +77,11 @@ public final class Interview extends Entity {
 
     @Override
     public String toString() {
-        return "Interview{" +
-                "candidate=" + candidate +
-                ", vacancy=" + vacancy +
-                ", planDate=" + planDate +
-                ", factDate=" + factDate +
-                '}';
+        return "Interview{"
+                + "candidate=" + candidate
+                + ", vacancy=" + vacancy
+                + ", planDate=" + planDate
+                + ", factDate=" + factDate
+                + '}';
     }
 }

@@ -66,7 +66,7 @@ public abstract class AbstractDao<T extends Entity> {
         try (PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlInsert,
                 Statement.RETURN_GENERATED_KEYS)) {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
-            int status =  insertPrepareStatement.executeUpdate();
+            int status = insertPrepareStatement.executeUpdate();
             if (status > 0) {
                 ResultSet id = insertPrepareStatement.getGeneratedKeys();
                 if (id.next()) {
@@ -79,6 +79,7 @@ public abstract class AbstractDao<T extends Entity> {
             return false;
         }
     }
+
     public boolean updateEntity(T entity) throws SQLException {
         try (PreparedStatement updatePrepareStatement
                      = connection.prepareStatement(sqlUpdate)) {
@@ -109,12 +110,15 @@ public abstract class AbstractDao<T extends Entity> {
     }
 
     protected abstract T setEntityFields(ResultSet entityTableRow) throws SQLException;
+
     protected abstract void setValuesForInsertIntoPrepareStatement(
             PreparedStatement prepareStatement, T entity)
             throws SQLException;
+
     protected abstract void setValuesForUpdateIntoPrepareStatement(
             PreparedStatement prepareStatement, T entity)
             throws SQLException;
+
     protected abstract void setValuesForDeleteIntoPrepareStatement(
             PreparedStatement prepareStatement, T entity)
             throws SQLException;
