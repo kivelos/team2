@@ -11,19 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractDao<T extends Entity> {
-    protected Connection connection;
+    private Connection connection;
     //language=SQL
-    protected String sqlSelectSortedPage = "";
+    private String sqlSelectSortedPage = "";
     //language=SQL
-    protected String sqlInsert = "";
+    private String sqlInsert = "";
     //language=SQL
-    protected String sqlUpdate = "";
+    private String sqlUpdate = "";
     //language=SQL
-    protected String sqlSelectFilteredEntities = "";
+    private String sqlSelectFilteredEntities = "";
     //language=SQL
-    protected String sqlDelete = "";
+    private String sqlDelete = "";
     //language=SQL
-    protected String sqlSelectById = "";
+    private String sqlSelectById = "";
 
     public AbstractDao(Connection connection) {
         this.connection = connection;
@@ -145,4 +145,59 @@ public abstract class AbstractDao<T extends Entity> {
             PreparedStatement prepareStatement, T entity)
             throws SQLException;
 
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public String getSqlSelectSortedPage() {
+        return sqlSelectSortedPage;
+    }
+
+    public void setSqlSelectSortedPage(String sqlSelectSortedPage) {
+        this.sqlSelectSortedPage = sqlSelectSortedPage;
+    }
+
+    public String getSqlInsert() {
+        return sqlInsert;
+    }
+
+    public void setSqlInsert(String sqlInsert) {
+        this.sqlInsert = sqlInsert;
+    }
+
+    public String getSqlUpdate() {
+        return sqlUpdate;
+    }
+
+    public void setSqlUpdate(String sqlUpdate) {
+        this.sqlUpdate = sqlUpdate;
+    }
+
+    public String getSqlSelectFilteredEntities() {
+        return sqlSelectFilteredEntities;
+    }
+
+    public void setSqlSelectFilteredEntities(String sqlSelectFilteredEntities) {
+        this.sqlSelectFilteredEntities = sqlSelectFilteredEntities;
+    }
+
+    public String getSqlDelete() {
+        return sqlDelete;
+    }
+
+    public void setSqlDelete(String sqlDelete) {
+        this.sqlDelete = sqlDelete;
+    }
+
+    public String getSqlSelectById() {
+        return sqlSelectById;
+    }
+
+    public void setSqlSelectById(String sqlSelectById) {
+        this.sqlSelectById = sqlSelectById;
+    }
 }

@@ -21,9 +21,9 @@ public class UserController extends AbstractController<User> {
     @Override
     public void initialize() {
         super.initialize();
-        sortedField = "surname";
-        url = "/user/";
-        abstractDao = new UserDao(connection);
+        setSortedField("surname");
+        setUrl("/user/");
+        setAbstractDao(new UserDao(getConnection()));
     }
 
     @Override

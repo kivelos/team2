@@ -12,18 +12,18 @@ public class UserDao extends AbstractDao<User> {
 
     public UserDao(Connection connection) {
         super(connection);
-        sqlSelectSortedPage = "SELECT * FROM user ORDER BY %s %s LIMIT ?, ?";
-        sqlInsert = "INSERT INTO user "
+        setSqlSelectSortedPage("SELECT * FROM user ORDER BY %s %s LIMIT ?, ?");
+        setSqlInsert("INSERT INTO user "
                 + "(email,password, surname, name, user_state) "
-                + "VALUES (?, ?, ?, ?, ?)";
-        sqlUpdate = "UPDATE user "
+                + "VALUES (?, ?, ?, ?, ?)");
+        setSqlUpdate("UPDATE user "
                 + "SET email=?, password=?, surname=?, name=?, user_state=? "
-                + "WHERE id=?";
-        sqlSelectFilteredEntities = "SELECT * FROM user "
+                + "WHERE id=?");
+        setSqlSelectFilteredEntities("SELECT * FROM user "
                 + "WHERE (email=? OR ?='') AND (password=? OR ?='') AND "
                 + "(name=? OR ?='') AND (surname=? OR ?='') "
-                + "AND (user_state=? OR ?='')";
-        sqlSelectById = "SELECT * FROM user AS c WHERE c.id=?";
+                + "AND (user_state=? OR ?='')");
+        setSqlSelectById("SELECT * FROM user AS c WHERE c.id=?");
     }
 
     @Override
@@ -39,6 +39,7 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user)
             throws SQLException {
         prepareStatement.setString(1, user.getEmail());
@@ -49,6 +50,7 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           User entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
@@ -56,6 +58,7 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           User entity) throws SQLException {
         prepareStatement.setLong(1, entity.getId());

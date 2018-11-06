@@ -60,7 +60,7 @@ public class SkillController {
                 page--;
                 modelAndView = new ModelAndView("redirect:/skills/page/" + page);
                 return modelAndView;
-                //candidates = candidateDao.getSortedEntitiesPage(page, sortedField,sortType, itemsInPage);
+                //candidates = candidateDao.getSortedEntitiesPage(page, sortedField,sortType, ITEMS_IN_PAGE);
             }
             modelAndView = new ModelAndView("skills/skills");
             modelAndView.addObject("skills_list", skills);

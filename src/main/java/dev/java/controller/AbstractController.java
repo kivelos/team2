@@ -21,10 +21,10 @@ import java.util.List;
 public abstract class AbstractController<T extends Entity> {
     private final Logging logging = new Logging();
     //private final boolean sortType = true;
-    protected String sortedField;
-    protected String url;
-    protected AbstractDao<T> abstractDao;
-    protected Connection connection;
+    private String sortedField = "";
+    private String url = "";
+    private AbstractDao<T> abstractDao;
+    private Connection connection;
     private int itemsInPage = 3;
 
     @PostConstruct
@@ -111,5 +111,45 @@ public abstract class AbstractController<T extends Entity> {
     private ResponseEntity getResponseEntityOnServerError(Exception e) {
         logging.runMe(e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error");
+    }
+
+    public String getSortedField() {
+        return sortedField;
+    }
+
+    public void setSortedField(String sortedField) {
+        this.sortedField = sortedField;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public AbstractDao<T> getAbstractDao() {
+        return abstractDao;
+    }
+
+    public void setAbstractDao(AbstractDao<T> abstractDao) {
+        this.abstractDao = abstractDao;
+    }
+
+    public int getItemsInPage() {
+        return itemsInPage;
+    }
+
+    public void setItemsInPage(int itemsInPage) {
+        this.itemsInPage = itemsInPage;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

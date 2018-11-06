@@ -20,9 +20,9 @@ public class VacancyController extends AbstractController<Vacancy> {
     @Override
     public void initialize() {
         super.initialize();
-        sortedField = "position";
-        url = "/vacancy/";
-        abstractDao = new VacancyDao(connection);
+        setSortedField("position");
+        setUrl("/vacancy/");
+        setAbstractDao(new VacancyDao(getConnection()));
     }
 
     @Override

@@ -12,19 +12,19 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
 
     public InterviewFeedbackDao(Connection connection) {
         super(connection);
-        sqlSelectSortedPage = "SELECT * FROM interview_feedback "
-                + "ORDER BY %s %s LIMIT ?, ?";
-        sqlInsert = "INSERT INTO interview_feedback "
+        setSqlSelectSortedPage("SELECT * FROM interview_feedback "
+                + "ORDER BY %s %s LIMIT ?, ?");
+        setSqlInsert("INSERT INTO interview_feedback "
                 + "(id_interview, id_interviewer, reason, feedback_state) "
-                + "VALUES (?, ?, ?, ?)";
-        sqlUpdate = "UPDATE interview_feedback "
+                + "VALUES (?, ?, ?, ?)");
+        setSqlUpdate("UPDATE interview_feedback "
                 + "SET id_interview=?, id_interviewer=?, reason=?, feedback_state=? "
-                + "WHERE id=?";
-        sqlSelectFilteredEntities = "SELECT * FROM interview_feedback "
+                + "WHERE id=?");
+        setSqlSelectFilteredEntities("SELECT * FROM interview_feedback "
                 + "WHERE (id_interview=? OR ?='') AND (id_interviewer=? OR ?='') "
-                + "AND (reason=? OR ?='') AND (feedback_state=? OR ?='')";
-        sqlSelectById = "SELECT * FROM interview_feedback "
-                + "AS c WHERE c.id=?";
+                + "AND (reason=? OR ?='') AND (feedback_state=? OR ?='')");
+        setSqlSelectById("SELECT * FROM interview_feedback "
+                + "AS c WHERE c.id=?");
     }
 
     @Override
@@ -33,11 +33,11 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
             throws SQLException {
         List<InterviewFeedback> interviewFeedbacks = super.getSortedEntitiesPage(pageNumber,
                 sortedField, order, itemsNumberInPage);
-        InterviewDao interviewDao = new InterviewDao(connection);
+        InterviewDao interviewDao = new InterviewDao(getConnection());
         for (InterviewFeedback feedback : interviewFeedbacks) {
             feedback.setInterview(interviewDao.getEntityById(feedback.getInterview().getId()));
         }
-        UserDao userDao = new UserDao(connection);
+        UserDao userDao = new UserDao(getConnection());
         for (InterviewFeedback feedback : interviewFeedbacks) {
             feedback.setInterviewer(userDao.getEntityById(feedback.getInterviewer().getId()));
         }
@@ -48,9 +48,9 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     protected InterviewFeedback setEntityFields(ResultSet entityTableRow) throws SQLException {
         InterviewFeedback interviewFeedback = new InterviewFeedback();
         interviewFeedback.setId(entityTableRow.getLong("id"));
-        InterviewDao interviewDao = new InterviewDao(connection);
+        InterviewDao interviewDao = new InterviewDao(getConnection());
         interviewFeedback.setInterview(interviewDao.getEntityById(entityTableRow.getLong("id_interview")));
-        UserDao userDao = new UserDao(connection);
+        UserDao userDao = new UserDao(getConnection());
         interviewFeedback.setInterviewer(userDao.getEntityById(entityTableRow.getLong("id_interviewer")));
         interviewFeedback.setReason(entityTableRow.getString("reason"));
         interviewFeedback.setFeedbackState(entityTableRow.getString("feedback_state"));
@@ -58,6 +58,7 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           InterviewFeedback entity) throws SQLException {
         prepareStatement.setLong(1, entity.getInterview().getId());
@@ -68,6 +69,7 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForUpdateIntoPrepareStatement(
             PreparedStatement prepareStatement, InterviewFeedback entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
@@ -76,6 +78,7 @@ public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
 
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           InterviewFeedback entity) throws SQLException {
         prepareStatement.setLong(1, entity.getId());

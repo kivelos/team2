@@ -13,28 +13,28 @@ public class InterviewDao extends AbstractDao<Interview> {
 
     public InterviewDao(Connection connection) {
         super(connection);
-        sqlSelectSortedPage = "SELECT * FROM interview ORDER BY %s %s LIMIT ?, ?";
-        sqlInsert = "INSERT INTO interview "
+        setSqlSelectSortedPage("SELECT * FROM interview ORDER BY %s %s LIMIT ?, ?");
+        setSqlInsert("INSERT INTO interview "
                 + "(id_candidate, id_vacancy, plan_date, fact_date) "
-                + "VALUES (?, ?, ?, ?)";
-        sqlUpdate = "UPDATE interview "
+                + "VALUES (?, ?, ?, ?)");
+        setSqlUpdate("UPDATE interview "
                 + "SET id_candidate=?, id_vacancy=?, plan_date=?, fact_date=? "
-                + "WHERE id=?";
-        sqlSelectFilteredEntities = "SELECT * FROM interview "
+                + "WHERE id=?");
+        setSqlSelectFilteredEntities("SELECT * FROM interview "
                 + "WHERE (id_candidate=? OR ?='') AND (id_vacancy=? OR ?='') AND (plan_date=? OR ?='') "
-                + "AND (fact_date=? OR ?='')";
-        sqlSelectById = "SELECT * FROM interview AS c WHERE c.id=?";
+                + "AND (fact_date=? OR ?='')");
+        setSqlSelectById("SELECT * FROM interview AS c WHERE c.id=?");
     }
 
     @Override
     public List<Interview> getSortedEntitiesPage(int pageNumber, String sortedField,
                                                  boolean order, int itemsNumberInPage) throws SQLException {
         List<Interview> interviews = super.getSortedEntitiesPage(pageNumber, sortedField, order, itemsNumberInPage);
-        CandidateDao candidateDao = new CandidateDao(connection);
+        CandidateDao candidateDao = new CandidateDao(getConnection());
         for (Interview interview : interviews) {
             interview.setCandidate(candidateDao.getEntityById(interview.getCandidate().getId()));
         }
-        VacancyDao vacancyDao = new VacancyDao(connection);
+        VacancyDao vacancyDao = new VacancyDao(getConnection());
         for (Interview interview : interviews) {
             interview.setVacancy(vacancyDao.getEntityById(interview.getVacancy().getId()));
         }
@@ -45,10 +45,10 @@ public class InterviewDao extends AbstractDao<Interview> {
     protected Interview setEntityFields(ResultSet entityTableRow) throws SQLException {
         Interview interview = new Interview();
         interview.setId(entityTableRow.getLong("id"));
-        CandidateDao candidateDao = new CandidateDao(connection);
+        CandidateDao candidateDao = new CandidateDao(getConnection());
         interview.setCandidate(candidateDao.getEntityById(entityTableRow.
                 getLong("id_candidate")));
-        VacancyDao vacancyDao = new VacancyDao(connection);
+        VacancyDao vacancyDao = new VacancyDao(getConnection());
         interview.setVacancy(vacancyDao.getEntityById(entityTableRow.
                 getLong("id_vacancy")));
         interview.setPlanDate(entityTableRow.getTimestamp("plan_date"));
@@ -57,6 +57,7 @@ public class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Interview entity)
             throws SQLException {
         prepareStatement.setLong(1, entity.getCandidate().getId());
@@ -67,6 +68,7 @@ public class InterviewDao extends AbstractDao<Interview> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           Interview entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
@@ -75,6 +77,7 @@ public class InterviewDao extends AbstractDao<Interview> {
 
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           Interview entity) throws SQLException {
         prepareStatement.setLong(1, entity.getId());

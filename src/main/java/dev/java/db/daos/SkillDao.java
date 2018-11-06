@@ -15,20 +15,20 @@ public class SkillDao extends AbstractDao<Skill> {
 
     public SkillDao(Connection connection) {
         super(connection);
-        sqlSelectSortedPage = "SELECT * FROM skill ORDER BY %s %s LIMIT ?, ?";
-        sqlInsert = "INSERT INTO skill "
+        setSqlSelectSortedPage("SELECT * FROM skill ORDER BY %s %s LIMIT ?, ?");
+        setSqlInsert("INSERT INTO skill "
                 + "(name) "
-                + "VALUES (?)";
-        sqlUpdate = "UPDATE skill "
+                + "VALUES (?)");
+        setSqlUpdate("UPDATE skill "
                 + "SET name=? "
-                + "WHERE name=?";
-        sqlSelectFilteredEntities = "SELECT * FROM skill "
-                + "WHERE  (name=? OR ?='')";
+                + "WHERE name=?");
+        setSqlSelectFilteredEntities("SELECT * FROM skill "
+                + "WHERE  (name=? OR ?='')");
     }
 
     @Override
     public boolean createEntity(Skill entity) throws SQLException {
-        PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlInsert);
+        PreparedStatement insertPrepareStatement = getConnection().prepareStatement(getSqlInsert());
         try {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
             int status = insertPrepareStatement.executeUpdate();
@@ -44,7 +44,7 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     public boolean deleteEntity(Skill entity) throws SQLException {
-        PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlDelete);
+        PreparedStatement insertPrepareStatement = getConnection().prepareStatement(sqlDelete);
         try {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
             int status = insertPrepareStatement.executeUpdate();
@@ -55,7 +55,7 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     public Skill getEntityByName(String name) throws SQLException {
-        PreparedStatement getByIdPrepareStatement = connection.prepareStatement(sqlSelectByName);
+        PreparedStatement getByIdPrepareStatement = getConnection().prepareStatement(sqlSelectByName);
         try {
             getByIdPrepareStatement.setString(1, name);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
@@ -71,12 +71,14 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Skill skill)
             throws SQLException {
         prepareStatement.setString(1, skill.getName());
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForUpdateIntoPrepareStatement(
             PreparedStatement prepareStatement, Skill skill) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, skill);
@@ -92,6 +94,7 @@ public class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement,
                                                           Skill entity) throws SQLException {
         prepareStatement.setString(1, entity.getName());

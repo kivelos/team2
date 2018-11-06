@@ -22,10 +22,9 @@ public class CandidateController extends AbstractController<Candidate> {
     @Override
     public void initialize() {
         super.initialize();
-        sortedField = "surname";
-        url = "/candidate/";
-        System.out.println("here");
-        abstractDao = new CandidateDao(connection);
+        setSortedField("surname");
+        setUrl("/candidate/");
+        setAbstractDao(new CandidateDao(getConnection()));
     }
 
 

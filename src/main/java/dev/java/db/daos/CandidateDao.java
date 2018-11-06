@@ -17,44 +17,44 @@ public class CandidateDao extends AbstractDao<Candidate> {
     */
     public CandidateDao(Connection connection) {
         super(connection);
-
-        sqlSelectSortedPage = "SELECT * FROM candidate ORDER BY %s %s LIMIT ?, ?";
-        sqlInsert = "INSERT INTO candidate "
+        setSqlSelectSortedPage("SELECT * FROM candidate ORDER BY %s %s LIMIT ?, ?");
+        setSqlInsert("INSERT INTO candidate "
                 + "(name, surname, birthday, salary_in_dollars, candidate_state) "
-                + "VALUES (?, ?, ?, ?, ?)";
-        sqlUpdate = "UPDATE candidate "
+                + "VALUES (?, ?, ?, ?, ?)");
+        setSqlUpdate("UPDATE candidate "
                 + "SET name=?, surname=?, birthday=?, salary_in_dollars=?, candidate_state=? "
-                + "WHERE id=?";
-        sqlSelectFilteredEntities = "SELECT * FROM candidate "
+                + "WHERE id=?");
+        setSqlSelectFilteredEntities("SELECT * FROM candidate "
                 + "WHERE (name=? OR ?='') AND (surname=? OR ?='') AND "
                 + "(birthday=? OR ?='') AND (salary_in_dollars=? OR ?='') "
-                + "AND (candidate_state=? OR ?='')";
-        sqlSelectById = "SELECT * FROM candidate AS c WHERE c.id=?";
+                + "AND (candidate_state=? OR ?='')");
+        setSqlSelectById("SELECT * FROM candidate AS c WHERE c.id=?");
     }
 
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
             throws SQLException {
-        int parameterIndex = 1;
-        prepareStatement.setString(parameterIndex++, candidate.getName());
-        prepareStatement.setString(parameterIndex++, candidate.getSurname());
-        prepareStatement.setDate(parameterIndex++, candidate.getBirthday(),
+        prepareStatement.setString(1, candidate.getName());
+        prepareStatement.setString(2, candidate.getSurname());
+        prepareStatement.setDate(3, candidate.getBirthday(),
                 Calendar.getInstance());
-        prepareStatement.setFloat(parameterIndex++, candidate.getSalaryInDollars());
-        prepareStatement.setString(parameterIndex, candidate.getCandidateState());
+        prepareStatement.setFloat(4, candidate.getSalaryInDollars());
+        prepareStatement.setString(5, candidate.getCandidateState());
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement, Candidate candidate)
             throws SQLException {
-        int parameterIndex = 6;
         setValuesForInsertIntoPrepareStatement(prepareStatement, candidate);
-        prepareStatement.setLong(parameterIndex, candidate.getId());
+        prepareStatement.setLong(6, candidate.getId());
 
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected Candidate setEntityFields(ResultSet candidateTableRow) throws SQLException {
         Candidate candidate = new Candidate();
         candidate.setId(candidateTableRow.getLong("id"));
@@ -67,6 +67,7 @@ public class CandidateDao extends AbstractDao<Candidate> {
     }
 
     @Override
+    @SuppressWarnings("checkstyle:MagicNumber")
     protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement, Candidate entity)
             throws SQLException {
         prepareStatement.setLong(1, entity.getId());

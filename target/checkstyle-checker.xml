@@ -58,6 +58,8 @@
         <property name="message" value="Line has trailing spaces."/>
     </module>
 
+    <module name="SuppressWarningsFilter" />
+
     <!-- Checks for Headers                                -->
     <!-- See http://checkstyle.sf.net/config_header.html   -->
     <!-- <module name="Header"> -->
@@ -76,6 +78,7 @@
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
+        <module name="SuppressWarningsHolder" />
         <module name="ConstantName"/>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>

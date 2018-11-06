@@ -21,9 +21,9 @@ public class InterviewController extends AbstractController<Interview> {
     @Override
     public void initialize() {
         super.initialize();
-        sortedField = "plan_date";
-        url = "/interview/";
-        abstractDao = new InterviewDao(connection);
+        setSortedField("plan_date");
+        setUrl("/interview/");
+        setAbstractDao(new InterviewDao(getConnection()));
     }
 
     @Override

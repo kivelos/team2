@@ -20,9 +20,9 @@ public class InterviewFeedbackController extends AbstractController<InterviewFee
     @Override
     public void initialize() {
         super.initialize();
-        sortedField = "feedback_state";
-        url = "/interview_feedback/";
-        abstractDao = new InterviewFeedbackDao(connection);
+        setSortedField("feedback_state");
+        setUrl("/interview_feedback/");
+        setAbstractDao(new InterviewFeedbackDao(getConnection()));
     }
 
     @Override
