@@ -11,10 +11,10 @@ import java.util.Calendar;
 public class CandidateDao extends AbstractDao<Candidate> {
 
     //language=SQL
-    private String sqlSelectSkills = "SELECT skill.name FROM skill "
+    /*private String sqlSelectSkills = "SELECT skill.name FROM skill "
             + "JOIN vacancy_requirement v on skill.name = v.skill "
             + "WHERE v.id_vacancy=?";
-
+    */
     public CandidateDao(Connection connection) {
         super(connection);
 

@@ -1,40 +1,26 @@
 package dev.java.controller;
 
-import dev.java.db.daos.CandidateDao;
+import dev.java.db.daos.AbstractDao;
 import dev.java.db.model.Candidate;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
+
 public class CandidateControllerTest {
 
-    @InjectMocks
-    private CandidateController candidateController;
-
-    private MockMvc mockMvc;
-
-    @Mock
-    private CandidateDao candidateDao;
+    private CandidateController controller;
 
     @Before
     public void setUp() {
-        // Process mock annotations
-        MockitoAnnotations.initMocks(this);
+        this.controller = new CandidateController();
 
-        // Setup Spring test in standalone mode
-        this.mockMvc = MockMvcBuilders.standaloneSetup(candidateController).build();
     }
 
     @Test
@@ -43,13 +29,14 @@ public class CandidateControllerTest {
         candidates.add(new Candidate());
         candidates.add(new Candidate());
 
-        when(candidateDao.getSortedEntitiesPage(1, "surname", true, 2))
-                .thenReturn(candidates);
-        mockMvc.perform(
-                get("/candidates"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$", hasSize(0)));
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getSortedEntitiesPage(anyInt(), anyString(), anyBoolean(), anyInt())).thenReturn(candidates);
+        controller.abstractDao = daoMock;
+
+        ResponseEntity res = this.controller.getAllEntities(mock(HttpServletRequest.class));
+        System.out.println(res);
+
+        Assert.assertEquals(candidates, res.getBody());
     }
 
 

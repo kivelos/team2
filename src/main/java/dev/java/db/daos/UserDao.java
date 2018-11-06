@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class UserDao extends AbstractDao<User> {
+public class UserDao extends AbstractDao<User> {
 
 
     public UserDao(Connection connection) {
@@ -39,7 +39,8 @@ public final class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user) throws SQLException {
+    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user)
+            throws SQLException {
         prepareStatement.setString(1, user.getEmail());
         prepareStatement.setString(2, user.getPassword());
         prepareStatement.setString(3, user.getSurname());

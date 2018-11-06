@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
-public final class InterviewDao extends AbstractDao<Interview> {
+public class InterviewDao extends AbstractDao<Interview> {
 
     public InterviewDao(Connection connection) {
         super(connection);
@@ -21,7 +21,8 @@ public final class InterviewDao extends AbstractDao<Interview> {
                 + "SET id_candidate=?, id_vacancy=?, plan_date=?, fact_date=? "
                 + "WHERE id=?";
         sqlSelectFilteredEntities = "SELECT * FROM interview "
-                + "WHERE (id_candidate=? OR ?='') AND (id_vacancy=? OR ?='') AND (plan_date=? OR ?='')AND (fact_date=? OR ?='')";
+                + "WHERE (id_candidate=? OR ?='') AND (id_vacancy=? OR ?='') AND (plan_date=? OR ?='') "
+                + "AND (fact_date=? OR ?='')";
         sqlSelectById = "SELECT * FROM interview AS c WHERE c.id=?";
     }
 

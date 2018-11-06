@@ -2,24 +2,28 @@ package dev.java.db.daos;
 
 import dev.java.db.model.Entity;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractDao<T extends Entity> {
     protected Connection connection;
     //language=SQL
-    protected String sqlSelectSortedPage;
+    protected String sqlSelectSortedPage = "";
     //language=SQL
-    protected String sqlInsert;
+    protected String sqlInsert = "";
     //language=SQL
-    protected String sqlUpdate;
+    protected String sqlUpdate = "";
     //language=SQL
-    protected String sqlSelectFilteredEntities;
+    protected String sqlSelectFilteredEntities = "";
     //language=SQL
-    protected String sqlDelete;
+    protected String sqlDelete = "";
     //language=SQL
-    protected String sqlSelectById;
+    protected String sqlSelectById = "";
 
     public AbstractDao(Connection connection) {
         this.connection = connection;
@@ -30,7 +34,8 @@ public abstract class AbstractDao<T extends Entity> {
         List<T> allEntitiesList = new ArrayList<>();
         sqlSelectSortedPage = String.format(sqlSelectSortedPage, sortedField,
                 order ? "ASC" : "DESC");
-        try (PreparedStatement selectPrepareStatement = connection.prepareStatement(sqlSelectSortedPage)) {
+        PreparedStatement selectPrepareStatement = connection.prepareStatement(sqlSelectSortedPage);
+        try  {
             selectPrepareStatement.setInt(1, (pageNumber - 1) * itemsNumberInPage);
             selectPrepareStatement.setInt(2, itemsNumberInPage);
             ResultSet entityTableRow = selectPrepareStatement.executeQuery();
@@ -39,6 +44,8 @@ public abstract class AbstractDao<T extends Entity> {
                 allEntitiesList.add(entity);
             }
             entityTableRow.close();
+        } finally {
+            selectPrepareStatement.close();
         }
         return allEntitiesList;
     }
@@ -46,7 +53,8 @@ public abstract class AbstractDao<T extends Entity> {
     public List<T> getFilteredEntitiesPage(String... params)
             throws SQLException {
         List<T> allEntitiesList = new ArrayList<>();
-        try (PreparedStatement selectPrepareStatement = connection.prepareStatement(sqlSelectFilteredEntities)) {
+        PreparedStatement selectPrepareStatement = connection.prepareStatement(sqlSelectFilteredEntities);
+        try {
             for (int i = 0; i < params.length; i++) {
                 selectPrepareStatement.setString(i * 2 + 1, params[i]);
                 selectPrepareStatement.setString(i * 2 + 2, params[i]);
@@ -58,46 +66,58 @@ public abstract class AbstractDao<T extends Entity> {
                 allEntitiesList.add(entity);
             }
             entityTableRow.close();
+        } finally {
+            selectPrepareStatement.close();
         }
         return allEntitiesList;
     }
 
     public boolean createEntity(T entity) throws SQLException {
-        try (PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlInsert,
-                Statement.RETURN_GENERATED_KEYS)) {
+        PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlInsert,
+                Statement.RETURN_GENERATED_KEYS);
+        try {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
             int status = insertPrepareStatement.executeUpdate();
-            if (status > 0) {
-                ResultSet id = insertPrepareStatement.getGeneratedKeys();
-                if (id.next()) {
-                    entity.setId(id.getLong(1));
-                    id.close();
-                    return true;
-                }
+            if (status <= 0) {
                 return false;
             }
-            return false;
+
+            ResultSet id = insertPrepareStatement.getGeneratedKeys();
+            if (!id.next()) {
+                return false;
+            }
+
+            entity.setId(id.getLong(1));
+            id.close();
+            return true;
+        } finally {
+            insertPrepareStatement.close();
         }
     }
 
     public boolean updateEntity(T entity) throws SQLException {
-        try (PreparedStatement updatePrepareStatement
-                     = connection.prepareStatement(sqlUpdate)) {
+        PreparedStatement updatePrepareStatement = connection.prepareStatement(sqlUpdate);
+        try {
             setValuesForUpdateIntoPrepareStatement(updatePrepareStatement, entity);
             return updatePrepareStatement.executeUpdate() > 0;
+        } finally {
+            updatePrepareStatement.close();
         }
     }
 
     public boolean deleteEntity(T entity) throws SQLException {
-        try (PreparedStatement deletePrepareStatement
-                     = connection.prepareStatement(sqlDelete)) {
+        PreparedStatement deletePrepareStatement = connection.prepareStatement(sqlDelete);
+        try {
             setValuesForDeleteIntoPrepareStatement(deletePrepareStatement, entity);
             return deletePrepareStatement.executeUpdate() > 0;
+        } finally {
+            deletePrepareStatement.close();
         }
     }
 
     public T getEntityById(long id) throws SQLException {
-        try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(sqlSelectById)) {
+        PreparedStatement getByIdPrepareStatement = connection.prepareStatement(sqlSelectById);
+        try {
             getByIdPrepareStatement.setLong(1, id);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
             if (entity.next()) {
@@ -106,6 +126,8 @@ public abstract class AbstractDao<T extends Entity> {
                 return newEntity;
             }
             return null;
+        } finally {
+            getByIdPrepareStatement.close();
         }
     }
 

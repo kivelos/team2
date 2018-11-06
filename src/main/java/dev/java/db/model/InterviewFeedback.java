@@ -2,7 +2,7 @@ package dev.java.db.model;
 
 import java.util.Objects;
 
-public final class InterviewFeedback extends Entity {
+public class InterviewFeedback extends Entity {
     private Interview interview;
     private User interviewer;
     private String reason;

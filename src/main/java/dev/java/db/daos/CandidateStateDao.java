@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CandidateStateDao {
+public class CandidateStateDao {
     private Connection connection;
 
     public CandidateStateDao(Connection connection) {

@@ -7,11 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class SkillDao extends AbstractDao<Skill> {
+public class SkillDao extends AbstractDao<Skill> {
 
-    private static String SQL_SELECT_BY_NAME = "SELECT * FROM skill AS s WHERE s.name=?";
+    private String sqlSelectByName = "SELECT * FROM skill AS s WHERE s.name=?";
     //language=SQL
-    private static String SQL_DELETE = "DELETE FROM skill WHERE name=?";
+    private String sqlDelete = "DELETE FROM skill WHERE name=?";
 
     public SkillDao(Connection connection) {
         super(connection);
@@ -28,10 +28,13 @@ public final class SkillDao extends AbstractDao<Skill> {
 
     @Override
     public boolean createEntity(Skill entity) throws SQLException {
-        try (PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlInsert)) {
+        PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlInsert);
+        try {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
             int status = insertPrepareStatement.executeUpdate();
             return status > 0;
+        } finally {
+            insertPrepareStatement.close();
         }
     }
 
@@ -41,15 +44,19 @@ public final class SkillDao extends AbstractDao<Skill> {
     }
 
     public boolean deleteEntity(Skill entity) throws SQLException {
-        try (PreparedStatement insertPrepareStatement = connection.prepareStatement(SQL_DELETE)) {
+        PreparedStatement insertPrepareStatement = connection.prepareStatement(sqlDelete);
+        try {
             setValuesForInsertIntoPrepareStatement(insertPrepareStatement, entity);
             int status = insertPrepareStatement.executeUpdate();
             return status > 0;
+        } finally {
+            insertPrepareStatement.close();
         }
     }
 
     public Skill getEntityByName(String name) throws SQLException {
-        try (PreparedStatement getByIdPrepareStatement = connection.prepareStatement(SQL_SELECT_BY_NAME)) {
+        PreparedStatement getByIdPrepareStatement = connection.prepareStatement(sqlSelectByName);
+        try {
             getByIdPrepareStatement.setString(1, name);
             ResultSet entity = getByIdPrepareStatement.executeQuery();
             if (entity.next()) {
@@ -58,6 +65,8 @@ public final class SkillDao extends AbstractDao<Skill> {
                 return skill;
             }
             return null;
+        } finally {
+            getByIdPrepareStatement.close();
         }
     }
 
@@ -68,8 +77,8 @@ public final class SkillDao extends AbstractDao<Skill> {
     }
 
     @Override
-    protected void setValuesForUpdateIntoPrepareStatement
-            (PreparedStatement prepareStatement, Skill skill) throws SQLException {
+    protected void setValuesForUpdateIntoPrepareStatement(
+            PreparedStatement prepareStatement, Skill skill) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, skill);
         prepareStatement.setString(2, skill.getName());
 

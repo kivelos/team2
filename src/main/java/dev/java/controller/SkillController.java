@@ -16,18 +16,17 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import static dev.java.db.model.Skill.*;
 
 @Controller
 public class SkillController {
 
-    private static boolean sortType = true;
-    private static String sortedField = "name";
-    private static int itemsInPage = 3;
+    private boolean sortType = true;
+    private String sortedField = "name";
+    private int itemsInPage = 3;
     private Logging logging = new Logging();
 
     @RequestMapping(value = "/skills", method = RequestMethod.GET)
-    public final ModelAndView getAllSkills(HttpServletRequest request) {
+    public ModelAndView getAllSkills(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("skills/skills");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -46,7 +45,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills/page/{page:\\d+}", method = RequestMethod.GET)
-    public final ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
+    public ModelAndView nextPage(@PathVariable int page, HttpServletRequest request) {
         ModelAndView modelAndView;
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -74,7 +73,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills", method = RequestMethod.POST)
-    public final ModelAndView addSkill(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView addSkill(HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("skills/skills");
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -112,7 +111,7 @@ public class SkillController {
 
 
     @RequestMapping(value = "/skills/{name:\\w+}", method = RequestMethod.GET)
-    public final ModelAndView getSkill(@PathVariable String name, HttpServletRequest request) {
+    public ModelAndView getSkill(@PathVariable String name, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("skills/skill");
         logging.runMe(request);
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -126,8 +125,8 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.GET)
-    public final ModelAndView editSkill(@PathVariable String name,
-                                        HttpServletRequest request) {
+    public ModelAndView editSkill(@PathVariable String name,
+                                  HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = getSkill(name, request);
         modelAndView.setViewName("skills/skill_edit");
@@ -135,7 +134,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills/{name:\\w+}/edit", method = RequestMethod.POST)
-    public final ModelAndView editSkill(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView editSkill(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
         logging.runMe(request);
         ModelAndView modelAndView;
         try (Connection connection = ConnectorDB.getConnection()) {
@@ -158,7 +157,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "/skills/filtering", method = RequestMethod.POST)
-    public final ModelAndView getFilteredEntities(HttpServletRequest request) {
+    public ModelAndView getFilteredEntities(HttpServletRequest request) {
         logging.runMe(request);
         ModelAndView modelAndView = new ModelAndView("skills/skills");
         try (Connection connection = ConnectorDB.getConnection()) {

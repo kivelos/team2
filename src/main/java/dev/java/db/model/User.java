@@ -2,7 +2,7 @@ package dev.java.db.model;
 
 import java.util.Objects;
 
-public final class User extends Entity {
+public class User extends Entity {
     public static final int MIN_PASSWORD_SIZE = 6;
     public static final int MAX_SIZE_PASSWORD = 24;
 

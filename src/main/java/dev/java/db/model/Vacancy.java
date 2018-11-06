@@ -3,7 +3,7 @@ package dev.java.db.model;
 import java.util.List;
 import java.util.Objects;
 
-public final class Vacancy extends Entity {
+public class Vacancy extends Entity {
     private String position;
     private float salaryInDollarsFrom;
     private float salaryInDollarsTo;

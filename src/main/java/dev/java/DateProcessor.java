@@ -29,8 +29,8 @@ public class DateProcessor {
         cal1.setTime(dateOfBirth);
         Calendar cal2 = Calendar.getInstance();
         cal2.setTime(today);
-        int age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR);
-        return age;
+
+        return cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR);
     }
 
     public static int calcDaysToBirth(Date dateOfBirth) {

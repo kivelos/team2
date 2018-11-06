@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class FeedbackStateDao {
+public class FeedbackStateDao {
     private Connection connection;
 
     public FeedbackStateDao(Connection connection) {

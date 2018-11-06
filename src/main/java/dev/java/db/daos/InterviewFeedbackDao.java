@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public final class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
+public class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
 
     public InterviewFeedbackDao(Connection connection) {
         super(connection);
@@ -29,7 +29,8 @@ public final class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
 
     @Override
     public List<InterviewFeedback> getSortedEntitiesPage(int pageNumber,
-                                                         String sortedField, boolean order, int itemsNumberInPage) throws SQLException {
+                                                         String sortedField, boolean order, int itemsNumberInPage)
+            throws SQLException {
         List<InterviewFeedback> interviewFeedbacks = super.getSortedEntitiesPage(pageNumber,
                 sortedField, order, itemsNumberInPage);
         InterviewDao interviewDao = new InterviewDao(connection);
@@ -67,8 +68,8 @@ public final class InterviewFeedbackDao extends AbstractDao<InterviewFeedback> {
     }
 
     @Override
-    protected void setValuesForUpdateIntoPrepareStatement
-            (PreparedStatement prepareStatement, InterviewFeedback entity) throws SQLException {
+    protected void setValuesForUpdateIntoPrepareStatement(
+            PreparedStatement prepareStatement, InterviewFeedback entity) throws SQLException {
         setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
         prepareStatement.setLong(5, entity.getId());
     }

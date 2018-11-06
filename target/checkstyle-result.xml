@@ -1,44 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="6.18">
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\AbstractController.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\AbstractController.java">
 <error line="24" column="22" severity="error" message="Variable &apos;sortedField&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
 <error line="25" column="22" severity="error" message="Variable &apos;url&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
 <error line="26" column="30" severity="error" message="Variable &apos;abstractDao&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
 <error line="27" column="26" severity="error" message="Variable &apos;connection&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
 <error line="28" column="31" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\CandidateController.java">
-<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.springframework.web.bind.annotation.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\CandidateController.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\GeneralConstant.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\GeneralConstant.java">
 <error line="3" column="1" severity="error" message="Utility classes should not have a public or default constructor." source="com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
 <error line="4" column="32" severity="error" message="Name &apos;itemsInPage&apos; must match pattern &apos;^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.ConstantNameCheck"/>
 <error line="5" column="32" severity="error" message="Name &apos;filteringItemsInPage&apos; must match pattern &apos;^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.ConstantNameCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\HelloController.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\HelloController.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\InterviewController.java">
-<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.springframework.web.bind.annotation.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\InterviewController.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\InterviewFeedbackController.java">
-<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.springframework.web.bind.annotation.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\InterviewFeedbackController.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\SimpleController.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\SimpleController.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\SkillController.java">
-<error line="19" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - dev.java.db.model.Skill.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-<error line="26" column="38" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="39" column="86" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="83" column="86" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="138" severity="error" message="Line is longer than 120 characters (found 126)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\SkillController.java">
+<error line="25" column="31" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="38" column="86" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="82" column="86" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\UserController.java">
-<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.springframework.web.bind.annotation.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\UserController.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\controller\VacancyController.java">
-<error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.springframework.web.bind.annotation.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\VacancyController.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\DateProcessor.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\DateProcessor.java">
 <error line="8" column="1" severity="error" message="Utility classes should not have a public or default constructor." source="com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
 <error line="10" column="21" severity="error" message="Variable &apos;arrOfFormat&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
 <error line="55" column="40" severity="error" message="&apos;1000&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
@@ -46,113 +39,100 @@
 <error line="55" column="52" severity="error" message="&apos;60&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 <error line="55" column="57" severity="error" message="&apos;24&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\ConnectorDB.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\ConnectorDB.java">
 <error line="11" column="1" severity="error" message="Utility classes should not have a public or default constructor." source="com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
 <error line="24" column="58" severity="error" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\daos\AbstractDao.java">
-<error line="5" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - java.sql.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-<error line="10" column="26" severity="error" message="Variable &apos;connection&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
-<error line="12" column="22" severity="error" message="Variable &apos;sqlSelectSortedPage&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
-<error line="14" column="22" severity="error" message="Variable &apos;sqlInsert&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
-<error line="16" column="22" severity="error" message="Variable &apos;sqlUpdate&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
-<error line="18" column="22" severity="error" message="Variable &apos;sqlSelectFilteredEntities&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
-<error line="20" column="22" severity="error" message="Variable &apos;sqlDelete&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
-<error line="22" column="22" severity="error" message="Variable &apos;sqlSelectById&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
-<error line="32" column="23" severity="error" message="Avoid inline conditionals." source="com.puppycrawl.tools.checkstyle.checks.coding.AvoidInlineConditionalsCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\AbstractDao.java">
+<error line="14" column="26" severity="error" message="Variable &apos;connection&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="16" column="22" severity="error" message="Variable &apos;sqlSelectSortedPage&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="18" column="22" severity="error" message="Variable &apos;sqlInsert&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="20" column="22" severity="error" message="Variable &apos;sqlUpdate&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="22" column="22" severity="error" message="Variable &apos;sqlSelectFilteredEntities&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="24" column="22" severity="error" message="Variable &apos;sqlDelete&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="26" column="22" severity="error" message="Variable &apos;sqlSelectById&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="36" column="23" severity="error" message="Avoid inline conditionals." source="com.puppycrawl.tools.checkstyle.checks.coding.AvoidInlineConditionalsCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\daos\CandidateDao.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\CandidateDao.java">
 <error line="51" column="30" severity="error" message="&apos;6&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\daos\CandidateStateDao.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\CandidateStateDao.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\daos\FeedbackStateDao.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\FeedbackStateDao.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\daos\InterviewDao.java">
-<error line="24" severity="error" message="Line is longer than 120 characters (found 129)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="29" severity="error" message="Line is longer than 120 characters (found 144)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="62" column="39" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="63" column="39" severity="error" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="71" column="34" severity="error" message="&apos;5&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-</file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\daos\InterviewFeedbackDao.java">
-<error line="32" severity="error" message="Line is longer than 120 characters (found 136)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="64" column="36" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="65" column="36" severity="error" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="71" column="13" severity="error" message="&apos;(&apos; should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.whitespace.MethodParamPadCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\InterviewDao.java">
+<error line="64" column="39" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="65" column="39" severity="error" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 <error line="73" column="34" severity="error" message="&apos;5&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\daos\SkillDao.java">
-<error line="12" column="27" severity="error" message="Name &apos;SQL_SELECT_BY_NAME&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
-<error line="14" column="27" severity="error" message="Name &apos;SQL_DELETE&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.StaticVariableNameCheck"/>
-<error line="72" column="13" severity="error" message="&apos;(&apos; should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.whitespace.MethodParamPadCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\InterviewFeedbackDao.java">
+<error line="65" column="36" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="66" column="36" severity="error" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="74" column="34" severity="error" message="&apos;5&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\daos\UserDao.java">
-<error line="42" severity="error" message="Line is longer than 120 characters (found 126)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="45" column="36" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="46" column="36" severity="error" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="47" column="36" severity="error" message="&apos;5&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="51" severity="error" message="Line is longer than 120 characters (found 128)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="53" column="34" severity="error" message="&apos;6&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\SkillDao.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\daos\VacancyDao.java">
-<error line="26" severity="error" message="Line is longer than 120 characters (found 123)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="46" column="34" severity="error" message="&apos;7&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="55" column="35" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="56" column="36" severity="error" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="57" column="35" severity="error" message="&apos;5&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-<error line="58" column="34" severity="error" message="&apos;6&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\UserDao.java">
+<error line="46" column="36" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="47" column="36" severity="error" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="48" column="36" severity="error" message="&apos;5&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="55" column="34" severity="error" message="&apos;6&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\attachments\Attachment.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\VacancyDao.java">
+<error line="47" column="34" severity="error" message="&apos;7&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="56" column="35" severity="error" message="&apos;3&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="57" column="36" severity="error" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="58" column="35" severity="error" message="&apos;5&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="59" column="34" severity="error" message="&apos;6&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\attachments\AttachmentType.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Attachment.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\Candidate.java">
-<error line="135" severity="error" message="Line is longer than 120 characters (found 211)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\AttachmentType.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\CandidateState.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Candidate.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\contacts\Contact.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\CandidateState.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\contacts\ContactType.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Contact.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\Entity.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\ContactType.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\experiences\Experience.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Entity.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\FeedbackState.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Experience.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\Interview.java">
-<error line="68" severity="error" message="Line is longer than 120 characters (found 204)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\FeedbackState.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\InterviewFeedback.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Interview.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\Skill.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\InterviewFeedback.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\User.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Skill.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\Vacancy.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\User.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\db\model\VacancyState.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Vacancy.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\java\dev\java\Logging.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\VacancyState.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\resources\application.properties">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\Logging.java">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\resources\database.properties">
+<file name="D:\Моя папка\Мой универ\team2\src\main\resources\application.properties">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\resources\locale\messages.properties">
+<file name="D:\Моя папка\Мой универ\team2\src\main\resources\database.properties">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\resources\locale\messages_en.properties">
+<file name="D:\Моя папка\Мой универ\team2\src\main\resources\locale\messages.properties">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\resources\locale\messages_ru.properties">
+<file name="D:\Моя папка\Мой универ\team2\src\main\resources\locale\messages_en.properties">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\resources\log4j.properties">
+<file name="D:\Моя папка\Мой универ\team2\src\main\resources\locale\messages_ru.properties">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\resources\locale\messages_ru.properties">
+<file name="D:\Моя папка\Мой универ\team2\src\main\resources\log4j.properties">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\resources\locale\messages_en.properties">
+<file name="D:\Моя папка\Мой универ\team2\src\main\resources\locale\messages.properties">
 </file>
-<file name="D:\git\rest_v1\team2\src\main\resources\locale\messages.properties">
+<file name="D:\Моя папка\Мой универ\team2\src\main\resources\locale\messages_en.properties">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\resources\locale\messages_ru.properties">
 </file>
 </checkstyle>

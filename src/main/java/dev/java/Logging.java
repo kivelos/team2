@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-public final class Logging {
+public class Logging {
     private static Logger logger = Logger.getLogger(Logging.class.getName());
 
     public void runMe(HttpServletRequest request) {

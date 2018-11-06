@@ -3,7 +3,7 @@ package dev.java.db.model;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public final class Interview extends Entity {
+public class Interview extends Entity {
     private Candidate candidate;
     private Vacancy vacancy;
     private Timestamp planDate;
@@ -19,8 +19,8 @@ public final class Interview extends Entity {
     public Interview(Candidate candidate, Vacancy vacancy, Timestamp planDate, Timestamp factDate) {
         this.candidate = candidate;
         this.vacancy = vacancy;
-        this.planDate = planDate;
-        this.factDate = factDate;
+        this.planDate = new Timestamp(planDate.getTime());
+        this.factDate = new Timestamp(factDate.getTime());
     }
 
     public Candidate getCandidate() {
@@ -40,19 +40,19 @@ public final class Interview extends Entity {
     }
 
     public Timestamp getPlanDate() {
-        return planDate;
+        return new Timestamp(planDate.getTime());
     }
 
     public void setPlanDate(Timestamp planDate) {
-        this.planDate = planDate;
+        this.planDate = new Timestamp(planDate.getTime());
     }
 
     public Timestamp getFactDate() {
-        return factDate;
+        return new Timestamp(factDate.getTime());
     }
 
     public void setFactDate(Timestamp factDate) {
-        this.factDate = factDate;
+        this.factDate = new Timestamp(factDate.getTime());
     }
 
     @Override

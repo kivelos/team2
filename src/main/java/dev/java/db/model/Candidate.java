@@ -1,14 +1,10 @@
 package dev.java.db.model;
 
-import dev.java.db.model.attachments.Attachment;
-import dev.java.db.model.contacts.Contact;
-import dev.java.db.model.experiences.Experience;
-
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-public final class Candidate extends Entity {
+public class Candidate extends Entity {
     private String name;
     private String surname;
     private Date birthday;
@@ -31,7 +27,7 @@ public final class Candidate extends Entity {
     public Candidate(String name, String surname, Date birthday, float salaryInDollars) {
         this.name = name;
         this.surname = surname;
-        this.birthday = birthday;
+        this.birthday = new Date(birthday.getTime());
         this.salaryInDollars = salaryInDollars;
     }
 
@@ -52,11 +48,11 @@ public final class Candidate extends Entity {
     }
 
     public Date getBirthday() {
-        return birthday;
+        return new Date(birthday.getTime());
     }
 
     public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+        this.birthday = new Date(birthday.getTime());
     }
 
     public float getSalaryInDollars() {

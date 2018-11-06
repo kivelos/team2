@@ -20,7 +20,7 @@ import java.util.List;
 
 public abstract class AbstractController<T extends Entity> {
     private final Logging logging = new Logging();
-    private final boolean sortType = true;
+    //private final boolean sortType = true;
     protected String sortedField;
     protected String url;
     protected AbstractDao<T> abstractDao;

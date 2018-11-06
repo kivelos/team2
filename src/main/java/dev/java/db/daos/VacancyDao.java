@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public final class VacancyDao extends AbstractDao<Vacancy> {
+public class VacancyDao extends AbstractDao<Vacancy> {
 
     public VacancyDao(Connection connection) {
         super(connection);
@@ -23,8 +23,9 @@ public final class VacancyDao extends AbstractDao<Vacancy> {
                 + "vacancy_state=?, experience_years_require=?, id_developer=? "
                 + "WHERE id=?";
         sqlSelectFilteredEntities = "SELECT * FROM vacancy "
-                + "WHERE (position=? OR ?='')  AND (salary_in_dollars_from=? OR ?='') AND (salary_in_dollars_to=? OR ?='')"
-                + "AND (vacancy_state=? OR ?='') AND (experience_years_require=? OR ?='') AND (id_developer=? OR ?='')";
+                + "WHERE (position=? OR ?='')  AND (salary_in_dollars_from=? OR ?='') AND "
+                + "(salary_in_dollars_to=? OR ?='') AND (vacancy_state=? OR ?='') AND "
+                + "(experience_years_require=? OR ?='') AND (id_developer=? OR ?='')";
         sqlSelectById = "SELECT * FROM vacancy AS v WHERE v.id=?";
     }
 

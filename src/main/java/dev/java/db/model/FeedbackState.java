@@ -2,7 +2,7 @@ package dev.java.db.model;
 
 import java.util.Objects;
 
-public final class FeedbackState {
+public class FeedbackState {
     private String name;
 
     public FeedbackState(String name) {
