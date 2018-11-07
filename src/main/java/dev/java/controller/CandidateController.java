@@ -27,12 +27,6 @@ public class CandidateController extends AbstractController<Candidate> {
         setAbstractDao(new CandidateDao(getConnection()));
     }
 
-
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
-
     @Override
     @GetMapping("/candidates")
     public ResponseEntity getAllEntities(HttpServletRequest request) {

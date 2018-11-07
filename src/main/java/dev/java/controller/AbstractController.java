@@ -31,7 +31,6 @@ public abstract class AbstractController<T extends Entity> {
     public void initialize() {
         try {
             connection = ConnectorDB.getConnection();
-            //abstractDao = new CandidateDao(connection);
         } catch (SQLException e) {
             logging.runMe(e);
         }
@@ -61,8 +60,7 @@ public abstract class AbstractController<T extends Entity> {
         logging.runMe(request);
         try {
             if (abstractDao.createEntity(entity)) {
-                return ResponseEntity.created(new URI(url + entity.getId()))
-                        .body("Created");
+                return ResponseEntity.created(new URI(url + entity.getId())).build();
             }
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Invalid Input");
         } catch (SQLException | URISyntaxException e) {
