@@ -48,10 +48,17 @@ public class Candidate extends Entity {
     }
 
     public Date getBirthday() {
+        if (birthday == null) {
+            return null;
+        }
         return new Date(birthday.getTime());
     }
 
     public void setBirthday(Date birthday) {
+        if (birthday == null) {
+            this.birthday = null;
+            return;
+        }
         this.birthday = new Date(birthday.getTime());
     }
 

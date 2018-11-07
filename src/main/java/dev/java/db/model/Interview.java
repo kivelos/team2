@@ -40,18 +40,32 @@ public class Interview extends Entity {
     }
 
     public Timestamp getPlanDate() {
+        if (planDate == null) {
+            return null;
+        }
         return new Timestamp(planDate.getTime());
     }
 
     public void setPlanDate(Timestamp planDate) {
+        if (planDate == null) {
+            this.planDate = null;
+            return;
+        }
         this.planDate = new Timestamp(planDate.getTime());
     }
 
     public Timestamp getFactDate() {
+        if (factDate == null) {
+            return null;
+        }
         return new Timestamp(factDate.getTime());
     }
 
     public void setFactDate(Timestamp factDate) {
+        if (factDate == null) {
+            this.factDate = null;
+            return;
+        }
         this.factDate = new Timestamp(factDate.getTime());
     }
 

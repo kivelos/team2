@@ -25,7 +25,7 @@ public abstract class AbstractController<T extends Entity> {
     private String url = "";
     private AbstractDao<T> abstractDao;
     private Connection connection;
-    private int itemsInPage = 3;
+    private int itemsInPage = GeneralConstant.ITEMS_IN_PAGE;
 
     @PostConstruct
     public void initialize() {

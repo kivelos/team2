@@ -17,18 +17,32 @@ public class Experience implements Serializable {
     }
 
     public Date getDateFrom() {
+        if (dateFrom == null) {
+            return null;
+        }
         return new Date(dateFrom.getTime());
     }
 
     public void setDateFrom(Date dateFrom) {
+        if (dateFrom == null) {
+            this.dateFrom = null;
+            return;
+        }
         this.dateFrom = new Date(dateFrom.getTime());
     }
 
     public Date getDateTo() {
+        if (dateTo == null) {
+            return null;
+        }
         return new Date(dateTo.getTime());
     }
 
     public void setDateTo(Date dateTo) {
+        if (dateTo == null) {
+            this.dateTo = null;
+            return;
+        }
         this.dateTo = new Date(dateTo.getTime());
     }
 

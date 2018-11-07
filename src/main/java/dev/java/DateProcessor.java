@@ -5,9 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateProcessor {
+public final class DateProcessor {
 
-    static String[] arrOfFormat = new String[]{"dd/MM/yy", "dd-MM-yyyy", "dd/MM/yyyy", "d-M-yyyy"};
+    private static String[] arrOfFormat = new String[]{"dd/MM/yy", "dd-MM-yyyy", "dd/MM/yyyy", "d-M-yyyy"};
+    private static final int HOURS_IN_DAY = 24;
+    private static final int MINUTES_IN_HOUR = 60;
+    private static final int SECONDS_IN_MINUTE = 60;
+    private static final int MILLISECONDS_IN_SECOND = 1000;
+
+    private DateProcessor() {
+
+    }
 
     public static Date tryParseDate(String strDate) {
         Date res = null;
@@ -52,7 +60,8 @@ public class DateProcessor {
         Date nextDob = calNextDob.getTime();
         //разница между двумя датами в милисекундах
         long diffMillis = Math.abs(nextDob.getTime() - today.getTime());
-        int days = (int) (diffMillis / 1000 / 60 / 60 / 24);
+        int days = (int) (diffMillis / MILLISECONDS_IN_SECOND / SECONDS_IN_MINUTE
+                / MINUTES_IN_HOUR / HOURS_IN_DAY);
         return days + 1;
     }
 }

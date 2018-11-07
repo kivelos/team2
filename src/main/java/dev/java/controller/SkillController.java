@@ -22,7 +22,7 @@ public class SkillController {
 
     private boolean sortType = true;
     private String sortedField = "name";
-    private int itemsInPage = 3;
+    private int itemsInPage = GeneralConstant.ITEMS_IN_PAGE;
     private Logging logging = new Logging();
 
     @RequestMapping(value = "/skills", method = RequestMethod.GET)
@@ -35,7 +35,8 @@ public class SkillController {
             if (sort != null) {
                 sortType = !sort.equals("desc");
             }
-            List<Skill> skills = skillDao.getSortedEntitiesPage(1, "name", sortType, 3);
+            List<Skill> skills = skillDao.getSortedEntitiesPage(1, "name",
+                    sortType, itemsInPage);
             modelAndView.addObject("skills_list", skills);
             modelAndView.addObject("page", 1);
         } catch (SQLException e) {
@@ -79,7 +80,8 @@ public class SkillController {
         try (Connection connection = ConnectorDB.getConnection()) {
             String name = request.getParameter("name").trim();
             SkillDao skillDao = new SkillDao(connection);
-            List<Skill> skills = skillDao.getSortedEntitiesPage(1, "name", sortType, 3);
+            List<Skill> skills = skillDao.getSortedEntitiesPage(1, "name",
+                    sortType, itemsInPage);
             modelAndView.addObject("skills_list", skills);
             if (isCorrectInputDates(name, modelAndView)) {
                 Skill skill = new Skill(name);
