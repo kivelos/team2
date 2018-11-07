@@ -25,7 +25,7 @@ public class CandidateControllerTest {
     @Before
     public void setUp() {
         this.controller = new CandidateController();
-
+        this.controller.initialize();
     }
 
     @Test
@@ -57,18 +57,29 @@ public class CandidateControllerTest {
     @Test
     public void checkOkInCreateEntity() throws Exception {
         Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
 
         AbstractDao daoMock = mock(AbstractDao.class);
-        Boolean createResult = new Boolean(true);
-        //when(daoMock.createEntity(candidate)).;
-        when(daoMock.createEntity(candidate)).thenReturn(createResult);
-
-
+        when(daoMock.createEntity(candidate)).thenReturn(true);
 
         controller.setAbstractDao(daoMock);
+        controller.setUrl("/candidate/");
         ResponseEntity res = this.controller.createEntity(candidate, mock(HttpServletRequest.class));
-        System.out.println(candidate.getId());
-        System.out.println(res.getHeaders().getLocation().toString());
+        Assert.assertEquals("/candidate/1", res.getHeaders().getLocation().toString());
+    }
+
+    @Test
+    public void checkInvalidInputCreateEntity() throws Exception {
+        Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.createEntity(candidate)).thenReturn(false);
+
+        controller.setAbstractDao(daoMock);
+        controller.setUrl("/candidate/");
+        ResponseEntity res = this.controller.createEntity(candidate, mock(HttpServletRequest.class));
+        Assert.assertEquals(405, res.getStatusCodeValue());
     }
 
     @Test
@@ -86,7 +97,7 @@ public class CandidateControllerTest {
     }
 
     @Test
-    public void checkNoFoundGetEntity() throws Exception {
+    public void checkNotFoundGetEntity() throws Exception {
         Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
         candidate.setId(1);
 
@@ -96,6 +107,59 @@ public class CandidateControllerTest {
 
         ResponseEntity res = this.controller.getEntity(2, mock(HttpServletRequest.class));
 
+        Assert.assertEquals(404, res.getStatusCodeValue());
+    }
+
+    @Test
+    public void checkOkInUpdateEntity() throws Exception {
+        Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.updateEntity(candidate)).thenReturn(true);
+
+        controller.setAbstractDao(daoMock);
+        ResponseEntity res = this.controller.updateEntity(1, candidate, mock(HttpServletRequest.class));
+        Assert.assertEquals(200, res.getStatusCodeValue());
+    }
+
+    @Test
+    public void checkNotFoundInUpdateEntity() throws Exception {
+        Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.updateEntity(candidate)).thenReturn(false);
+
+        controller.setAbstractDao(daoMock);
+        ResponseEntity res = this.controller.updateEntity(2, candidate, mock(HttpServletRequest.class));
+        Assert.assertEquals(404, res.getStatusCodeValue());
+    }
+
+    @Test
+    public void checkOkInDeleteEntity() throws Exception {
+        Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.deleteEntity(candidate)).thenReturn(true);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+
+        controller.setAbstractDao(daoMock);
+        ResponseEntity res = this.controller.deleteEntity(1, mock(HttpServletRequest.class));
+        Assert.assertEquals(200, res.getStatusCodeValue());
+    }
+
+    @Test
+    public void checkNotFoundInDeleteEntity() throws Exception {
+        Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.deleteEntity(candidate)).thenReturn(false);
+
+        controller.setAbstractDao(daoMock);
+        ResponseEntity res = this.controller.deleteEntity(2, mock(HttpServletRequest.class));
         Assert.assertEquals(404, res.getStatusCodeValue());
     }
 

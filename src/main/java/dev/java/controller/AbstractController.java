@@ -49,6 +49,7 @@ public abstract class AbstractController<T extends Entity> {
         logging.runMe(request);
         List<T> allEntities;
         try {
+            System.out.println(sortedField);
             allEntities = abstractDao.getSortedEntitiesPage(1, sortedField, true, itemsInPage);
             return ResponseEntity.ok(allEntities);
         } catch (SQLException e) {
