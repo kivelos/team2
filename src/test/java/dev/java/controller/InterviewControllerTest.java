@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +150,7 @@ public class InterviewControllerTest {
     public void checkSQLExceptionInDeleteEntity() throws Exception {
         Interview interview = getTestInterview();
         AbstractDao daoMock = mock(AbstractDao.class);
-        when(daoMock.deleteEntity(candidate)).thenThrow(new SQLException());
+        when(daoMock.deleteEntity(interview)).thenThrow(new SQLException());
         when(daoMock.getEntityById(1)).thenReturn(interview);
         controller.setAbstractDao(daoMock);
         ResponseEntity res = this.controller.deleteEntity(1, mock(HttpServletRequest.class));
