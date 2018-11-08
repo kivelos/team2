@@ -69,7 +69,7 @@ public class InterviewControllerTest {
         when(daoMock.createEntity(interview)).thenReturn(true);
 
         controller.setAbstractDao(daoMock);
-        controller.setUrl("/candidate/");
+        controller.setUrl("/interview/");
         ResponseEntity res = this.controller.createEntity(interview, mock(HttpServletRequest.class));
         Assert.assertEquals("/interview/1", res.getHeaders().getLocation().toString());
     }

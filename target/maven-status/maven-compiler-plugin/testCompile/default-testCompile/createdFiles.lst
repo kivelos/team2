@@ -1,2 +1,6 @@
-dev\java\controller\CandidateControllerTest.class
+dev\java\controller\InterviewControllerTest.class
+dev\java\controller\InterviewFeedbackControllerTest.class
 dev\java\controller\SimpleControllerTest.class
+dev\java\controller\VacancyControllerTest.class
+dev\java\controller\UserControllerTest.class
+dev\java\controller\CandidateControllerTest.class
