@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,18 @@ public class CandidateControllerTest {
     }
 
     @Test
+    public void checkSQLExceptionInGetAllEntities() throws Exception {
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getSortedEntitiesPage(anyInt(), anyString(), anyBoolean(), anyInt())).thenThrow(new SQLException());
+        controller.setAbstractDao(daoMock);
+
+        ResponseEntity res = this.controller.getAllEntities(mock(HttpServletRequest.class));
+        //System.out.println(res);
+
+        Assert.assertEquals(500, res.getStatusCodeValue());
+    }
+
+    @Test
     public void checkOkInCreateEntity() throws Exception {
         Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
         candidate.setId(1);
@@ -83,7 +96,21 @@ public class CandidateControllerTest {
     }
 
     @Test
-    public void checkOkGetEntity() throws Exception {
+    public void checkSQLExceptionInCreateEntity() throws Exception {
+        Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.createEntity(candidate)).thenThrow(new SQLException());
+
+        controller.setAbstractDao(daoMock);
+        controller.setUrl("/candidate/");
+        ResponseEntity res = this.controller.createEntity(candidate, mock(HttpServletRequest.class));
+        Assert.assertEquals(500, res.getStatusCodeValue());
+    }
+
+    @Test
+    public void checkOkInGetEntity() throws Exception {
         Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
         candidate.setId(1);
 
@@ -97,7 +124,7 @@ public class CandidateControllerTest {
     }
 
     @Test
-    public void checkNotFoundGetEntity() throws Exception {
+    public void checkNotFoundInGetEntity() throws Exception {
         Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
         candidate.setId(1);
 
@@ -108,6 +135,20 @@ public class CandidateControllerTest {
         ResponseEntity res = this.controller.getEntity(2, mock(HttpServletRequest.class));
 
         Assert.assertEquals(404, res.getStatusCodeValue());
+    }
+
+    @Test
+    public void checkSQLExceptionInGetEntity() throws Exception {
+        Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenThrow(new SQLException());
+        controller.setAbstractDao(daoMock);
+
+        ResponseEntity res = this.controller.getEntity(1, mock(HttpServletRequest.class));
+
+        Assert.assertEquals(500, res.getStatusCodeValue());
     }
 
     @Test
@@ -137,6 +178,19 @@ public class CandidateControllerTest {
     }
 
     @Test
+    public void checkSQLExceptionInUpdateEntity() throws Exception {
+        Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.updateEntity(candidate)).thenThrow(new SQLException());
+
+        controller.setAbstractDao(daoMock);
+        ResponseEntity res = this.controller.updateEntity(1, candidate, mock(HttpServletRequest.class));
+        Assert.assertEquals(500, res.getStatusCodeValue());
+    }
+
+    @Test
     public void checkOkInDeleteEntity() throws Exception {
         Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
         candidate.setId(1);
@@ -161,6 +215,20 @@ public class CandidateControllerTest {
         controller.setAbstractDao(daoMock);
         ResponseEntity res = this.controller.deleteEntity(2, mock(HttpServletRequest.class));
         Assert.assertEquals(404, res.getStatusCodeValue());
+    }
+
+    @Test
+    public void checkSQLExceptionInDeleteEntity() throws Exception {
+        Candidate candidate = new Candidate("Piliak", "Kseniya", Date.valueOf("1996-04-06"), 200);
+        candidate.setId(1);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.deleteEntity(candidate)).thenThrow(new SQLException());
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+
+        controller.setAbstractDao(daoMock);
+        ResponseEntity res = this.controller.deleteEntity(1, mock(HttpServletRequest.class));
+        Assert.assertEquals(500, res.getStatusCodeValue());
     }
 
 }
