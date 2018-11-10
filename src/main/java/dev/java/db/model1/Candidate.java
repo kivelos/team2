@@ -8,8 +8,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
-public class Candidate {
-    private int id;
+public class Candidate extends AbstractEntity {
     private String name;
     private String surname;
     private Date birthday;
@@ -57,11 +56,7 @@ public class Candidate {
     }
 
     public void setBirthday(Date birthday) {
-        if (birthday == null) {
-            this.birthday = null;
-            return;
-        }
-        this.birthday = new Date(birthday.getTime());
+        this.birthday = birthday;
     }
 
     @Basic
