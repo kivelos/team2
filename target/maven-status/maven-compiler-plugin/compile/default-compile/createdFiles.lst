@@ -16,9 +16,11 @@ dev\java\db\model\Entity.class
 dev\java\db\model\Experience.class
 dev\java\controller\SimpleController.class
 dev\java\DateProcessor.class
+dev\java\db\utils\HibernateSessionFactory.class
 dev\java\db\daos\CandidateStateDao.class
 dev\java\controller\HelloController.class
 dev\java\db\model\VacancyState.class
+dev\java\db\model1\Candidate.class
 dev\java\db\daos\FeedbackStateDao.class
 dev\java\db\daos\InterviewDao.class
 dev\java\db\model\AttachmentType.class

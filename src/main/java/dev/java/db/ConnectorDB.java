@@ -1,5 +1,9 @@
 package dev.java.db;
 
+import dev.java.db.model1.Candidate;
+import dev.java.db.utils.HibernateSessionFactory;
+import org.hibernate.Session;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,11 +24,18 @@ public final class ConnectorDB {
     }
 
     public static void main(String[] args) throws SQLException {
-        /*Connection connection = getConnection();
-        InterviewDao interviewDao = new InterviewDao(connection);
-        Interview interview = interviewDao.getEntityById(4);
-        System.out.println(interview);
-        */
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Candidate candidate = new Candidate();
+        candidate.setName("Sergey");
+        candidate.setSurname("Zyazyulkin");
+
+        session.save(candidate);
+        session.getTransaction().commit();
+
+        HibernateSessionFactory.shutdown();
+
     }
 }
 
