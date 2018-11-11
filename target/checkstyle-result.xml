@@ -20,6 +20,12 @@
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\VacancyController.java">
 </file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller1\AbstractController.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller1\CandidateController.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller1\GeneralConstant.java">
+</file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\DateProcessor.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\ConnectorDB.java">
@@ -41,6 +47,10 @@
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\UserDao.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\VacancyDao.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos1\AbstractDao.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos1\CandidateDao.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Attachment.java">
 </file>
@@ -72,7 +82,11 @@
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\VacancyState.java">
 </file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model1\AbstractEntity.java">
+</file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model1\Candidate.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model1\CandidateExperience.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\utils\HibernateSessionFactory.java">
 </file>

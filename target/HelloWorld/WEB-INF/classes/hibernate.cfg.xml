@@ -12,6 +12,7 @@
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="dev.java.db.model1.Candidate"/>
+        <!--<mapping class="dev.java.db.model1.CandidateExperience"/>-->
 
         <!-- DB schema will be updated if needed -->
     </session-factory>

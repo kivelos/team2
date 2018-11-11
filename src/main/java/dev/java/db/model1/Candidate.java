@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Objects;
 
 @Entity
 public class Candidate extends AbstractEntity {
@@ -13,16 +14,14 @@ public class Candidate extends AbstractEntity {
     private String surname;
     private Date birthday;
     private BigDecimal salaryInDollars;
+    //private List<CandidateExperience> experiences;
 
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {
-        return id;
+        return super.getId();
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "name", nullable = false, length = 255)
@@ -56,7 +55,11 @@ public class Candidate extends AbstractEntity {
     }
 
     public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+        if (birthday == null) {
+            this.birthday = null;
+            return;
+        }
+        this.birthday = new Date(birthday.getTime());
     }
 
     @Basic
@@ -70,8 +73,20 @@ public class Candidate extends AbstractEntity {
         this.salaryInDollars = salaryInDollars;
     }
 
+    /*@OneToMany
+    @JoinTable(
+            name = "candidate_experience",
+            joinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")}
+    )
+    public List<CandidateExperience> getExperiences() {
+        return experiences;
+    }
+
+    public void setExperiences(List<CandidateExperience> experiences) {
+        this.experiences = experiences;
+    }*/
+
     @Override
-    @SuppressWarnings("checkstyle:AvoidInlineConditionals")
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -79,36 +94,15 @@ public class Candidate extends AbstractEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         Candidate candidate = (Candidate) o;
-
-        if (id != candidate.id) {
-            return false;
-        }
-        if (name != null ? !name.equals(candidate.name) : candidate.name != null) {
-            return false;
-        }
-        if (surname != null ? !surname.equals(candidate.surname) : candidate.surname != null) {
-            return false;
-        }
-        if (birthday != null ? !birthday.equals(candidate.birthday) : candidate.birthday != null) {
-            return false;
-        }
-        if (salaryInDollars != null ? !salaryInDollars.equals(
-                candidate.salaryInDollars) : candidate.salaryInDollars != null) {
-            return false;
-        }
-        return true;
+        return Objects.equals(name, candidate.name)
+               && Objects.equals(surname, candidate.surname)
+               && Objects.equals(birthday, candidate.birthday)
+               && Objects.equals(salaryInDollars, candidate.salaryInDollars);
     }
 
     @Override
-    @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:AvoidInlineConditionals"})
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
-        result = 31 * result + (salaryInDollars != null ? salaryInDollars.hashCode() : 0);
-        return result;
+        return Objects.hash(name, surname, birthday);
     }
 }

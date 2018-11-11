@@ -1,10 +1,12 @@
-#Sat Nov 10 16:47:41 GMT+02:00 2018
+#Sun Nov 11 13:10:28 GMT+02:00 2018
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\InterviewFeedback.java=1541850183357
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model1\\CandidateExperience.java=1541934453265
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos\\SkillDao.java=1541850183347
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Contact.java=1541850183352
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\UserController.java=1541850183333
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos\\CandidateStateDao.java=1541850183341
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\HelloController.java=1541850183326
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos1\\CandidateDao.java=1541877227835
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\resources\\locale\\messages_en.properties=1541850183396
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\CandidateController.java=1541850183324
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\utils\\HibernateSessionFactory.java=1541855097736
@@ -13,6 +15,7 @@ D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Candidate.java=1541850183351
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\InterviewFeedbackController.java=1541850183329
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\VacancyState.java=1541849964901
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos1\\AbstractDao.java=1541867407214
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos\\FeedbackStateDao.java=1541850183342
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\Logging.java=1541850183321
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\resources\\application.properties=1541850183393
@@ -24,6 +27,8 @@ configuration*?=431FE593A6316D2ECA0E93ADECECC769DE9835CE
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Interview.java=1541850183356
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\resources\\database.properties=1541853927193
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\GeneralConstant.java=1541850183325
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\CandidateController.java=1541877227841
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\GeneralConstant.java=1541867407224
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\SimpleController.java=1541850183330
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\FeedbackState.java=1541850183355
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Vacancy.java=1541850183392
@@ -33,9 +38,11 @@ D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\InterviewController.java=1541850183328
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Experience.java=1541850183354
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos\\AbstractDao.java=1541850183338
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model1\\AbstractEntity.java=1541933494496
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\AttachmentType.java=1541850183350
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\resources\\locale\\messages_ru.properties=1541850183397
-D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\ConnectorDB.java=1541854481335
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\ConnectorDB.java=1541933494488
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\CandidateState.java=1541850183352
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\SkillController.java=1541850183332
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\AbstractController.java=1541877894980
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Skill.java=1541850183358
