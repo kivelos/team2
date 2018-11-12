@@ -1,6 +1,13 @@
 package dev.java.db;
 
+import dev.java.db.model1.Candidate;
+import dev.java.db.model1.CandidateExperience;
+import dev.java.db.model1.Skill;
+import dev.java.db.utils.HibernateSessionFactory;
+import org.hibernate.Session;
+
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -20,25 +27,24 @@ public final class ConnectorDB {
     }
 
     public static void main(String[] args) throws SQLException {
-        /*Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
         Candidate candidate = new Candidate();
         candidate.setName("Sergey");
         candidate.setSurname("Zyazyulkin");
         CandidateExperience candidateExperience = new CandidateExperience();
-        CandidateExperience.CandidateExperiencePK id = candidateExperience.new CandidateExperiencePK();
-        id.setDateFrom(new Date(3918, 11, 10));
-        id.setDateTo(new Date(3919, 11, 11));
-        candidateExperience.setId(id);
-        List<CandidateExperience> candidateExperienceList = new ArrayList<>();
-        candidateExperienceList.add(candidateExperience);
-        candidate.setExperiences(candidateExperienceList);
+        candidateExperience.setDateFrom(Date.valueOf("2018-11-11"));
+        candidateExperience.setDateTo(Date.valueOf("2019-11-11"));
+        candidate.getExperiences().add(candidateExperience);
 
+        Skill skill = new Skill();
+        skill.setName("HELLO");
+        candidate.getSkills().add(skill);
         session.save(candidate);
         session.getTransaction().commit();
 
-        HibernateSessionFactory.shutdown();*/
+        HibernateSessionFactory.shutdown();
 
     }
 }

@@ -14,11 +14,10 @@ import java.util.Objects;
 @Table(name = "user")
 public class User extends AbstractEntity {
 
-
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public long getId() {
         return super.getId();
     }
 

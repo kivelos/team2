@@ -26,6 +26,8 @@
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller1\GeneralConstant.java">
 </file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller1\UserController.java">
+</file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\DateProcessor.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\ConnectorDB.java">
@@ -51,6 +53,8 @@
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos1\AbstractDao.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos1\CandidateDao.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos1\UserDao.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model\Attachment.java">
 </file>
@@ -87,6 +91,10 @@
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model1\Candidate.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model1\CandidateExperience.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model1\Skill.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\model1\User.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\utils\HibernateSessionFactory.java">
 </file>

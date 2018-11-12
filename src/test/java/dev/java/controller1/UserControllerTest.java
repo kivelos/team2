@@ -173,8 +173,7 @@ public class UserControllerTest {
         user1.setEmail("zakrevskiy_evgeniy@mail.ru");
 
         AbstractDao daoMock = mock(AbstractDao.class);
-        when(daoMock.deleteEntity(user1)).thenReturn(true);
-        when(daoMock.getEntityById(1)).thenReturn(user1);
+        when(daoMock.deleteEntityById(1)).thenReturn(true);
 
         controller.setAbstractDao(daoMock);
         ResponseEntity res = this.controller.deleteEntity(1, mock(HttpServletRequest.class));
@@ -192,7 +191,7 @@ public class UserControllerTest {
         user1.setEmail("zakrevskiy_evgeniy@mail.ru");
 
         AbstractDao daoMock = mock(AbstractDao.class);
-        when(daoMock.deleteEntity(user1)).thenReturn(false);
+        when(daoMock.deleteEntityById(1)).thenReturn(false);
 
         controller.setAbstractDao(daoMock);
         ResponseEntity res = this.controller.deleteEntity(2, mock(HttpServletRequest.class));

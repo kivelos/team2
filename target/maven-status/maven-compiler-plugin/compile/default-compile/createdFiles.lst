@@ -1,14 +1,17 @@
 dev\java\controller\VacancyController.class
+dev\java\db\model1\User.class
 dev\java\db\daos\SkillDao.class
 dev\java\db\model\Vacancy.class
 dev\java\db\model\ContactType.class
 dev\java\controller\CandidateController.class
 dev\java\controller\GeneralConstant.class
 dev\java\db\model\Entity.class
+dev\java\controller1\UserController.class
 dev\java\controller\SimpleController.class
 dev\java\DateProcessor.class
 dev\java\controller\HelloController.class
 dev\java\db\daos\FeedbackStateDao.class
+dev\java\db\model1\User$State.class
 dev\java\Logging.class
 dev\java\db\daos\InterviewFeedbackDao.class
 dev\java\db\model\Candidate.class
@@ -25,6 +28,7 @@ dev\java\db\daos\CandidateDao.class
 dev\java\db\daos\VacancyDao.class
 dev\java\db\daos1\AbstractDao.class
 dev\java\controller\SkillController.class
+dev\java\db\model1\CandidateExperience.class
 dev\java\db\model\Attachment.class
 dev\java\db\daos\AbstractDao.class
 dev\java\db\daos\UserDao.class
@@ -39,6 +43,8 @@ dev\java\controller\UserController.class
 dev\java\controller\InterviewController.class
 dev\java\controller\AbstractController.class
 dev\java\controller1\AbstractController.class
+dev\java\db\model1\Skill.class
+dev\java\db\daos1\UserDao.class
 dev\java\db\model\Skill.class
 dev\java\db\model\FeedbackState.class
 dev\java\db\daos1\CandidateDao.class

@@ -1,7 +1,6 @@
 package dev.java.controller1;
 
 import dev.java.db.daos1.UserDao;
-import dev.java.db.model1.Candidate;
 import dev.java.db.model1.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
