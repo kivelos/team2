@@ -3,10 +3,18 @@ package dev.java.db.model1;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Candidate extends AbstractEntity {
@@ -14,11 +22,13 @@ public class Candidate extends AbstractEntity {
     private String surname;
     private Date birthday;
     private BigDecimal salaryInDollars;
-    //private List<CandidateExperience> experiences;
+    private Set<CandidateExperience> experiences = new HashSet<>();
+    private Set<Skill> skills = new HashSet<>();
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public long getId() {
         return super.getId();
     }
 
@@ -73,18 +83,27 @@ public class Candidate extends AbstractEntity {
         this.salaryInDollars = salaryInDollars;
     }
 
-    /*@OneToMany
-    @JoinTable(
-            name = "candidate_experience",
-            joinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")}
+    @ManyToMany
+    @JoinTable(name = "candidate_competence",
+            joinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "skill", referencedColumnName = "name")}
     )
-    public List<CandidateExperience> getExperiences() {
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
+    }
+
+    @OneToMany(mappedBy = "candidate")
+    public Set<CandidateExperience> getExperiences() {
         return experiences;
     }
 
-    public void setExperiences(List<CandidateExperience> experiences) {
+    public void setExperiences(Set<CandidateExperience> experiences) {
         this.experiences = experiences;
-    }*/
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -9,11 +9,12 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
+        <!-- DB schema will be updated if needed -->
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="dev.java.db.model1.Candidate"/>
-        <!--<mapping class="dev.java.db.model1.CandidateExperience"/>-->
+        <mapping class="dev.java.db.model1.CandidateExperience"/>
+        <mapping class="dev.java.db.model1.Skill"/>
 
-        <!-- DB schema will be updated if needed -->
     </session-factory>
 </hibernate-configuration>
