@@ -57,4 +57,12 @@ public class CandidateExperience implements Serializable {
     public int hashCode() {
         return Objects.hash(dateFrom, dateTo);
     }
+
+    @Override
+    public String toString() {
+        return "CandidateExperience{"
+               + "dateFrom=" + dateFrom
+               + ", dateTo=" + dateTo
+               + '}';
+    }
 }

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -31,6 +32,9 @@ public class Candidate extends AbstractEntity {
     private BigDecimal salaryInDollars;
     private List<CandidateExperience> experiences = new ArrayList<>();
     private Set<Skill> skills = new HashSet<>();
+    private CandidateState candidateState;
+    private List<Attachment> attachments = new ArrayList<>();
+    private List<ContactDetails> contactDetails = new ArrayList<>();
 
     @Id
     @Column(name = "id", nullable = false)
@@ -97,8 +101,8 @@ public class Candidate extends AbstractEntity {
             joinColumns = @JoinColumn(name = "id_candidate")
     )
     @AttributeOverrides({
-            @AttributeOverride(name = "dateFrom", column = @Column(name = "date_from")),
-            @AttributeOverride(name = "dateTo", column = @Column(name = "date_to"))
+            @AttributeOverride(name = "dateFrom", column = @Column(name = "date_from", nullable = false)),
+            @AttributeOverride(name = "dateTo", column = @Column(name = "date_to", nullable = false))
     })
     public List<CandidateExperience> getExperiences() {
         return experiences;
@@ -121,6 +125,54 @@ public class Candidate extends AbstractEntity {
         this.skills = skills;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "candidate_state", referencedColumnName = "name")
+    public CandidateState getCandidateState() {
+        return candidateState;
+    }
+
+    public void setCandidateState(CandidateState candidateState) {
+        this.candidateState = candidateState;
+    }
+
+    @ElementCollection
+    @CollectionTable(
+            name = "attachment",
+            joinColumns = @JoinColumn(name = "id_candidate")
+    )
+    @AttributeOverrides({
+            @AttributeOverride(name = "filePath", column = @Column(name = "file_path",
+                    nullable = false, length = 1000)),
+            @AttributeOverride(name = "attachmentType", column = @Column(name = "attachment_type", nullable = false))
+    })
+    @SuppressWarnings("checkstyle:MagicNumber")
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
+
+    @ElementCollection
+    @CollectionTable(
+            name = "contact_details",
+            joinColumns = @JoinColumn(name = "id_candidate")
+    )
+    @AttributeOverrides({
+            @AttributeOverride(name = "contactType", column = @Column(name = "contact_type", nullable = false)),
+            @AttributeOverride(name = "contactDetails", column = @Column(name = "contact_details",
+                    nullable = false, length = 1000))
+    })
+    @SuppressWarnings("checkstyle:MagicNumber")
+    public List<ContactDetails> getContactDetails() {
+        return contactDetails;
+    }
+
+    public void setContactDetails(List<ContactDetails> contactDetails) {
+        this.contactDetails = contactDetails;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -139,5 +191,17 @@ public class Candidate extends AbstractEntity {
     @Override
     public int hashCode() {
         return Objects.hash(name, surname, birthday);
+    }
+
+    @Override
+    public String toString() {
+        return "Candidate{"
+               + "name='" + name + '\''
+               + ", surname='" + surname + '\''
+               + ", birthday=" + birthday
+               + ", salaryInDollars=" + salaryInDollars
+               + ", experiences=" + experiences
+               + ", skills=" + skills
+               + '}';
     }
 }

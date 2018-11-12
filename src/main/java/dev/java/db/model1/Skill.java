@@ -1,5 +1,7 @@
 package dev.java.db.model1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +16,13 @@ import java.util.Set;
 public class Skill {
     private String name;
     private Set<Candidate> candidates = new HashSet<>();
+
+    public Skill() {
+    }
+
+    public Skill(String name) {
+        this.name = name;
+    }
 
     @Id
     @Column(name = "name", nullable = false, length = 255)
@@ -31,6 +40,7 @@ public class Skill {
             joinColumns = {@JoinColumn(name = "skill", referencedColumnName = "name")},
             inverseJoinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")}
     )
+    @JsonIgnore
     public Set<Candidate> getCandidates() {
         return candidates;
     }
@@ -54,5 +64,13 @@ public class Skill {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "Skill{"
+               + "name='" + name + '\''
+               + ", candidates=" + candidates
+               + '}';
     }
 }

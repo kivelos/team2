@@ -2,6 +2,8 @@ package dev.java.controller1;
 
 import dev.java.db.daos1.AbstractDao;
 import dev.java.db.model1.Candidate;
+import dev.java.db.model1.CandidateExperience;
+import dev.java.db.model1.Skill;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,12 +40,20 @@ public class CandidateControllerTest {
         candidate1.setName("Kseniya");
         candidate1.setBirthday(Date.valueOf("1996-04-06"));
         candidate1.setSalaryInDollars(new BigDecimal(200));
+        Skill skill1 = new Skill("Java");
+        Skill skill2 = new Skill("HELLO");
+        candidate1.getSkills().add(skill1);
+        candidate1.getSkills().add(skill2);
 
         Candidate candidate2 = new Candidate();
         candidate1.setId(2);
         candidate1.setSurname("Zakrevskiy");
         candidate1.setName("Evgeniy");
         candidate1.setBirthday(Date.valueOf("1998-12-31"));
+        CandidateExperience experience = new CandidateExperience();
+        experience.setDateTo(Date.valueOf("2018-11-12"));
+        experience.setDateTo(Date.valueOf("2018-11-13"));
+        candidate2.getExperiences().add(experience);
         candidates.add(candidate1);
         candidates.add(candidate2);
 

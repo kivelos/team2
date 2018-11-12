@@ -1,6 +1,6 @@
-#Mon Nov 12 17:21:15 GMT+02:00 2018
+#Mon Nov 12 23:23:29 GMT+02:00 2018
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\InterviewFeedback.java=1542032055703
-D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model1\\CandidateExperience.java=1542036038091
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model1\\CandidateExperience.java=1542057488111
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\UserController.java=1542035238132
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos\\SkillDao.java=1542032055695
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Contact.java=1542032055700
@@ -11,16 +11,17 @@ D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\DateProcessor.java=1542032055680
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Candidate.java=1542032055699
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos1\\AbstractDao.java=1542032055696
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model1\\Attachment.java=1542057571606
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\resources\\application.properties=1542032055708
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\resources\\locale\\messages.properties=1542032055710
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Entity.java=1542032055701
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\resources\\database.properties=1542032055709
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\CandidateController.java=1542032055688
-D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\GeneralConstant.java=1542032055689
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\GeneralConstant.java=1542037057609
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\SimpleController.java=1542032055685
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Attachment.java=1542032055698
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\resources\\locale\\messages_ru.properties=1542032055711
-D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\ConnectorDB.java=1542035257777
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\ConnectorDB.java=1542057571626
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\SkillController.java=1542032055686
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\AbstractController.java=1542032055688
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Skill.java=1542032055703
@@ -46,5 +47,6 @@ D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Experience.java=1542032055701
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos\\AbstractDao.java=1542032055691
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model1\\AbstractEntity.java=1542032129324
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model1\\ContactDetails.java=1542057488090
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\AttachmentType.java=1542032055698
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\CandidateState.java=1542032055700
