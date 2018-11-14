@@ -2,6 +2,8 @@ package dev.java.db;
 
 import dev.java.db.model1.Candidate;
 import dev.java.db.model1.ContactDetails;
+import dev.java.db.model1.User;
+import dev.java.db.model1.Vacancy;
 import dev.java.db.utils.HibernateSessionFactory;
 import org.hibernate.Session;
 
@@ -28,9 +30,12 @@ public final class ConnectorDB {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Candidate candidate = new Candidate();
-        candidate.setName("Sergey");
-        candidate.setSurname("Zyazyulkin");
+        Vacancy vacancy = new Vacancy();
+        vacancy.setPosition("Example position");
+        vacancy.setVacancyState(Vacancy.VacancyState.OPEN);
+//        Candidate candidate = new Candidate();
+//        candidate.setName("Sergey");
+//        candidate.setSurname("Zyazyulkin");
         /*CandidateExperience candidateExperience = new CandidateExperience();
         candidateExperience.setDateFrom(Date.valueOf("2018-11-11"));
         candidateExperience.setDateTo(Date.valueOf("2019-11-11"));
@@ -47,13 +52,14 @@ public final class ConnectorDB {
         attachment.setFilePath("C:/hello.txt");
         attachment.setAttachmentType(Attachment.AttachmentType.COVER_LETTER);
         candidate.getAttachments().add(attachment);*/
-        ContactDetails contactDetails = new ContactDetails();
-        contactDetails.setContactType(ContactDetails.ContactType.PHONE);
-        contactDetails.setContactDetails("+375444859574");
-        candidate.getContactDetails().add(contactDetails);
-        session.save(candidate);
-        session.getTransaction().commit();
 
+
+//        ContactDetails contactDetails = new ContactDetails();
+//        contactDetails.setContactType(ContactDetails.ContactType.PHONE);
+//        contactDetails.setContactDetails("+375444859574");
+//        candidate.getContactDetails().add(contactDetails);
+        session.save(vacancy);
+        session.getTransaction().commit();
         HibernateSessionFactory.shutdown();
 
     }

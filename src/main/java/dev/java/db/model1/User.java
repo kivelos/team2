@@ -1,12 +1,6 @@
 package dev.java.db.model1;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Basic;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 import java.util.Objects;
 
@@ -41,6 +35,7 @@ public class User extends AbstractEntity {
 
     @Basic
     @Column(name = "user_state")
+    @Enumerated(EnumType.STRING)
     private State state = State.ACTIVE;
 
     public String getEmail() {
