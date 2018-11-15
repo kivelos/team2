@@ -6,6 +6,7 @@ import dev.java.db.model1.AbstractEntity;
 import dev.java.db.utils.HibernateSessionFactory;
 import org.hibernate.Session;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,7 +61,8 @@ public abstract class AbstractController<T extends AbstractEntity> {
             if (abstractDao.createEntity(entity)) {
                 return ResponseEntity.created(new URI(url + entity.getId())).build();
             }
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Invalid Input");
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).contentType(MediaType.TEXT_PLAIN)
+                    .body("Invalid Input");
         } catch (Exception e) {
             return getResponseEntityOnServerError(e);
         }
@@ -106,7 +108,8 @@ public abstract class AbstractController<T extends AbstractEntity> {
 
     private ResponseEntity getResponseEntityOnServerError(Exception e) {
         logging.runMe(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.TEXT_PLAIN)
+                .body("Server error");
     }
 
     public String getSortedField() {

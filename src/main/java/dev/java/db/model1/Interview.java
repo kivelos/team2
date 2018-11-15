@@ -41,21 +41,35 @@ public class Interview extends AbstractEntity {
     @Basic
     @Column(name = "plan_date")
     public Timestamp getPlanDate() {
-        return planDate;
+        if (planDate == null) {
+            return null;
+        }
+        return new Timestamp(planDate.getTime());
     }
 
     public void setPlanDate(Timestamp planDate) {
-        this.planDate = planDate;
+        if (planDate == null) {
+            this.planDate = null;
+            return;
+        }
+        this.planDate = new Timestamp(planDate.getTime());
     }
 
     @Basic
     @Column(name = "fact_date")
     public Timestamp getFactDate() {
-        return factDate;
+        if (factDate == null) {
+            return null;
+        }
+        return new Timestamp(factDate.getTime());
     }
 
     public void setFactDate(Timestamp factDate) {
-        this.factDate = factDate;
+        if (factDate == null) {
+            this.factDate = null;
+            return;
+        }
+        this.factDate = new Timestamp(factDate.getTime());
     }
 
     @Override
