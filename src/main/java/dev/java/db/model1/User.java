@@ -2,8 +2,8 @@ package dev.java.db.model1;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -44,7 +44,7 @@ public class User extends AbstractEntity {
 
 
 
-    private Set<Vacancy> vacancies= new HashSet<>();
+    private Set<Vacancy> vacancies = new HashSet<>();
     @OneToMany(mappedBy = "developer")
     @JsonIgnore
     public Set<Vacancy> getVacancies() {

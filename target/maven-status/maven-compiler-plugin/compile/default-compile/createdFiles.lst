@@ -1,17 +1,21 @@
 dev\java\controller\VacancyController.class
 dev\java\db\model1\User.class
 dev\java\db\daos\SkillDao.class
+dev\java\controller1\VacancyController.class
 dev\java\db\model\Vacancy.class
 dev\java\db\model\ContactType.class
 dev\java\controller\CandidateController.class
 dev\java\controller\GeneralConstant.class
 dev\java\db\model\Entity.class
 dev\java\controller1\UserController.class
+dev\java\controller1\InterviewController.class
 dev\java\controller\SimpleController.class
 dev\java\DateProcessor.class
+dev\java\db\daos1\InterviewDao.class
 dev\java\controller\HelloController.class
 dev\java\db\model1\ContactDetails.class
 dev\java\db\daos\FeedbackStateDao.class
+dev\java\db\model1\Vacancy$VacancyState.class
 dev\java\db\model1\User$State.class
 dev\java\Logging.class
 dev\java\db\daos\InterviewFeedbackDao.class
@@ -24,6 +28,7 @@ dev\java\db\model1\Attachment$AttachmentType.class
 dev\java\db\model\InterviewFeedback.class
 dev\java\db\model1\AbstractEntity.class
 dev\java\controller1\CandidateController.class
+dev\java\db\daos1\VacancyDao.class
 dev\java\db\ConnectorDB.class
 dev\java\db\model\User$State.class
 dev\java\controller1\GeneralConstant.class
@@ -36,6 +41,7 @@ dev\java\db\model\Attachment.class
 dev\java\db\daos\AbstractDao.class
 dev\java\db\daos\UserDao.class
 dev\java\db\model\Experience.class
+dev\java\db\model1\Vacancy.class
 dev\java\db\utils\HibernateSessionFactory.class
 dev\java\db\daos\CandidateStateDao.class
 dev\java\db\model\VacancyState.class
@@ -47,6 +53,7 @@ dev\java\controller\InterviewController.class
 dev\java\controller\AbstractController.class
 dev\java\controller1\AbstractController.class
 dev\java\db\model1\ContactDetails$ContactType.class
+dev\java\db\model1\Interview.class
 dev\java\db\model1\Skill.class
 dev\java\db\daos1\UserDao.class
 dev\java\db\model\Skill.class

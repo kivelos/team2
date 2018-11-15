@@ -1,6 +1,7 @@
 dev\java\controller\InterviewControllerTest.class
 dev\java\controller\InterviewFeedbackControllerTest.class
 dev\java\controller\VacancyControllerTest.class
+dev\java\controller1\InterviewControllerTest.class
 dev\java\controller1\UserControllerTest.class
 dev\java\controller\CandidateControllerTest.class
 dev\java\controller1\CandidateControllerTest.class

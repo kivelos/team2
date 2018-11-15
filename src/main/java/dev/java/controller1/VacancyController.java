@@ -1,7 +1,6 @@
 package dev.java.controller1;
 
 import dev.java.db.daos1.VacancyDao;
-import dev.java.db.model1.User;
 import dev.java.db.model1.Vacancy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,5 @@
 package dev.java.db;
 
-import dev.java.db.model1.Candidate;
-import dev.java.db.model1.ContactDetails;
 import dev.java.db.model1.User;
 import dev.java.db.model1.Vacancy;
 import dev.java.db.utils.HibernateSessionFactory;
@@ -33,7 +31,7 @@ public final class ConnectorDB {
         Vacancy vacancy = new Vacancy();
         vacancy.setPosition("Example position");
         vacancy.setVacancyState(Vacancy.VacancyState.OPEN);
-        User user= new User();
+        User user = new User();
         user.setPassword("jhsrkjgh");
         user.setEmail("loleg@example");
         user.setName("kek");

@@ -1,11 +1,12 @@
 package dev.java.db.model1;
 
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "vacancy")
-public class Vacancy extends AbstractEntity{
+public class Vacancy extends AbstractEntity {
     private String position;
     private float salaryInDollarsFrom;
     private float salaryInDollarsTo;
@@ -14,11 +15,14 @@ public class Vacancy extends AbstractEntity{
     private User developer;
 
     @ManyToOne
+    @SuppressWarnings("checkstyle:ParamentName")
     @JoinColumn(name = "id_developer", referencedColumnName = "id", nullable = false)
     public User getDeveloper() {
         return developer;
     }
-    public void setDeveloper(User id_developer) { developer = id_developer; }
+    public void setDeveloper(User idDeveloper) {
+        developer = idDeveloper;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -29,6 +33,7 @@ public class Vacancy extends AbstractEntity{
 
     @Basic
     @Column(name = "position", nullable = false, length = 1000)
+    @SuppressWarnings("checkstyle:MagicNumber")
     public String getPosition() {
         return position;
     }
@@ -80,14 +85,18 @@ public class Vacancy extends AbstractEntity{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Vacancy that = (Vacancy) o;
-        return Objects.equals(position, that.position) &&
-               Objects.equals(salaryInDollarsFrom, that.salaryInDollarsFrom) &&
-               Objects.equals(salaryInDollarsTo, that.salaryInDollarsTo) &&
-               Objects.equals(vacancyState, that.vacancyState) &&
-               Objects.equals(experienceYearsRequire, that.experienceYearsRequire);
+        return Objects.equals(position, that.position)
+               && Objects.equals(salaryInDollarsFrom, that.salaryInDollarsFrom)
+               && Objects.equals(salaryInDollarsTo, that.salaryInDollarsTo)
+               && Objects.equals(vacancyState, that.vacancyState)
+               && Objects.equals(experienceYearsRequire, that.experienceYearsRequire);
     }
 
     @Override
