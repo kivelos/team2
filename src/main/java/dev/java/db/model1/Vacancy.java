@@ -11,22 +11,14 @@ public class Vacancy extends AbstractEntity{
     private float salaryInDollarsTo;
     private VacancyState vacancyState;
     private float experienceYearsRequire;
-    private long id_developer;
+    private User developer;
 
-    @OneToMany
-//    @JoinTable(name = "candidate_competence",
-//            joinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")},
-//            inverseJoinColumns = {@JoinColumn(name = "skill", referencedColumnName = "name")}
-//    )
-    public long getId_developer() {
-        return id_developer;
+    @ManyToOne
+    @JoinColumn(name = "id_developer", referencedColumnName = "id", nullable = false)
+    public User getDeveloper() {
+        return developer;
     }
-
-    public void setId_developer(long id_developer) {
-        this.id_developer = id_developer;
-    }
-
-
+    public void setDeveloper(User id_developer) { developer = id_developer; }
 
     @Id
     @Column(name = "id", nullable = false)

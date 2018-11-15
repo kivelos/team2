@@ -1,8 +1,12 @@
 package dev.java.db.model1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -37,6 +41,18 @@ public class User extends AbstractEntity {
     @Column(name = "user_state")
     @Enumerated(EnumType.STRING)
     private State state = State.ACTIVE;
+
+
+
+    private Set<Vacancy> vacancies= new HashSet<>();
+    @OneToMany(mappedBy = "developer")
+    @JsonIgnore
+    public Set<Vacancy> getVacancies() {
+        return vacancies;
+    }
+    public void setVacancies(Set<Vacancy> vacancies) {
+        this.vacancies = vacancies;
+    }
 
     public String getEmail() {
         return email;
@@ -114,3 +130,4 @@ public class User extends AbstractEntity {
         ACTIVE
     }
 }
+

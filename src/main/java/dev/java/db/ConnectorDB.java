@@ -33,6 +33,12 @@ public final class ConnectorDB {
         Vacancy vacancy = new Vacancy();
         vacancy.setPosition("Example position");
         vacancy.setVacancyState(Vacancy.VacancyState.OPEN);
+        User user= new User();
+        user.setPassword("jhsrkjgh");
+        user.setEmail("loleg@example");
+        user.setName("kek");
+        vacancy.setDeveloper(user);
+        session.save(user);
 //        Candidate candidate = new Candidate();
 //        candidate.setName("Sergey");
 //        candidate.setSurname("Zyazyulkin");
