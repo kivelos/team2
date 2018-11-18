@@ -18,7 +18,7 @@ public class CandidateState {
     private Set<Candidate> candidates = new HashSet<>();
 
     @Id
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getName() {
         return name;

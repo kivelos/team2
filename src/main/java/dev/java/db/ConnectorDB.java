@@ -1,7 +1,6 @@
 package dev.java.db;
 
-import dev.java.db.model1.User;
-import dev.java.db.model1.Vacancy;
+import dev.java.db.model1.*;
 import dev.java.db.utils.HibernateSessionFactory;
 import org.hibernate.Session;
 
@@ -28,41 +27,49 @@ public final class ConnectorDB {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Vacancy vacancy = new Vacancy();
-        vacancy.setPosition("Example position");
-        vacancy.setVacancyState(Vacancy.VacancyState.OPEN);
+//        Vacancy vacancy = new Vacancy();
+//        vacancy.setPosition("Example position");
+//        vacancy.setVacancyState(Vacancy.VacancyState.OPEN);
         User user = new User();
         user.setPassword("jhsrkjgh");
-        user.setEmail("loleg@example");
+        user.setEmail("lolpdkbs@example");
         user.setName("kek");
-        vacancy.setDeveloper(user);
+        Role role = new Role();
+        role.setName("New role");
+//        Установка существующей роли
+//        Query query = session.createQuery("FROM Role");
+//        List roles = query.list();
+//        Role role = (Role) roles.get(0);
+        user.setUserRole(role);
+        session.save(role);
+        //vacancy.setDeveloper(user);
         session.save(user);
 //        Candidate candidate = new Candidate();
 //        candidate.setName("Sergey");
 //        candidate.setSurname("Zyazyulkin");
-        /*CandidateExperience candidateExperience = new CandidateExperience();
-        candidateExperience.setDateFrom(Date.valueOf("2018-11-11"));
-        candidateExperience.setDateTo(Date.valueOf("2019-11-11"));
-        candidate.getExperiences().add(candidateExperience);
-
-        Skill skill = new Skill();
-        skill.setName("HELLO");
-        candidate.getSkills().add(skill);
-        */
-        /*CandidateState candidateState = new CandidateState();
-        candidateState.setName("Invited to interview");
-        candidate.setCandidateState(candidateState);*/
-        /*Attachment attachment = new Attachment();
-        attachment.setFilePath("C:/hello.txt");
-        attachment.setAttachmentType(Attachment.AttachmentType.COVER_LETTER);
-        candidate.getAttachments().add(attachment);*/
-
-
+//        CandidateExperience candidateExperience = new CandidateExperience();
+//        candidateExperience.setDateFrom(Date.valueOf("2018-11-11"));
+//        candidateExperience.setDateTo(Date.valueOf("2019-11-11"));
+//        candidate.getExperiences().add(candidateExperience);
+//
+//        Skill skill = new Skill();
+//        skill.setName("HELLO");
+//        candidate.getSkills().add(skill);
+//
+//        CandidateState candidateState = new CandidateState();
+//        candidateState.setName("Invited to interview");
+//        candidate.setCandidateState(candidateState);
+//        Attachment attachment = new Attachment();
+//        attachment.setFilePath("C:/hello.txt");
+//        attachment.setAttachmentType(Attachment.AttachmentType.COVER_LETTER);
+//        candidate.getAttachments().add(attachment);
+//
+//
 //        ContactDetails contactDetails = new ContactDetails();
 //        contactDetails.setContactType(ContactDetails.ContactType.PHONE);
 //        contactDetails.setContactDetails("+375444859574");
 //        candidate.getContactDetails().add(contactDetails);
-        session.save(vacancy);
+        //session.save(vacancy);
         session.getTransaction().commit();
         HibernateSessionFactory.shutdown();
 
