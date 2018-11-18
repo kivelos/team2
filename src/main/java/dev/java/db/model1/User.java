@@ -31,7 +31,9 @@ public class User extends AbstractEntity {
     @Basic
     @SuppressWarnings("checkstyle:MagicNumber")
     @Column(name = "email", nullable = false, length = 100, unique = true)
-    public String getEmail() { return email; }
+    public String getEmail() {
+        return email;
+    }
     public void setEmail(String email) {
         this.email = email;
     }

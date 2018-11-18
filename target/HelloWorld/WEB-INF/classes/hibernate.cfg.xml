@@ -17,6 +17,7 @@
     <mapping class="dev.java.db.model1.User"/>
     <mapping class="dev.java.db.model1.CandidateState"/>
     <mapping class="dev.java.db.model1.Vacancy"/>
+    <mapping class="dev.java.db.model1.Role"/>
     <!-- DB schema will be updated if needed -->
   </session-factory>
 </hibernate-configuration>

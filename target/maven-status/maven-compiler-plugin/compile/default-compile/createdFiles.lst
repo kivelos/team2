@@ -58,6 +58,7 @@ dev\java\db\model1\Skill.class
 dev\java\db\daos1\UserDao.class
 dev\java\db\model\Skill.class
 dev\java\db\model1\CandidateState.class
+dev\java\db\model1\Role.class
 dev\java\db\model\FeedbackState.class
 dev\java\db\daos1\CandidateDao.class
 dev\java\controller\InterviewFeedbackController.class

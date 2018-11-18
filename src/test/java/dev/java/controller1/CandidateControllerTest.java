@@ -46,9 +46,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration
 @WebAppConfiguration
 public class CandidateControllerTest {
-
-    private CandidateController controller;
-
     @Autowired
     private WebApplicationContext ctx;
 

@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "role", schema = "staffjobs")
-public class Role extends AbstractEntity{
+public class Role extends AbstractEntity {
     private String name;
     private Set<User> users = new HashSet<>();
 
@@ -44,11 +44,15 @@ public class Role extends AbstractEntity{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Role role = (Role) o;
-        return Objects.equals(name, role.name) &&
-               Objects.equals(users, role.users);
+        return Objects.equals(name, role.name)
+               && Objects.equals(users, role.users);
     }
 
     @Override
