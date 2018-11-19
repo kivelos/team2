@@ -12,7 +12,6 @@ public class Interview extends AbstractEntity {
     private Timestamp planDate;
     private Timestamp factDate;
 
-
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,9 +81,9 @@ public class Interview extends AbstractEntity {
         }
         Interview interview = (Interview) o;
         return Objects.equals(candidate, interview.candidate)
-                && Objects.equals(vacancy, interview.vacancy)
-                && Objects.equals(planDate, interview.planDate)
-                && Objects.equals(factDate, interview.factDate);
+               && Objects.equals(vacancy, interview.vacancy)
+               && Objects.equals(planDate, interview.planDate)
+               && Objects.equals(factDate, interview.factDate);
     }
 
     @Override
@@ -94,10 +93,10 @@ public class Interview extends AbstractEntity {
 
     public String toString() {
         return "Interview{"
-                + "candidate='" + candidate + '\''
-                + ", vacancy='" + vacancy + '\''
-                + ", planDate=" + planDate + '\''
-                + ", factDate=" + factDate + '\''
-                + '}';
+               + "candidate='" + candidate + '\''
+               + ", vacancy='" + vacancy + '\''
+               + ", planDate=" + planDate + '\''
+               + ", factDate=" + factDate + '\''
+               + '}';
     }
 }

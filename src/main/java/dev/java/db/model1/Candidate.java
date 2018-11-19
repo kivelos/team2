@@ -3,6 +3,7 @@ package dev.java.db.model1;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -26,15 +28,17 @@ import java.util.Set;
 @Entity
 @Table(name = "candidate", schema = "staffjobs")
 public class Candidate extends AbstractEntity {
+    private long id;
     private String name;
     private String surname;
     private Date birthday;
     private BigDecimal salaryInDollars;
-    private List<CandidateExperience> experiences = new ArrayList<>();
+    private Set<CandidateExperience> experiences = new HashSet<>();
     private Set<Skill> skills = new HashSet<>();
     private CandidateState candidateState;
     private List<Attachment> attachments = new ArrayList<>();
     private List<ContactDetails> contactDetails = new ArrayList<>();
+    private Set<Interview> interviews = new HashSet<>();
 
     @Id
     @Column(name = "id", nullable = false)
@@ -94,25 +98,16 @@ public class Candidate extends AbstractEntity {
         this.salaryInDollars = salaryInDollars;
     }
 
-
-    @ElementCollection
-    @CollectionTable(
-            name = "candidate_experience",
-            joinColumns = @JoinColumn(name = "id_candidate")
-    )
-    @AttributeOverrides({
-            @AttributeOverride(name = "dateFrom", column = @Column(name = "date_from", nullable = false)),
-            @AttributeOverride(name = "dateTo", column = @Column(name = "date_to", nullable = false))
-    })
-    public List<CandidateExperience> getExperiences() {
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
+    public Set<CandidateExperience> getExperiences() {
         return experiences;
     }
 
-    public void setExperiences(List<CandidateExperience> experiences) {
+    public void setExperiences(Set<CandidateExperience> experiences) {
         this.experiences = experiences;
     }
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "candidate_competence",
             joinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "skill", referencedColumnName = "name")}
@@ -171,6 +166,15 @@ public class Candidate extends AbstractEntity {
 
     public void setContactDetails(List<ContactDetails> contactDetails) {
         this.contactDetails = contactDetails;
+    }
+
+    @OneToMany(mappedBy = "candidate")
+    public Set<Interview> getInterviews() {
+        return interviews;
+    }
+
+    public void setInterviews(Set<Interview> interviews) {
+        this.interviews = interviews;
     }
 
     @Override

@@ -2,7 +2,9 @@ package dev.java.db.model1;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "vacancy")
@@ -13,6 +15,7 @@ public class Vacancy extends AbstractEntity {
     private VacancyState vacancyState;
     private float experienceYearsRequire;
     private User developer;
+    private Set<Interview> interviews = new HashSet<>();
 
     @ManyToOne
     @SuppressWarnings("checkstyle:ParamentName")
@@ -81,6 +84,15 @@ public class Vacancy extends AbstractEntity {
 
     public void setExperienceYearsRequire(float experienceYearsRequire) {
         this.experienceYearsRequire = experienceYearsRequire;
+    }
+
+    @OneToMany(mappedBy = "vacancy")
+    public Set<Interview> getInterviews() {
+        return interviews;
+    }
+
+    public void setInterviews(Set<Interview> interviews) {
+        this.interviews = interviews;
     }
 
     @Override

@@ -63,3 +63,4 @@ dev\java\db\model\FeedbackState.class
 dev\java\db\daos1\CandidateDao.class
 dev\java\controller\InterviewFeedbackController.class
 dev\java\db\model\CandidateState.class
+dev\java\db\model1\Responsibility.class
