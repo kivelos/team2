@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="14" failures="0" name="dev.java.controller.CandidateControllerTest" time="1.138" errors="0" skipped="0">
+<testsuite tests="14" failures="0" name="dev.java.controller.CandidateControllerTest" time="1.535" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="10.0.2+13"/>
@@ -66,18 +66,18 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInDeleteEntity" time="0.93"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInDeleteEntity" time="1.252"/>
   <testcase classname="dev.java.controller.CandidateControllerTest" name="checkInvalidInputCreateEntity" time="0.015"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInUpdateEntity" time="0.01"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInDeleteEntity" time="0.027"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetEntity" time="0.001"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInGetAllEntities" time="0.034"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInUpdateEntity" time="0.013"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInDeleteEntity" time="0.006"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInCreateEntity" time="0.035"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInGetEntity" time="0.006"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInCreateEntity" time="0.017"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetAllEntities" time="0.006"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInGetEntity" time="0.018"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInUpdateEntity" time="0.02"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInUpdateEntity" time="0.06"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInDeleteEntity" time="0.012"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetEntity" time="0.016"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInGetAllEntities" time="0.042"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInUpdateEntity" time="0.001"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInDeleteEntity" time="0.017"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInCreateEntity" time="0.038"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInGetEntity" time="0"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInCreateEntity" time="0"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetAllEntities" time="0.015"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInGetEntity" time="0.022"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInUpdateEntity" time="0.045"/>
 </testsuite>

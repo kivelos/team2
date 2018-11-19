@@ -39,6 +39,7 @@ public class Candidate extends AbstractEntity {
     private List<ContactDetails> contactDetails = new ArrayList<>();
     private List<Interview> interviews = new ArrayList<>();
     private List<Vacancy> vacancies = new ArrayList<>();
+    private List<CandidateFeedback> candidateFeedbacks = new ArrayList<>();
 
     @Id
     @Column(name = "id", nullable = false)
@@ -172,6 +173,7 @@ public class Candidate extends AbstractEntity {
     }
 
     @OneToMany(mappedBy = "candidate")
+    @JsonIgnore
     public List<Interview> getInterviews() {
         return interviews;
     }
@@ -192,6 +194,16 @@ public class Candidate extends AbstractEntity {
 
     public void setVacancies(List<Vacancy> vacancies) {
         this.vacancies = vacancies;
+    }
+
+    @OneToMany(mappedBy = "candidate")
+    @JsonIgnore
+    public List<CandidateFeedback> getCandidateFeedbacks() {
+        return candidateFeedbacks;
+    }
+
+    public void setCandidateFeedbacks(List<CandidateFeedback> candidateFeedbacks) {
+        this.candidateFeedbacks = candidateFeedbacks;
     }
 
     @Override

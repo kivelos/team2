@@ -1,3 +1,4 @@
+dev\java\db\model1\HRFeedback.class
 dev\java\controller\VacancyController.class
 dev\java\db\model1\User.class
 dev\java\db\daos\SkillDao.class
@@ -6,6 +7,7 @@ dev\java\db\model\Vacancy.class
 dev\java\db\model\ContactType.class
 dev\java\controller\CandidateController.class
 dev\java\controller\GeneralConstant.class
+dev\java\db\model1\SuitableState.class
 dev\java\db\model1\Requirement.class
 dev\java\db\model\Entity.class
 dev\java\controller1\UserController.class
@@ -13,6 +15,7 @@ dev\java\controller1\InterviewController.class
 dev\java\controller\SimpleController.class
 dev\java\DateProcessor.class
 dev\java\db\daos1\InterviewDao.class
+dev\java\db\model1\CandidateFeedback.class
 dev\java\controller\HelloController.class
 dev\java\db\model1\ContactDetails.class
 dev\java\db\daos\FeedbackStateDao.class
@@ -28,8 +31,10 @@ dev\java\db\model\Contact.class
 dev\java\db\model1\Attachment$AttachmentType.class
 dev\java\db\model\InterviewFeedback.class
 dev\java\db\model1\AbstractEntity.class
+dev\java\db\model1\CVFeedback.class
 dev\java\controller1\CandidateController.class
 dev\java\db\daos1\VacancyDao.class
+dev\java\db\model1\TMFeedback.class
 dev\java\db\ConnectorDB.class
 dev\java\db\model\User$State.class
 dev\java\controller1\GeneralConstant.class
@@ -43,6 +48,7 @@ dev\java\db\daos\AbstractDao.class
 dev\java\db\daos\UserDao.class
 dev\java\db\model\Experience.class
 dev\java\db\model1\Vacancy.class
+dev\java\db\model1\DevFeedback.class
 dev\java\db\utils\HibernateSessionFactory.class
 dev\java\db\daos\CandidateStateDao.class
 dev\java\db\model\VacancyState.class
@@ -60,8 +66,10 @@ dev\java\db\daos1\UserDao.class
 dev\java\db\model\Skill.class
 dev\java\db\model1\CandidateState.class
 dev\java\db\model1\Role.class
+dev\java\db\model1\FeedbackState.class
 dev\java\db\model\FeedbackState.class
 dev\java\db\daos1\CandidateDao.class
 dev\java\controller\InterviewFeedbackController.class
 dev\java\db\model\CandidateState.class
+dev\java\db\model1\FeedbackDetails.class
 dev\java\db\model1\Responsibility.class

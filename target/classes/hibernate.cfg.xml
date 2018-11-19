@@ -21,6 +21,15 @@
     <mapping class="dev.java.db.model1.Interview"/>
     <mapping class="dev.java.db.model1.Role"/>
     <mapping class="dev.java.db.model1.Requirement"/>
+    <mapping class="dev.java.db.model1.FeedbackState"/>
+    <mapping class="dev.java.db.model1.SuitableState"/>
+    <mapping class="dev.java.db.model1.CandidateFeedback"/>
+    <mapping class="dev.java.db.model1.FeedbackDetails"/>
+    <mapping class="dev.java.db.model1.CVFeedback"/>
+    <mapping class="dev.java.db.model1.TMFeedback"/>
+    <mapping class="dev.java.db.model1.HRFeedback"/>
+    <mapping class="dev.java.db.model1.DevFeedback"/>
+    <mapping class="dev.java.db.model1.SuitableState"/>
     <!-- DB schema will be updated if needed -->
   </session-factory>
 </hibernate-configuration>

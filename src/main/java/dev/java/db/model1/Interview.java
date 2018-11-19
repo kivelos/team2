@@ -1,7 +1,20 @@
 package dev.java.db.model1;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +24,8 @@ public class Interview extends AbstractEntity {
     private Vacancy vacancy;
     private Timestamp planDate;
     private Timestamp factDate;
+    private List<HRFeedback> hrFeedbacks = new ArrayList<>();
+    private List<DevFeedback> devFeedbacks = new ArrayList<>();
 
     @Id
     @Column(name = "id", nullable = false)
@@ -69,6 +84,26 @@ public class Interview extends AbstractEntity {
             return;
         }
         this.factDate = new Timestamp(factDate.getTime());
+    }
+
+    @OneToMany(mappedBy = "interview")
+    @JsonIgnore
+    public List<HRFeedback> getHrFeedbacks() {
+        return hrFeedbacks;
+    }
+
+    public void setHrFeedbacks(List<HRFeedback> hrFeedbacks) {
+        this.hrFeedbacks = hrFeedbacks;
+    }
+
+    @OneToMany(mappedBy = "interview")
+    @JsonIgnore
+    public List<DevFeedback> getDevFeedbacks() {
+        return devFeedbacks;
+    }
+
+    public void setDevFeedbacks(List<DevFeedback> devFeedbacks) {
+        this.devFeedbacks = devFeedbacks;
     }
 
     @Override

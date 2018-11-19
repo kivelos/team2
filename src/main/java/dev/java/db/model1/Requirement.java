@@ -1,11 +1,14 @@
 package dev.java.db.model1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +17,7 @@ import java.util.Objects;
 public class Requirement {
     private String name;
     private List<Vacancy> vacancies = new ArrayList<>();
+    private List<FeedbackDetails> feedbackDetails = new ArrayList<>();
 
     @Id
     @Column(name = "name", nullable = false, length = 255)
@@ -37,6 +41,16 @@ public class Requirement {
 
     public void setVacancies(List<Vacancy> vacancies) {
         this.vacancies = vacancies;
+    }
+
+    @OneToMany(mappedBy = "requirement")
+    @JsonIgnore
+    public List<FeedbackDetails> getFeedbackDetails() {
+        return feedbackDetails;
+    }
+
+    public void setFeedbackDetails(List<FeedbackDetails> feedbackDetails) {
+        this.feedbackDetails = feedbackDetails;
     }
 
     @Override
