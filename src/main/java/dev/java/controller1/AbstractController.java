@@ -106,7 +106,7 @@ public abstract class AbstractController<T extends AbstractEntity> {
         }
     }
 
-    private ResponseEntity getResponseEntityOnServerError(Exception e) {
+    protected ResponseEntity getResponseEntityOnServerError(Exception e) {
         logging.runMe(e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.TEXT_PLAIN)
                 .body("Server error");
@@ -150,5 +150,9 @@ public abstract class AbstractController<T extends AbstractEntity> {
 
     public void setSession(Session session) {
         this.session = session;
+    }
+
+    public Logging getLogging() {
+        return logging;
     }
 }

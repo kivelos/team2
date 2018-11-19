@@ -6,14 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Requirement {
     private String name;
-    private Set<Vacancy> vacancies = new HashSet<>();
+    private List<Vacancy> vacancies = new ArrayList<>();
 
     @Id
     @Column(name = "name", nullable = false, length = 255)
@@ -31,11 +31,11 @@ public class Requirement {
             joinColumns = {@JoinColumn(name = "requirement", referencedColumnName = "name")},
             inverseJoinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")}
     )
-    public Set<Vacancy> getVacancies() {
+    public List<Vacancy> getVacancies() {
         return vacancies;
     }
 
-    public void setVacancies(Set<Vacancy> vacancies) {
+    public void setVacancies(List<Vacancy> vacancies) {
         this.vacancies = vacancies;
     }
 

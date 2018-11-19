@@ -7,15 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "candidate_state", schema = "staffjobs")
 public class CandidateState {
     private String name;
-    private Set<Candidate> candidates = new HashSet<>();
+    private List<Candidate> candidates = new ArrayList<>();
 
     @Id
     @Column(name = "name", nullable = false)
@@ -30,11 +30,11 @@ public class CandidateState {
 
     @OneToMany(mappedBy = "candidateState")
     @JsonIgnore
-    public Set<Candidate> getCandidates() {
+    public List<Candidate> getCandidates() {
         return candidates;
     }
 
-    public void setCandidates(Set<Candidate> candidates) {
+    public void setCandidates(List<Candidate> candidates) {
         this.candidates = candidates;
     }
 

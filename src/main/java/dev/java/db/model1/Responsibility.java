@@ -6,14 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Responsibility {
     private String name;
-    private Set<CandidateExperience> candidateExperiences = new HashSet<>();
+    private List<CandidateExperience> candidateExperiences = new ArrayList<>();
 
     @Id
     @Column(name = "name", nullable = false, length = 255)
@@ -31,11 +31,11 @@ public class Responsibility {
             joinColumns = {@JoinColumn(name = "responsibility", referencedColumnName = "name")},
             inverseJoinColumns = {@JoinColumn(name = "id_candidate_experience", referencedColumnName = "id")}
     )
-    public Set<CandidateExperience> getCandidateExperiences() {
+    public List<CandidateExperience> getCandidateExperiences() {
         return candidateExperiences;
     }
 
-    public void setCandidateExperiences(Set<CandidateExperience> candidateExperiences) {
+    public void setCandidateExperiences(List<CandidateExperience> candidateExperiences) {
         this.candidateExperiences = candidateExperiences;
     }
 

@@ -14,9 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Date;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "candidate_experience", schema = "staffjobs")
@@ -27,7 +27,7 @@ public class CandidateExperience extends AbstractEntity {
     private String jobPosition;
     private String companyName;
     private Candidate candidate;
-    private Set<Responsibility> responsibilities = new HashSet<>();
+    private List<Responsibility> responsibilities = new ArrayList<>();
 
     @Basic
     @Column(name = "date_from", nullable = false)
@@ -120,11 +120,11 @@ public class CandidateExperience extends AbstractEntity {
             joinColumns = {@JoinColumn(name = "id_candidate_experience", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "responsibility", referencedColumnName = "name")}
     )
-    public Set<Responsibility> getResponsibilities() {
+    public List<Responsibility> getResponsibilities() {
         return responsibilities;
     }
 
-    public void setResponsibilities(Set<Responsibility> responsibilities) {
+    public void setResponsibilities(List<Responsibility> responsibilities) {
         this.responsibilities = responsibilities;
     }
 

@@ -70,9 +70,9 @@ public final class ConnectorDB {
 
         Responsibility responsibility = new Responsibility();
         responsibility.setName("Admin DB");
-        candidateExperience.getResponsibilities().add(responsibility);*/
+        candidateExperience.getResponsibilities().add(responsibility);
 
-        //session.save(vacancy);
+        session.save(candidate);*/
         session.getTransaction().commit();
         HibernateSessionFactory.shutdown();
 

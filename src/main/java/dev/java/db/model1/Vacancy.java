@@ -3,10 +3,23 @@ package dev.java.db.model1;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
-import java.util.HashSet;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "vacancy")
@@ -17,9 +30,9 @@ public class Vacancy extends AbstractEntity {
     private VacancyState vacancyState;
     private float experienceYearsRequire;
     private User developer;
-    private Set<Interview> interviews = new HashSet<>();
-    private Set<Requirement> requirements = new HashSet<>();
-    private Set<Candidate> candidates = new HashSet<>();
+    private List<Interview> interviews = new ArrayList<>();
+    private List<Requirement> requirements = new ArrayList<>();
+    private List<Candidate> candidates = new ArrayList<>();
 
     @ManyToOne
     @SuppressWarnings("checkstyle:ParamentName")
@@ -91,11 +104,11 @@ public class Vacancy extends AbstractEntity {
     }
 
     @OneToMany(mappedBy = "vacancy")
-    public Set<Interview> getInterviews() {
+    public List<Interview> getInterviews() {
         return interviews;
     }
 
-    public void setInterviews(Set<Interview> interviews) {
+    public void setInterviews(List<Interview> interviews) {
         this.interviews = interviews;
     }
 
@@ -104,11 +117,11 @@ public class Vacancy extends AbstractEntity {
             joinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "requirement", referencedColumnName = "name")}
     )
-    public Set<Requirement> getRequirements() {
+    public List<Requirement> getRequirements() {
         return requirements;
     }
 
-    public void setRequirements(Set<Requirement> requirements) {
+    public void setRequirements(List<Requirement> requirements) {
         this.requirements = requirements;
     }
 
@@ -118,11 +131,11 @@ public class Vacancy extends AbstractEntity {
             inverseJoinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")}
     )
     @JsonIgnore
-    public Set<Candidate> getCandidates() {
+    public List<Candidate> getCandidates() {
         return candidates;
     }
 
-    public void setCandidates(Set<Candidate> candidates) {
+    public void setCandidates(List<Candidate> candidates) {
         this.candidates = candidates;
     }
 

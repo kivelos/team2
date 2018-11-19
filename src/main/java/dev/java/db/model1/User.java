@@ -2,11 +2,22 @@ package dev.java.db.model1;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
-import javax.persistence.*;
-import java.util.HashSet;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -18,7 +29,7 @@ public class User extends AbstractEntity {
     private String name;
     private State state = State.ACTIVE;
     private Role userRole;
-    private Set<Vacancy> vacancies = new HashSet<>();
+    private List<Vacancy> vacancies = new ArrayList<>();
 
     @Id
     @Column(name = "id", nullable = false)
@@ -78,10 +89,10 @@ public class User extends AbstractEntity {
 
     @OneToMany(mappedBy = "developer")
     @JsonIgnore
-    public Set<Vacancy> getVacancies() {
+    public List<Vacancy> getVacancies() {
         return vacancies;
     }
-    public void setVacancies(Set<Vacancy> vacancies) {
+    public void setVacancies(List<Vacancy> vacancies) {
         this.vacancies = vacancies;
     }
 

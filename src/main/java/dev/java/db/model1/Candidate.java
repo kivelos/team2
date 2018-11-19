@@ -22,10 +22,8 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "candidate", schema = "staffjobs")
@@ -34,13 +32,13 @@ public class Candidate extends AbstractEntity {
     private String surname;
     private Date birthday;
     private BigDecimal salaryInDollars;
-    private Set<CandidateExperience> experiences = new HashSet<>();
-    private Set<Skill> skills = new HashSet<>();
+    private List<CandidateExperience> experiences = new ArrayList<>();
+    private List<Skill> skills = new ArrayList<>();
     private CandidateState candidateState;
     private List<Attachment> attachments = new ArrayList<>();
     private List<ContactDetails> contactDetails = new ArrayList<>();
-    private Set<Interview> interviews = new HashSet<>();
-    private Set<Vacancy> vacancies = new HashSet<>();
+    private List<Interview> interviews = new ArrayList<>();
+    private List<Vacancy> vacancies = new ArrayList<>();
 
     @Id
     @Column(name = "id", nullable = false)
@@ -101,11 +99,11 @@ public class Candidate extends AbstractEntity {
     }
 
     @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
-    public Set<CandidateExperience> getExperiences() {
+    public List<CandidateExperience> getExperiences() {
         return experiences;
     }
 
-    public void setExperiences(Set<CandidateExperience> experiences) {
+    public void setExperiences(List<CandidateExperience> experiences) {
         this.experiences = experiences;
         for (CandidateExperience experience: this.experiences) {
             experience.setCandidate(this);
@@ -117,11 +115,11 @@ public class Candidate extends AbstractEntity {
             joinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "skill", referencedColumnName = "name")}
     )
-    public Set<Skill> getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(Set<Skill> skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
 
@@ -174,11 +172,11 @@ public class Candidate extends AbstractEntity {
     }
 
     @OneToMany(mappedBy = "candidate")
-    public Set<Interview> getInterviews() {
+    public List<Interview> getInterviews() {
         return interviews;
     }
 
-    public void setInterviews(Set<Interview> interviews) {
+    public void setInterviews(List<Interview> interviews) {
         this.interviews = interviews;
     }
 
@@ -188,11 +186,11 @@ public class Candidate extends AbstractEntity {
             inverseJoinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")}
     )
     @JsonIgnore
-    public Set<Vacancy> getVacancies() {
+    public List<Vacancy> getVacancies() {
         return vacancies;
     }
 
-    public void setVacancies(Set<Vacancy> vacancies) {
+    public void setVacancies(List<Vacancy> vacancies) {
         this.vacancies = vacancies;
     }
 

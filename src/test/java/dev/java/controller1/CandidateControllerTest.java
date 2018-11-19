@@ -6,6 +6,7 @@ import dev.java.db.model1.Candidate;
 import dev.java.db.model1.CandidateExperience;
 import dev.java.db.model1.CandidateState;
 import dev.java.db.model1.Skill;
+import dev.java.db.model1.Vacancy;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +26,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -37,6 +40,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -308,6 +312,170 @@ public class CandidateControllerTest {
     public void checkSQLExceptionInDeleteEntity() throws Exception {
         candidateController.setAbstractDao(null);
         mockMvc.perform(delete("/candidate/1"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Server error"));
+    }
+
+    @Test
+    public void checkOkInGetCorrespondVacancies() throws Exception {
+        Candidate candidate = getCandidate();
+        Vacancy vacancy1 = new Vacancy();
+        vacancy1.setId(1);
+        vacancy1.setPosition("java developer");
+        vacancy1.setVacancyState(Vacancy.VacancyState.OPEN);
+
+        Vacancy vacancy2 = new Vacancy();
+        vacancy2.setPosition("c++ developer");
+        vacancy2.setVacancyState(Vacancy.VacancyState.CLOSE);
+        vacancy2.setId(2);
+
+        List<Vacancy> vacancies = new ArrayList<>();
+        vacancies.add(vacancy1);
+        vacancies.add(vacancy2);
+
+        candidate.setVacancies(vacancies);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+        candidateController.setAbstractDao(daoMock);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/candidate/1/vacancies"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].position", is("java developer")))
+                .andExpect(jsonPath("$[0].vacancyState", is("OPEN")))
+                .andExpect(jsonPath("$[1].id", is(2)))
+                .andExpect(jsonPath("$[1].position", is("c++ developer")))
+                .andExpect(jsonPath("$[1].vacancyState", is("CLOSE")));
+
+    }
+
+    @Test
+    public void checkNotFoundInGetCorrespondVacancies() throws Exception {
+        Candidate candidate = getCandidate();
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+        candidateController.setAbstractDao(daoMock);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/candidate/2/vacancies"))
+                .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    public void checkExceptionInGetCorrespondVacancies() throws Exception {
+        candidateController.setAbstractDao(null);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/candidate/1/vacancies"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Server error"));
+
+    }
+
+    @Test
+    public void checkOkInUpdateCorrespondVacancies() throws Exception {
+        Candidate candidate = getCandidate();
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+
+        Vacancy vacancy1 = new Vacancy();
+        vacancy1.setId(1);
+        vacancy1.setPosition("java developer");
+        vacancy1.setVacancyState(Vacancy.VacancyState.OPEN);
+
+        Vacancy vacancy2 = new Vacancy();
+        vacancy2.setPosition("c++ developer");
+        vacancy2.setVacancyState(Vacancy.VacancyState.CLOSE);
+        vacancy2.setId(2);
+
+        List<Vacancy> vacancies = new ArrayList<>();
+        vacancies.add(vacancy1);
+        vacancies.add(vacancy2);
+
+        candidate.setVacancies(vacancies);
+
+        when(daoMock.updateEntity(candidate)).thenReturn(true);
+
+        candidateController.setAbstractDao(daoMock);
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(put("/candidate/1/vacancies")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(vacancies))
+        )
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void checkNotFoundInUpdateCorrespondVacancies() throws Exception {
+        Candidate candidate = getCandidate();
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+
+        Vacancy vacancy1 = new Vacancy();
+        vacancy1.setId(1);
+        vacancy1.setPosition("java developer");
+        vacancy1.setVacancyState(Vacancy.VacancyState.OPEN);
+
+        Vacancy vacancy2 = new Vacancy();
+        vacancy2.setPosition("c++ developer");
+        vacancy2.setVacancyState(Vacancy.VacancyState.CLOSE);
+        vacancy2.setId(2);
+
+        List<Vacancy> vacancies = new ArrayList<>();
+        vacancies.add(vacancy1);
+        vacancies.add(vacancy2);
+
+        candidate.setVacancies(vacancies);
+
+        when(daoMock.updateEntity(candidate)).thenReturn(true);
+
+        candidateController.setAbstractDao(daoMock);
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(put("/candidate/2/vacancies")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(vacancies))
+        )
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void checkExceptionInUpdateCorrespondVacancies() throws Exception {
+        Candidate candidate = getCandidate();
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+
+        Vacancy vacancy1 = new Vacancy();
+        vacancy1.setId(1);
+        vacancy1.setPosition("java developer");
+        vacancy1.setVacancyState(Vacancy.VacancyState.OPEN);
+
+        Vacancy vacancy2 = new Vacancy();
+        vacancy2.setPosition("c++ developer");
+        vacancy2.setVacancyState(Vacancy.VacancyState.CLOSE);
+        vacancy2.setId(2);
+
+        List<Vacancy> vacancies = new ArrayList<>();
+        vacancies.add(vacancy1);
+        vacancies.add(vacancy2);
+
+        candidate.setVacancies(vacancies);
+
+        when(daoMock.updateEntity(candidate)).thenReturn(true);
+
+        candidateController.setAbstractDao(null);
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(put("/candidate/1/vacancies")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(vacancies))
+        )
                 .andExpect(status().isInternalServerError())
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(content().string("Server error"));
