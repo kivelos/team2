@@ -6,6 +6,7 @@ dev\java\db\model\Vacancy.class
 dev\java\db\model\ContactType.class
 dev\java\controller\CandidateController.class
 dev\java\controller\GeneralConstant.class
+dev\java\db\model1\Requirement.class
 dev\java\db\model\Entity.class
 dev\java\controller1\UserController.class
 dev\java\controller1\InterviewController.class

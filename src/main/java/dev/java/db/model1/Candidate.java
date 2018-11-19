@@ -1,5 +1,7 @@
 package dev.java.db.model1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
@@ -28,7 +30,6 @@ import java.util.Set;
 @Entity
 @Table(name = "candidate", schema = "staffjobs")
 public class Candidate extends AbstractEntity {
-    private long id;
     private String name;
     private String surname;
     private Date birthday;
@@ -39,6 +40,7 @@ public class Candidate extends AbstractEntity {
     private List<Attachment> attachments = new ArrayList<>();
     private List<ContactDetails> contactDetails = new ArrayList<>();
     private Set<Interview> interviews = new HashSet<>();
+    private Set<Vacancy> vacancies = new HashSet<>();
 
     @Id
     @Column(name = "id", nullable = false)
@@ -105,6 +107,9 @@ public class Candidate extends AbstractEntity {
 
     public void setExperiences(Set<CandidateExperience> experiences) {
         this.experiences = experiences;
+        for (CandidateExperience experience: this.experiences) {
+            experience.setCandidate(this);
+        }
     }
 
     @ManyToMany()
@@ -175,6 +180,20 @@ public class Candidate extends AbstractEntity {
 
     public void setInterviews(Set<Interview> interviews) {
         this.interviews = interviews;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "vacancy_candidates",
+            joinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")}
+    )
+    @JsonIgnore
+    public Set<Vacancy> getVacancies() {
+        return vacancies;
+    }
+
+    public void setVacancies(Set<Vacancy> vacancies) {
+        this.vacancies = vacancies;
     }
 
     @Override

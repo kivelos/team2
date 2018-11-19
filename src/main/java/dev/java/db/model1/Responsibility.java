@@ -3,12 +3,17 @@ package dev.java.db.model1;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Responsibility {
     private String name;
-    //private Set<CandidateExperience> candidateExperiences = new HashSet<>();
+    private Set<CandidateExperience> candidateExperiences = new HashSet<>();
 
     @Id
     @Column(name = "name", nullable = false, length = 255)
@@ -21,7 +26,7 @@ public class Responsibility {
         this.name = name;
     }
 
-    /*@ManyToMany
+    @ManyToMany
     @JoinTable(name = "candidate_responsibility",
             joinColumns = {@JoinColumn(name = "responsibility", referencedColumnName = "name")},
             inverseJoinColumns = {@JoinColumn(name = "id_candidate_experience", referencedColumnName = "id")}
@@ -32,7 +37,7 @@ public class Responsibility {
 
     public void setCandidateExperiences(Set<CandidateExperience> candidateExperiences) {
         this.candidateExperiences = candidateExperiences;
-    }*/
+    }
 
     @Override
     public boolean equals(Object o) {

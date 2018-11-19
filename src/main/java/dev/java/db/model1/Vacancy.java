@@ -1,6 +1,8 @@
 package dev.java.db.model1;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -16,6 +18,8 @@ public class Vacancy extends AbstractEntity {
     private float experienceYearsRequire;
     private User developer;
     private Set<Interview> interviews = new HashSet<>();
+    private Set<Requirement> requirements = new HashSet<>();
+    private Set<Candidate> candidates = new HashSet<>();
 
     @ManyToOne
     @SuppressWarnings("checkstyle:ParamentName")
@@ -93,6 +97,33 @@ public class Vacancy extends AbstractEntity {
 
     public void setInterviews(Set<Interview> interviews) {
         this.interviews = interviews;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "vacancy_requirement",
+            joinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "requirement", referencedColumnName = "name")}
+    )
+    public Set<Requirement> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(Set<Requirement> requirements) {
+        this.requirements = requirements;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "vacancy_candidates",
+            joinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")}
+    )
+    @JsonIgnore
+    public Set<Candidate> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(Set<Candidate> candidates) {
+        this.candidates = candidates;
     }
 
     @Override

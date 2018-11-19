@@ -20,6 +20,7 @@
     <mapping class="dev.java.db.model1.Responsibility"/>
     <mapping class="dev.java.db.model1.Interview"/>
     <mapping class="dev.java.db.model1.Role"/>
+    <mapping class="dev.java.db.model1.Requirement"/>
     <!-- DB schema will be updated if needed -->
   </session-factory>
 </hibernate-configuration>

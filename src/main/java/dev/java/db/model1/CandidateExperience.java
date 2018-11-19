@@ -9,10 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "candidate_experience", schema = "staffjobs")
@@ -23,7 +27,7 @@ public class CandidateExperience extends AbstractEntity {
     private String jobPosition;
     private String companyName;
     private Candidate candidate;
-    //private Set<Responsibility> responsibilities = new HashSet<>();
+    private Set<Responsibility> responsibilities = new HashSet<>();
 
     @Basic
     @Column(name = "date_from", nullable = false)
@@ -111,7 +115,7 @@ public class CandidateExperience extends AbstractEntity {
         this.candidate = candidate;
     }
 
-    /*@ManyToMany
+    @ManyToMany
     @JoinTable(name = "candidate_responsibility",
             joinColumns = {@JoinColumn(name = "id_candidate_experience", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "responsibility", referencedColumnName = "name")}
@@ -123,8 +127,6 @@ public class CandidateExperience extends AbstractEntity {
     public void setResponsibilities(Set<Responsibility> responsibilities) {
         this.responsibilities = responsibilities;
     }
-
-   */
 
     @Override
     public boolean equals(Object o) {

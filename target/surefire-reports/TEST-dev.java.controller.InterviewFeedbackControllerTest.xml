@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="14" failures="0" name="dev.java.controller.InterviewFeedbackControllerTest" time="0.288" errors="0" skipped="0">
+<testsuite tests="14" failures="0" name="dev.java.controller.InterviewFeedbackControllerTest" time="0.266" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="10.0.2+13"/>
@@ -66,18 +66,18 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkSQLExceptionInDeleteEntity" time="0.032"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkSQLExceptionInDeleteEntity" time="0.035"/>
   <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkInvalidInputCreateEntity" time="0"/>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkOkInUpdateEntity" time="0.001"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkOkInUpdateEntity" time="0"/>
   <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkOkInDeleteEntity" time="0.001"/>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkOkInGetEntity" time="0.008"/>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkSQLExceptionInGetAllEntities" time="0.05"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkOkInGetEntity" time="0"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkSQLExceptionInGetAllEntities" time="0.021"/>
   <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkNotFoundInUpdateEntity" time="0"/>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkNotFoundInDeleteEntity" time="0.001"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkNotFoundInDeleteEntity" time="0"/>
   <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkSQLExceptionInCreateEntity" time="0.11"/>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkNotFoundInGetEntity" time="0.002"/>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkOkInCreateEntity" time="0.003"/>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkOkInGetAllEntities" time="0.001"/>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkSQLExceptionInGetEntity" time="0.026"/>
-  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkSQLExceptionInUpdateEntity" time="0.053"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkNotFoundInGetEntity" time="0.03"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkOkInCreateEntity" time="0.02"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkOkInGetAllEntities" time="0.013"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkSQLExceptionInGetEntity" time="0.022"/>
+  <testcase classname="dev.java.controller.InterviewFeedbackControllerTest" name="checkSQLExceptionInUpdateEntity" time="0.014"/>
 </testsuite>
