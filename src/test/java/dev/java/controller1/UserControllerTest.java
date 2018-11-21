@@ -67,7 +67,7 @@ public class UserControllerTest {
     @Test
     public void checkOkInGetAllEntities() throws Exception {
         List<User> users = new ArrayList<>();
-        User user1 = getUser();
+        User user1 = objectsFactory.getUser();
 
         User user2 = new User();
         user2.setId(2);
@@ -117,23 +117,11 @@ public class UserControllerTest {
         ;
     }
 
-    public User getUser() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setState(User.State.ACTIVE);
-        user1.setPassword("sjkgksgs");
-        user1.setName("Evgeniy");
-        user1.setSurname("Zakrevskiy");
-        user1.setEmail("zakrevskiy_evgeniy@mail.ru");
-        Role role = new Role();
-        role.setName("Developer");
-        user1.setUserRole(role);
-        return user1;
-    }
+
 
     @Test
     public void checkOkInCreateEntity() throws Exception {
-        User user = getUser();
+        User user = objectsFactory.getUser();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.createEntity(user)).thenReturn(true);
@@ -150,7 +138,7 @@ public class UserControllerTest {
 
     @Test
     public void checkInvalidInputCreateEntity() throws Exception {
-        User user = getUser();
+        User user = objectsFactory.getUser();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.createEntity(user)).thenReturn(false);
@@ -168,7 +156,7 @@ public class UserControllerTest {
 
     @Test
     public void checkOkGetEntity() throws Exception {
-        User user = getUser();
+        User user = objectsFactory.getUser();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getEntityById(1)).thenReturn(user);
@@ -188,7 +176,7 @@ public class UserControllerTest {
 
     @Test
     public void checkNotFoundGetEntity() throws Exception {
-        User user = getUser();
+        User user = objectsFactory.getUser();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getEntityById(1)).thenReturn(user);
@@ -201,7 +189,7 @@ public class UserControllerTest {
 
     @Test
     public void checkOkInUpdateEntity() throws Exception {
-        User user = getUser();
+        User user = objectsFactory.getUser();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.updateEntity(user)).thenReturn(true);
@@ -217,7 +205,7 @@ public class UserControllerTest {
 
     @Test
     public void checkNotFoundInUpdateEntity() throws Exception {
-        User user = getUser();
+        User user = objectsFactory.getUser();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.updateEntity(user)).thenReturn(false);
@@ -233,7 +221,7 @@ public class UserControllerTest {
 
     @Test
     public void checkExceptionInUpdateEntity() throws Exception {
-        User user = getUser();
+        User user = objectsFactory.getUser();
 
         controller.setAbstractDao(null);
         ObjectMapper objectMapper = new ObjectMapper();

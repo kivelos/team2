@@ -30,6 +30,7 @@ public class User extends AbstractEntity {
     private State state = State.ACTIVE;
     private Role userRole;
     private List<Vacancy> vacancies = new ArrayList<>();
+    private List<CandidateFeedback> feedbackList = new ArrayList<>();
 
     @Id
     @Column(name = "id", nullable = false)
@@ -110,7 +111,15 @@ public class User extends AbstractEntity {
         this.userRole = role;
     }
 
+    @OneToMany(mappedBy = "interviewer")
+    @JsonIgnore
+    public List<CandidateFeedback> getCandidateFeedbacks() {
+        return feedbackList;
+    }
 
+    public void setCandidateFeedbacks(List<CandidateFeedback> candidateFeedbacks) {
+        this.feedbackList = candidateFeedbacks;
+    }
 
     @Override
     public String toString() {

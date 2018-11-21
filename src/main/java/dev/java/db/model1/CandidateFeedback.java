@@ -18,6 +18,7 @@ public abstract class CandidateFeedback extends AbstractEntity {
     private String feedbackText;
     private Candidate candidate;
     private FeedbackState feedbackState;
+    private User interviewer;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -26,7 +27,7 @@ public abstract class CandidateFeedback extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "feedback_text", nullable = true, length = 4000)
+    @Column(name = "feedback_text", length = 4000)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getFeedbackText() {
         return feedbackText;
@@ -44,6 +45,15 @@ public abstract class CandidateFeedback extends AbstractEntity {
 
     public void setCandidate(Candidate candidate) {
         this.candidate = candidate;
+    }
+
+
+    @ManyToOne
+    @JoinColumn(name = "id_interviewer", referencedColumnName = "id")
+    public User getInterviewer() { return interviewer; }
+
+    public void setInterviewer(User user) {
+        this.interviewer = user;
     }
 
     @ManyToOne

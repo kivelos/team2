@@ -80,7 +80,7 @@ public class CandidateControllerTest {
     @Test
     public void checkOkInGetAllEntities() throws Exception {
         List<Candidate> candidates = new ArrayList<>();
-        Candidate candidate1 = getCandidate();
+        Candidate candidate1 = objectsFactory.getCandidate();
 
         Candidate candidate2 = new Candidate();
         candidate2.setId(2);
@@ -133,7 +133,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkOkInCreateEntity() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.createEntity(candidate)).thenReturn(true);
@@ -150,7 +150,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkInvalidInputCreateEntity() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.createEntity(candidate)).thenReturn(false);
@@ -168,7 +168,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkExceptionInCreateEntity() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         candidateController.setAbstractDao(null);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -183,7 +183,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkOkInGetEntity() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getEntityById(1)).thenReturn(candidate);
@@ -202,26 +202,11 @@ public class CandidateControllerTest {
                 .andExpect(jsonPath("$.skills[1].name", is("HELLO")));
     }
 
-    private Candidate getCandidate() {
-        Candidate candidate = new Candidate();
-        candidate.setId(1);
-        candidate.setSurname("Piliak");
-        candidate.setName("Kseniya");
-        candidate.setBirthday(Date.valueOf("1996-04-06"));
-        candidate.setSalaryInDollars(new BigDecimal(200));
-        Skill skill1 = new Skill("Java");
-        Skill skill2 = new Skill("HELLO");
-        candidate.getSkills().add(skill1);
-        candidate.getSkills().add(skill2);
-        CandidateState candidateState = new CandidateState();
-        candidateState.setName("Invited to interview");
-        candidate.setCandidateState(candidateState);
-        return candidate;
-    }
+
 
     @Test
     public void checkNotFoundInGetEntity() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getEntityById(1)).thenReturn(candidate);
@@ -243,7 +228,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkOkInUpdateEntity() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.updateEntity(candidate)).thenReturn(true);
@@ -259,7 +244,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkNotFoundInUpdateEntity() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.updateEntity(candidate)).thenReturn(false);
@@ -275,7 +260,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkExceptionInUpdateEntity() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         candidateController.setAbstractDao(null);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -319,7 +304,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkOkInGetCorrespondVacancies() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
         Vacancy vacancy1 = new Vacancy();
         vacancy1.setId(1);
         vacancy1.setPosition("java developer");
@@ -355,7 +340,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkNotFoundInGetCorrespondVacancies() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getEntityById(1)).thenReturn(candidate);
@@ -379,7 +364,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkOkInUpdateCorrespondVacancies() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getEntityById(1)).thenReturn(candidate);
@@ -413,7 +398,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkNotFoundInUpdateCorrespondVacancies() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getEntityById(1)).thenReturn(candidate);
@@ -447,7 +432,7 @@ public class CandidateControllerTest {
 
     @Test
     public void checkExceptionInUpdateCorrespondVacancies() throws Exception {
-        Candidate candidate = getCandidate();
+        Candidate candidate = objectsFactory.getCandidate();
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getEntityById(1)).thenReturn(candidate);
