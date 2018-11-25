@@ -36,7 +36,9 @@ public abstract class AbstractDao<T extends AbstractEntity> {
 
     public boolean updateEntity(T entity) {
         try {
-            session.beginTransaction().begin();
+            if(!session.beginTransaction().isActive()) {
+                session.beginTransaction().begin();
+            }
             session.update(entity);
             session.getTransaction().commit();
             return true;

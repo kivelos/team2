@@ -30,6 +30,8 @@
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:annotation-driven />
 
+    <bean id="multipartResolver"
+                class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">

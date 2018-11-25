@@ -1,19 +1,33 @@
 package dev.java.controller1;
 
 import dev.java.db.daos1.CandidateDao;
+import dev.java.db.model1.Attachment;
 import dev.java.db.model1.Candidate;
 import dev.java.db.model1.Vacancy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -88,5 +102,43 @@ public class CandidateController extends AbstractController<Candidate> {
         } catch (Exception e) {
             return getResponseEntityOnServerError(e);
         }
+    }
+
+    @PostMapping(value = "/candidate/{id:\\d+}/uploadAttachment", consumes = "multipart/form-data")
+    public ResponseEntity uploadAttachment(@PathVariable long id, @RequestParam("file") MultipartFile file,
+                                           @RequestParam("type") String type) {
+        /*if (file.isEmpty()) {
+            return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+        }*/
+
+        try {
+            String filePath = saveUploadedFiles(Arrays.asList(file));
+            Candidate candidate = getAbstractDao().getEntityById(id);
+            Attachment attachment = new Attachment();
+            attachment.setAttachmentType(Attachment.AttachmentType.valueOf(type));
+            attachment.setFilePath(filePath);
+            candidate.getAttachments().add(attachment);
+            getAbstractDao().updateEntity(candidate);
+            return ResponseEntity.created(new URI(getUrl() + candidate.getId())).build();
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    private String saveUploadedFiles(List<MultipartFile> files) throws IOException {
+        Path path = null;
+        for (MultipartFile file : files) {
+
+            if (file.isEmpty()) {
+                continue; //next pls
+            }
+
+            byte[] bytes = file.getBytes();
+            path = Paths.get(GeneralConstant.UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+        }
+        return path.toAbsolutePath().toString();
     }
 }
