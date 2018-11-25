@@ -21,6 +21,7 @@ dev\java\db\model1\ContactDetails.class
 dev\java\db\daos\FeedbackStateDao.class
 dev\java\db\model1\Vacancy$VacancyState.class
 dev\java\db\model1\User$State.class
+dev\java\controller1\FeedbackContoller.class
 dev\java\Logging.class
 dev\java\db\daos\InterviewFeedbackDao.class
 dev\java\db\model\Candidate.class
@@ -57,6 +58,7 @@ dev\java\db\daos\InterviewDao.class
 dev\java\db\model\AttachmentType.class
 dev\java\controller\UserController.class
 dev\java\controller\InterviewController.class
+dev\java\db\daos1\CandidateFeedbackDao.class
 dev\java\controller\AbstractController.class
 dev\java\controller1\AbstractController.class
 dev\java\db\model1\ContactDetails$ContactType.class

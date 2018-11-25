@@ -50,7 +50,9 @@ public abstract class CandidateFeedback extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_interviewer", referencedColumnName = "id")
-    public User getInterviewer() { return interviewer; }
+    public User getInterviewer() {
+        return interviewer;
+    }
 
     public void setInterviewer(User user) {
         this.interviewer = user;
