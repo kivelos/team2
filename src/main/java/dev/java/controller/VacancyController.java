@@ -1,7 +1,8 @@
-package dev.java.controller;
+package dev.java.controller1;
 
-import dev.java.db.daos.VacancyDao;
-import dev.java.db.model.Vacancy;
+import dev.java.db.daos1.VacancyDao;
+import dev.java.db.model1.Candidate;
+import dev.java.db.model1.Vacancy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 public class VacancyController extends AbstractController<Vacancy> {
+
     @PostConstruct
     @Override
     public void initialize() {
         super.initialize();
         setSortedField("position");
         setUrl("/vacancy/");
-        setAbstractDao(new VacancyDao(getConnection()));
+        setAbstractDao(new VacancyDao(getSession()));
     }
 
     @Override
@@ -54,5 +57,36 @@ public class VacancyController extends AbstractController<Vacancy> {
     @DeleteMapping("/vacancy/{id:\\d+}")
     public ResponseEntity deleteEntity(@PathVariable long id, HttpServletRequest request) {
         return super.deleteEntity(id, request);
+    }
+
+    @GetMapping("/vacancy/{id:\\d+}/candidates")
+    public ResponseEntity getCorrespondCandidates(@PathVariable long id, HttpServletRequest request) {
+        getLogging().runMe(request);
+        try {
+            Vacancy entity = getAbstractDao().getEntityById(id);
+            if (entity == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(entity.getCandidates());
+        } catch (Exception e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @PutMapping("/vacancy/{id:\\d+}/candidates")
+    public ResponseEntity updateCorrespondCandidates(@PathVariable long id, @RequestBody List<Candidate> candidates,
+                                                 HttpServletRequest request) {
+        getLogging().runMe(request);
+        try {
+            Vacancy entity = getAbstractDao().getEntityById(id);
+            if (entity == null) {
+                return ResponseEntity.notFound().build();
+            }
+            entity.setCandidates(candidates);
+            getAbstractDao().updateEntity(entity);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return getResponseEntityOnServerError(e);
+        }
     }
 }

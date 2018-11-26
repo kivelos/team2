@@ -1,10 +1,12 @@
-package dev.java.controller;
+package dev.java.controller1;
 
 import dev.java.Logging;
-import dev.java.db.ConnectorDB;
-import dev.java.db.daos.AbstractDao;
-import dev.java.db.model.Entity;
+import dev.java.db.daos1.AbstractDao;
+import dev.java.db.model1.AbstractEntity;
+import dev.java.db.utils.HibernateSessionFactory;
+import org.hibernate.Session;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,25 +15,22 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
-public abstract class AbstractController<T extends Entity> {
+public abstract class AbstractController<T extends AbstractEntity> {
     private final Logging logging = new Logging();
     //private final boolean sortType = true;
     private String sortedField = "";
     private String url = "";
     private AbstractDao<T> abstractDao;
-    private Connection connection;
+    private Session session;
     private int itemsInPage = GeneralConstant.ITEMS_IN_PAGE;
 
     @PostConstruct
     public void initialize() {
         try {
-            connection = ConnectorDB.getConnection();
-        } catch (SQLException e) {
+            session = HibernateSessionFactory.getSessionFactory().openSession();
+        } catch (Exception e) {
             logging.runMe(e);
         }
     }
@@ -39,8 +38,8 @@ public abstract class AbstractController<T extends Entity> {
     @PreDestroy
     public void destroy() {
         try {
-            connection.close();
-        } catch (SQLException e) {
+            HibernateSessionFactory.shutdown();
+        } catch (Exception e) {
             logging.runMe(e);
         }
     }
@@ -49,10 +48,9 @@ public abstract class AbstractController<T extends Entity> {
         logging.runMe(request);
         List<T> allEntities;
         try {
-            System.out.println(sortedField);
             allEntities = abstractDao.getSortedEntitiesPage(1, sortedField, true, itemsInPage);
             return ResponseEntity.ok(allEntities);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return getResponseEntityOnServerError(e);
         }
     }
@@ -63,8 +61,9 @@ public abstract class AbstractController<T extends Entity> {
             if (abstractDao.createEntity(entity)) {
                 return ResponseEntity.created(new URI(url + entity.getId())).build();
             }
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Invalid Input");
-        } catch (SQLException | URISyntaxException e) {
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).contentType(MediaType.TEXT_PLAIN)
+                    .body("Invalid Input");
+        } catch (Exception e) {
             return getResponseEntityOnServerError(e);
         }
     }
@@ -77,7 +76,7 @@ public abstract class AbstractController<T extends Entity> {
                 return ResponseEntity.notFound().build();
             }
             return ResponseEntity.ok(entity);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return getResponseEntityOnServerError(e);
         }
     }
@@ -90,7 +89,7 @@ public abstract class AbstractController<T extends Entity> {
                 return ResponseEntity.ok().build();
             }
             return ResponseEntity.notFound().build();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return getResponseEntityOnServerError(e);
         }
     }
@@ -98,18 +97,19 @@ public abstract class AbstractController<T extends Entity> {
     public ResponseEntity deleteEntity(@PathVariable long id, HttpServletRequest request) {
         logging.runMe(request);
         try {
-            if (abstractDao.deleteEntity(abstractDao.getEntityById(id))) {
+            if (abstractDao.deleteEntityById(id)) {
                 return ResponseEntity.ok().build();
             }
             return ResponseEntity.notFound().build();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return getResponseEntityOnServerError(e);
         }
     }
 
-    private ResponseEntity getResponseEntityOnServerError(Exception e) {
+    protected ResponseEntity getResponseEntityOnServerError(Exception e) {
         logging.runMe(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.TEXT_PLAIN)
+                .body("Server error");
     }
 
     public String getSortedField() {
@@ -144,11 +144,15 @@ public abstract class AbstractController<T extends Entity> {
         this.itemsInPage = itemsInPage;
     }
 
-    public Connection getConnection() {
-        return connection;
+    public Session getSession() {
+        return session;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Logging getLogging() {
+        return logging;
     }
 }

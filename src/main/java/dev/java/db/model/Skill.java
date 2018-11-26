@@ -1,12 +1,21 @@
-package dev.java.db.model;
+package dev.java.db.model1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Skill extends Entity {
+@Entity
+public class Skill {
     private String name;
-    private List<Vacancy> correspondingVacancies;
-    private List<Candidate> correspondingCandidates;
+    private List<Candidate> candidates = new ArrayList<>();
 
     public Skill() {
     }
@@ -15,19 +24,9 @@ public class Skill extends Entity {
         this.name = name;
     }
 
-    public static boolean isNameSkillValid(String str) {
-        if ("".equals(str)) {
-            return false;
-        }
-        str = str.toUpperCase();
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isLetter(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
+    @Id
+    @Column(name = "name", nullable = false, length = 255)
+    @SuppressWarnings("checkstyle:MagicNumber")
     public String getName() {
         return name;
     }
@@ -36,20 +35,18 @@ public class Skill extends Entity {
         this.name = name;
     }
 
-    public List<Vacancy> getCorrespondingVacancies() {
-        return correspondingVacancies;
+    @ManyToMany
+    @JoinTable(name = "candidate_competence",
+            joinColumns = {@JoinColumn(name = "skill", referencedColumnName = "name")},
+            inverseJoinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")}
+    )
+    @JsonIgnore
+    public List<Candidate> getCandidates() {
+        return candidates;
     }
 
-    public void setCorrespondingVacancies(List<Vacancy> correspondingVacancies) {
-        this.correspondingVacancies = correspondingVacancies;
-    }
-
-    public List<Candidate> getCorrespondingCandidates() {
-        return correspondingCandidates;
-    }
-
-    public void setCorrespondingCandidates(List<Candidate> correspondingCandidates) {
-        this.correspondingCandidates = correspondingCandidates;
+    public void setCandidates(List<Candidate> candidates) {
+        this.candidates = candidates;
     }
 
     @Override
@@ -61,18 +58,19 @@ public class Skill extends Entity {
             return false;
         }
         Skill skill = (Skill) o;
-        return Objects.equals(name, skill.name)
-                && Objects.equals(correspondingVacancies, skill.correspondingVacancies)
-                && Objects.equals(correspondingCandidates, skill.correspondingCandidates);
+        return Objects.equals(name, skill.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, correspondingVacancies, correspondingCandidates);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
-        return "Skill{" + "name='" + name + '\'' + '}';
+        return "Skill{"
+               + "name='" + name + '\''
+               + ", candidates=" + candidates
+               + '}';
     }
 }

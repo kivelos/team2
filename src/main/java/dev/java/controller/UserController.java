@@ -1,7 +1,7 @@
-package dev.java.controller;
+package dev.java.controller1;
 
-import dev.java.db.daos.UserDao;
-import dev.java.db.model.User;
+import dev.java.db.daos1.UserDao;
+import dev.java.db.model1.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class UserController extends AbstractController<User> {
+
     @PostConstruct
     @Override
     public void initialize() {
         super.initialize();
-        setSortedField("surname");
+        setSortedField("email");
         setUrl("/user/");
-        setAbstractDao(new UserDao(getConnection()));
+        setAbstractDao(new UserDao(getSession()));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class UserController extends AbstractController<User> {
     }
 
     @Override
-    @PostMapping("/user")
+    @PostMapping("/users")
     public ResponseEntity createEntity(@RequestBody User user, HttpServletRequest request) {
         return super.createEntity(user, request);
     }

@@ -1,160 +1,295 @@
-package dev.java.controller;
+package dev.java.controller1;
 
-import dev.java.db.daos.AbstractDao;
-import dev.java.db.model.*;
-import org.junit.Assert;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.java.db.daos1.AbstractDao;
+import dev.java.db.model1.Candidate;
+import dev.java.db.model1.CandidateExperience;
+import dev.java.db.model1.Interview;
+import dev.java.db.model1.Vacancy;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.ResponseEntity;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration
+@WebAppConfiguration
 public class InterviewControllerTest {
+    @Autowired
+    private WebApplicationContext ctx;
 
-    private InterviewController controller;
+    private MockMvc mockMvc;
 
-    private Interview getTestInterview() {
-        Interview interview = new Interview();
-        interview.setId(1);
-        interview.setCandidate(new Candidate("Evgeniy", "Zakrevskiy", Date.valueOf("1998-11-30"), 508));
-        interview.setVacancy(new Vacancy("junior", 508, 510, VacancyState.OPEN, 5,
-          new User("aaa@bbb.com", "21122112", "gleb", "mashkanov", User.State.ACTIVE )));
-        interview.setPlanDate(Timestamp.valueOf("2014-01-01 00:00:00"));
-        interview.setFactDate(Timestamp.valueOf("2014-01-02 00:00:00"));
-        return interview;
-    }
+    @Autowired
+    private InterviewController interviewController;
 
     @Before
     public void setUp() {
-        this.controller = new InterviewController();
-        this.controller.initialize();
+        //this.controller = new CandidateController();
+        //this.controller.initialize();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
+        interviewController.initialize();
+    }
+
+    @Configuration
+    @EnableWebMvc
+    public static class TestConfiguration {
+
+        @Bean
+        public InterviewController interviewController() {
+            return new InterviewController();
+        }
+
     }
 
     @Test
     public void checkOkInGetAllEntities() throws Exception {
         List<Interview> interviews = new ArrayList<>();
-        Interview interview1 = getTestInterview();
+        Interview interview1 = ObjectsFactory.getInterview();
+        Interview interview2 = new Interview();
+        interview2.setId(2);
+        interview2.setCandidate(ObjectsFactory.getCandidate());
+        interview2.setVacancy(ObjectsFactory.getVacancy());
+        interview2.setPlanDate(Timestamp.valueOf("2018-11-26 12:00:00"));
+        interview2.setFactDate(Timestamp.valueOf("2018-11-26 13:00:00"));
         interviews.add(interview1);
-        Interview interview2 = new Interview(2);
-        interview2.setCandidate(new Candidate("Shpuntik", "mashkanov", Date.valueOf("1998-11-20"), 608));
-        interview2.setVacancy(new Vacancy("middle", 608, 610, VacancyState.OPEN, 6,
-          new User("bbb@ccc.com", "21122", "gleb", "mashkanov", User.State.ACTIVE )));
-        interview2.setPlanDate(Timestamp.valueOf("2015-01-01 00:00:00"));
-        interview2.setFactDate(Timestamp.valueOf("2015-01-02 00:00:00"));
         interviews.add(interview2);
 
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getSortedEntitiesPage(anyInt(), anyString(), anyBoolean(), anyInt())).thenReturn(interviews);
-        controller.setAbstractDao(daoMock);
+        interviewController.setAbstractDao(daoMock);
+        //ResponseEntity res = this.controller.getAllEntities(mock(HttpServletRequest.class));
 
-        ResponseEntity res = this.controller.getAllEntities(mock(HttpServletRequest.class));
-        Assert.assertEquals(interviews, res.getBody());
+        //Assert.assertEquals(candidates, res.getBody());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/interviews"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].planDate", is(Timestamp.valueOf("2014-01-01 00:00:00").getTime())))
+                .andExpect(jsonPath("$[0].factDate", is(Timestamp.valueOf("2014-01-01 00:00:00").getTime())))
+                .andExpect(jsonPath("$[0].vacancy.position", is("C++ Developer")))
+                .andExpect(jsonPath("$[0].candidate.name", is("Kseniya")))
+                .andExpect(jsonPath("$[1].id", is(2)))
+                .andExpect(jsonPath("$[1].planDate", is(Timestamp.valueOf("2018-11-26 12:00:00").getTime())))
+                .andExpect(jsonPath("$[1].factDate", is(Timestamp.valueOf("2018-11-26 13:00:00").getTime())))
+                .andExpect(jsonPath("$[1].vacancy.position", is("C++ Developer")))
+                .andExpect(jsonPath("$[1].candidate.name", is("Kseniya")));
+    }
+
+    @Test
+    public void checkExceptionInGetAllEntities() throws Exception {
+        interviewController.setAbstractDao(null);
+        mockMvc.perform(MockMvcRequestBuilders.get("/interviews"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Server error"));
+        ;
     }
 
     @Test
     public void checkOkInCreateEntity() throws Exception {
-        Interview interview = getTestInterview();
+        Interview interview = ObjectsFactory.getInterview();
+
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.createEntity(interview)).thenReturn(true);
 
-        controller.setAbstractDao(daoMock);
-        controller.setUrl("/interview/");
-        ResponseEntity res = this.controller.createEntity(interview, mock(HttpServletRequest.class));
-        Assert.assertEquals("/interview/1", res.getHeaders().getLocation().toString());
+        interviewController.setAbstractDao(daoMock);
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(MockMvcRequestBuilders.post("/interviews")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(interview))
+        )
+                .andExpect(status().isCreated())
+                .andExpect(header().string("location", "/interview/1"));
     }
 
     @Test
     public void checkInvalidInputCreateEntity() throws Exception {
-        Interview interview = getTestInterview();
+        Interview interview = ObjectsFactory.getInterview();
+
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.createEntity(interview)).thenReturn(false);
-        controller.setAbstractDao(daoMock);
-        controller.setUrl("/interview/");
-        ResponseEntity res = this.controller.createEntity(interview, mock(HttpServletRequest.class));
-        Assert.assertEquals(405, res.getStatusCodeValue());
+
+        interviewController.setAbstractDao(daoMock);
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(MockMvcRequestBuilders.post("/interviews")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(interview))
+        )
+                .andExpect(status().isMethodNotAllowed())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Invalid Input"));
     }
 
     @Test
-    public void checkOkGetEntity() throws Exception {
-        Interview interview = getTestInterview();
-        AbstractDao daoMock = mock(AbstractDao.class);
-        when(daoMock.getEntityById(1)).thenReturn(interview);
-        controller.setAbstractDao(daoMock);
-        ResponseEntity res = this.controller.getEntity(1, mock(HttpServletRequest.class));
-        Assert.assertEquals(interview, res.getBody());
+    public void checkExceptionInCreateEntity() throws Exception {
+        Interview interview = ObjectsFactory.getInterview();
+
+        interviewController.setAbstractDao(null);
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(MockMvcRequestBuilders.post("/interviews")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(interview))
+        )
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Server error"));
     }
 
     @Test
-    public void checkNotFoundGetEntity() throws Exception {
-        Interview interview = getTestInterview();
+    public void checkOkInGetEntity() throws Exception {
+        Interview interview = ObjectsFactory.getInterview();
+
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getEntityById(1)).thenReturn(interview);
-        controller.setAbstractDao(daoMock);
-        ResponseEntity res = this.controller.getEntity(2, mock(HttpServletRequest.class));
-        Assert.assertEquals(404, res.getStatusCodeValue());
+        interviewController.setAbstractDao(daoMock);
+
+        mockMvc.perform(get("/interview/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.planDate", is(Timestamp.valueOf("2014-01-01 00:00:00").getTime())))
+                .andExpect(jsonPath("$.factDate", is(Timestamp.valueOf("2014-01-01 00:00:00").getTime())))
+                .andExpect(jsonPath("$.vacancy.position", is("C++ Developer")))
+                .andExpect(jsonPath("$.candidate.name", is("Kseniya")));
+    }
+
+
+
+    @Test
+    public void checkNotFoundInGetEntity() throws Exception {
+        Interview interview = ObjectsFactory.getInterview();
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(interview);
+        interviewController.setAbstractDao(daoMock);
+
+        mockMvc.perform(get("/candidate/2"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void checkSQLExceptionInGetEntity() throws Exception {
+        interviewController.setAbstractDao(null);
+
+        mockMvc.perform(get("/interview/1"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Server error"));
     }
 
     @Test
     public void checkOkInUpdateEntity() throws Exception {
-        Interview interview = getTestInterview();
+        Interview interview = ObjectsFactory.getInterview();
+
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.updateEntity(interview)).thenReturn(true);
-        controller.setAbstractDao(daoMock);
-        ResponseEntity res = this.controller.updateEntity(1, interview, mock(HttpServletRequest.class));
-        Assert.assertEquals(200, res.getStatusCodeValue());
+
+        interviewController.setAbstractDao(daoMock);
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(put("/interview/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(interview))
+        )
+                .andExpect(status().isOk());
     }
 
     @Test
     public void checkNotFoundInUpdateEntity() throws Exception {
-        Interview interview = getTestInterview();
+        Interview interview = ObjectsFactory.getInterview();
+
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.updateEntity(interview)).thenReturn(false);
-        controller.setAbstractDao(daoMock);
-        ResponseEntity res = this.controller.updateEntity(2, interview, mock(HttpServletRequest.class));
-        Assert.assertEquals(404, res.getStatusCodeValue());
+
+        interviewController.setAbstractDao(daoMock);
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(put("/interview/2")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(interview))
+        )
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void checkExceptionInUpdateEntity() throws Exception {
+        Candidate candidate = ObjectsFactory.getCandidate();
+
+        interviewController.setAbstractDao(null);
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(put("/interview/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsBytes(candidate))
+        )
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Server error"));
     }
 
     @Test
     public void checkOkInDeleteEntity() throws Exception {
-        Interview interview = getTestInterview();
         AbstractDao daoMock = mock(AbstractDao.class);
-        when(daoMock.deleteEntity(interview)).thenReturn(true);
-        when(daoMock.getEntityById(1)).thenReturn(interview);
-        controller.setAbstractDao(daoMock);
-        ResponseEntity res = this.controller.deleteEntity(1, mock(HttpServletRequest.class));
-        Assert.assertEquals(200, res.getStatusCodeValue());
+        when(daoMock.deleteEntityById(1)).thenReturn(true);
+
+        interviewController.setAbstractDao(daoMock);
+        mockMvc.perform(delete("/interview/1"))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void checkNotFoundInDeleteEntity() throws Exception {
-        Interview interview = getTestInterview();
         AbstractDao daoMock = mock(AbstractDao.class);
-        when(daoMock.deleteEntity(interview)).thenReturn(false);
-        controller.setAbstractDao(daoMock);
-        ResponseEntity res = this.controller.deleteEntity(2, mock(HttpServletRequest.class));
-        Assert.assertEquals(404, res.getStatusCodeValue());
+        when(daoMock.deleteEntityById(1)).thenReturn(false);
+
+        interviewController.setAbstractDao(daoMock);
+        mockMvc.perform(delete("/interview/2"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
     public void checkSQLExceptionInDeleteEntity() throws Exception {
-        Interview interview = getTestInterview();
-        AbstractDao daoMock = mock(AbstractDao.class);
-        when(daoMock.deleteEntity(interview)).thenThrow(new SQLException());
-        when(daoMock.getEntityById(1)).thenReturn(interview);
-        controller.setAbstractDao(daoMock);
-        ResponseEntity res = this.controller.deleteEntity(1, mock(HttpServletRequest.class));
-        Assert.assertEquals(500, res.getStatusCodeValue());
+        interviewController.setAbstractDao(null);
+        mockMvc.perform(delete("/interview/1"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Server error"));
     }
+
 
 }

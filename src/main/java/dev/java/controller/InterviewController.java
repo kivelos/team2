@@ -1,29 +1,23 @@
-package dev.java.controller;
+package dev.java.controller1;
 
-import dev.java.db.daos.InterviewDao;
-import dev.java.db.model.Interview;
+import dev.java.db.daos1.InterviewDao;
+import dev.java.db.model1.Interview;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class InterviewController extends AbstractController<Interview> {
+
     @PostConstruct
     @Override
     public void initialize() {
         super.initialize();
-        setSortedField("plan_date");
+        setSortedField("fact_date");
         setUrl("/interview/");
-        setAbstractDao(new InterviewDao(getConnection()));
+        setAbstractDao(new InterviewDao(getSession()));
     }
 
     @Override
@@ -37,6 +31,7 @@ public class InterviewController extends AbstractController<Interview> {
     public ResponseEntity createEntity(@RequestBody Interview interview, HttpServletRequest request) {
         return super.createEntity(interview, request);
     }
+
 
     @Override
     @GetMapping("/interview/{id:\\d+}")
@@ -56,4 +51,5 @@ public class InterviewController extends AbstractController<Interview> {
     public ResponseEntity deleteEntity(@PathVariable long id, HttpServletRequest request) {
         return super.deleteEntity(id, request);
     }
+
 }

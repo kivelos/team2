@@ -1,36 +1,59 @@
-package dev.java.db.model;
+package dev.java.db.model1;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Vacancy extends Entity {
+@Entity
+@Table(name = "vacancy")
+public class Vacancy extends AbstractEntity {
     private String position;
     private float salaryInDollarsFrom;
     private float salaryInDollarsTo;
     private VacancyState vacancyState;
     private float experienceYearsRequire;
     private User developer;
-    private List<Interview> interviews;
-    private List<Candidate> passedCandidates;
-    private List<Skill> skillRequirements;
+    private List<Interview> interviews = new ArrayList<>();
+    private List<Requirement> requirements = new ArrayList<>();
+    private List<Candidate> candidates = new ArrayList<>();
 
-    public Vacancy() {
+    @ManyToOne
+    @SuppressWarnings("checkstyle:ParamentName")
+    @JoinColumn(name = "id_developer", referencedColumnName = "id", nullable = false)
+    public User getDeveloper() {
+        return developer;
+    }
+    public void setDeveloper(User idDeveloper) {
+        developer = idDeveloper;
     }
 
-    public Vacancy(long id) {
-        super(id);
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long getId() {
+        return super.getId();
     }
 
-    public Vacancy(String position, float salaryInDollarsFrom, float salaryInDollarsTo,
-                   VacancyState vacancyState, float experienceYearsRequire, User developer) {
-        this.position = position;
-        this.salaryInDollarsFrom = salaryInDollarsFrom;
-        this.salaryInDollarsTo = salaryInDollarsTo;
-        this.vacancyState = vacancyState;
-        this.experienceYearsRequire = experienceYearsRequire;
-        this.developer = developer;
-    }
-
+    @Basic
+    @Column(name = "position", nullable = false, length = 1000)
+    @SuppressWarnings("checkstyle:MagicNumber")
     public String getPosition() {
         return position;
     }
@@ -39,6 +62,8 @@ public class Vacancy extends Entity {
         this.position = position;
     }
 
+    @Basic
+    @Column(name = "salary_in_dollars_from",  precision = 2)
     public float getSalaryInDollarsFrom() {
         return salaryInDollarsFrom;
     }
@@ -47,6 +72,8 @@ public class Vacancy extends Entity {
         this.salaryInDollarsFrom = salaryInDollarsFrom;
     }
 
+    @Basic
+    @Column(name = "salary_in_dollars_to", precision = 2)
     public float getSalaryInDollarsTo() {
         return salaryInDollarsTo;
     }
@@ -55,6 +82,9 @@ public class Vacancy extends Entity {
         this.salaryInDollarsTo = salaryInDollarsTo;
     }
 
+    @Basic
+    @Column(name = "vacancy_state")
+    @Enumerated(EnumType.STRING)
     public VacancyState getVacancyState() {
         return vacancyState;
     }
@@ -63,6 +93,8 @@ public class Vacancy extends Entity {
         this.vacancyState = vacancyState;
     }
 
+    @Basic
+    @Column(name = "experience_years_require", precision = 2)
     public float getExperienceYearsRequire() {
         return experienceYearsRequire;
     }
@@ -71,14 +103,7 @@ public class Vacancy extends Entity {
         this.experienceYearsRequire = experienceYearsRequire;
     }
 
-    public User getDeveloper() {
-        return developer;
-    }
-
-    public void setDeveloper(User developer) {
-        this.developer = developer;
-    }
-
+    @OneToMany(mappedBy = "vacancy")
     public List<Interview> getInterviews() {
         return interviews;
     }
@@ -87,20 +112,31 @@ public class Vacancy extends Entity {
         this.interviews = interviews;
     }
 
-    public List<Candidate> getPassedCandidates() {
-        return passedCandidates;
+    @ManyToMany
+    @JoinTable(name = "vacancy_requirement",
+            joinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "requirement", referencedColumnName = "name")}
+    )
+    public List<Requirement> getRequirements() {
+        return requirements;
     }
 
-    public void setPassedCandidates(List<Candidate> passedCandidates) {
-        this.passedCandidates = passedCandidates;
+    public void setRequirements(List<Requirement> requirements) {
+        this.requirements = requirements;
     }
 
-    public List<Skill> getSkillRequirements() {
-        return skillRequirements;
+    @ManyToMany
+    @JoinTable(name = "vacancy_candidates",
+            joinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")}
+    )
+    @JsonIgnore
+    public List<Candidate> getCandidates() {
+        return candidates;
     }
 
-    public void setSkillRequirements(List<Skill> skillRequirements) {
-        this.skillRequirements = skillRequirements;
+    public void setCandidates(List<Candidate> candidates) {
+        this.candidates = candidates;
     }
 
     @Override
@@ -111,37 +147,21 @@ public class Vacancy extends Entity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Vacancy vacancy = (Vacancy) o;
-        return Float.compare(vacancy.salaryInDollarsFrom, salaryInDollarsFrom) == 0
-                && Float.compare(vacancy.salaryInDollarsTo, salaryInDollarsTo) == 0
-                && Float.compare(vacancy.experienceYearsRequire, experienceYearsRequire) == 0
-                && Objects.equals(position, vacancy.position)
-                && vacancyState == vacancy.vacancyState
-                && Objects.equals(developer, vacancy.developer);
+        Vacancy that = (Vacancy) o;
+        return Objects.equals(position, that.position)
+               && Objects.equals(salaryInDollarsFrom, that.salaryInDollarsFrom)
+               && Objects.equals(salaryInDollarsTo, that.salaryInDollarsTo)
+               && Objects.equals(vacancyState, that.vacancyState)
+               && Objects.equals(experienceYearsRequire, that.experienceYearsRequire);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(position, salaryInDollarsFrom, salaryInDollarsTo,
-                vacancyState, experienceYearsRequire, developer);
+        return Objects.hash(position, salaryInDollarsFrom, salaryInDollarsTo, vacancyState, experienceYearsRequire);
     }
 
-    @Override
-    public String toString() {
-        return "Vacancy{"
-                + "position='"
-                + position
-                + '\''
-                + ", salaryInDollarsFrom="
-                + salaryInDollarsFrom
-                + ", salaryInDollarsTo="
-                + salaryInDollarsTo
-                + ", vacancyState="
-                + vacancyState
-                + ", experienceYearsRequire="
-                + experienceYearsRequire
-                + ", developer="
-                + developer
-                + '}';
+    public enum VacancyState {
+        OPEN,
+        CLOSE
     }
 }

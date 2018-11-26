@@ -1,66 +1,52 @@
-package dev.java.db.daos;
+package dev.java.db.daos1;
 
-import dev.java.db.model.User;
+import dev.java.db.model1.User;
+import org.hibernate.Session;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 public class UserDao extends AbstractDao<User> {
-
-
-    public UserDao(Connection connection) {
-        super(connection);
-        setSqlSelectSortedPage("SELECT * FROM user ORDER BY %s %s LIMIT ?, ?");
-        setSqlInsert("INSERT INTO user "
-                + "(email,password, surname, name, user_state) "
-                + "VALUES (?, ?, ?, ?, ?)");
-        setSqlUpdate("UPDATE user "
-                + "SET email=?, password=?, surname=?, name=?, user_state=? "
-                + "WHERE id=?");
-        setSqlSelectFilteredEntities("SELECT * FROM user "
-                + "WHERE (email=? OR ?='') AND (password=? OR ?='') AND "
-                + "(name=? OR ?='') AND (surname=? OR ?='') "
-                + "AND (user_state=? OR ?='')");
-        setSqlSelectById("SELECT * FROM user AS c WHERE c.id=?");
+    public UserDao(Session session) {
+        super(session);
     }
 
     @Override
-    protected User setEntityFields(ResultSet entityTableRow) throws SQLException {
-        User user = new User();
-        user.setId(entityTableRow.getLong("id"));
-        user.setEmail(entityTableRow.getString("email"));
-        user.setSurname(entityTableRow.getString("surname"));
-        user.setName(entityTableRow.getString("name"));
-        user.setPassword(entityTableRow.getString("password"));
-        user.setState(User.State.valueOf(entityTableRow.getString("user_state")));
-        return user;
+    public List<User> getSortedEntitiesPage(int pageNumber, String sortedField,
+                                                 boolean order, int itemsNumberInPage) {
+        CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+        CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+
+        query = query.select(root).orderBy(getOrderBy(criteriaBuilder, root.get(sortedField), order));
+
+        TypedQuery<User> typedQuery = getSession().createQuery(query);
+        typedQuery.setFirstResult((pageNumber - 1) * itemsNumberInPage);
+        typedQuery.setMaxResults(itemsNumberInPage);
+
+        return typedQuery.getResultList();
+    }
+
+    private Order getOrderBy(CriteriaBuilder criteriaBuilder, Path<Object> path, boolean order) {
+        if (order) {
+            return criteriaBuilder.asc(path);
+        } else {
+            return criteriaBuilder.desc(path);
+        }
     }
 
     @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    protected void setValuesForInsertIntoPrepareStatement(PreparedStatement prepareStatement, User user)
-            throws SQLException {
-        prepareStatement.setString(1, user.getEmail());
-        prepareStatement.setString(2, user.getPassword());
-        prepareStatement.setString(3, user.getSurname());
-        prepareStatement.setString(4, user.getName());
-        prepareStatement.setString(5, user.getState().name());
+    public List<User> getFilteredEntitiesPage(String... params) {
+        return null;
     }
 
     @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    protected void setValuesForUpdateIntoPrepareStatement(PreparedStatement prepareStatement,
-                                                          User entity) throws SQLException {
-        setValuesForInsertIntoPrepareStatement(prepareStatement, entity);
-        prepareStatement.setLong(6, entity.getId());
-    }
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    protected void setValuesForDeleteIntoPrepareStatement(PreparedStatement prepareStatement,
-                                                          User entity) throws SQLException {
-        prepareStatement.setLong(1, entity.getId());
+    public User getEntityById(long id) {
+        return getSession().get(User.class, id);
     }
 }

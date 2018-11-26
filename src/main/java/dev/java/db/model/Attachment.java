@@ -1,19 +1,14 @@
-package dev.java.db.model;
+package dev.java.db.model1;
 
-import java.io.Serializable;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Objects;
 
-public class Attachment implements Serializable {
+@Embeddable
+public class Attachment {
     private String filePath;
-    private AttachmentType type;
-
-    public Attachment() {
-    }
-
-    public Attachment(String filePath, AttachmentType type) {
-        this.filePath = filePath;
-        this.type = type;
-    }
+    private AttachmentType attachmentType;
 
     public String getFilePath() {
         return filePath;
@@ -23,12 +18,13 @@ public class Attachment implements Serializable {
         this.filePath = filePath;
     }
 
-    public AttachmentType getType() {
-        return type;
+    @Enumerated(EnumType.STRING)
+    public AttachmentType getAttachmentType() {
+        return attachmentType;
     }
 
-    public void setType(AttachmentType type) {
-        this.type = type;
+    public void setAttachmentType(AttachmentType attachmentType) {
+        this.attachmentType = attachmentType;
     }
 
     @Override
@@ -41,13 +37,25 @@ public class Attachment implements Serializable {
         }
         Attachment that = (Attachment) o;
         return Objects.equals(filePath, that.filePath)
-                && type == that.type;
+               && attachmentType == that.attachmentType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(filePath, type);
+        return Objects.hash(filePath, attachmentType);
+    }
+
+    @Override
+    public String toString() {
+        return "Attachment{"
+               + "filePath='" + filePath + '\''
+               + ", attachmentType=" + attachmentType
+               + '}';
+    }
+
+    public enum AttachmentType {
+        CV,
+        COVER_LETTER,
+        PHOTO
     }
 }
-
-
