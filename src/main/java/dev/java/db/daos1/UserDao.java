@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -21,17 +23,21 @@ public class UserDao extends AbstractDao<User> {
         CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
         Root<User> root = query.from(User.class);
 
-        if (order) {
-            query = query.select(root).orderBy(criteriaBuilder.asc(root.get(sortedField)));
-        } else {
-            query = query.select(root).orderBy(criteriaBuilder.desc(root.get(sortedField)));
-        }
+        query = query.select(root).orderBy(getOrderBy(criteriaBuilder, root.get(sortedField), order));
 
         TypedQuery<User> typedQuery = getSession().createQuery(query);
         typedQuery.setFirstResult((pageNumber - 1) * itemsNumberInPage);
         typedQuery.setMaxResults(itemsNumberInPage);
 
         return typedQuery.getResultList();
+    }
+
+    private Order getOrderBy(CriteriaBuilder criteriaBuilder, Path<Object> path, boolean order) {
+        if (order) {
+            return criteriaBuilder.asc(path);
+        } else {
+            return criteriaBuilder.desc(path);
+        }
     }
 
     @Override

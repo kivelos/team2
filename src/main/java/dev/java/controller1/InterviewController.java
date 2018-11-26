@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
+@RestController
 public class InterviewController extends AbstractController<Interview> {
 
     @PostConstruct
