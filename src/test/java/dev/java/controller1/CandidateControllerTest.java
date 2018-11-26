@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -38,7 +40,9 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -461,6 +465,45 @@ public class CandidateControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsBytes(vacancies))
         )
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Server error"));
+    }
+
+    @Test
+    public void checkOkInUploadAttachment() throws Exception {
+        Candidate candidate = objectsFactory.getCandidate();
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+        when(daoMock.updateEntity(candidate)).thenReturn(true);
+        candidateController.setAbstractDao(daoMock);
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
+                "text/plain", "Spring Framework".getBytes());
+        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
+                .param("type", "CV"))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("location", "/candidate/1"));
+    }
+
+    @Test
+    public void checkNotFoundInUploadAttachment() throws Exception {
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(null);
+        candidateController.setAbstractDao(daoMock);
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
+                "text/plain", "Spring Framework".getBytes());
+        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
+                .param("type", "CV"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void checkExceptionInUploadAttachment() throws Exception {
+        candidateController.setAbstractDao(null);
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
+                "text/plain", "Spring Framework".getBytes());
+        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
+                .param("type", "CV"))
                 .andExpect(status().isInternalServerError())
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(content().string("Server error"));

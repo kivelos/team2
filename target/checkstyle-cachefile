@@ -1,4 +1,4 @@
-#Sun Nov 25 23:36:47 GMT+02:00 2018
+#Mon Nov 26 10:21:14 GMT+02:00 2018
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\InterviewFeedback.java=1543163542035
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\UserController.java=1543163542018
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos\\SkillDao.java=1543163542025
@@ -22,7 +22,7 @@ D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Entity.java=1543163542032
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\resources\\database.properties=1543163542078
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\daos1\\CandidateFeedbackDao.java=1543181547294
-D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\CandidateController.java=1543181547310
+D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\CandidateController.java=1543220433312
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller1\\GeneralConstant.java=1543173845929
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\controller\\SimpleController.java=1543163542013
 D\:\\\u041C\u043E\u044F\ \u043F\u0430\u043F\u043A\u0430\\\u041C\u043E\u0439\ \u0443\u043D\u0438\u0432\u0435\u0440\\team2\\src\\main\\java\\dev\\java\\db\\model\\Attachment.java=1543163542029

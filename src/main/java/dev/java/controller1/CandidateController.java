@@ -4,7 +4,6 @@ import dev.java.db.daos1.CandidateDao;
 import dev.java.db.model1.Attachment;
 import dev.java.db.model1.Candidate;
 import dev.java.db.model1.Vacancy;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -110,14 +109,15 @@ public class CandidateController extends AbstractController<Candidate> {
         try {
             String filePath = saveUploadedFiles(Arrays.asList(file));
             Candidate candidate = getAbstractDao().getEntityById(id);
+            if (candidate == null) {
+                return ResponseEntity.notFound().build();
+            }
             Attachment attachment = new Attachment();
             attachment.setAttachmentType(Attachment.AttachmentType.valueOf(type));
             attachment.setFilePath(filePath);
             candidate.getAttachments().add(attachment);
             getAbstractDao().updateEntity(candidate);
             return ResponseEntity.created(new URI(getUrl() + candidate.getId())).build();
-        } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return getResponseEntityOnServerError(e);
         }
@@ -127,9 +127,9 @@ public class CandidateController extends AbstractController<Candidate> {
         Path path = null;
         for (MultipartFile file : files) {
 
-            if (file.isEmpty()) {
+            /*if (file.isEmpty()) {
                 continue; //next pls
-            }
+            }*/
 
             byte[] bytes = file.getBytes();
             path = Paths.get(GeneralConstant.UPLOADED_FOLDER + file.getOriginalFilename());
