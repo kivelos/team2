@@ -1,9 +1,9 @@
-package dev.java.controller1;
+package dev.java.controller;
 
-import dev.java.db.daos1.CandidateDao;
-import dev.java.db.model1.Attachment;
-import dev.java.db.model1.Candidate;
-import dev.java.db.model1.Vacancy;
+import dev.java.db.daos.CandidateDao;
+import dev.java.db.model.Attachment;
+import dev.java.db.model.Candidate;
+import dev.java.db.model.Vacancy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

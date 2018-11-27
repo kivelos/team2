@@ -1,6 +1,6 @@
-package dev.java.controller1;
+package dev.java.controller;
 
-import dev.java.db.model1.*;
+import dev.java.db.model.*;
 
 import java.math.BigDecimal;
 import java.sql.Date;

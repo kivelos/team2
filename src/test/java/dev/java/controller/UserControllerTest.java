@@ -1,9 +1,9 @@
-package dev.java.controller1;
+package dev.java.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.java.db.daos1.AbstractDao;
-import dev.java.db.model1.Role;
-import dev.java.db.model1.User;
+import dev.java.db.daos.AbstractDao;
+import dev.java.db.model.Role;
+import dev.java.db.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

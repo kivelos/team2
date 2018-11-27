@@ -1,6 +1,6 @@
-package dev.java.db.daos1;
+package dev.java.db.daos;
 
-import dev.java.db.model1.User;
+import dev.java.db.model.User;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;

@@ -1,7 +1,7 @@
-package dev.java.controller1;
+package dev.java.controller;
 
-import dev.java.db.daos1.UserDao;
-import dev.java.db.model1.User;
+import dev.java.db.daos.UserDao;
+import dev.java.db.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

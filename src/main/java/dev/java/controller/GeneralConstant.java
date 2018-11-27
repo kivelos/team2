@@ -1,4 +1,4 @@
-package dev.java.controller1;
+package dev.java.controller;
 
 public final class GeneralConstant {
     static final int ITEMS_IN_PAGE = 3;

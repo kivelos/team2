@@ -1,8 +1,8 @@
-package dev.java.controller1;
+package dev.java.controller;
 
 import dev.java.Logging;
-import dev.java.db.daos1.AbstractDao;
-import dev.java.db.model1.AbstractEntity;
+import dev.java.db.daos.AbstractDao;
+import dev.java.db.model.AbstractEntity;
 import dev.java.db.utils.HibernateSessionFactory;
 import org.hibernate.Session;
 import org.springframework.http.HttpStatus;

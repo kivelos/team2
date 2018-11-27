@@ -1,7 +1,7 @@
-package dev.java.controller1;
+package dev.java.controller;
 
-import dev.java.db.daos1.InterviewDao;
-import dev.java.db.model1.Interview;
+import dev.java.db.daos.InterviewDao;
+import dev.java.db.model.Interview;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

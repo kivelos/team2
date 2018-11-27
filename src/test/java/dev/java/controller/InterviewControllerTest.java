@@ -1,11 +1,9 @@
-package dev.java.controller1;
+package dev.java.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.java.db.daos1.AbstractDao;
-import dev.java.db.model1.Candidate;
-import dev.java.db.model1.CandidateExperience;
-import dev.java.db.model1.Interview;
-import dev.java.db.model1.Vacancy;
+import dev.java.db.daos.AbstractDao;
+import dev.java.db.model.Candidate;
+import dev.java.db.model.Interview;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -23,7 +20,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;

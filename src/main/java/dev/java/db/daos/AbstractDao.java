@@ -1,6 +1,6 @@
-package dev.java.db.daos1;
+package dev.java.db.daos;
 
-import dev.java.db.model1.AbstractEntity;
+import dev.java.db.model.AbstractEntity;
 import org.hibernate.Session;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package dev.java.db.model1;
+package dev.java.db.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

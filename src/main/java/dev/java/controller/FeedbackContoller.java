@@ -1,7 +1,7 @@
-package dev.java.controller1;
+package dev.java.controller;
 
-import dev.java.db.daos1.CandidateFeedbackDao;
-import dev.java.db.model1.*;
+import dev.java.db.daos.CandidateFeedbackDao;
+import dev.java.db.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
