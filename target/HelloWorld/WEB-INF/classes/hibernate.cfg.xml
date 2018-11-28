@@ -11,25 +11,25 @@
     <property name="connection.password">root</property>
     <property name="hbm2ddl.auto">update</property>
 
-    <mapping class="dev.java.db.model1.Candidate"/>
-    <mapping class="dev.java.db.model1.CandidateExperience"/>
-    <mapping class="dev.java.db.model1.Skill"/>
-    <mapping class="dev.java.db.model1.User"/>
-    <mapping class="dev.java.db.model1.CandidateState"/>
-    <mapping class="dev.java.db.model1.Vacancy"/>
-    <mapping class="dev.java.db.model1.Responsibility"/>
-    <mapping class="dev.java.db.model1.Interview"/>
-    <mapping class="dev.java.db.model1.Role"/>
-    <mapping class="dev.java.db.model1.Requirement"/>
-    <mapping class="dev.java.db.model1.FeedbackState"/>
-    <mapping class="dev.java.db.model1.SuitableState"/>
-    <mapping class="dev.java.db.model1.CandidateFeedback"/>
-    <mapping class="dev.java.db.model1.FeedbackDetails"/>
-    <mapping class="dev.java.db.model1.CVFeedback"/>
-    <mapping class="dev.java.db.model1.TMFeedback"/>
-    <mapping class="dev.java.db.model1.HRFeedback"/>
-    <mapping class="dev.java.db.model1.DevFeedback"/>
-    <mapping class="dev.java.db.model1.SuitableState"/>
+    <mapping class="dev.java.db.model.Candidate"/>
+    <mapping class="dev.java.db.model.CandidateExperience"/>
+    <mapping class="dev.java.db.model.Skill"/>
+    <mapping class="dev.java.db.model.User"/>
+    <mapping class="dev.java.db.model.CandidateState"/>
+    <mapping class="dev.java.db.model.Vacancy"/>
+    <mapping class="dev.java.db.model.Responsibility"/>
+    <mapping class="dev.java.db.model.Interview"/>
+    <mapping class="dev.java.db.model.Role"/>
+    <mapping class="dev.java.db.model.Requirement"/>
+    <mapping class="dev.java.db.model.FeedbackState"/>
+    <mapping class="dev.java.db.model.SuitableState"/>
+    <mapping class="dev.java.db.model.CandidateFeedback"/>
+    <mapping class="dev.java.db.model.FeedbackDetails"/>
+    <mapping class="dev.java.db.model.CVFeedback"/>
+    <mapping class="dev.java.db.model.TMFeedback"/>
+    <mapping class="dev.java.db.model.HRFeedback"/>
+    <mapping class="dev.java.db.model.DevFeedback"/>
+    <mapping class="dev.java.db.model.SuitableState"/>
     <!-- DB schema will be updated if needed -->
   </session-factory>
 </hibernate-configuration>

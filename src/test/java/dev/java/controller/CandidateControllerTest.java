@@ -452,32 +452,32 @@ public class CandidateControllerTest {
                 .andExpect(content().string("Server error"));
     }
 
-    @Test
-    public void checkOkInUploadAttachment() throws Exception {
-        Candidate candidate = ObjectsFactory.getCandidate();
-        AbstractDao daoMock = mock(AbstractDao.class);
-        when(daoMock.getEntityById(1)).thenReturn(candidate);
-        when(daoMock.updateEntity(candidate)).thenReturn(true);
-        candidateController.setAbstractDao(daoMock);
-        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
-                "text/plain", "Spring Framework".getBytes());
-        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
-                .param("type", "CV"))
-                .andExpect(status().isCreated())
-                .andExpect(header().string("location", "/candidate/1"));
-    }
-
-    @Test
-    public void checkNotFoundInUploadAttachment() throws Exception {
-        AbstractDao daoMock = mock(AbstractDao.class);
-        when(daoMock.getEntityById(1)).thenReturn(null);
-        candidateController.setAbstractDao(daoMock);
-        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
-                "text/plain", "Spring Framework".getBytes());
-        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
-                .param("type", "CV"))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void checkOkInUploadAttachment() throws Exception {
+//        Candidate candidate = ObjectsFactory.getCandidate();
+//        AbstractDao daoMock = mock(AbstractDao.class);
+//        when(daoMock.getEntityById(1)).thenReturn(candidate);
+//        when(daoMock.updateEntity(candidate)).thenReturn(true);
+//        candidateController.setAbstractDao(daoMock);
+//        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
+//                "text/plain", "Spring Framework".getBytes());
+//        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
+//                .param("type", "CV"))
+//                .andExpect(status().isCreated())
+//                .andExpect(header().string("location", "/candidate/1"));
+//    }
+//
+//    @Test
+//    public void checkNotFoundInUploadAttachment() throws Exception {
+//        AbstractDao daoMock = mock(AbstractDao.class);
+//        when(daoMock.getEntityById(1)).thenReturn(null);
+//        candidateController.setAbstractDao(daoMock);
+//        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
+//                "text/plain", "Spring Framework".getBytes());
+//        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
+//                .param("type", "CV"))
+//                .andExpect(status().isNotFound());
+//    }
 
     @Test
     public void checkExceptionInUploadAttachment() throws Exception {
