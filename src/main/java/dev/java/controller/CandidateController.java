@@ -3,6 +3,8 @@ package dev.java.controller;
 import dev.java.db.daos.CandidateDao;
 import dev.java.db.model.Attachment;
 import dev.java.db.model.Candidate;
+import dev.java.db.model.CandidateExperience;
+import dev.java.db.model.Interview;
 import dev.java.db.model.Vacancy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +24,8 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -78,6 +82,7 @@ public class CandidateController extends AbstractController<Candidate> {
             }
             return ResponseEntity.ok(entity.getVacancies());
         } catch (Exception e) {
+            getLogging().runMe(e);
             return getResponseEntityOnServerError(e);
         }
     }
@@ -101,11 +106,11 @@ public class CandidateController extends AbstractController<Candidate> {
 
     @PostMapping(value = "/candidate/{id:\\d+}/uploadAttachment", consumes = "multipart/form-data")
     public ResponseEntity uploadAttachment(@PathVariable long id, @RequestParam("file") MultipartFile file,
-                                           @RequestParam("type") String type) {
+                                           @RequestParam("type") String type, HttpServletRequest request) {
         /*if (file.isEmpty()) {
             return new ResponseEntity<>("please select a file!", HttpStatus.OK);
         }*/
-
+        getLogging().runMe(request);
         try {
             String filePath = saveUploadedFiles(Arrays.asList(file));
             Candidate candidate = getAbstractDao().getEntityById(id);
@@ -119,6 +124,7 @@ public class CandidateController extends AbstractController<Candidate> {
             getAbstractDao().updateEntity(candidate);
             return ResponseEntity.created(new URI(getUrl() + candidate.getId())).build();
         } catch (Exception e) {
+            getLogging().runMe(e);
             return getResponseEntityOnServerError(e);
         }
     }
@@ -136,5 +142,64 @@ public class CandidateController extends AbstractController<Candidate> {
             Files.write(path, bytes);
         }
         return path.toAbsolutePath().toString();
+    }
+
+    @GetMapping(value = "/candidate/{id:\\d+}/timeline")
+    public ResponseEntity getTimeline(@PathVariable long id, HttpServletRequest request) {
+        getLogging().runMe(request);
+
+        try {
+            Candidate entity = getAbstractDao().getEntityById(id);
+            if (entity == null) {
+                System.out.println("here");
+                return ResponseEntity.notFound().build();
+            }
+            List<TimeLine> timeLines = new ArrayList<>();
+            for (Interview interview: entity.getInterviews()) {
+                timeLines.add(new TimeLine(interview.getPlanDate(), interview.getFactDate(), interview));
+            }
+            for (CandidateExperience experience: entity.getExperiences()) {
+                timeLines.add(new TimeLine(new Timestamp(experience.getDateFrom().getTime()),
+                        new Timestamp(experience.getDateTo().getTime()), experience));
+            }
+            timeLines.sort((o1, o2) -> {
+                long dateDifference = o1.date1.getTime() - o2.date1.getTime();
+                if (dateDifference > 0) {
+                    return 1;
+                }
+                if (dateDifference < 0) {
+                    return -1;
+                }
+                dateDifference = o1.date2.getTime() - o2.date2.getTime();
+                if (dateDifference > 0) {
+                    return 1;
+                }
+                if (dateDifference < 0) {
+                    return -1;
+                }
+                return 0;
+            });
+            List<Object> interviewsAndExperiences = new ArrayList<>();
+            for (TimeLine timeLine: timeLines) {
+                interviewsAndExperiences.add(timeLine.correspondObject);
+            }
+            return ResponseEntity.ok(interviewsAndExperiences);
+        } catch (Exception e) {
+            getLogging().runMe(e);
+            return getResponseEntityOnServerError(e);
+        }
+
+    }
+
+    private static class TimeLine {
+        private Timestamp date1;
+        private Timestamp date2;
+        private Object correspondObject;
+
+        TimeLine(Timestamp date1, Timestamp date2, Object correspondObject) {
+            this.date1 = date1;
+            this.date2 = date2;
+            this.correspondObject = correspondObject;
+        }
     }
 }

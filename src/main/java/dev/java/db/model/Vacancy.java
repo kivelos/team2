@@ -104,6 +104,7 @@ public class Vacancy extends AbstractEntity {
     }
 
     @OneToMany(mappedBy = "vacancy")
+    @JsonIgnore
     public List<Interview> getInterviews() {
         return interviews;
     }

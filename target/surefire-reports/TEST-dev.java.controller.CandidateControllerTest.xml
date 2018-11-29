@@ -1,90 +1,95 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="21" failures="0" name="dev.java.controller.CandidateControllerTest" time="0.264" errors="0" skipped="0">
+<testsuite tests="26" failures="0" name="dev.java.controller.CandidateControllerTest" time="8.803" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_191\jre\bin"/>
-    <property name="java.vm.version" value="25.191-b12"/>
-    <property name="user.country.format" value="BY"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\glene\Desktop\Project\team2"/>
+    <property name="java.vm.version" value="10.0.2+13"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-10.0.2\bin"/>
+    <property name="maven.multiModuleProjectDirectory" value="D:\Моя папка\Мой универ\javaDev2"/>
+    <property name="java.vm.vendor" value="&quot;Oracle Corporation&quot;"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
-    <property name="path.separator" value=";"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="path.separator" value=";"/>
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
     <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="sun.os.patch.level" value="Service Pack 1"/>
     <property name="user.script" value=""/>
     <property name="user.country" value="RU"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="sun.os.patch.level" value=""/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\glene\Desktop\Project\team2"/>
-    <property name="java.runtime.version" value="1.8.0_191-b12"/>
+    <property name="user.dir" value="D:\Моя папка\Мой универ\javaDev2"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="java.runtime.version" value="10.0.2+13"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_191\jre\lib\endorsed"/>
     <property name="os.arch" value="amd64"/>
-    <property name="java.io.tmpdir" value="C:\Users\glene\AppData\Local\Temp\"/>
+    <property name="java.io.tmpdir" value="C:\Users\acer\AppData\Local\Temp\"/>
     <property name="line.separator" value="
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
-    <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\glene\Downloads\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin\..\bin\m2.conf"/>
+    <property name="os.name" value="Windows 7"/>
+    <property name="classworlds.conf" value="C:\Program Files\apache-maven-3.5.4\bin\..\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1251"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_191\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Users\glene\AppData\Local\Microsoft\WindowsApps;C:\Users\glene\Downloads\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;;."/>
-    <property name="maven.conf" value="C:\Users\glene\Downloads\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin\../conf"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-10.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;E:\IBM\opl\bin\x64_win64;E:\IBM\opl\oplide\;E:\IBM\cplex\bin\x64_win64;E:\IBM\cpoptimizer\bin\x64_win64;E:\IBM\ILOG\CPLEX_Studio_Community127\opl\bin\x64_win64;E:\IBM\ILOG\CPLEX_Studio_Community127\opl\oplide\;E:\IBM\ILOG\CPLEX_Studio_Community127\cplex\bin\x64_win64;E:\IBM\ILOG\CPLEX_Studio_Community127\cpoptimizer\bin\x64_win64;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\ia32\compiler;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\7-Zip;C:\FPC\2.6.0\bin\i386-Win32;C:\FPC\2.6.0\bin\i386-Win32;C:\Program Files (x86)\Delphi 10 Lite\bin;C:\FPC\2.6.0\bin\i386-Win32;C:\FPC\2.6.0\bin\i386-Win32;C:\FPC\2.6.0\bin\i386-Win32;C:\FPC\2.6.0\bin\i386-Win32;C:\FPC\2.6.0\bin\i386-Win32;E:\MATLAB\runtime\win64;E:\MATLAB\bin;E:\MATLAB\polyspace\bin;C:\FPC\2.6.0\bin\i386-Win32;-C:\Progra~1\Java\jdk-10.0.2\bin;C:\Program Files\Git\cmd;E:\MPICH2\bin;E:\MiKTeX 2.9\miktex\bin\x64\;C:\Program Files\apache-maven-3.5.4\bin;E:\heroku\bin;."/>
+    <property name="maven.conf" value="C:\Program Files\apache-maven-3.5.4\bin\../conf"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="java.class.version" value="54.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="10.0"/>
-    <property name="library.jansi.path" value="C:\Users\glene\Downloads\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin\..\lib\jansi-native"/>
-    <property name="user.home" value="C:\Users\glene"/>
-    <property name="user.timezone" value="Europe/Minsk"/>
+    <property name="os.version" value="6.1"/>
+    <property name="library.jansi.path" value="C:\Program Files\apache-maven-3.5.4\bin\..\lib\jansi-native"/>
+    <property name="user.home" value="C:\Users\acer"/>
+    <property name="user.timezone" value="GMT+02:00"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
-    <property name="java.specification.version" value="1.8"/>
     <property name="file.encoding" value="Cp1251"/>
-    <property name="user.name" value="glene"/>
-    <property name="java.class.path" value="C:\Users\glene\Downloads\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin\..\boot\plexus-classworlds-2.5.2.jar"/>
-    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="java.specification.version" value="10"/>
+    <property name="user.name" value="acer"/>
+    <property name="java.class.path" value="C:\Program Files\apache-maven-3.5.4\bin\..\boot\plexus-classworlds-2.5.2.jar"/>
+    <property name="java.vm.specification.version" value="10"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_191\jre"/>
     <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install"/>
-    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-10.0.2"/>
     <property name="user.language" value="ru"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
     <property name="java.vm.info" value="mixed mode"/>
-    <property name="java.version" value="1.8.0_191"/>
-    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_191\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
-    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_191\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_191\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_191\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_191\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_191\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_191\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_191\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_191\jre\classes"/>
-    <property name="sun.stderr.encoding" value="cp866"/>
+    <property name="java.version" value="10.0.2"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="C:\Users\glene\Downloads\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin\.."/>
+    <property name="sun.stderr.encoding" value="cp866"/>
+    <property name="maven.home" value="C:\Program Files\apache-maven-3.5.4\bin\.."/>
     <property name="file.separator" value="\"/>
-    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
-    <property name="sun.cpu.endian" value="little"/>
+    <property name="java.version.date" value="2018-07-17"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="java.vendor.version" value="18.3"/>
     <property name="sun.stdout.encoding" value="cp866"/>
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInDeleteEntity" time="0.042"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInUpdateCorrespondVacancies" time="0.012"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInDeleteEntity" time="7.169"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInUpdateCorrespondVacancies" time="0.287"/>
   <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInGetCorrespondVacancies" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkInvalidInputCreateEntity" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInUpdateEntity" time="0.001"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInCreateEntity" time="0.037"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInDeleteEntity" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetEntity" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInUpdateEntity" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInGetCorrespondVacancies" time="0.009"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInGetTimeline" time="0.006"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkInvalidInputCreateEntity" time="0.04"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInUpdateEntity" time="0.013"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInCreateEntity" time="0.023"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInDeleteEntity" time="0.003"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetEntity" time="0.079"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInUploadAttachment" time="0.024"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInUpdateEntity" time="0.027"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInGetCorrespondVacancies" time="0.104"/>
   <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInDeleteEntity" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInUploadAttachment" time="0.067"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInUpdateEntity" time="0.047"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetTimeline" time="0"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInUploadAttachment" time="0.012"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInUpdateEntity" time="0.02"/>
   <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInGetEntity" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInCreateEntity" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetCorrespondVacancies" time="0.001"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInUpdateCorrespondVacancies" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInUpdateCorrespondVacancies" time="0.002"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetAllEntities" time="0"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInGetAllEntities" time="0.032"/>
-  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInGetEntity" time="0.014"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInGetTimeline" time="0.473"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInCreateEntity" time="0.061"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInUploadAttachment" time="0.003"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetCorrespondVacancies" time="0"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkNotFoundInUpdateCorrespondVacancies" time="0.001"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInUpdateCorrespondVacancies" time="0"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkOkInGetAllEntities" time="0.001"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkExceptionInGetAllEntities" time="0.324"/>
+  <testcase classname="dev.java.controller.CandidateControllerTest" name="checkSQLExceptionInGetEntity" time="0.133"/>
 </testsuite>

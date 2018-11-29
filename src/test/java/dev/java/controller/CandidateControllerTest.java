@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.java.db.daos.AbstractDao;
 import dev.java.db.model.Candidate;
 import dev.java.db.model.CandidateExperience;
+import dev.java.db.model.Interview;
 import dev.java.db.model.Vacancy;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -452,32 +455,32 @@ public class CandidateControllerTest {
                 .andExpect(content().string("Server error"));
     }
 
-//    @Test
-//    public void checkOkInUploadAttachment() throws Exception {
-//        Candidate candidate = ObjectsFactory.getCandidate();
-//        AbstractDao daoMock = mock(AbstractDao.class);
-//        when(daoMock.getEntityById(1)).thenReturn(candidate);
-//        when(daoMock.updateEntity(candidate)).thenReturn(true);
-//        candidateController.setAbstractDao(daoMock);
-//        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
-//                "text/plain", "Spring Framework".getBytes());
-//        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
-//                .param("type", "CV"))
-//                .andExpect(status().isCreated())
-//                .andExpect(header().string("location", "/candidate/1"));
-//    }
-//
-//    @Test
-//    public void checkNotFoundInUploadAttachment() throws Exception {
-//        AbstractDao daoMock = mock(AbstractDao.class);
-//        when(daoMock.getEntityById(1)).thenReturn(null);
-//        candidateController.setAbstractDao(daoMock);
-//        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
-//                "text/plain", "Spring Framework".getBytes());
-//        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
-//                .param("type", "CV"))
-//                .andExpect(status().isNotFound());
-//    }
+    @Test
+    public void checkOkInUploadAttachment() throws Exception {
+        Candidate candidate = ObjectsFactory.getCandidate();
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+        when(daoMock.updateEntity(candidate)).thenReturn(true);
+        candidateController.setAbstractDao(daoMock);
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
+                "text/plain", "Spring Framework".getBytes());
+        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
+                .param("type", "CV"))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("location", "/candidate/1"));
+    }
+
+    @Test
+    public void checkNotFoundInUploadAttachment() throws Exception {
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(null);
+        candidateController.setAbstractDao(daoMock);
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "test.txt",
+                "text/plain", "Spring Framework".getBytes());
+        mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
+                .param("type", "CV"))
+                .andExpect(status().isNotFound());
+    }
 
     @Test
     public void checkExceptionInUploadAttachment() throws Exception {
@@ -486,6 +489,82 @@ public class CandidateControllerTest {
                 "text/plain", "Spring Framework".getBytes());
         mockMvc.perform(fileUpload("/candidate/1/uploadAttachment").file(mockMultipartFile)
                 .param("type", "CV"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("Server error"));
+    }
+
+    @Test
+    public void checkOkInGetTimeline() throws Exception {
+        Candidate candidate = ObjectsFactory.getCandidate();
+
+        CandidateExperience experience1 = new CandidateExperience();
+        experience1.setDateFrom(Date.valueOf("2012-04-06"));
+        experience1.setDateTo(Date.valueOf("2018-11-06"));
+        CandidateExperience experience2 = new CandidateExperience();
+        experience2.setDateFrom(Date.valueOf("2012-04-06"));
+        experience2.setDateTo(Date.valueOf("2018-04-06"));
+        CandidateExperience experience3 = new CandidateExperience();
+        experience3.setDateFrom(Date.valueOf("2012-04-06"));
+        experience3.setDateTo(Date.valueOf("2018-04-06"));
+        candidate.getExperiences().add(experience1);
+        candidate.getExperiences().add(experience2);
+        candidate.getExperiences().add(experience3);
+
+        Interview interview0 = new Interview();
+        interview0.setPlanDate(Timestamp.valueOf("2011-05-02 12:00:00"));
+        interview0.setFactDate(Timestamp.valueOf("2011-05-03 11:00:00"));
+        Interview interview1 = new Interview();
+        interview1.setPlanDate(Timestamp.valueOf("2011-05-02 12:00:00"));
+        interview1.setFactDate(Timestamp.valueOf("2011-05-03 12:00:00"));
+        Interview interview2 = new Interview();
+        interview2.setPlanDate(Timestamp.valueOf("2018-04-02 13:30:00"));
+        interview2.setFactDate(Timestamp.valueOf("2018-05-03 13:30:00"));
+        Interview interview3 = new Interview();
+        interview3.setPlanDate(Timestamp.valueOf("2011-05-02 13:00:00"));
+        interview3.setFactDate(Timestamp.valueOf("2011-05-03 13:00:00"));
+        candidate.getInterviews().add(interview0);
+        candidate.getInterviews().add(interview1);
+        candidate.getInterviews().add(interview2);
+        candidate.getInterviews().add(interview3);
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+        candidateController.setAbstractDao(daoMock);
+        mockMvc.perform(get("/candidate/1/timeline"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(7)))
+                .andExpect(jsonPath("$[0].planDate", is(Timestamp.valueOf("2011-05-02 12:00:00").getTime())))
+                .andExpect(jsonPath("$[0].factDate", is(Timestamp.valueOf("2011-05-03 11:00:00").getTime())))
+                .andExpect(jsonPath("$[1].planDate", is(Timestamp.valueOf("2011-05-02 12:00:00").getTime())))
+                .andExpect(jsonPath("$[1].factDate", is(Timestamp.valueOf("2011-05-03 12:00:00").getTime())))
+                .andExpect(jsonPath("$[2].planDate", is(Timestamp.valueOf("2011-05-02 13:00:00").getTime())))
+                .andExpect(jsonPath("$[2].factDate", is(Timestamp.valueOf("2011-05-03 13:00:00").getTime())))
+                .andExpect(jsonPath("$[3].dateFrom", is(Date.valueOf("2012-04-06").getTime())))
+                .andExpect(jsonPath("$[3].dateTo", is(Date.valueOf("2018-04-06").getTime())))
+                .andExpect(jsonPath("$[4].dateFrom", is(Date.valueOf("2012-04-06").getTime())))
+                .andExpect(jsonPath("$[4].dateTo", is(Date.valueOf("2018-04-06").getTime())))
+                .andExpect(jsonPath("$[5].dateFrom", is(Date.valueOf("2012-04-06").getTime())))
+                .andExpect(jsonPath("$[5].dateTo", is(Date.valueOf("2018-11-06").getTime())))
+                .andExpect(jsonPath("$[6].planDate", is(Timestamp.valueOf("2018-04-02 13:30:00").getTime())))
+                .andExpect(jsonPath("$[6].factDate", is(Timestamp.valueOf("2018-05-03 13:30:00").getTime())));
+    }
+
+    @Test
+    public void checkNotFoundInGetTimeline() throws Exception {
+        Candidate candidate = ObjectsFactory.getCandidate();
+
+        AbstractDao daoMock = mock(AbstractDao.class);
+        when(daoMock.getEntityById(1)).thenReturn(candidate);
+        candidateController.setAbstractDao(daoMock);
+        mockMvc.perform(get("/candidate/2/timeline"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void checkExceptionInGetTimeline() throws Exception {
+        candidateController.setAbstractDao(null);
+        mockMvc.perform(get("/candidate/1/timeline"))
                 .andExpect(status().isInternalServerError())
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(content().string("Server error"));

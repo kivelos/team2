@@ -17,6 +17,7 @@ dev\java\db\model\Candidate.class
 dev\java\db\model\Interview.class
 dev\java\db\model\User.class
 dev\java\db\model\AbstractEntity.class
+dev\java\controller\CandidateController$TimeLine.class
 dev\java\db\model\CandidateExperience.class
 dev\java\db\daos\TMFeedbackDao.class
 dev\java\db\ConnectorDB.class
