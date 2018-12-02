@@ -1,11 +1,7 @@
 package dev.java.controller;
 
 import dev.java.db.daos.CandidateDao;
-import dev.java.db.model.Attachment;
-import dev.java.db.model.Candidate;
-import dev.java.db.model.CandidateExperience;
-import dev.java.db.model.Interview;
-import dev.java.db.model.Vacancy;
+import dev.java.db.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,6 +67,47 @@ public class CandidateController extends AbstractController<Candidate> {
     public ResponseEntity deleteEntity(@PathVariable long id, HttpServletRequest request) {
         return super.deleteEntity(id, request);
     }
+
+
+    @GetMapping("/candidates/search/personal_info")
+    public ResponseEntity getCandidatesByPersonalInfo(@RequestBody Candidate candidate, HttpServletRequest request){
+        getLogging().runMe(request);
+        List<Candidate> candidates;
+        try {
+            CandidateDao candidateDao = new CandidateDao(getSession());
+            candidates = candidateDao.getCandidatesByPersonalDates(candidate);
+            return ResponseEntity.ok(candidates);
+        } catch (Exception e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+    @GetMapping("/candidates/search/contacts")
+    public ResponseEntity getCandidatesByContacts(@RequestBody ContactDetails contact, HttpServletRequest request){
+        getLogging().runMe(request);
+        List<Candidate> candidates;
+        try {
+            CandidateDao candidateDao = new CandidateDao(getSession());
+            candidates = candidateDao.getCandidatesByContact(contact);
+            return ResponseEntity.ok(candidates);
+        } catch (Exception e) {
+            return getResponseEntityOnServerError(e);
+        }
+    }
+
+//    @GetMapping("/candidates/search/skills")
+//    public ResponseEntity getCandidatesBySkills(@RequestBody List<Skill> skills, HttpServletRequest request){
+//        getLogging().runMe(request);
+//        List<Candidate> candidates;
+//        try {
+//            CandidateDao candidateDao = new CandidateDao(getSession());
+//            candidates = candidateDao.getCandidatesBySkills(skills);
+//            return ResponseEntity.ok(candidates);
+//        } catch (Exception e) {
+//            return getResponseEntityOnServerError(e);
+//        }
+//    }
+
 
     @GetMapping("/candidate/{id:\\d+}/vacancies")
     public ResponseEntity getCorrespondVacancies(@PathVariable long id, HttpServletRequest request) {
@@ -143,6 +180,8 @@ public class CandidateController extends AbstractController<Candidate> {
         }
         return path.toAbsolutePath().toString();
     }
+
+
 
     @GetMapping(value = "/candidate/{id:\\d+}/timeline")
     public ResponseEntity getTimeline(@PathVariable long id, HttpServletRequest request) {

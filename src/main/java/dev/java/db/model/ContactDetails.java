@@ -1,9 +1,11 @@
 package dev.java.db.model;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.util.Objects;
+
 
 @Embeddable
 public class ContactDetails {
