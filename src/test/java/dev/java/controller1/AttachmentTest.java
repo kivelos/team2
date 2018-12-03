@@ -3,13 +3,13 @@ package dev.java.controller1;
 public class AttachmentTest {
 
     public static void main(String[] args) {
-        String from = "*****@gmail.com";
-        String password = "*****";
-        String to = "*****@gmail.com,*****@gmail.com";
+        String from = "*****@gmail.com"; //вместо звездочек почта
+        String password = "*****"; //тут пароль вмето звездочек, хз как сделать чтобы он был не в коде
+        String to = "*****@gmail.com,*****@gmail.com"; //та же почта
         String cc = "*****@gmail.com,*****@gmail.com";
         String subject = "Email from Java";
         String message = "Email code checking!!!";
-        String attchment = "D://mail-test/*****.txt,D://mail-test/*****.txt";
+        String attchment = "D://mail-test/*****.txt,D://mail-test/*****.txt"; //тут путь до файла, надо будет на путь в бд поменять
 
         String successMessage = " ";
 
