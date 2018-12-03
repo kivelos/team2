@@ -24,6 +24,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "candidate", schema = "staffjobs")
@@ -105,10 +106,9 @@ public class Candidate extends AbstractEntity {
     }
 
     public void setExperiences(List<CandidateExperience> experiences) {
-        this.experiences = experiences;
-        for (CandidateExperience experience: this.experiences) {
-            experience.setCandidate(this);
-        }
+        this.experiences = experiences.stream()
+                .peek(experience -> experience.setCandidate(this))
+                .collect(Collectors.toList());
     }
 
     @ManyToMany()

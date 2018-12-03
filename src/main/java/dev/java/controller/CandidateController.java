@@ -1,7 +1,10 @@
 package dev.java.controller;
 
 import dev.java.db.daos.CandidateDao;
-import dev.java.db.model.*;
+import dev.java.db.model.Attachment;
+import dev.java.db.model.Candidate;
+import dev.java.db.model.ContactDetails;
+import dev.java.db.model.Vacancy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +24,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class CandidateController extends AbstractController<Candidate> {
@@ -70,12 +73,12 @@ public class CandidateController extends AbstractController<Candidate> {
 
 
     @GetMapping("/candidates/search/personal_info")
-    public ResponseEntity getCandidatesByPersonalInfo(@RequestBody Candidate candidate, HttpServletRequest request){
+    public ResponseEntity getCandidatesByPersonalInfo(@RequestBody Candidate candidate, HttpServletRequest request) {
         getLogging().runMe(request);
         List<Candidate> candidates;
         try {
             CandidateDao candidateDao = new CandidateDao(getSession());
-            candidates = candidateDao.getCandidatesByPersonalDates(candidate);
+            candidates = candidateDao.getCandidatesByPersonalData(candidate);
             return ResponseEntity.ok(candidates);
         } catch (Exception e) {
             return getResponseEntityOnServerError(e);
@@ -83,7 +86,7 @@ public class CandidateController extends AbstractController<Candidate> {
     }
 
     @GetMapping("/candidates/search/contacts")
-    public ResponseEntity getCandidatesByContacts(@RequestBody ContactDetails contact, HttpServletRequest request){
+    public ResponseEntity getCandidatesByContacts(@RequestBody ContactDetails contact, HttpServletRequest request) {
         getLogging().runMe(request);
         List<Candidate> candidates;
         try {
@@ -169,11 +172,6 @@ public class CandidateController extends AbstractController<Candidate> {
     private String saveUploadedFiles(List<MultipartFile> files) throws IOException {
         Path path = null;
         for (MultipartFile file : files) {
-
-            /*if (file.isEmpty()) {
-                continue; //next pls
-            }*/
-
             byte[] bytes = file.getBytes();
             path = Paths.get(GeneralConstant.UPLOADED_FOLDER + file.getOriginalFilename());
             Files.write(path, bytes);
@@ -193,14 +191,16 @@ public class CandidateController extends AbstractController<Candidate> {
                 System.out.println("here");
                 return ResponseEntity.notFound().build();
             }
-            List<TimeLine> timeLines = new ArrayList<>();
-            for (Interview interview: entity.getInterviews()) {
-                timeLines.add(new TimeLine(interview.getPlanDate(), interview.getFactDate(), interview));
-            }
-            for (CandidateExperience experience: entity.getExperiences()) {
-                timeLines.add(new TimeLine(new Timestamp(experience.getDateFrom().getTime()),
-                        new Timestamp(experience.getDateTo().getTime()), experience));
-            }
+            List<TimeLine> timeLines = entity.getInterviews().stream()
+                    .map(interview -> new TimeLine(interview.getPlanDate(), interview.getFactDate(), interview))
+                    .collect(Collectors.toList());
+
+            timeLines.addAll(
+                    entity.getExperiences().stream()
+                    .map(experience -> new TimeLine(new Timestamp(experience.getDateFrom().getTime()),
+                            new Timestamp(experience.getDateTo().getTime()), experience))
+                    .collect(Collectors.toList())
+            );
             timeLines.sort((o1, o2) -> {
                 long dateDifference = o1.date1.getTime() - o2.date1.getTime();
                 if (dateDifference > 0) {
@@ -218,10 +218,9 @@ public class CandidateController extends AbstractController<Candidate> {
                 }
                 return 0;
             });
-            List<Object> interviewsAndExperiences = new ArrayList<>();
-            for (TimeLine timeLine: timeLines) {
-                interviewsAndExperiences.add(timeLine.correspondObject);
-            }
+            List<Object> interviewsAndExperiences = timeLines.stream()
+                    .map(timeLine -> timeLine.correspondObject)
+                    .collect(Collectors.toList());
             return ResponseEntity.ok(interviewsAndExperiences);
         } catch (Exception e) {
             getLogging().runMe(e);

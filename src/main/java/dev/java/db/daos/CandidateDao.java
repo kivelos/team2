@@ -16,27 +16,30 @@ public class CandidateDao extends AbstractDao<Candidate> {
         super(session);
     }
 
-    public List<Candidate> getCandidatesByPersonalDates(Candidate candidate) {
+    public List<Candidate> getCandidatesByPersonalData(Candidate candidate) {
         String request = "FROM Candidate";
-        if(( candidate.getName() != null && !candidate.getName().equals("") )
+        if ((candidate.getName() != null && !candidate.getName().equals(""))
                 || (candidate.getBirthday() != null)
-                || ( candidate.getSurname() != null && !candidate.getSurname().equals("")))
+                || (candidate.getSurname() != null && !candidate.getSurname().equals(""))) {
             request += " WHERE ";
+        }
         boolean flagAnd = false;
         if (candidate.getName() != null && !candidate.getName().equals("")) {
-            request += "name = \'"+candidate.getName()+"\'";
+            request += "name = \'" + candidate.getName() + "\'";
             flagAnd = true;
         }
         if (candidate.getSurname() != null && !candidate.getSurname().equals("")) {
-            if (flagAnd)
+            if (flagAnd) {
                 request += " AND ";
-            request += "surname = \'"+candidate.getSurname()+"\'";
+            }
+            request += "surname = \'" + candidate.getSurname() + "\'";
             flagAnd = true;
         }
-        if (candidate.getBirthday() != null){
-            if (flagAnd)
+        if (candidate.getBirthday() != null) {
+            if (flagAnd) {
                 request += " AND ";
-            request += "birthday = \'"+candidate.getBirthday()+"\'";
+            }
+            request += "birthday = \'" + candidate.getBirthday() + "\'";
         }
         Query query = getSession().createQuery(request);
         List<Candidate> candidates = ((org.hibernate.query.Query) query).list();
@@ -44,9 +47,10 @@ public class CandidateDao extends AbstractDao<Candidate> {
     }
 
     public List<Candidate> getCandidatesByContact(ContactDetails contact) {
-        String request = "FROM Candidate cand " +
-                " WHERE contact in elements(cand.contactDetails)";
-        Query query = getSession().createQuery(request);
+        String request = "FROM Candidate cand JOIN cand.contactDetails cd WHERE cd.contactDetails = :contact";
+        Query query = getSession().createQuery(request, Candidate.class);
+        query.setParameter("contact", "123");
+
         List<Candidate> candidates = ((org.hibernate.query.Query) query).list();
         return candidates;
     }
@@ -81,3 +85,12 @@ public class CandidateDao extends AbstractDao<Candidate> {
         return getSession().get(Candidate.class, id);
     }
 }
+
+//select  candidate0_.id as id1_0_,
+//        candidate0_.birthday as birthday2_0_,
+//        candidate0_.candidate_state as candidat6_0_,
+//        candidate0_.name as name3_0_,
+//        candidate0_.salary_in_dollars as salary_i4_0_,
+//        candidate0_.surname as surname5_0_
+//from candidate candidate0_
+//            cross join contact_details contactdet1_ where candidate0_.id=contactdet1_.id_candidate and .=?

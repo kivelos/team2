@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: dev.java.controller.CandidateControllerTest
 -------------------------------------------------------------------------------
-Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.864 sec
+Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.963 sec

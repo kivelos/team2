@@ -1,18 +1,12 @@
 package dev.java.db;
 
-import dev.java.db.daos.CandidateDao;
-import dev.java.db.model.Candidate;
-import dev.java.db.model.ContactDetails;
 import dev.java.db.utils.HibernateSessionFactory;
 import org.hibernate.Session;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public final class ConnectorDB {
@@ -32,7 +26,7 @@ public final class ConnectorDB {
     public static void main(String[] args) throws SQLException, ParseException {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
-        CandidateDao candidateDao = new CandidateDao(session);
+        /*CandidateDao candidateDao = new CandidateDao(session);
         Candidate candidate = new Candidate();
         candidate.setName("Noda");
         candidate.setSurname("Megumi");
@@ -41,10 +35,10 @@ public final class ConnectorDB {
         java.util.Date date = sdf.parse(strDate);
         java.sql.Date sqlDate = new Date(date.getTime());
         candidate.setBirthday(sqlDate);
-        List<Candidate> result = candidateDao.getCandidatesByPersonalDates(candidate);
+        List<Candidate> result = candidateDao.getCandidatesByPersonalData(candidate);
         ContactDetails contactDetails = new ContactDetails();
         contactDetails.setContactDetails("+375444859574");
-        result = candidateDao.getCandidatesByContact(contactDetails);
+        result = candidateDao.getCandidatesByContact(contactDetails);*/
 
 
         /*Vacancy vacancy = new Vacancy();

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="14" failures="0" name="dev.java.controller.TMFeedbackControllerTest" time="0.154" errors="0" skipped="0">
+<testsuite tests="14" failures="0" name="dev.java.controller.TMFeedbackControllerTest" time="0.266" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="10.0.2+13"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-10.0.2\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="D:\Моя папка\Мой универ\javaDev2"/>
+    <property name="maven.multiModuleProjectDirectory" value="D:\Моя папка\Мой универ\team2"/>
     <property name="java.vm.vendor" value="&quot;Oracle Corporation&quot;"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="user.country" value="RU"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="D:\Моя папка\Мой универ\javaDev2"/>
+    <property name="user.dir" value="D:\Моя папка\Мой универ\team2"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="java.runtime.version" value="10.0.2+13"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
@@ -66,18 +66,18 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkSQLExceptionInDeleteEntity" time="0.012"/>
-  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkInvalidInputCreateEntity" time="0"/>
-  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkOkInUpdateEntity" time="0"/>
-  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkExceptionInCreateEntity" time="0.073"/>
+  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkSQLExceptionInDeleteEntity" time="0.018"/>
+  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkInvalidInputCreateEntity" time="0.025"/>
+  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkOkInUpdateEntity" time="0.03"/>
+  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkExceptionInCreateEntity" time="0.041"/>
   <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkOkInDeleteEntity" time="0"/>
   <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkOkInGetEntity" time="0"/>
   <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkNotFoundInUpdateEntity" time="0"/>
   <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkNotFoundInDeleteEntity" time="0"/>
-  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkExceptionInUpdateEntity" time="0.055"/>
+  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkExceptionInUpdateEntity" time="0.08"/>
   <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkNotFoundInGetEntity" time="0"/>
   <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkOkInCreateEntity" time="0"/>
-  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkOkInGetAllEntities" time="0.001"/>
-  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkExceptionInGetAllEntities" time="0.008"/>
-  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkSQLExceptionInGetEntity" time="0.005"/>
+  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkOkInGetAllEntities" time="0"/>
+  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkExceptionInGetAllEntities" time="0.045"/>
+  <testcase classname="dev.java.controller.TMFeedbackControllerTest" name="checkSQLExceptionInGetEntity" time="0.027"/>
 </testsuite>
