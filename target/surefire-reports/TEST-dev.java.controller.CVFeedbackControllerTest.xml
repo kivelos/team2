@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="14" failures="0" name="dev.java.controller.CVFeedbackControllerTest" time="0.123" errors="0" skipped="0">
+<testsuite tests="14" failures="0" name="dev.java.controller.CVFeedbackControllerTest" time="0.437" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="10.0.2+13"/>
@@ -66,18 +66,18 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkSQLExceptionInDeleteEntity" time="0.056"/>
-  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkInvalidInputCreateEntity" time="0.036"/>
-  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkOkInUpdateEntity" time="0"/>
+  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkSQLExceptionInDeleteEntity" time="0.311"/>
+  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkInvalidInputCreateEntity" time="0.003"/>
+  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkOkInUpdateEntity" time="0.002"/>
   <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkExceptionInCreateEntity" time="0.018"/>
   <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkOkInDeleteEntity" time="0"/>
   <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkOkInGetEntity" time="0"/>
-  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkNotFoundInUpdateEntity" time="0"/>
+  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkNotFoundInUpdateEntity" time="0.001"/>
   <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkNotFoundInDeleteEntity" time="0"/>
-  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkExceptionInUpdateEntity" time="0.004"/>
+  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkExceptionInUpdateEntity" time="0.049"/>
   <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkNotFoundInGetEntity" time="0"/>
   <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkOkInCreateEntity" time="0"/>
   <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkOkInGetAllEntities" time="0"/>
-  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkExceptionInGetAllEntities" time="0.005"/>
-  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkSQLExceptionInGetEntity" time="0.004"/>
+  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkExceptionInGetAllEntities" time="0.039"/>
+  <testcase classname="dev.java.controller.CVFeedbackControllerTest" name="checkSQLExceptionInGetEntity" time="0.014"/>
 </testsuite>

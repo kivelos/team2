@@ -10,6 +10,7 @@ dev\java\db\model\SuitableState.class
 dev\java\controller\TMFeedbackController.class
 dev\java\DateProcessor.class
 dev\java\db\model\Attachment$AttachmentType.class
+dev\java\controller\HelloController.class
 dev\java\db\model\ContactDetails$ContactType.class
 dev\java\db\model\HRFeedback.class
 dev\java\Logging.class
