@@ -32,12 +32,24 @@
         <b:constructor-arg name="strength" value="11"/>
     </b:bean>
 
+    <b:bean id="jwtLoginFilter" class="dev.java.security.JWTLoginFilter">
+        <b:constructor-arg index="0" type="java.lang.String" value="/login"/>
+        <b:constructor-arg index="1" type="org.springframework.security.authentication.AuthenticationManager" ref="authenticationManager" />
+    </b:bean>
+
+    <b:bean id="jwtAuthenticationFilter" class="dev.java.security.JWTAuthenticationFilter"/>
+
+
     <http auto-config="true"> <!-- Это сокращенный синтаксис, отвечает за установку логина на основе веб-формы, базовый логин и выход из приложения -->
-        <intercept-url pattern="/"
-                       access="hasAuthority('ADMIN')"/> <!-- Задает шаблон, с которым сравниваются URL-адреа входящих запросов, тоесть что бы попасть в любой файл(так как у нас в pattern="/") нам нужно иметь доступ админа -->
+        <csrf disabled="true"/>
+        <intercept-url pattern="/login"
+                       access="permitAll()" method="POST"/> <!-- Задает шаблон, с которым сравниваются URL-адреа входящих запросов, тоесть что бы попасть в любой файл(так как у нас в pattern="/") нам нужно иметь доступ админа -->
+        <intercept-url pattern="/candidates" access="hasAuthority('ADMIN')"/>
+        <custom-filter before="FORM_LOGIN_FILTER" ref="jwtLoginFilter"/>
+        <custom-filter after="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
     </http>
 
-    <authentication-manager>
+    <authentication-manager id="authenticationManager">
         <authentication-provider>
             <jdbc-user-service
                     data-source-ref="dataSource"

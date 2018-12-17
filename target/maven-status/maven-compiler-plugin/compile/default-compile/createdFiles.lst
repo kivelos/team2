@@ -12,6 +12,7 @@ dev\java\DateProcessor.class
 dev\java\db\model\Attachment$AttachmentType.class
 dev\java\controller\HelloController.class
 dev\java\db\model\ContactDetails$ContactType.class
+dev\java\security\JWTAuthenticationFilter.class
 dev\java\db\model\HRFeedback.class
 dev\java\Logging.class
 dev\java\db\model\Candidate.class
@@ -21,6 +22,7 @@ dev\java\db\model\AbstractEntity.class
 dev\java\controller\CandidateController$TimeLine.class
 dev\java\db\model\CandidateExperience.class
 dev\java\db\daos\TMFeedbackDao.class
+dev\java\security\TokenAuthenticationService.class
 dev\java\db\ConnectorDB.class
 dev\java\db\model\User$State.class
 dev\java\db\daos\CandidateDao.class
@@ -28,6 +30,7 @@ dev\java\db\model\ContactDetails.class
 dev\java\db\model\FeedbackDetails.class
 dev\java\db\daos\VacancyDao.class
 dev\java\db\model\Attachment.class
+dev\java\security\JWTLoginFilter.class
 dev\java\db\daos\HRFeedbackDao.class
 dev\java\db\daos\AbstractDao.class
 dev\java\db\daos\UserDao.class
@@ -36,6 +39,7 @@ dev\java\db\model\CandidateFeedback.class
 dev\java\db\utils\HibernateSessionFactory.class
 dev\java\controller\CVFeedbackController.class
 dev\java\db\daos\CandidateFeedbackDao.class
+dev\java\security\Example.class
 dev\java\db\model\Vacancy$VacancyState.class
 dev\java\db\daos\InterviewDao.class
 dev\java\controller\UserController.class
