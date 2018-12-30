@@ -3,8 +3,6 @@ package dev.java.controller;
 import dev.java.Logging;
 import dev.java.db.daos.AbstractDao;
 import dev.java.db.model.AbstractEntity;
-import dev.java.db.utils.HibernateSessionFactory;
-import org.hibernate.Session;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,34 +16,34 @@ import java.net.URI;
 import java.util.List;
 
 public abstract class AbstractController<T extends AbstractEntity> {
-    private final Logging logging = new Logging();
+    static final Logging LOGGING = new Logging();
     //private final boolean sortType = true;
     private String sortedField = "";
     private String url = "";
     private AbstractDao<T> abstractDao;
-    private Session session;
     private int itemsInPage = GeneralConstant.ITEMS_IN_PAGE;
 
     @PostConstruct
     public void initialize() {
-        try {
+        /*try {
             session = HibernateSessionFactory.getSessionFactory().openSession();
         } catch (Exception e) {
-            logging.runMe(e);
-        }
+            LOGGING.runMe(e);
+        }*/
     }
 
     @PreDestroy
     public void destroy() {
-        try {
+        /*try {
+            session.close();
             HibernateSessionFactory.shutdown();
         } catch (Exception e) {
-            logging.runMe(e);
-        }
+            LOGGING.runMe(e);
+        }*/
     }
 
     public ResponseEntity getAllEntities(HttpServletRequest request) {
-        logging.runMe(request);
+        LOGGING.runMe(request);
         List<T> allEntities;
         try {
             allEntities = abstractDao.getSortedEntitiesPage(1, sortedField, true, itemsInPage);
@@ -56,7 +54,7 @@ public abstract class AbstractController<T extends AbstractEntity> {
     }
 
     public ResponseEntity createEntity(@RequestBody T entity, HttpServletRequest request) {
-        logging.runMe(request);
+        LOGGING.runMe(request);
         try {
             if (abstractDao.createEntity(entity)) {
                 return ResponseEntity.created(new URI(url + entity.getId())).build();
@@ -69,7 +67,7 @@ public abstract class AbstractController<T extends AbstractEntity> {
     }
 
     public ResponseEntity getEntity(@PathVariable long id, HttpServletRequest request) {
-        logging.runMe(request);
+        LOGGING.runMe(request);
         try {
             T entity = abstractDao.getEntityById(id);
             if (entity == null) {
@@ -83,7 +81,7 @@ public abstract class AbstractController<T extends AbstractEntity> {
 
     public ResponseEntity updateEntity(@PathVariable long id, @RequestBody T entity,
                                        HttpServletRequest request) {
-        logging.runMe(request);
+        LOGGING.runMe(request);
         try {
             if (abstractDao.updateEntity(entity)) {
                 return ResponseEntity.ok().build();
@@ -95,7 +93,7 @@ public abstract class AbstractController<T extends AbstractEntity> {
     }
 
     public ResponseEntity deleteEntity(@PathVariable long id, HttpServletRequest request) {
-        logging.runMe(request);
+        LOGGING.runMe(request);
         try {
             if (abstractDao.deleteEntityById(id)) {
                 return ResponseEntity.ok().build();
@@ -106,8 +104,8 @@ public abstract class AbstractController<T extends AbstractEntity> {
         }
     }
 
-    protected ResponseEntity getResponseEntityOnServerError(Exception e) {
-        logging.runMe(e);
+    static ResponseEntity getResponseEntityOnServerError(Exception e) {
+        LOGGING.runMe(e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.TEXT_PLAIN)
                 .body("Server error");
     }
@@ -144,15 +142,7 @@ public abstract class AbstractController<T extends AbstractEntity> {
         this.itemsInPage = itemsInPage;
     }
 
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
     public Logging getLogging() {
-        return logging;
+        return LOGGING;
     }
 }

@@ -3,13 +3,12 @@
         "-//Hibernate/Hibernate Configuration DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
+  <sessionFactory-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="connection.url">jdbc:mysql://localhost:3306/StaffJobs?verifyServerCertificate=false&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;requireSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+    <property name="connection.url">jdbc:mysql://team6new.c937x7bxd7wg.eu-central-1.rds.amazonaws.com:3306/team6?verifyServerCertificate=false&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;requireSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="connection.username">root</property>
-    <property name="connection.password">root</property>
-    <property name="hbm2ddl.auto">update</property>
+    <property name="connection.username">teamuser</property>
+    <property name="connection.password">teamuser111999</property>
 
     <mapping class="dev.java.db.model.Candidate"/>
     <mapping class="dev.java.db.model.CandidateExperience"/>
@@ -31,5 +30,5 @@
     <mapping class="dev.java.db.model.DevFeedback"/>
     <mapping class="dev.java.db.model.SuitableState"/>
     <!-- DB schema will be updated if needed -->
-  </session-factory>
+  </sessionFactory-factory>
 </hibernate-configuration>

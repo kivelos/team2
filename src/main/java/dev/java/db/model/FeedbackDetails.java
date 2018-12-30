@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "feedback_details", schema = "staffjobs")
+@Table(name = "FEEDBACK_DETAILS", schema = "team6")
 public class FeedbackDetails extends AbstractEntity {
     private Requirement requirement;
     private SuitableState verifyState;
@@ -23,7 +23,7 @@ public class FeedbackDetails extends AbstractEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "requirement", referencedColumnName = "name")
+    @JoinColumn(name = "REQUIREMENT", referencedColumnName = "NAME")
     public Requirement getRequirement() {
         return requirement;
     }
@@ -33,7 +33,7 @@ public class FeedbackDetails extends AbstractEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "verify_state", referencedColumnName = "name")
+    @JoinColumn(name = "VERIFY_STATE", referencedColumnName = "NAME")
     public SuitableState getVerifyState() {
         return verifyState;
     }
@@ -43,7 +43,7 @@ public class FeedbackDetails extends AbstractEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_candidate_feedback", referencedColumnName = "id")
+    @JoinColumn(name = "CANDIDATE_FEEDBACK_ID", referencedColumnName = "ID")
     public CandidateFeedback getCandidateFeedback() {
         return candidateFeedback;
     }

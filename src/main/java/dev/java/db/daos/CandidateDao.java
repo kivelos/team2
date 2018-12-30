@@ -2,9 +2,9 @@ package dev.java.db.daos;
 
 import dev.java.db.model.Candidate;
 import dev.java.db.model.ContactDetails;
-import org.hibernate.Session;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,8 +12,8 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class CandidateDao extends AbstractDao<Candidate> {
-    public CandidateDao(Session session) {
-        super(session);
+    public CandidateDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
     public List<Candidate> getCandidatesByPersonalData(Candidate candidate) {
@@ -41,24 +41,23 @@ public class CandidateDao extends AbstractDao<Candidate> {
             }
             request += "birthday = \'" + candidate.getBirthday() + "\'";
         }
-        Query query = getSession().createQuery(request);
+        Query query = getSessionFactory().getCurrentSession().createQuery(request);
         List<Candidate> candidates = ((org.hibernate.query.Query) query).list();
         return candidates;
     }
 
     public List<Candidate> getCandidatesByContact(ContactDetails contact) {
         String request = "FROM Candidate cand JOIN cand.contactDetails cd WHERE cd.contactDetails = :contact";
-        Query query = getSession().createQuery(request, Candidate.class);
-        query.setParameter("contact", "123");
+        Query<Candidate> query = getSessionFactory().getCurrentSession().createQuery(request, Candidate.class);
+        query.setParameter("contact", contact);
 
-        List<Candidate> candidates = ((org.hibernate.query.Query) query).list();
-        return candidates;
+        return query.list();
     }
 
     @Override
     public List<Candidate> getSortedEntitiesPage(int pageNumber, String sortedField,
                                                  boolean order, int itemsNumberInPage) {
-        CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getSessionFactory().getCriteriaBuilder();
         CriteriaQuery<Candidate> query = criteriaBuilder.createQuery(Candidate.class);
         Root<Candidate> root = query.from(Candidate.class);
 
@@ -68,10 +67,9 @@ public class CandidateDao extends AbstractDao<Candidate> {
             query = query.select(root).orderBy(criteriaBuilder.desc(root.get(sortedField)));
         }
 
-        TypedQuery<Candidate> typedQuery = getSession().createQuery(query);
+        TypedQuery<Candidate> typedQuery = getSessionFactory().getCurrentSession().createQuery(query);
         typedQuery.setFirstResult((pageNumber - 1) * itemsNumberInPage);
         typedQuery.setMaxResults(itemsNumberInPage);
-
         return typedQuery.getResultList();
     }
 
@@ -82,7 +80,7 @@ public class CandidateDao extends AbstractDao<Candidate> {
 
     @Override
     public Candidate getEntityById(long id) {
-        return getSession().get(Candidate.class, id);
+        return getSessionFactory().getCurrentSession().get(Candidate.class, id);
     }
 }
 

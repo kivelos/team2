@@ -1,7 +1,7 @@
 package dev.java.db.daos;
 
 import dev.java.db.model.User;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,20 +12,20 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class UserDao extends AbstractDao<User> {
-    public UserDao(Session session) {
-        super(session);
+    public UserDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
     @Override
     public List<User> getSortedEntitiesPage(int pageNumber, String sortedField,
                                                  boolean order, int itemsNumberInPage) {
-        CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getSessionFactory().getCriteriaBuilder();
         CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
         Root<User> root = query.from(User.class);
 
         query = query.select(root).orderBy(getOrderBy(criteriaBuilder, root.get(sortedField), order));
 
-        TypedQuery<User> typedQuery = getSession().createQuery(query);
+        TypedQuery<User> typedQuery = getSessionFactory().getCurrentSession().createQuery(query);
         typedQuery.setFirstResult((pageNumber - 1) * itemsNumberInPage);
         typedQuery.setMaxResults(itemsNumberInPage);
 
@@ -47,6 +47,6 @@ public class UserDao extends AbstractDao<User> {
 
     @Override
     public User getEntityById(long id) {
-        return getSession().get(User.class, id);
+        return getSessionFactory().getCurrentSession().get(User.class, id);
     }
 }

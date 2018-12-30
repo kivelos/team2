@@ -8,11 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "SKILL", schema = "team6")
 public class Skill {
     private String name;
     private List<Candidate> candidates = new ArrayList<>();
@@ -25,7 +27,7 @@ public class Skill {
     }
 
     @Id
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "NAME", nullable = false, length = 255)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getName() {
         return name;
@@ -36,9 +38,9 @@ public class Skill {
     }
 
     @ManyToMany
-    @JoinTable(name = "candidate_competence",
-            joinColumns = {@JoinColumn(name = "skill", referencedColumnName = "name")},
-            inverseJoinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")}
+    @JoinTable(name = "CANDIDATE_COMPETENCE",
+            joinColumns = {@JoinColumn(name = "SKILL", referencedColumnName = "NAME")},
+            inverseJoinColumns = {@JoinColumn(name = "CANDIDATE_ID", referencedColumnName = "ID")}
     )
     @JsonIgnore
     public List<Candidate> getCandidates() {

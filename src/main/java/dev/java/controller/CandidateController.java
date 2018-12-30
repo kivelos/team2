@@ -5,6 +5,7 @@ import dev.java.db.model.Attachment;
 import dev.java.db.model.Candidate;
 import dev.java.db.model.ContactDetails;
 import dev.java.db.model.Vacancy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,8 @@ import java.util.stream.Collectors;
 
 @RestController
 public class CandidateController extends AbstractController<Candidate> {
+    @Autowired
+    private CandidateDao candidateDao;
 
     @PostConstruct
     @Override
@@ -37,7 +40,8 @@ public class CandidateController extends AbstractController<Candidate> {
         super.initialize();
         setSortedField("surname");
         setUrl("/candidate/");
-        setAbstractDao(new CandidateDao(getSession()));
+
+        setAbstractDao(candidateDao);
     }
 
     @Override
@@ -77,7 +81,6 @@ public class CandidateController extends AbstractController<Candidate> {
         getLogging().runMe(request);
         List<Candidate> candidates;
         try {
-            CandidateDao candidateDao = new CandidateDao(getSession());
             candidates = candidateDao.getCandidatesByPersonalData(candidate);
             return ResponseEntity.ok(candidates);
         } catch (Exception e) {
@@ -90,7 +93,6 @@ public class CandidateController extends AbstractController<Candidate> {
         getLogging().runMe(request);
         List<Candidate> candidates;
         try {
-            CandidateDao candidateDao = new CandidateDao(getSession());
             candidates = candidateDao.getCandidatesByContact(contact);
             return ResponseEntity.ok(candidates);
         } catch (Exception e) {
@@ -103,7 +105,7 @@ public class CandidateController extends AbstractController<Candidate> {
 //        getLogging().runMe(request);
 //        List<Candidate> candidates;
 //        try {
-//            CandidateDao candidateDao = new CandidateDao(getSession());
+//            CandidateDao candidateDao = new CandidateDao(getSessionFactory());
 //            candidates = candidateDao.getCandidatesBySkills(skills);
 //            return ResponseEntity.ok(candidates);
 //        } catch (Exception e) {

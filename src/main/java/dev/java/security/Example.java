@@ -87,7 +87,7 @@ public final class Example {
     }
 
     public static void main(String[] args) {
-        String username = "k.pilyak96@tut.by";
+        String username = "kot@kotovich";
         String password = "123456";
 
         String authorizationString = postLogin(username, password);

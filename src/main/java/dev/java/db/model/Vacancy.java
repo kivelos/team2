@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "vacancy")
+@Table(name = "VACANCY")
 public class Vacancy extends AbstractEntity {
     private String position;
     private float salaryInDollarsFrom;
@@ -36,7 +36,7 @@ public class Vacancy extends AbstractEntity {
 
     @ManyToOne
     @SuppressWarnings("checkstyle:ParamentName")
-    @JoinColumn(name = "id_developer", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "DEVELOPER_ID", referencedColumnName = "ID", nullable = false)
     public User getDeveloper() {
         return developer;
     }
@@ -45,14 +45,14 @@ public class Vacancy extends AbstractEntity {
     }
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return super.getId();
     }
 
     @Basic
-    @Column(name = "position", nullable = false, length = 1000)
+    @Column(name = "POSITION", nullable = false, length = 1000)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getPosition() {
         return position;
@@ -63,7 +63,7 @@ public class Vacancy extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "salary_in_dollars_from",  precision = 2)
+    @Column(name = "SALARY_FROM",  precision = 2)
     public float getSalaryInDollarsFrom() {
         return salaryInDollarsFrom;
     }
@@ -73,7 +73,7 @@ public class Vacancy extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "salary_in_dollars_to", precision = 2)
+    @Column(name = "SALARY_TO", precision = 2)
     public float getSalaryInDollarsTo() {
         return salaryInDollarsTo;
     }
@@ -83,7 +83,7 @@ public class Vacancy extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "vacancy_state")
+    @Column(name = "VACANCY_STATE")
     @Enumerated(EnumType.STRING)
     public VacancyState getVacancyState() {
         return vacancyState;
@@ -94,7 +94,7 @@ public class Vacancy extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "experience_years_require", precision = 2)
+    @Column(name = "EXPERIENCE_YEARS_REQUIRE", precision = 2)
     public float getExperienceYearsRequire() {
         return experienceYearsRequire;
     }
@@ -114,9 +114,9 @@ public class Vacancy extends AbstractEntity {
     }
 
     @ManyToMany
-    @JoinTable(name = "vacancy_requirement",
-            joinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "requirement", referencedColumnName = "name")}
+    @JoinTable(name = "VACANCY_REQUIREMENT",
+            joinColumns = {@JoinColumn(name = "VACANCY_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "REQUIREMENT", referencedColumnName = "NAME")}
     )
     public List<Requirement> getRequirements() {
         return requirements;
@@ -127,9 +127,9 @@ public class Vacancy extends AbstractEntity {
     }
 
     @ManyToMany
-    @JoinTable(name = "vacancy_candidates",
-            joinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")}
+    @JoinTable(name = "VACANCY_CANDIDATES",
+            joinColumns = {@JoinColumn(name = "VACANCY_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CANDIDATE_ID", referencedColumnName = "ID")}
     )
     @JsonIgnore
     public List<Candidate> getCandidates() {

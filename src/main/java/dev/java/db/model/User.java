@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
+@Table(name = "USER")
 public class User extends AbstractEntity {
 
     private String email;
@@ -33,7 +33,7 @@ public class User extends AbstractEntity {
     private List<CandidateFeedback> feedbackList = new ArrayList<>();
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return super.getId();
@@ -42,7 +42,7 @@ public class User extends AbstractEntity {
 
     @Basic
     @SuppressWarnings("checkstyle:MagicNumber")
-    @Column(name = "email", nullable = false, length = 100, unique = true)
+    @Column(name = "EMAIL", nullable = false, length = 100, unique = true)
     public String getEmail() {
         return email;
     }
@@ -51,7 +51,7 @@ public class User extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "password", nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -60,7 +60,7 @@ public class User extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "surname")
+    @Column(name = "SURNAME")
     public String getSurname() {
         return surname;
     }
@@ -69,7 +69,7 @@ public class User extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     public String getName() {
         return name;
     }
@@ -78,7 +78,7 @@ public class User extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "user_state")
+    @Column(name = "USER_STATE")
     @Enumerated(EnumType.STRING)
     public State getState() {
         return state;
@@ -100,9 +100,9 @@ public class User extends AbstractEntity {
 
 
     @ManyToOne
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
+    @JoinTable(name = "USER_ROLES",
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")}
     )
     public Role getUserRole() {
         return userRole;

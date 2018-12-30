@@ -6,20 +6,13 @@ import dev.java.db.model.Role;
 import dev.java.db.model.User;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,32 +29,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
-@WebAppConfiguration
 public class UserControllerTest {
-
-    @Autowired
-    private WebApplicationContext ctx;
+    @InjectMocks
+    private UserController controller;
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private UserController controller;
-
     @Before
     public void setUp() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-        controller.initialize();
-    }
+        MockitoAnnotations.initMocks(this);
 
-    @Configuration
-    @EnableWebMvc
-    public static class TestConfiguration {
-        @Bean
-        public UserController userController() {
-            return new UserController();
-        }
+        // Setup Spring test in standalone mode
+        this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        controller.initialize();
     }
 
     @Test

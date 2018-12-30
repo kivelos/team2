@@ -2,6 +2,7 @@ package dev.java.controller;
 
 import dev.java.db.daos.UserDao;
 import dev.java.db.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class UserController extends AbstractController<User> {
+    @Autowired
+    private UserDao userDao;
 
     @PostConstruct
     @Override
@@ -23,7 +26,7 @@ public class UserController extends AbstractController<User> {
         super.initialize();
         setSortedField("email");
         setUrl("/user/");
-        setAbstractDao(new UserDao(getSession()));
+        setAbstractDao(userDao);
     }
 
     @Override

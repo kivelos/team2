@@ -1,7 +1,7 @@
 package dev.java.db.daos;
 
 import dev.java.db.model.CVFeedback;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,14 +10,14 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class CVFeedbackDao extends AbstractDao<CVFeedback> {
-    public CVFeedbackDao(Session session) {
-        super(session);
+    public CVFeedbackDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
     @Override
     public List<CVFeedback> getSortedEntitiesPage(int pageNumber, String sortedField,
                                                          boolean order, int itemsNumberInPage) {
-        CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getSessionFactory().getCriteriaBuilder();
         CriteriaQuery<CVFeedback> query = criteriaBuilder.createQuery(CVFeedback.class);
         Root<CVFeedback> root = query.from(CVFeedback.class);
 
@@ -27,7 +27,7 @@ public class CVFeedbackDao extends AbstractDao<CVFeedback> {
             query = query.select(root).orderBy(criteriaBuilder.desc(root.get(sortedField)));
         }
 
-        TypedQuery<CVFeedback> typedQuery = getSession().createQuery(query);
+        TypedQuery<CVFeedback> typedQuery = getSessionFactory().getCurrentSession().createQuery(query);
         typedQuery.setFirstResult((pageNumber - 1) * itemsNumberInPage);
         typedQuery.setMaxResults(itemsNumberInPage);
 
@@ -41,6 +41,6 @@ public class CVFeedbackDao extends AbstractDao<CVFeedback> {
 
     @Override
     public CVFeedback getEntityById(long id) {
-        return getSession().get(CVFeedback.class, id);
+        return getSessionFactory().getCurrentSession().get(CVFeedback.class, id);
     }
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+
+
+    <bean id="candidateDao" class="dev.java.db.daos.CandidateDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="candidateFeedbackDao" class="dev.java.db.daos.CandidateFeedbackDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="cvFeedbackDao" class="dev.java.db.daos.CVFeedbackDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="devFeedbackDao" class="dev.java.db.daos.DevFeedbackDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="hrFeedbackDao" class="dev.java.db.daos.HRFeedbackDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="interviewDao" class="dev.java.db.daos.InterviewDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="tmFeedbackDao" class="dev.java.db.daos.TMFeedbackDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="userDao" class="dev.java.db.daos.UserDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="vacancyDao" class="dev.java.db.daos.VacancyDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="skillDao" class="dev.java.db.daos.SkillDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="requirementDao" class="dev.java.db.daos.RequirementDao">
+        <constructor-arg name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+
+
+</beans>

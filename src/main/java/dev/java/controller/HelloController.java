@@ -12,4 +12,9 @@ public class HelloController {
         System.out.println(request.isUserInRole("ADMIN"));
         return "index";
     }
+
+    @GetMapping("/hello")
+    public String success() {
+        return "hello";
+    }
 }

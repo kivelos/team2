@@ -1,22 +1,20 @@
 package dev.java.db.model;
 
 import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.util.Objects;
 
 
 @Embeddable
 public class ContactDetails {
-    private ContactType contactType;
+    private String contactType;
     private String contactDetails;
 
-    @Enumerated(EnumType.STRING)
-    public ContactType getContactType() {
+    //@Enumerated(EnumType.STRING)
+    public String getContactType() {
         return contactType;
     }
 
-    public void setContactType(ContactType contactType) {
+    public void setContactType(String contactType) {
         this.contactType = contactType;
     }
 

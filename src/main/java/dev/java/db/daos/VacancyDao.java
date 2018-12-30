@@ -1,7 +1,7 @@
 package dev.java.db.daos;
 
 import dev.java.db.model.Vacancy;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,14 +10,14 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class VacancyDao extends AbstractDao<Vacancy> {
-    public VacancyDao(Session session) {
-        super(session);
+    public VacancyDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
     @Override
     public List<Vacancy> getSortedEntitiesPage(int pageNumber, String sortedField,
                                             boolean order, int itemsNumberInPage) {
-        CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getSessionFactory().getCriteriaBuilder();
         CriteriaQuery<Vacancy> query = criteriaBuilder.createQuery(Vacancy.class);
         Root<Vacancy> root = query.from(Vacancy.class);
 
@@ -27,7 +27,7 @@ public class VacancyDao extends AbstractDao<Vacancy> {
             query = query.select(root).orderBy(criteriaBuilder.desc(root.get(sortedField)));
         }
 
-        TypedQuery<Vacancy> typedQuery = getSession().createQuery(query);
+        TypedQuery<Vacancy> typedQuery = getSessionFactory().getCurrentSession().createQuery(query);
         typedQuery.setFirstResult((pageNumber - 1) * itemsNumberInPage);
         typedQuery.setMaxResults(itemsNumberInPage);
 
@@ -41,6 +41,6 @@ public class VacancyDao extends AbstractDao<Vacancy> {
 
     @Override
     public Vacancy getEntityById(long id) {
-        return getSession().get(Vacancy.class, id);
+        return getSessionFactory().getCurrentSession().get(Vacancy.class, id);
     }
 }

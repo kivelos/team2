@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "candidate_experience", schema = "staffjobs")
+@Table(name = "CANDIDATE_EXPERIENCE", schema = "team6")
 public class CandidateExperience extends AbstractEntity {
     private Date dateFrom;
     private Date dateTo;
@@ -30,7 +30,7 @@ public class CandidateExperience extends AbstractEntity {
     private List<Responsibility> responsibilities = new ArrayList<>();
 
     @Basic
-    @Column(name = "date_from", nullable = false)
+    @Column(name = "DATE_FROM", nullable = false)
     public Date getDateFrom() {
         if (dateFrom == null) {
             return null;
@@ -47,7 +47,7 @@ public class CandidateExperience extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "date_to", nullable = false)
+    @Column(name = "DATE_TO", nullable = false)
     public Date getDateTo() {
         if (dateTo == null) {
             return null;
@@ -64,7 +64,7 @@ public class CandidateExperience extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "job_description", nullable = true, length = 4000)
+    @Column(name = "JOB_DESCRIPTION", nullable = true, length = 4000)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getJobDescription() {
         return jobDescription;
@@ -75,7 +75,7 @@ public class CandidateExperience extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "job_position", nullable = true, length = 1000)
+    @Column(name = "JOB_POSITION", nullable = true, length = 1000)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getJobPosition() {
         return jobPosition;
@@ -86,7 +86,7 @@ public class CandidateExperience extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "company_name", nullable = true, length = 1000)
+    @Column(name = "COMPANY_NAME", nullable = true, length = 1000)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getCompanyName() {
         return companyName;
@@ -98,14 +98,14 @@ public class CandidateExperience extends AbstractEntity {
 
     @Override
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return super.getId();
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_candidate", referencedColumnName = "id")
+    @JoinColumn(name = "CANDIDATE_ID", referencedColumnName = "ID")
     @JsonIgnore
     public Candidate getCandidate() {
         return candidate;
@@ -116,9 +116,9 @@ public class CandidateExperience extends AbstractEntity {
     }
 
     @ManyToMany
-    @JoinTable(name = "candidate_responsibility",
-            joinColumns = {@JoinColumn(name = "id_candidate_experience", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "responsibility", referencedColumnName = "name")}
+    @JoinTable(name = "CANDIDATE_RESPONSIBILITY",
+            joinColumns = {@JoinColumn(name = "CANDIDATE_EXPERIENCE_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "RESPONSIBILITY", referencedColumnName = "NAME")}
     )
     public List<Responsibility> getResponsibilities() {
         return responsibilities;

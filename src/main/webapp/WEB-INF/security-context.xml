@@ -2,19 +2,23 @@
 <b:beans xmlns:b="http://www.springframework.org/schema/beans"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://www.springframework.org/schema/security"
+         xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
          xsi:schemaLocation="
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security.xsd
         http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security/oauth2
+        http://www.springframework.org/schema/security/spring-security-oauth2-2.0.xsd">
 
     <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <b:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <b:property name="url"
-                    value="jdbc:mysql://localhost:3306/StaffJobs?verifyServerCertificate=false&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;requireSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
-        <b:property name="username" value="root"/>
-        <b:property name="password" value="root"/>
+                    value="jdbc:mysql://team6new.c937x7bxd7wg.eu-central-1.rds.amazonaws.com:3306/team6?verifyServerCertificate=false&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;requireSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+        <b:property name="username" value="teamuser"/>
+        <b:property name="password" value="teamuser111999"/>
     </b:bean>
+
 
     <b:bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <b:property name="dataSource" ref="dataSource"/>
@@ -34,19 +38,36 @@
 
     <b:bean id="jwtLoginFilter" class="dev.java.security.JWTLoginFilter">
         <b:constructor-arg index="0" type="java.lang.String" value="/login"/>
-        <b:constructor-arg index="1" type="org.springframework.security.authentication.AuthenticationManager" ref="authenticationManager" />
+        <b:constructor-arg index="1" type="org.springframework.security.authentication.AuthenticationManager"
+                           ref="authenticationManager"/>
     </b:bean>
 
     <b:bean id="jwtAuthenticationFilter" class="dev.java.security.JWTAuthenticationFilter"/>
 
+    <http pattern="/oauth/google">
+    </http>
+
+
+    <oauth:client id="clientFilter"/>
+    <oauth:resource id="google"
+                    type="authorization_code"
+                    client-id="${google.client.id}"
+                    client-secret="${google.client.secret}"
+                    access-token-uri="https://www.googleapis.com/oauth2/v4/token"
+                    user-authorization-uri="https://accounts.google.com/o/oauth2/v2/auth"/>
 
     <http auto-config="true"> <!-- Это сокращенный синтаксис, отвечает за установку логина на основе веб-формы, базовый логин и выход из приложения -->
         <csrf disabled="true"/>
         <intercept-url pattern="/login"
-                       access="permitAll()" method="POST"/> <!-- Задает шаблон, с которым сравниваются URL-адреа входящих запросов, тоесть что бы попасть в любой файл(так как у нас в pattern="/") нам нужно иметь доступ админа -->
-        <intercept-url pattern="/candidates" access="hasAuthority('ADMIN')"/>
+                       access="permitAll()"
+                       method="POST"/> <!-- Задает шаблон, с которым сравниваются URL-адреа входящих запросов, тоесть что бы попасть в любой файл(так как у нас в pattern="/") нам нужно иметь доступ админа -->
+        <!--<intercept-url pattern="/candidates" access="hasAuthority('Administrator')"/>-->
         <custom-filter before="FORM_LOGIN_FILTER" ref="jwtLoginFilter"/>
         <custom-filter after="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
+
+        <intercept-url pattern="/oauth_login" access="permitAll()" requires-channel="any"/>
+
+
     </http>
 
     <authentication-manager id="authenticationManager">
@@ -54,8 +75,8 @@
             <jdbc-user-service
                     data-source-ref="dataSource"
                     authorities-by-username-query=
-                            "select email, role.name from user, role join user_roles on role.id = user_roles.role_id where email=?"
-                    users-by-username-query="SELECT email, password, state FROM user WHERE email=?"
+                            "select EMAIL, ROLE.NAME from USER, ROLE join USER_ROLES on ROLE.ID = USER_ROLES.ROLE_ID where EMAIL=?"
+                    users-by-username-query="SELECT EMAIL, PASSWORD, 1 FROM USER WHERE EMAIL=?"
             />
             <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
@@ -63,4 +84,21 @@
     <b:bean id="userDetailsManager" class="org.springframework.security.provisioning.JdbcUserDetailsManager">
         <b:property name="dataSource" ref="dataSource"/>
     </b:bean>
+
+    <b:bean id="clientRegistrationRepository"
+            class="org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository">
+        <b:constructor-arg>
+            <b:list>
+                <b:bean factory-bean="builder" factory-method="getClientRegistration"/>
+            </b:list>
+        </b:constructor-arg>
+    </b:bean>
+
+    <b:bean id="authorizedClientService"
+            class="org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService">
+        <b:constructor-arg ref="clientRegistrationRepository"/>
+    </b:bean>
+
+    <b:bean id="builder" class="dev.java.social.Builder"/>
+
 </b:beans>

@@ -1,7 +1,5 @@
 package dev.java.db.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "interview", schema = "staffjobs")
+@Table(name = "INTERVIEW", schema = "team6")
 public class Interview extends AbstractEntity {
     private Candidate candidate;
     private Vacancy vacancy;
@@ -28,14 +26,14 @@ public class Interview extends AbstractEntity {
     private List<DevFeedback> devFeedbacks = new ArrayList<>();
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return super.getId();
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_candidate", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "CANDIDATE_ID", referencedColumnName = "ID", nullable = false)
     public Candidate getCandidate() {
         return candidate;
     }
@@ -44,7 +42,7 @@ public class Interview extends AbstractEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_vacancy", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "VACANCY_ID", referencedColumnName = "ID", nullable = false)
     public Vacancy getVacancy() {
         return vacancy;
     }
@@ -53,7 +51,7 @@ public class Interview extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "plan_date")
+    @Column(name = "PLAN_DATE")
     public Timestamp getPlanDate() {
         if (planDate == null) {
             return null;
@@ -70,7 +68,7 @@ public class Interview extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "fact_date")
+    @Column(name = "FACT_DATE")
     public Timestamp getFactDate() {
         if (factDate == null) {
             return null;
@@ -87,7 +85,6 @@ public class Interview extends AbstractEntity {
     }
 
     @OneToMany(mappedBy = "interview")
-    @JsonIgnore
     public List<HRFeedback> getHrFeedbacks() {
         return hrFeedbacks;
     }
@@ -97,7 +94,6 @@ public class Interview extends AbstractEntity {
     }
 
     @OneToMany(mappedBy = "interview")
-    @JsonIgnore
     public List<DevFeedback> getDevFeedbacks() {
         return devFeedbacks;
     }

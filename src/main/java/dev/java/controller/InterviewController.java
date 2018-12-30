@@ -2,6 +2,7 @@ package dev.java.controller;
 
 import dev.java.db.daos.InterviewDao;
 import dev.java.db.model.Interview;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class InterviewController extends AbstractController<Interview> {
+    @Autowired
+    private InterviewDao interviewDao;
 
     @PostConstruct
     @Override
@@ -17,7 +20,7 @@ public class InterviewController extends AbstractController<Interview> {
         super.initialize();
         setSortedField("fact_date");
         setUrl("/interview/");
-        setAbstractDao(new InterviewDao(getSession()));
+        setAbstractDao(interviewDao);
     }
 
     @Override

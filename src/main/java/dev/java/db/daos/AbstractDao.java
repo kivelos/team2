@@ -2,14 +2,17 @@ package dev.java.db.daos;
 
 import dev.java.db.model.AbstractEntity;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public abstract class AbstractDao<T extends AbstractEntity> {
-    private Session session;
+    private SessionFactory sessionFactory;
 
-    public AbstractDao(Session session) {
-        this.session = session;
+    public AbstractDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     public abstract List<T> getSortedEntitiesPage(int pageNumber, String sortedField,
@@ -19,70 +22,46 @@ public abstract class AbstractDao<T extends AbstractEntity> {
 
     public boolean createEntity(T entity) {
         try {
-            session.beginTransaction().begin();
+            Session session = sessionFactory.getCurrentSession();
             session.save(entity);
-            session.getTransaction().commit();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            session.getTransaction().rollback();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return false;
     }
 
     public boolean updateEntity(T entity) {
         try {
-            if (!session.beginTransaction().isActive()) {
-                session.beginTransaction().begin();
-            }
+            Session session = sessionFactory.getCurrentSession();
             session.update(entity);
-            session.getTransaction().commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            session.getTransaction().rollback();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return false;
     }
 
     public boolean deleteEntity(T entity) {
         try {
-            session.beginTransaction().begin();
+            Session session = sessionFactory.getCurrentSession();
             session.delete(entity);
-            session.getTransaction().commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            session.getTransaction().rollback();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return false;
     }
 
     public boolean deleteEntityById(long id) {
         try {
-            session.beginTransaction().begin();
+            Session session = sessionFactory.getCurrentSession();
             T entity = getEntityById(id);
             session.delete(entity);
-            session.getTransaction().commit();
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return false;
     }
@@ -90,11 +69,11 @@ public abstract class AbstractDao<T extends AbstractEntity> {
     public abstract T getEntityById(long id);
 
 
-    public Session getSession() {
-        return session;
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 
-    public void setSession(Session session) {
-        this.session = session;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }

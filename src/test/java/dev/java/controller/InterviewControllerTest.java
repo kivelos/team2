@@ -6,19 +6,12 @@ import dev.java.db.model.Candidate;
 import dev.java.db.model.Interview;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -42,35 +35,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
-@WebAppConfiguration
 public class InterviewControllerTest {
-    @Autowired
-    private WebApplicationContext ctx;
+    @InjectMocks
+    private InterviewController interviewController;
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private InterviewController interviewController;
-
     @Before
     public void setUp() {
-        //this.controller = new CandidateController();
-        //this.controller.initialize();
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
+        MockitoAnnotations.initMocks(this);
+
+        // Setup Spring test in standalone mode
+        this.mockMvc = MockMvcBuilders.standaloneSetup(interviewController).build();
         interviewController.initialize();
-    }
-
-    @Configuration
-    @EnableWebMvc
-    public static class TestConfiguration {
-
-        @Bean
-        public InterviewController interviewController() {
-            return new InterviewController();
-        }
-
     }
 
     @Test
@@ -89,7 +66,7 @@ public class InterviewControllerTest {
         AbstractDao daoMock = mock(AbstractDao.class);
         when(daoMock.getSortedEntitiesPage(anyInt(), anyString(), anyBoolean(), anyInt())).thenReturn(interviews);
         interviewController.setAbstractDao(daoMock);
-        //ResponseEntity res = this.controller.getAllEntities(mock(HttpServletRequest.class));
+        //ResponseEntity res = this.interviewController.getAllEntities(mock(HttpServletRequest.class));
 
         //Assert.assertEquals(candidates, res.getBody());
 

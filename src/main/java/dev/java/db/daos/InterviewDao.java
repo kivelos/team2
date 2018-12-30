@@ -1,7 +1,7 @@
 package dev.java.db.daos;
 
 import dev.java.db.model.Interview;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,14 +10,14 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class InterviewDao extends AbstractDao<Interview> {
-    public InterviewDao(Session session) {
-        super(session);
+    public InterviewDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
     @Override
     public List<Interview> getSortedEntitiesPage(int pageNumber, String sortedField,
                                                  boolean order, int itemsNumberInPage) {
-        CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getSessionFactory().getCriteriaBuilder();
         CriteriaQuery<Interview> query = criteriaBuilder.createQuery(Interview.class);
         Root<Interview> root = query.from(Interview.class);
 
@@ -27,7 +27,7 @@ public class InterviewDao extends AbstractDao<Interview> {
             query = query.select(root).orderBy(criteriaBuilder.desc(root.get(sortedField)));
         }
 
-        TypedQuery<Interview> typedQuery = getSession().createQuery(query);
+        TypedQuery<Interview> typedQuery = getSessionFactory().getCurrentSession().createQuery(query);
         typedQuery.setFirstResult((pageNumber - 1) * itemsNumberInPage);
         typedQuery.setMaxResults(itemsNumberInPage);
 
@@ -41,6 +41,6 @@ public class InterviewDao extends AbstractDao<Interview> {
 
     @Override
     public Interview getEntityById(long id) {
-        return getSession().get(Interview.class, id);
+        return getSessionFactory().getCurrentSession().get(Interview.class, id);
     }
 }

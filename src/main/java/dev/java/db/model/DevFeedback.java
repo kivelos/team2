@@ -1,5 +1,7 @@
 package dev.java.db.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,7 +15,8 @@ public class DevFeedback extends CandidateFeedback {
     private List<FeedbackDetails> feedbackDetails = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "id_interview", referencedColumnName = "id")
+    @JoinColumn(name = "INTERVIEW_ID", referencedColumnName = "ID")
+    @JsonIgnore
     public Interview getInterview() {
         return interview;
     }

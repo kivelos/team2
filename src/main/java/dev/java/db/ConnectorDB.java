@@ -1,8 +1,5 @@
 package dev.java.db;
 
-import dev.java.db.utils.HibernateSessionFactory;
-import org.hibernate.Session;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,9 +20,10 @@ public final class ConnectorDB {
         return DriverManager.getConnection(url, user, pass);
     }
 
+
     public static void main(String[] args) throws SQLException, ParseException {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        session.beginTransaction();
+        //Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        //session.beginTransaction();
         /*CandidateDao candidateDao = new CandidateDao(session);
         Candidate candidate = new Candidate();
         candidate.setName("Noda");
@@ -88,8 +86,10 @@ public final class ConnectorDB {
         candidateExperience.getResponsibilities().add(responsibility);
 
         session.save(candidate);*/
-        session.getTransaction().commit();
-        HibernateSessionFactory.shutdown();
+
+
+        //session.getTransaction().commit();
+        //HibernateSessionFactory.shutdown();
 
     }
 }

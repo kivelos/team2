@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "suitable_state", schema = "staffjobs")
+@Table(name = "SUITABLE_STATE", schema = "team6")
 public class SuitableState {
     private String name;
     private List<FeedbackDetails> feedbackDetails = new ArrayList<>();
 
     @Id
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "NAME", nullable = false, length = 255)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getName() {
         return name;

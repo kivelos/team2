@@ -9,18 +9,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "REQUIREMENT", schema = "team6")
 public class Requirement {
     private String name;
     private List<Vacancy> vacancies = new ArrayList<>();
     private List<FeedbackDetails> feedbackDetails = new ArrayList<>();
 
     @Id
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "NAME", nullable = false, length = 255)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getName() {
         return name;
@@ -31,10 +33,11 @@ public class Requirement {
     }
 
     @ManyToMany
-    @JoinTable(name = "vacancy_requirement",
-            joinColumns = {@JoinColumn(name = "requirement", referencedColumnName = "name")},
-            inverseJoinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")}
+    @JoinTable(name = "VACANCY_REQUIREMENT",
+            joinColumns = {@JoinColumn(name = "REQUIREMENT", referencedColumnName = "NAME")},
+            inverseJoinColumns = {@JoinColumn(name = "VACANCY_ID", referencedColumnName = "ID")}
     )
+    @JsonIgnore
     public List<Vacancy> getVacancies() {
         return vacancies;
     }

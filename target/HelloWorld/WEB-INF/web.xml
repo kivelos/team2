@@ -5,10 +5,19 @@
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
     <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>
+            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+        </param-value>
+    </context-param>
+    <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/dispatcher-servlet.xml
-            /WEB-INF/security-context.xml
+            dev.java.DispatcherServlet
+            dev.java.DataSourceHibernateConfig
+            dev.java.DaoConfig
+            dev.java.TransactionConfig
+            dev.java.SecurityConfig
         </param-value>
     </context-param>
     <listener>

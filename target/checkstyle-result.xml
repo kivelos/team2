@@ -4,25 +4,23 @@
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\CandidateController.java">
 </file>
-<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\CVFeedbackController.java">
-</file>
-<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\DevFeedbackController.java">
-</file>
-<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\FeedbackController.java">
-</file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\GeneralConstant.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\HelloController.java">
 </file>
-<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\HRFeedbackController.java">
-</file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\InterviewController.java">
 </file>
-<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\TMFeedbackController.java">
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\RequirementController.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\SkillController.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\UserController.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\controller\VacancyController.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\DaoConfig.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\DataSourceHibernateConfig.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\DateProcessor.java">
 </file>
@@ -41,6 +39,10 @@
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\HRFeedbackDao.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\InterviewDao.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\RequirementDao.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\SkillDao.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\daos\TMFeedbackDao.java">
 </file>
@@ -92,7 +94,11 @@
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\db\utils\HibernateSessionFactory.java">
 </file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\DispatcherServlet.java">
+</file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\Logging.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\SecConfig.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\security\Example.java">
 </file>
@@ -101,6 +107,10 @@
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\security\JWTLoginFilter.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\security\TokenAuthenticationService.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\SecurityConfig.java">
+</file>
+<file name="D:\Моя папка\Мой универ\team2\src\main\java\dev\java\TransactionConfig.java">
 </file>
 <file name="D:\Моя папка\Мой универ\team2\src\main\resources\application.properties">
 </file>

@@ -27,7 +27,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "candidate", schema = "staffjobs")
+@Table(name = "CANDIDATE", schema = "team6")
 public class Candidate extends AbstractEntity {
     private String name;
     private String surname;
@@ -43,7 +43,7 @@ public class Candidate extends AbstractEntity {
     private List<CandidateFeedback> candidateFeedbacks = new ArrayList<>();
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return super.getId();
@@ -51,7 +51,7 @@ public class Candidate extends AbstractEntity {
 
 
     @Basic
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "NAME", nullable = false, length = 255)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getName() {
         return name;
@@ -62,7 +62,7 @@ public class Candidate extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "surname", nullable = true, length = 255)
+    @Column(name = "SURNAME", nullable = true, length = 255)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getSurname() {
         return surname;
@@ -73,7 +73,7 @@ public class Candidate extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "birthday", nullable = true)
+    @Column(name = "BIRTHDAY", nullable = true)
     public Date getBirthday() {
         if (birthday == null) {
             return null;
@@ -90,7 +90,7 @@ public class Candidate extends AbstractEntity {
     }
 
     @Basic
-    @Column(name = "salary_in_dollars", nullable = true, precision = 2)
+    @Column(name = "SALARY", nullable = true, precision = 2)
     @SuppressWarnings("checkstyle:MagicNumber")
     public BigDecimal getSalaryInDollars() {
         return salaryInDollars;
@@ -112,9 +112,9 @@ public class Candidate extends AbstractEntity {
     }
 
     @ManyToMany()
-    @JoinTable(name = "candidate_competence",
-            joinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "skill", referencedColumnName = "name")}
+    @JoinTable(name = "CANDIDATE_COMPETENCE",
+            joinColumns = {@JoinColumn(name = "CANDIDATE_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "SKILL", referencedColumnName = "NAME")}
     )
     public List<Skill> getSkills() {
         return skills;
@@ -125,7 +125,7 @@ public class Candidate extends AbstractEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "candidate_state", referencedColumnName = "name")
+    @JoinColumn(name = "CANDIDATE_STATE", referencedColumnName = "NAME")
     public CandidateState getCandidateState() {
         return candidateState;
     }
@@ -136,13 +136,13 @@ public class Candidate extends AbstractEntity {
 
     @ElementCollection
     @CollectionTable(
-            name = "attachment",
-            joinColumns = @JoinColumn(name = "id_candidate")
+            name = "ATTACHMENT",
+            joinColumns = @JoinColumn(name = "CANDIDATE_ID")
     )
     @AttributeOverrides({
-            @AttributeOverride(name = "filePath", column = @Column(name = "file_path",
+            @AttributeOverride(name = "filePath", column = @Column(name = "FILE_PATH",
                     nullable = false, length = 1000)),
-            @AttributeOverride(name = "attachmentType", column = @Column(name = "attachment_type", nullable = false))
+            @AttributeOverride(name = "attachmentType", column = @Column(name = "ATTACHMENT_TYPE", nullable = false))
     })
     @SuppressWarnings("checkstyle:MagicNumber")
     public List<Attachment> getAttachments() {
@@ -155,12 +155,12 @@ public class Candidate extends AbstractEntity {
 
     @ElementCollection
     @CollectionTable(
-            name = "contact_details",
-            joinColumns = @JoinColumn(name = "id_candidate")
+            name = "CONTACT_DETAILS",
+            joinColumns = @JoinColumn(name = "CANDIDATE_ID")
     )
     @AttributeOverrides({
-            @AttributeOverride(name = "contactType", column = @Column(name = "contact_type", nullable = false)),
-            @AttributeOverride(name = "contactDetails", column = @Column(name = "contact_details",
+            @AttributeOverride(name = "contactType", column = @Column(name = "CONTACT_TYPE", nullable = false)),
+            @AttributeOverride(name = "contactDetails", column = @Column(name = "CONTACT_DETAILS",
                     nullable = false, length = 1000))
     })
     @SuppressWarnings("checkstyle:MagicNumber")
@@ -183,9 +183,9 @@ public class Candidate extends AbstractEntity {
     }
 
     @ManyToMany
-    @JoinTable(name = "vacancy_candidates",
-            joinColumns = {@JoinColumn(name = "id_candidate", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "id_vacancy", referencedColumnName = "id")}
+    @JoinTable(name = "VACANCY_CANDIDATES",
+            joinColumns = {@JoinColumn(name = "CANDIDATE_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "VACANCY_ID", referencedColumnName = "ID")}
     )
     @JsonIgnore
     public List<Vacancy> getVacancies() {

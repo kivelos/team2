@@ -3,6 +3,7 @@ package dev.java.controller;
 import dev.java.db.daos.VacancyDao;
 import dev.java.db.model.Candidate;
 import dev.java.db.model.Vacancy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,8 @@ import java.util.List;
 
 @RestController
 public class VacancyController extends AbstractController<Vacancy> {
+    @Autowired
+    private VacancyDao vacancyDao;
 
     @PostConstruct
     @Override
@@ -25,7 +28,7 @@ public class VacancyController extends AbstractController<Vacancy> {
         super.initialize();
         setSortedField("position");
         setUrl("/vacancy/");
-        setAbstractDao(new VacancyDao(getSession()));
+        setAbstractDao(vacancyDao);
     }
 
     @Override

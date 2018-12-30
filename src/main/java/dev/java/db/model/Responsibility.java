@@ -16,7 +16,7 @@ public class Responsibility {
     private List<CandidateExperience> candidateExperiences = new ArrayList<>();
 
     @Id
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "NAME", nullable = false, length = 255)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getName() {
         return name;
@@ -27,9 +27,9 @@ public class Responsibility {
     }
 
     @ManyToMany
-    @JoinTable(name = "candidate_responsibility",
-            joinColumns = {@JoinColumn(name = "responsibility", referencedColumnName = "name")},
-            inverseJoinColumns = {@JoinColumn(name = "id_candidate_experience", referencedColumnName = "id")}
+    @JoinTable(name = "CANDIDATE_RESPONSIBILITY",
+            joinColumns = {@JoinColumn(name = "RESPONSIBILITY", referencedColumnName = "NAME")},
+            inverseJoinColumns = {@JoinColumn(name = "CANDIDATE_EXPERIENCE_ID", referencedColumnName = "ID")}
     )
     public List<CandidateExperience> getCandidateExperiences() {
         return candidateExperiences;

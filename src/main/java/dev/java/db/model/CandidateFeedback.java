@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "candidate_feedback", schema = "staffjobs")
+@Table(name = "CANDIDATE_FEEDBACK", schema = "team6")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class CandidateFeedback extends AbstractEntity {
     private String feedbackText;
@@ -21,13 +21,13 @@ public abstract class CandidateFeedback extends AbstractEntity {
     private User interviewer;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     public long getId() {
         return super.getId();
     }
 
     @Basic
-    @Column(name = "feedback_text", length = 4000)
+    @Column(name = "FEEDBACK_TEXT", length = 4000)
     @SuppressWarnings("checkstyle:MagicNumber")
     public String getFeedbackText() {
         return feedbackText;
@@ -38,7 +38,7 @@ public abstract class CandidateFeedback extends AbstractEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_candidate", referencedColumnName = "id")
+    @JoinColumn(name = "CANDIDATE_ID", referencedColumnName = "ID")
     public Candidate getCandidate() {
         return candidate;
     }
@@ -49,7 +49,7 @@ public abstract class CandidateFeedback extends AbstractEntity {
 
 
     @ManyToOne
-    @JoinColumn(name = "id_interviewer", referencedColumnName = "id")
+    @JoinColumn(name = "INTERVIEWER_ID", referencedColumnName = "ID")
     public User getInterviewer() {
         return interviewer;
     }
@@ -59,7 +59,7 @@ public abstract class CandidateFeedback extends AbstractEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "feedback_state", referencedColumnName = "name")
+    @JoinColumn(name = "FEEDBACK_STATE", referencedColumnName = "NAME")
     public FeedbackState getFeedbackState() {
         return feedbackState;
     }

@@ -1,7 +1,7 @@
 package dev.java.db.daos;
 
 import dev.java.db.model.DevFeedback;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,14 +10,14 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class DevFeedbackDao extends AbstractDao<DevFeedback> {
-    public DevFeedbackDao(Session session) {
-        super(session);
+    public DevFeedbackDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
     @Override
     public List<DevFeedback> getSortedEntitiesPage(int pageNumber, String sortedField,
                                                   boolean order, int itemsNumberInPage) {
-        CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getSessionFactory().getCriteriaBuilder();
         CriteriaQuery<DevFeedback> query = criteriaBuilder.createQuery(DevFeedback.class);
         Root<DevFeedback> root = query.from(DevFeedback.class);
 
@@ -27,7 +27,7 @@ public class DevFeedbackDao extends AbstractDao<DevFeedback> {
             query = query.select(root).orderBy(criteriaBuilder.desc(root.get(sortedField)));
         }
 
-        TypedQuery<DevFeedback> typedQuery = getSession().createQuery(query);
+        TypedQuery<DevFeedback> typedQuery = getSessionFactory().getCurrentSession().createQuery(query);
         typedQuery.setFirstResult((pageNumber - 1) * itemsNumberInPage);
         typedQuery.setMaxResults(itemsNumberInPage);
 
@@ -41,6 +41,6 @@ public class DevFeedbackDao extends AbstractDao<DevFeedback> {
 
     @Override
     public DevFeedback getEntityById(long id) {
-        return getSession().get(DevFeedback.class, id);
+        return getSessionFactory().getCurrentSession().get(DevFeedback.class, id);
     }
 }

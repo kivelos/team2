@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="myDataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://team6new.c937x7bxd7wg.eu-central-1.rds.amazonaws.com:3306/team6?verifyServerCertificate=false&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;requireSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
+        <property name="username" value="teamuser" />
+        <property name="password" value="teamuser111999" />
+    </bean>
+
+    <bean id="mySessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="myDataSource" />
+
+        <property name="annotatedClasses">
+            <list>
+                <value>dev.java.db.model.Candidate</value>
+                <value>dev.java.db.model.CandidateExperience</value>
+                <value>dev.java.db.model.Skill</value>
+                <value>dev.java.db.model.User</value>
+                <value>dev.java.db.model.CandidateState</value>
+                <value>dev.java.db.model.Vacancy</value>
+                <value>dev.java.db.model.Responsibility</value>
+                <value>dev.java.db.model.Interview</value>
+                <value>dev.java.db.model.Role</value>
+                <value>dev.java.db.model.Requirement</value>
+                <value>dev.java.db.model.FeedbackState</value>
+                <value>dev.java.db.model.SuitableState</value>
+                <value>dev.java.db.model.CandidateFeedback</value>
+                <value>dev.java.db.model.FeedbackDetails</value>
+                <value>dev.java.db.model.CVFeedback</value>
+                <value>dev.java.db.model.TMFeedback</value>
+                <value>dev.java.db.model.HRFeedback</value>
+                <value>dev.java.db.model.DevFeedback</value>
+                <value>dev.java.db.model.SuitableState</value>
+            </list>
+        </property>
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

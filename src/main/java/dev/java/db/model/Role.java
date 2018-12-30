@@ -16,21 +16,21 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "role", schema = "staffjobs")
+@Table(name = "ROLE", schema = "team6")
 public class Role extends AbstractEntity {
     private String name;
     private List<User> users = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     public long getId() {
         return super.getId();
     }
 
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -40,9 +40,9 @@ public class Role extends AbstractEntity {
 
 
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
+    @JoinTable(name = "USER_ROLES",
+            joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")}
     )
     public List<User> getUsers() {
         return users;

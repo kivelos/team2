@@ -8,20 +8,13 @@ import dev.java.db.model.Interview;
 import dev.java.db.model.Vacancy;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -30,32 +23,45 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.Mockito.anyBoolean;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
-@WebAppConfiguration
 public class CandidateControllerTest {
-    @Autowired
-    private WebApplicationContext ctx;
+
+    @InjectMocks
+    private CandidateController candidateController;
+
+    /*@Autowired
+    private WebApplicationContext ctx;*/
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private CandidateController candidateController;
+    /*@Autowired
+    private CandidateController candidateController;*/
 
     @Before
     public void setUp() {
         //this.controller = new CandidateController();
         //this.controller.initialize();
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
+        MockitoAnnotations.initMocks(this);
+
+        // Setup Spring test in standalone mode
+        this.mockMvc = MockMvcBuilders.standaloneSetup(candidateController).build();
         candidateController.initialize();
     }
 
-    @Configuration
+    /*@Configuration
     @EnableWebMvc
     public static class TestConfiguration {
 
@@ -64,7 +70,7 @@ public class CandidateControllerTest {
             return new CandidateController();
         }
 
-    }
+    }*/
 
     @Test
     public void checkOkInGetAllEntities() throws Exception {
